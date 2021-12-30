@@ -1,3 +1,0 @@
-I'm writing to a file.
-This is a second line.
-This is a third line.
