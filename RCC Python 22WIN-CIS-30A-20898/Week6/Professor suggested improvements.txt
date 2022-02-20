@@ -1,9 +1,0 @@
-Attila,
-Good job on this project. I appreciate the integration of TKCalendar, which I provided some bonus points to offset some missing elements. While program is functional, it is missing some requirements: classes, loops, and exception handling. Your program implemented methods for tasks and sub-tasks, such as switching options, which are great, but you can elevate this program by using classes and objects to improve data access control. User address can be stored in a dictionary and you can use a for-loop to access address components. I also recommend integration SQLite to manage customer data.
-
-###
-Attila,
-Well done on project documentation and pseudocode. For future improvement, you want to improve program data structure and implement parallel processing for added performance. Consider using a larger container with while loop to allow user to add multiple appointments.
-
-###
-

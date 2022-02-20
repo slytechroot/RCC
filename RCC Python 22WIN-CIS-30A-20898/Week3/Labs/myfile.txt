@@ -1,3 +1,0 @@
-I am a student
-I am learning Python
-I enjoy programming because it makes me think.

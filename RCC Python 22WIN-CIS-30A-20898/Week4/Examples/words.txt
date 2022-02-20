@@ -1,4 +1,0 @@
-cat
-sat
-bat
-map
