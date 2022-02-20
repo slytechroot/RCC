@@ -1,0 +1,13 @@
+Classes:
+
+A class is an object archetype that groups common elements, similar to a struct in C.
+
+When a class is defined, an initialization function, __init__() must be defined.
+This takes the first argument as self and any further arguments to the class. The purpose of __init__() is to convert the arguments to the class into self.argument variables. This is necessary so that functions within the class can reference these arguments by including self as an argument and referencing self.argument. 
+
+To define a function that is an element of a class, simply give it self as its first argument and it can use any of the self.argument variables. You can also provide additional arguments to the function.
+
+Example.
+Create a class 'message' that stores messages and contains a function to print them:
+check exercise 'message.py'
+
