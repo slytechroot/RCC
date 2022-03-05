@@ -1,0 +1,182 @@
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
+//declaram functiile
+void game();
+void header();
+string stoupper(string s);
+void create_hint(string s,string& ss);
+void fill_hint(string l , string cw , string& wh,string& uc,int& gr);
+
+bool started = false;
+bool play = true;
+
+int main()
+{
+
+    string x;
+
+    while(play){
+        system("cls");
+        header();
+        cout << "\"n\" ->new game"<<endl;
+        cout << "\"x\" ->leave game"<<endl;
+        cin >> x;
+        if(x=="x"){
+            play = false; //"x" iesim din joc
+        }
+        if(x=="n"){
+            started = true; //"n" pornim un nou joc
+        }
+
+        if(started){
+            game();
+        }
+
+    }
+    return 0;
+}
+
+void game(){
+    char stop;
+
+    //initiam jocul
+    int greseli;
+    string cword;
+    string hword;
+    string uchars;
+    string litera;
+
+    litera ="";
+    greseli = 0;
+    uchars = "";
+    cword = "hangover";
+    cword = stoupper("hangover");
+    create_hint(cword , hword);
+
+
+    //porneste jocul
+    while(started){
+        //curatam consola si punem headerul
+        system("cls");
+        header();
+
+        //now print word hint
+        cout << "Hint:" << hword << endl;
+
+        //now print used chars
+        cout << "Used CHARS:"<< uchars << endl;
+        cout << "Greseli:" << greseli<<endl;
+
+        //now print yor caracter
+
+        cout << "________" << endl;
+        cout << "|     |"<<endl;
+        cout << "|     ";
+        if(greseli>0){cout<<"O";}
+        cout<<endl;
+        cout << "|     ";
+        if(greseli>1){cout<<"|";}
+        cout<<endl;
+        cout << "|    ";
+        if(greseli>2){cout<<"/";}
+        if(greseli>3){cout<<"|";}
+        if(greseli>4){cout<<"\\";}
+        cout<<endl;
+        cout << "|     ";
+        if(greseli>3){cout<<"|";}
+        cout<<endl;
+        cout << "|    ";
+        if(greseli>5){cout<<"/";}
+        if(greseli>6){cout<<" \\";}
+        cout <<endl;
+        cout << "|"<<endl;
+        cout << "|"<<endl;
+        cout << "======================"<<endl;
+        if(greseli > 6){
+            cout<<"Ai pierdut!!! apasa orice tasta apoi ENTER"<<endl;
+            cin>>stop;
+            started = false;
+        }else{
+            if(hword == cword){
+                cout<<"Ai Castigat!!! apasa orice tasta apoi ENTER"<<endl;
+                cin>>stop;
+                started = false;
+            }else{
+            cout << "Introdu o litera:";
+            cin >> litera ;
+
+            litera = toupper(litera[0]);
+
+            fill_hint(litera , cword , hword , uchars , greseli);
+            }
+        }
+
+    }
+
+
+
+
+}
+
+void fill_hint(string l , string cw , string& wh,string& uc,int& gr){
+    int len;
+    string temps;
+    int i=0;
+    bool e = false;
+    len = uc.length();
+
+    while(i < len){
+        if(l[0] == uc[i]){
+            e=true;
+        }
+        i++;
+    }
+    i=0;
+    if(e == false){
+    uc += l;
+    len = cw.length();
+    temps = wh;
+    while(i < len){
+        if(l[0] == cw[i]){
+            wh[i] = l[0];
+        }
+        i++;
+    }
+    if(temps == wh){
+        gr++;
+    }
+    }
+}
+
+void create_hint(string s , string& ss){
+    int len;
+    len = s.length();
+    int i=0;
+    string temps;
+    temps ="";
+    while(i < len){
+        temps += "*";
+        i++;
+    }
+	  ss = temps;
+}
+
+string stoupper(string s)
+	{
+	  int len;
+	  len = s.length();
+	  int i=0;
+	  string temps;
+	  temps ="";
+	  while(i < len){
+        temps += toupper(s[i]);
+        i++;
+	  }
+	  return temps;
+	}
+
+void header(){
+    cout << "===================="<< endl << "Spanzuratoarea" << endl << "===================="<< endl;
+}
