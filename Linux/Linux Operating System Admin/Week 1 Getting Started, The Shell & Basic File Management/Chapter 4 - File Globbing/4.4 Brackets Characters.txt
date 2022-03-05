@@ -1,0 +1,62 @@
+4.4 Brackets [ ] Characters
+
+By using the square bracket [ ] characters, a set of characters can be enclosed that will be used to match exactly one character. You can think of the square brackets as being like a question mark ? wildcard, but limited to the characters that are listed inside of the square brackets.
+
+For example, using a pattern like [abcd]?? will match file names that start with an a, b, c, or d character and that are three characters long. Alternatively, letters that are consecutive can also be expressed as a range like the [a-d]?? pattern:
+
+sysadmin@localhost:/usr/bin$ echo [a-d]??
+a2p apt awk cal cmp col cut dig
+
+Consider This
+
+When the hyphen - character is used with square brackets, it is referred to as a range. For example: the [a-z] pattern would match any single character that is within the range of characters from a to z.
+
+This range is defined by the ASCII text table. Simply use a lower value character from the ASCII table as the first character and a higher value character as the second.
+
+To see the numeric value assigned to each character in the ASCII text table, either do a simple search for "ASCII text table" on the internet or view the table with the ascii command:
+
+sysadmin@localhost:~$ ascii
+
+The touch command in the following example is used to create the files that will be matched. Single quotes were used when specifying the file name to create with the touch command because within single quotes, globbing characters lose their special meaning to the shell.
+
+sysadmin@localhost:/usr/bin$ cd ~/Documents
+sysadmin@localhost:~/Documents$ touch '*' '**' '***' '?' '??' '???' '[][][]'
+sysadmin@localhost:~/Documents$ ls
+'*' School alpha-third.txt letters.txt people.csv
+'**' Work alpha.txt linux.txt profile.txt
+'***' '[][][]' animals.txt longfile.txt red.txt
+'?' adjectives.txt food.txt newhome.txt spelling.txt
+'??' alpha-first.txt hello.sh numbers.txt words
+'???' alpha-second.txt hidden.txt os.csv
+
+When placed inside the square brackets, the wildcard characters lose their wildcard meaning and only match themselves. So, a pattern like [*]* would match a file name that begins with an * character. A pattern of [?]* would match a file name that begins with a ? character.
+
+sysadmin@localhost:~/Documents$ echo [*]*
+* ** ***
+sysadmin@localhost:~/Documents$ echo [?]*
+? ?? ???
+
+Even using square brackets inside of the square brackets will match a square bracket, so [[]]* would match a file name that starts with the square brackets:
+
+sysadmin@localhost:~/Documents$ echo [[]]*
+[][][]
+
+Warning
+
+Normally, you want to avoid using special characters like *, ?, [ and ] within file names because these characters, when used in a file name on the command line, can end up matching other file names unintentionally.
+‌⁠​ 
+
+Just as with the other wildcard characters, the square brackets can appear multiple times in a pattern. For example, to match a file in the /usr/bin directory that contains at least two digits in the file name, use the /etc/*[0-9][0-9]* pattern:
+
+sysadmin@localhost:~/Documents$ cd /usr/bin
+sysadmin@localhost:/usr/bin$ echo *[0-9][0-9]*
+base64 i386 linux32 linux64 perl5.18.2 pstree.x11 sha224sum sha256sum sha384sum sha512sum x86_64
+
+The square brackets also support negating the set of characters (also called complementation). If the first character inside of the square brackets is either an exclamation ! character or a caret ^ character, then that first character has a special meaning of not the following characters, meaning match a single character that is not within the set of characters that follows it.
+
+In other words, the [!a-v]* pattern would match a file name that does not begin with a letter a through v:
+
+sysadmin@localhost:/usr/bin$ echo [!a-v]*
+2to3 2to3-2.7 2to3-3.4 [ w w.procps wall watch wc wget whatis whereis which who
+whoami write x86_64 xargs xauth xgettext xsubpp xxd xz xzcat xzcmp xzdiff xzegrep xzfgrep xzgrep xzless xzmore yes zdump zip zipcloak zipdetails zipgrep zipinfo zipnote zipsplit zsoelim
+

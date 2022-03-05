@@ -1,0 +1,17 @@
+14.4 Step 4
+
+Execute the following commands to copy a file to the /tmp directory and then create a soft link to this file:
+
+cp /etc/hosts /tmp
+ln -s /tmp/hosts /var/hosts
+ls -l /var/hosts
+ls -l /tmp/hosts
+
+[root@localhost ~]# cp /etc/hosts /tmp                                       
+[root@localhost ~]# ln -s /tmp/hosts /var/hosts                    
+[root@localhost ~]# ls -l /var/hosts                                         
+lrwxrwxrwx 1 root root 10 Apr 19 16:01 /var/hosts -> /tmp/hosts              
+[root@localhost ~]# ls -l /tmp/hosts                                        
+-rw-r--r-- 1 root root 172 Apr 19 16:01 /tmp/hosts
+
+Note that while it is easy to see that /var/hosts points to the /tmp/hosts file, it is impossible to determine a soft link from the file that is being pointed to. In other words, listing the /tmp/hosts file doesn't tell you that the /var/hosts file points to it.

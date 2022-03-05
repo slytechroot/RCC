@@ -1,0 +1,8 @@
+24.5.2 Removing Software With dpkg
+
+There are a couple of ways that an administrator may remove a package, using the -r and -P options to the dpkg command. The difference between using the -r option and the -P option is that the -r option removes the package and the -P option purges the package. When a package is removed, almost all of its files are removed except for its configuration files. When a package is purged, all of the package files are removed, including the configuration files.
+
+The idea behind removing a package, but not removing its configuration files, is that the configuration files may be used again in the future if the package is reinstalled.
+
+Consider a scenario in which the joe package is installed to test the text editor that the package provides. After testing, the administrator has decided that they do not like that editor and would never install it again. Since the plan is to never install the package again in the future, the package could be purged from the system by the administrator executing the dpkg -P joe command.
+

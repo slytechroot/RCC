@@ -1,0 +1,15 @@
+17.24 Step 24
+
+You will be placed in edit mode at the end of the kernel line:
+
+ [ Minimal BASH-like line editing is supported. For the first word, TAB
+   lists possible command completions. Anywhere else TAB lists the possible
+   completions of a device/filename. ESC at any time cancels. ENTER
+   at any time accepts your changes.]
+ 
+<=VolGroup/lv_root  KEYBOARDTYPE=pc KEYTABLE=us rd_NO_DM rhgb quiet_
+
+The rhgb argument stands for Red Hat Graphical Boot. Instead of displaying text messages during boot, a graphical progress bar is displayed. While more user-friendly, this doesn't help the administrator troubleshoot boot problems.
+
+The quiet argument suppresses many of the text messages that are displayed if the rhgb argument isn't used. Again, this may be more user-friendly, but an administrator should remove this setting when troubleshooting boot problems.
+

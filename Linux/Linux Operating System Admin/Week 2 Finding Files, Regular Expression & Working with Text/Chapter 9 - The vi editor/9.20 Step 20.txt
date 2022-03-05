@@ -1,0 +1,25 @@
+9.20 Step 20
+
+Type :q to quit the vi editor:
+
+:q
+
+Output Omitted...
+:q       
+
+You can verify that your updates were written to the file by entering the following command, which will display the first 10 lines of the file.
+
+head data.txt
+
+sysadmin@localhost:~$ head data.txt
+Output:
+total 32
+drwxr-xr-x 1 root root 4096 Apr  3 22:24 bin
+drwxr-xr-x 2 root root 4096 Apr 24  2018 games
+drwxr-xr-x 1 root root 4096 Mar 22 17:41 include
+drwxr-xr-x 1 root root 4096 Mar 29 17:36 lib
+drwxr-xr-x 1 root root 4096 Mar  7 21:00 local
+drwxr-xr-x 1 root root 4096 Mar 29 17:36 sbin
+drwxr-xr-x 1 root root 4096 Mar 29 17:36 share
+drwxr-xr-x 2 root root 4096 Apr 24  2018 src
+

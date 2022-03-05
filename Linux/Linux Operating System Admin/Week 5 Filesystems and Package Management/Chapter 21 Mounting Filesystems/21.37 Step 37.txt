@@ -1,0 +1,35 @@
+21.37 Step 37
+
+To test the new setting in the /etc/fstab file, you could reboot the system. However, if you made any errors, the system may end up being unbootable. A better solution for testing the new entry in the /etc/fstab file is to execute the swapon -a after first removing the partition from swap space. Execute the following commands:
+
+swapon -s
+swapoff /dev/sdb6
+swapon -s
+swapon -a
+swapon -s
+
+root@ubuntu:~# swapon -s
+Filename                    Type        Size Used   Priority
+/dev/dm-1               partition     524284    0         -2
+/dev/sdb6               partition    3986428    0         -3
+root@ubuntu:~# swapoff /dev/sdb6
+root@ubuntu:~# swapon -s
+Filename                    Type       Size Used   Priority
+/dev/dm-1              partition     524284    0         -2
+root@ubuntu:~# swapon -a
+root@ubuntu:~# swapon -s
+Filename                    Type       Size Used   Priority
+/dev/dm-1              partition     524284    0         -2
+/dev/sdb6              partition    3986428    0         -3
+
+In the commands above, the swapon command used with the -s option demonstrates which swap spaces are currently being used, while the swapon command used with the -a option enables all swap devices that are listed in the /etc/fstab file.
+
+If there were any errors in the line that you just added to this file, the swapon -a command would have produced output error messages. For example:
+
+root@ubuntu:~# tail -n 1 /etc/fstab
+LABEL=myyswap    none    swap    sw    0    0
+root@ubuntu:~# swapon -a
+swapon: cannot find the device for LABEL=myyswap
+
+Notice that the value for LABEL was mistyped (it should only have one y, not two). If you get an error message when executing the swapon -a command, review the entry in the /etc/fstab file, correct it and try to execute the swapon -a command again.
+

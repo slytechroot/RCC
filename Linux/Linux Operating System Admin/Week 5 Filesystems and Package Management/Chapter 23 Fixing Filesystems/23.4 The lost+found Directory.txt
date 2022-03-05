@@ -1,0 +1,18 @@
+23.4 The lost+found Directory
+
+In most cases, after running the fsck command, the fixed filesystem is mounted and no further action is required. However, if the fsck command produces any unreferenced file errors, it may be prudent to look inside the lost+found directory that is located in the mount point directory of the filesystem. This is the location where all lost files are stored.
+
+A file can be “lost” if its filename becomes corrupted and therefore cannot be placed in a normal directory. After fsck, such a file is relocated to the lost+found directory, and its inode number will appear instead of the filename.
+
+Note
+
+The following examples may not match the output in our virtual environment.
+
+root@localhost:~# ls -l /data
+lost+found
+root@localhost:~# ls -l /data/lost+found
+total 5
+-rw-r--r--. 1 root root   83 Mar  4 06:37 #34234
+-rw-r--r--. 1 root root 1911 May 20  2013 #4596
+
+What should be done with these “poor, lost files”? Without a name, it may be hard to find where they belong, but keep in mind that the file command can be used to determine the file type. For text files, viewing the contents may be helpful. The files’ timestamps and ownership can also help to determine where these files belong.

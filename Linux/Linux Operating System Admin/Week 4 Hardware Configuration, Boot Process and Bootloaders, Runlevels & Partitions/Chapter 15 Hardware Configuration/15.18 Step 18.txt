@@ -1,0 +1,10 @@
+15.18 Step 18
+Remove the vfat module from memory and verify by executing the following commands:
+
+modprobe -r vfat
+lsmod | grep fat
+
+[root@centos ~]# modprobe -r vfat
+[root@centos ~]# lsmod | grep fat
+[root@centos ~]#
+

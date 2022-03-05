@@ -1,0 +1,10 @@
+24.1.12 Step 12
+
+In most cases, you won't know what package a file belongs to. You can determine this if you know the full path to the package, but this also is something that you may not automatically know. If the file was installed as part of a package, you could execute the following command to determine the full path to the file:
+
+rpm -q -a -s | grep edquota
+
+[root@localhost /]# rpm -q -a -s | grep edquota
+normal        /usr/sbin/edquota                                      
+normal        /usr/share/man/man8/edquota.8.gz
+

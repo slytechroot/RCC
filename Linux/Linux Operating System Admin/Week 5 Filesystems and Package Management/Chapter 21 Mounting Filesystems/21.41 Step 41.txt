@@ -1,0 +1,12 @@
+21.41 Step 41
+
+Convert this file into a swap file by executing the following command:
+
+mkswap /var/swapfile
+
+root@ubuntu:~# mkswap /var/swapfile
+mkswap: /var/swapfile: insecure permissions 0664, 0660 suggested.
+Setting up swap space version 1, size = 100 MiB (104853504 bytes)
+No label, UUID=fe0dfcb8-e9de-4305-bd8f-8f28c26ff997
+
+The UUID in the output above may be different in our virtual environment

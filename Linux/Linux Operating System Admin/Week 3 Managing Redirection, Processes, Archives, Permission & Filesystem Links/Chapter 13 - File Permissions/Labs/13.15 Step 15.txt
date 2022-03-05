@@ -1,0 +1,10 @@
+13.15 Step 15
+
+Verify the permission change by executing the following command:
+
+ls -l /srv/lab.txt
+
+root@localhost:~# ls -l /srv/lab.txt
+-rw-r--rw- 1 root root 27 May 16 12:29 /srv/lab.txt
+
+Recall that you would not normally provide others with more permissions than provided to the group members.

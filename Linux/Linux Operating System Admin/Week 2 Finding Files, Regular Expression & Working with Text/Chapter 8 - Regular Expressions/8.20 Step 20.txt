@@ -1,0 +1,15 @@
+8.20 Step 20
+
+The grep command provides the -i option for making the pattern matching case insensitive. To match both upper and lower case of the abid pattern in the /usr/share/dict/words file, execute the following command:
+
+grep –i "abid" /usr/share/dict/words
+
+sysadmin@localhost:~$ grep -i "abid" /usr/share/dict/words
+Abidjan                                                                         
+Abidjan's
+abide
+abided
+abides
+abiding
+rabid
+

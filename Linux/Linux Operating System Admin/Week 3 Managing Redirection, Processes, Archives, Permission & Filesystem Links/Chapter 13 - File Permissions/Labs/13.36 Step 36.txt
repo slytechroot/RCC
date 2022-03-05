@@ -1,0 +1,12 @@
+13.36 Step 36
+
+Normally, when you create a new file, the group ownership of the new file is set to your primary group. Create a new file called labfile.txt in the /srv/test directory and verify by executing the following commands:
+
+touch /srv/test/labfile.txt
+ls -l /srv/test/labfile.txt
+
+root@localhost:~# touch /srv/test/labfile.txt
+root@localhost:~# ls -l /srv/test/labfile.txt
+-rw-r--r-- 1 root root 0 May 17 01:14 /srv/test/labfile.txt
+
+The group owner of this new file is the root user's primary group, which is also called root.

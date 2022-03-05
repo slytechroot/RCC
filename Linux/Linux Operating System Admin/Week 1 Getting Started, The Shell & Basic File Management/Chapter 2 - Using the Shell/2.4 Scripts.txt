@@ -1,0 +1,14 @@
+2.4 Scripts
+
+One exception to the basic command syntax used is the exec command, which takes another command to execute as an argument. What is special about the commands that are executed with exec is that they replace the currently running shell.
+
+A common use of the exec command is in what is known as wrapper scripts. If the purpose of a script is to simply configure and launch another program, then it is known as a wrapper script.
+
+A wrapper script often uses the following as the last line of the script to execute another program.
+
+exec program
+
+A script written this way avoids having a shell continue to run while the program that it launched is running, the result is that this technique saves resources (like RAM).
+
+Although redirection of input and output to a script are discussed in another section, it should also be mentioned that the exec command can be used to cause redirection for one or more statements in a script.
+

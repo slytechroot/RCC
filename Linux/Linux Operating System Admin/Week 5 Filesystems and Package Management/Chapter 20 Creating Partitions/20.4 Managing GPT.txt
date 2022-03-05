@@ -1,0 +1,5 @@
+20.4 Managing GPT
+
+Some hard drives make use of a partitioning technology called Master Boot Record (MBR) while others make use of a partitioning type called GUID Partitioning Table (GPT). The MBR type of partitioning has been used since the early days of the personal computer (PC), and the GPT type has been available since the year 2000.
+
+The GPT disks use a newer type of partitioning, which allows the user to divide the disk into more partitions than what MBR supports. GPT also allows having partitions, which can be larger than two terabytes (MBR does not). The tools for managing GPT disks are named similarly to the fdisk counterparts: the gdisk, cgdisk, and sgdisk programs.

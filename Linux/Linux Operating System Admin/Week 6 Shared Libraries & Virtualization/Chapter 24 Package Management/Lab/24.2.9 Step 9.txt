@@ -1,0 +1,35 @@
+24.2.9 Step 9
+
+View the dependencies of the apt package by executing the following command:
+
+apt-cache depends apt
+
+root@localhost:~# apt-cache depends apt
+apt
+  Depends: adduser
+ |Depends: gpgv
+ |Depends: <gpgv2>
+  Depends: <gpgv1>
+  Depends: ubuntu-keyring
+  Depends: libapt-pkg5.0
+  Depends: libc6
+  Depends: libgcc1
+  Depends: libgnutls30
+  Depends: libseccomp2
+  Depends: libstdc++6
+  Breaks: <apt-transport-https>
+  Breaks: apt-utils
+  Breaks: <aptitude>
+  Recommends: ca-certificates
+  Suggests: <apt-doc>
+ |Suggests: <aptitude>
+ |Suggests: <synaptic>
+  Suggests: <wajig>
+  Suggests: dpkg-dev
+ |Suggests: gnupg
+ |Suggests: <gnupg2>
+  Suggests: <gnupg1>
+  Suggests: powermgmt-base
+  Replaces: <apt-transport-https>
+  Replaces: apt-utils
+

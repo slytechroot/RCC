@@ -1,0 +1,12 @@
+24.1.10 Step 10
+
+To demonstrate the use of the rpm2cpio command, first remove the /usr/sbin/edquota file:
+
+rm /usr/sbin/edquota
+y
+
+[root@localhost /]# rm /usr/sbin/edquota
+rm: remove regular file `/usr/sbin/edquota'? y
+
+Remember that the rpm2cpio command is useful in that it will allow you to extract files from the rpm without installing the files. This is useful to recover a single file from the package (such as when you accidentally delete a key software file like edquota).
+

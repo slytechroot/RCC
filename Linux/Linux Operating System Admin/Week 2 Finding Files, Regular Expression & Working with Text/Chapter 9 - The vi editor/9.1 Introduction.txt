@@ -1,0 +1,38 @@
+9.1 Introduction
+
+The premier text editor for Linux and UNIX is the vi program. While there are numerous editors available for Linux that range from the tiny editor nano to the massive emacs editor, there are several advantages to the vi editor:
+
+    The vi editor is available on every Linux distribution in the world. This is not true of any other editor.
+    The vi editor can be executed both in a CLI and a GUI. While graphical editors, like gedit from the Gnome desktop environment or kedit from K desktop environment, are easier to use, they require a GUI, which servers won't always have running.
+    While new features have been added to the vi editor, the core functions have been around for decades. This means if someone learned the vi editor in the 1970s, they could use a modern version without any problem. While that may seem trivial today, it may not seem so trivial twenty years from now.
+
+Consider This
+
+The correct way to pronounce "the vi editor" is "the vee-eye editor." The letters vi are short for "visual", but it was never pronounced "vi" by the developers, but rather the letter "v" followed by the letter "i".
+
+The original vi editor was written by Bill Joy, the co-founder of Sun Microsystems. Since vi is part of the Single UNIX Specification (SUS), it is required that conforming UNIX-based systems have it. Since the Linux Standards Base (LSB) mirrors the requirements of SUS, Linux systems that conform to LSB must also include the vi editor.
+
+In reality, most Linux systems don't include the original vi, but instead include an improved version of it, known as vim, for vi improved. This fact may be hidden by most Linux distributions. On some distributions, the vi file will link to vim:
+
+sysadmin@localhost:~$ which vi
+/usr/bin/vi
+
+sysadmin@localhost:/etc/alternatives$ ls -l vi
+lrwxrwxrwx 1 root root 17 Mar  2  2016 vi -> /usr/bin/vim.tiny
+
+While on other distributions, an alias exists that will execute vim when the vi command is run:
+
+[sysadmin@localhost ~]$ which vi
+alias vi='vim'
+/usr/bin/vim
+
+For the most part, vim works just like vi but has additional features, including the ability to use the arrow ←↓↑→ keys for navigation.
+
+For the topics that will be covered in this course, either vi or vim will work. For simple editing tasks, nano is available on many systems. Users who don’t have all the keyboard commands memorized that are needed for vi will appreciate its menu at the bottom of the editing screen and straightforward command structure.
+
+On the other end of the spectrum is the emacs editor, an “extensible, customizable, self-documenting real-time display editor.” For programmers and others that need sophisticated editing tools in a command line environment, this piece of GNU software provides maximum capability and flexibility. Emacs goes far beyond just text editing with a built-in Lisp programming interpreter and content-aware editing modes that allow syntax coloring for different file types. It includes a packaging system for downloading and installing custom user extensions to expand its capabilities, which include project planning, mail and news readers, debuggers, calendars, and many other productivity tools. Emacs also has a built-in documentation system with tutorials, and full Unicode support for almost every character set and script imaginable, so practically anyone can use it in their native language. Essentially, it’s a power tool for power users that can perform as an infinitely customizable user interface for those that wish to control every aspect of their systems.
+
+This chapter will mainly focus on how to use vi and how to configure the default editor in the shell. To get started using the vi editor, simply type the command, followed by the path name of the file to edit or create:
+
+sysadmin@localhost:~$ vi newfile
+

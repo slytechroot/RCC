@@ -1,0 +1,26 @@
+2.9.4 Man Pages Synopsis
+
+The SYNOPSIS section of a man page can be difficult to understand, but it is a valuable resource since it provides a concise example of how to use the command. For example, consider an example SYNOPSIS for the cal command:
+
+SYNOPSIS
+     cal [-3hjy] [-A number] [-B number] [[month] year]
+
+The square brackets [ ] are used to indicate that this feature is not required to run the command. For example, [-3hjy] means you can use the options -3, -h, -j, -y, but none of these options are required for the cal command to function properly.
+
+The second set of square brackets [-A number] allows you to ‌⁠​​⁠specify the number of months to be added to the end of the display.
+
+The third set of square brackets in the [-B number] allows you to specify the number of months to be added to the beginning of the display.
+
+The fourth set of square brackets in the [[month] year] demonstrates another feature; it means that you can specify a year by itself, but if you specify a month you must also specify a year.
+
+Another component of the SYNOPSIS that might cause some confusion can be seen in the SYNOPSIS of the date command:
+
+SYNOPSIS                                                                        
+       date [OPTION]... [+FORMAT]
+       date [-u|--utc|--universal] [MMDDhhmm[[CC]YY][.ss]]
+
+In this SYNOPSIS there are two syntaxes for the date command. The first one is used to display the date on the system while the second is used to set the date.
+
+The ellipses ... following [OPTION], indicate that [OPTION] may be repeated.
+
+Additionally, the [-u|--utc|--universal] notation means that you can either use the -u option or the --utc option, or the --universal option. Typically, this means that all three options really do the same thing, but sometimes this format (use of the | character) is used to indicate that the options can't be used in combination, like a logical or.

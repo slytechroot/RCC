@@ -1,0 +1,75 @@
+8.2.4 Match a Single Character With *
+
+The asterisk * operator is used to match zero or more occurrences of the character preceding it. For example, the e* pattern would match zero or more occurrences of the e character:
+
+sysadmin@localhost:~/Documents$ cat red.txt
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root
+reel
+rood
+read
+sysadmin@localhost:~/Documents$ cat red.txt | grep 're*d'
+red
+reeed
+rd
+reed
+
+It is also possible to match zero or more occurrences of a list of characters by utilizing the square brackets:
+
+sysadmin@localhost:~/Documents$ cat red.txt | grep 'r[oe]*d'
+red
+reeed
+rd
+rod
+reed
+rood
+
+When used with only one other character, the asterisk * operator isn't very helpful. Any of the following patterns would match every string or line in the file: '.*' 'e*' 'b*' 'z*' This is because the asterisk * operator can match zero occurrences of a pattern.
+
+sysadmin@localhost:~/Documents$ cat red.txt | grep 'z*'
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root
+reel
+read
+sysadmin@localhost:~/Documents$ cat red.txt | grep 'e*'
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root
+reel
+read
+
+In order to make the asterisk * operator useful, it is necessary to create a pattern which includes more than just the one character preceding the asterisk * operator. For example, the results above can be refined by adding another e to make the pattern ee* effectively matching every line which contains at least one e.
+
+sysadmin@localhost:~/Documents$ cat red.txt | grep 'ee*'
+red
+reef
+reeed
+reed
+reel
+read
+
+Pattern 	Meaning
+abc* 	Matches the ab string followed by zero or more c characters
+a* 	Matches zero or more occurrences of the a character
+aa* 	Matches one or more occurrences of the a character
+[A-Z][aeiou]* 	Matches a single capital letter followed by zero or more vowel characters

@@ -1,0 +1,25 @@
+13.49 Step 49
+
+To set a umask value for new files that would result in default permissions for the owner, remove write permissions for the group owner and remove all permissions from others, the umask value would be 026:
+File Default 	666 	rw-rw-rw-
+Umask 		-026 	----w-rw-
+Result 		640 	rw-r-----
+
+Execute the following commands to change the umask setting to 026 and verify that new files now have a permission set of rw-r-----:
+
+umask 026
+touch mytestfile.txt
+ls -l mytestfile.txt
+
+sysadmin@localhost:~$ umask 026
+sysadmin@localhost:~$ touch mytestfile.txt
+sysadmin@localhost:~$ ls -l mytestfile.txt
+-rw-r----- 1 sysadmin sysadmin 0 May 17 02:41 mytestfile.txt
+
+File Default 	666 	rw-rw-rw-
+Umask 		-027 	----w-rw-
+Result 		640 	rw-r-----
+
+Remember that a umask value only affects new files and directories. Any existing file will never be affected by the umask value.
+
+The umask value is designed to make it easy for you to specify default permissions for new files and directories. By choosing a good umask value, you save yourself a lot of effort in the future since you won't have to change permissions on new files and directories very often.

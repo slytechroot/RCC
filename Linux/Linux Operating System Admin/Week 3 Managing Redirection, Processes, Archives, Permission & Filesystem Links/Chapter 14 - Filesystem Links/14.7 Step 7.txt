@@ -1,0 +1,10 @@
+14.7 Step 7
+
+View the listing of the /var/hosts file by executing the following command:
+
+ls -l /var/hosts
+
+[root@localhost ~]# ls -l /var/hosts                                         
+lrwxrwxrwx 1 root root 10 Apr 19 16:01 /var/hosts -> /tmp/hosts
+
+The red color in the filename indicates something is wrong; in this case a broken link.

@@ -1,0 +1,14 @@
+13.35 Step 35
+
+It is possible for the user owner of a file or directory to change the group owner of that same file/directory by using the chgrp command. Verify that the team group exists and then change the group ownership of the /srv/test directory to the team group by executing the following commands:
+
+chgrp team /srv/test
+ls -ld /srv/test
+
+root@localhost:~# grep team /etc/group
+team:x:1004:
+root@localhost:~# chgrp team /srv/test
+root@localhost:~# ls -ld /srv/test
+drwxr-xr-x 2 root team 4096 May 17 00:56 /srv/test
+
+The chgrp command was used above to change the group owner of the /srv/test directory from the default primary group root to the group team.

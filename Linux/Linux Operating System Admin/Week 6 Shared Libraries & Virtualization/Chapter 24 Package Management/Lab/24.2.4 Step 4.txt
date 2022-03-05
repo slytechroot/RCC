@@ -1,0 +1,9 @@
+24.2.4 Step 4
+
+Execute the following echo command to create a single repository in a new /etc/apt/sources.list file. This repository exists on the local filesystem in the /var/www/debs/amd64 directory.
+
+echo 'deb [arch=amd64 trusted=yes] file:/var/www/debs amd64/' > /etc/apt/sources.list
+
+root@localhost:~# echo 'deb [arch=amd64 trusted=yes] file:/var/www/debs amd64/' > /etc/apt/sources.list
+root@localhost:~#
+

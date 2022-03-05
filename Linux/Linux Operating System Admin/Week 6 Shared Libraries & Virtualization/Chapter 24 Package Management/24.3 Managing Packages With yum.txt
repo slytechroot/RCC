@@ -1,0 +1,57 @@
+24.3 Managing Packages With yum
+
+While an administrator can manage software directly with the rpm command, other higher level commands are available that make software management significantly easier. The yum command can locate and download packages on the internet and resolve dependencies automatically.
+
+Dependencies occur when a package (P1) depends on other packages (P2, P3, P4) to function correctly. P2, P3, and P4 may have their own dependencies (P5, P6, P7, P8), and so on. Resolving these cascading dependencies manually can be a daunting task!
+
+Circular dependencies are sometimes possible when two packages require each other. For example, chicken.rpm requires egg.rpm, but egg.rpm requires chicken.rpm. Although it is possible to resolve dependency issues manually with the rpm command, they can be solved automatically with the yum command.
+
+The yum command can perform some operations that the rpm command cannot. The big advantage of the yum command is that it can be configured to automatically download packages and resolve package dependencies. In addition, the yum command can display package information for packages that aren't even on the system by accessing this data from a server called a repository.
+
+Typically, the yum command is configured by editing the /etc/yum.conf file and the files found in the /etc/yum.repos.d directory. These configuration files are used to specify servers (the repositories) on the internet where the yum command can obtain the RPM files automatically. If the system does not have networking enabled or doesn't have access to the internet, then it will not be able to use the yum commands to manage packages. In those situations, the rpm commands can be used for package management.
+
+One rpm query that was not mentioned previously is the -f option:
+
+[sysadmin@localhost ~]$ rpm -qf /bin/bash
+bash-4.1.2-15.el6_4.x86_64
+
+This query is used to determine which package owns (or provides) the /bin/bash file. This query only succeeds if the bash package is already installed on the system. Unfortunately, this is not helpful when trying to find the package owner for a file and that package was not installed on your system, as is often the case when trying to resolve dependency issues. For example, if the libicu package is not installed then the following query will fail:
+
+[sysadmin@localhost ~]$ rpm -qf /usr/lib/libicuuc.so.42
+error: file /usr/lib/libicuuc.so.42: No such file or directory
+
+On the other hand, the yum command can be used to determine which package owns the file because the yum command searches the database of the repository server(s):
+
+[sysadmin@localhost ~]$ yum provides /usr/lib/libicuuc.so.42
+
+Better yet, you don't even need to know the directory that a file is supposed to exist in, because a glob pattern can be used:
+
+[sysadmin@localhost ~]$ yum provides "*/libicuuc.so.42"
+
+The other distinct advantage of using the yum command over the rpm command is the ability to search for a package in the repositories, based upon the name or description of the package. For example, the following yum command will display all packages (installed or available for install) that have the word terminal in the description:
+
+[sysadmin@localhost ~]$ yum search terminal
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Loading mirror speeds from cached hostfile
+ * base: centosb6.centos.org
+ * extras: centosi5.centos.org
+ * updates: centosb6.centos.org
+============================ N/S Matched: terminal =============================
+gnome-terminal.i686 : Terminal emulator for GNOME
+nautilus-open-terminal.i686 : Nautilus extension for an open terminal shortcut
+kbd.i696 : Tools for configuring the console (keyboard, virtual terminals, etc.)
+minicom.i686 : A text-based modem control and terminal emulation program
+ncurses-base.i686 : Descriptions of common terminals
+ncurses-term.i686 : terminal descriptions
+openct.i686 : Middleware framework for smart card terminals
+perl-TermReadKey.i686 : A perl module for simple terminal control
+rdesktop.i686 : X client for remote desktop into Windows terminal Server
+screen.i686 : A screen manager that supports multiple logins on one terminal
+tn5250.i686 : 5250 Telnet protocol and terminal
+tsclient.i686 : Client for VNC and Windows terminal Server
+vte.i686 : A terminal emulator
+x3270.i686 : An X Window System based IBM 3278/3279 terminal emulator
+x3270-text.i686 : IBM 3278/3279 terminal emulator for text mode
+x3270-x11.i686 : IBM 3278/3279 terminal emulator for the X Window System
+xterm.i686 : terminal emulator for the X Window System
+

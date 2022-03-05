@@ -1,0 +1,9 @@
+4.7 Step 7
+
+To search for a specific set of characters, use the square brackets [] notation. For example, to view all the files and directories with names starting with the letters P, M, or T, followed by zero or more characters, execute the following command:
+
+echo [PMT]*
+
+sysadmin@localhost:~$ echo [PMT]*                                   
+Music Pictures Public Templates
+

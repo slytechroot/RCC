@@ -1,0 +1,9 @@
+17.3 Step 3
+
+Notice that this file is not designed to be edited directly. Instead, you modify settings in the /etc/default/grub file. To edit this file, first launch the vi editor:
+
+vi /etc/default/grub
+
+root@ubuntu:~# vi /etc/default/grub
+
+The contents of the /etc/default/grub file.

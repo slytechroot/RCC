@@ -1,0 +1,72 @@
+21.7 Systemd Mount Units
+
+Another approach to mounting filesystems is by using systemd mount units. Systemd mount units are configuration files that end in .mount and contain information about resources to be mounted at startup.
+
+These files contain a Mount section that has information about the filesystem mount point, and they must be named for the specific path to be mounted. Mounts which are listed in the /etc/fstab file are converted at boot time and when the system manager is reloaded.
+
+The systemd-mount utility is the mechanism that systemd uses to create and start a transient .mount file, destroy a transient .mount file, or to start an .automount unit of the filesystem.
+
+Below is an example of a .mount file used for a snap install of software. Snaps are software installation files that can be used across various Linux distributions instead of the specific binary installers used by Ubuntu, Red Hat, and other distributions.
+
+[Unit]
+
+Description=Mount unit for core, revision 6673
+
+Before=snapd.service
+
+[Mount]
+
+What=/var/lib/snapd/snaps/core_6673.snap
+
+Where=/snap/core/6673
+
+Type=squashfs
+
+Options=nodev,ro,x-gdu.hide
+
+[Install]
+
+WantedBy=multi-user.target
+
+In the example above, a snap mount unit was created to install software in the contents of the mount file above. Below is a breakdown of the fields and options in a mount file.
+
+    The [Unit] field:
+
+    [Unit]
+     
+    Description=Mount unit for core, revision 6673
+     
+    Before=snapd.service
+
+    Field 	Purpose
+    Description 	Shows which mount unit is going to be mounted.
+    Before 	Shows the snapd.service file as the file name to be mounted.
+
+    The [Mount] field:
+
+    [Mount]
+     
+    What=/var/lib/snapd/snaps/core_6673.snap
+     
+    Where=/snap/core/6673
+     
+    Type=squashfs
+     
+    Options=nodev,ro,x-gdu.hide
+
+    Field 	Purpose
+    What 	The file to be mounted including its path. Note that an absolute path must be used in the name of the mount unit which it controls.
+    Where 	The location it will be mounted to.
+    Type 	The filesystem type that the file is stored in. In the example above, this is squashfs, the compressed, read-only filesystem.
+    Options 	Defines the specific options to be used. The nodev option is a security feature that prevents block special devices (which could allow harmful code to be run) from being mounted on the filesystem. The ro option stands for read-only and the x-gdu.hide option prevents the snap mount from being visible to System Monitor.
+
+    The [Install] field:
+
+    [Install]
+     
+    WantedBy=multi-user.target
+
+    Field 	Purpose
+    WantedBy 	Tells systemd that this filesystem is to be used by the multi-user boot target.
+
+Although mount unit configuration does allow for more flexible mounting of resources, one case for network resources would be where having the ability to define things like how long to wait for the mount command to finish, is desirable. However, in many cases, using the fstab file is still the preferred approach.

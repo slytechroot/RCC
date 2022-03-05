@@ -1,0 +1,54 @@
+17.5 Interacting with GRUB Legacy
+
+When a system first starts up with GRUB Legacy installed as the bootloader, it may only display the default title and the timeout time counting down to zero as the hiddenmenu directive may be specified in the /boot/grub/grub.conf file. If the hiddenmenu directive is not specified, then GRUB Legacy will display all the titles and the timeout time counting down to zero. If no interaction occurs before the countdown reaches zero, then GRUB Legacy will attempt to boot the default title.
+
+‌⁠​​⁠​ If any key except Enter is pressed, then the time stops counting down, and a title must be selected manually to attempt a boot. The Up ↑ and Down ↓ arrow keys can be used to select one of the available titles. After selecting a title, the user can press Enter to attempt to boot the selection.
+
+If the global password directive has been used, then the P key must be pressed, followed by the password to unlock the ability to use GRUB Legacy's append and edit features, and the GRUB command prompt features. Notice the message at the bottom of the following graphic:
+GNU GRUB window with message at the bottom: Use the up and down keys to select which entry is highlighted. Press enter to boot the selected OS or 'p' to enter a password to unlock the next set of features.
+
+If a title password is in use, then GRUB Legacy will prompt for this password when a title is selected from the GRUB Legacy menu.
+
+If the global password directive has not been used or GRUB Legacy has been unlocked by providing the password, then the screen should look similar to the following graphic:
+GNU GRUB window with message at the bottom: Use the up and down keys to select which entry is highlighted. Press enter to boot the selected OS, 'e' to edit the commands before booting, 'a' to modify the kernel arguments before booting or 'e' for a command-line.
+
+Notice the following options available at the bottom of the previous graphic:
+
+    If the A key is pressed, then GRUB Legacy will allow additional kernel parameters to be appended. This is commonly used to specify the runlevel number to take the system to, instead of the default runlevel.
+
+    If the E key is pressed, then any of the directives that are included within the selected title can be edited; the root, kernel, or initrd values can be changed in order to be able to boot the system in a different manner. The changes that are made at the GRUB Legacy menu are not permanently edited into the /boot/grub/grub.conf file.
+
+    If the C key is pressed at the GRUB Legacy menu, then the GRUB command prompt will be provided. At this command prompt, any GRUB Legacy directives can be added, including specifying custom root, kernel, and initrd directives. If entered correctly, followed by the boot directive, then the system will boot correctly.
+
+One of the most common tasks performed interactively with GRUB Legacy is to boot to a different runlevel. A runlevel is a status that defines how many services are currently running on a system. There are multiple runlevels, and they are based on what services will be active when the system is booted. For this next example, we will introduce the single user runlevel. The single user runlevel is when a system has limited services running and is used only to perform administrative tasks.
+
+Note
+
+Runlevels will be covered in greater detail in a later chapter.
+
+In the event that there is a serious system problem, the single user runlevel can be very useful. In this runlevel, only the root user has access to the system, and most system daemons are not running.
+
+Additionally, when the system boots to the single user runlevel, the root password is not required to log in because the system automatically logs in as the root user. This makes the single user runlevel useful for things like recovering or replacing a forgotten root password.
+
+To go to the single user runlevel, use the Up and Down arrow keys to select the correct title from the GRUB Legacy menu. Then, use the A key to add to the kernel line. The screen should now look something like this:
+
+[ Minimal BASH-like line editing is supported. For the first word, TAB 
+  lists possible command completions. Anywhere else TAB lists the possible
+  completions of a device/filename. ESC at any time cancels. ENTER
+  at any time accepts your changes.]
+
+<c KEYTABLE=us rd_NO_DM rhgb quiet_
+
+The kernel line is quite long, so initially only the very end of the line can be seen. The Left ← and Right → arrow keys can be used to move the cursor. Use the Left arrow key to see the rest of the line, then add the single parameter to the end:
+
+[ Minimal BASH-like line editing is supported. For the first word, TAB
+  lists possible command completions. Anywhere else TAB lists the possible
+  completions of a device/filename. ESC at any time cancels. ENTER
+  at any time accepts your changes.]
+
+<c KEYTABLE=us rd_NO_DM rhgb quiet single_
+
+After single has been typed, press the Enter key. The system will boot, and the console will appear with the system in the single user runlevel.
+
+When finished working at the single user runlevel, Ctrl+D can be used to boot normally.
+

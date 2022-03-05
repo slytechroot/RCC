@@ -1,0 +1,3 @@
+25.0 Introduction
+
+Shared libraries are important as they contain code that will be used by multiple executable programs. An issue related to accessing one shared library may have a serious impact on multiple system commands and processes. As a result, while not a common task, it is important to know how to manage these libraries.

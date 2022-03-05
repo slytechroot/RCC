@@ -1,0 +1,39 @@
+24.3.3 Step 3
+
+To query the software repositories on a system, use the list repositories -lr option can be used with the zypper command. Use the following command to list the repositories:
+
+zypper lr
+
+localhost:~ # zypper lr                                                         
+Repository priorities are without effect. All enabled repositories share the sam
+e priority.                                                                     
+                                                                                
+#  | Alias                     | Name                               | Enabled | 
+GPG Check | Refresh                                                             
+---+---------------------------+------------------------------------+---------+-
+----------+--------                                                             
+ 1 | localrepo                 | localrepo                          | Yes     | 
+( p) Yes  | No                                                                  
+ 2 | repo-debug                | Debug Repository                   | No      | 
+----      | ----                                                                
+ 3 | repo-debug-non-oss        | Debug Repository (Non-OSS)         | No      | 
+----      | ----                                                                
+ 4 | repo-debug-update         | Update Repository (Debug)          | No      | 
+----      | ----                                                                
+ 5 | repo-debug-update-non-oss | Update Repository (Debug, Non-OSS) | No      | 
+----      | ----                                                                
+ 6 | repo-non-oss              | Non-OSS Repository                 | No      | 
+----      | ----
+ 7 | repo-oss                  | Main Repository                    | No      | 
+----      | ----                                                                
+ 8 | repo-source               | Source Repository                  | No      | 
+----      | ----                                                                
+ 9 | repo-source-non-oss       | Source Repository (Non-OSS)        | No      | 
+----      | ----                                                                
+10 | repo-update               | Main Update Repository             | No      | 
+----      | ----                                                                
+11 | repo-update-non-oss       | Update Repository (Non-Oss)        | No      | 
+----      | ----
+
+In the output above, the localrepo repository is enabled on the system.
+

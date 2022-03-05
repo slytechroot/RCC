@@ -1,0 +1,8 @@
+22.0 Introduction
+In order to provide the functionality you need to apply these concepts, this VM may require a minute or two to load.
+
+In this lab, you will explore commands that provide you with useful information regarding the directory structure and filesystems. These commands are critical to maintaining the stability of the system.
+
+Knowing how to monitor the usage of the filesystems allows you to make sure space is available for both the OS and users. Determining which directories are using the most space provides you with the knowledge to fix issues related to filesystems that become "full".
+
+Understanding filesystem attributes and knowing how to view and modify these attributes allows you to fine-tune the system, so it will perform better.

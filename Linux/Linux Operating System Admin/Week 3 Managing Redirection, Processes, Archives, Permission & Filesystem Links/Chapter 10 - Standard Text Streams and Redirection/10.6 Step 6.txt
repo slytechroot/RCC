@@ -1,0 +1,13 @@
+10.6 Step 6
+
+To redirect both standard output and standard error of the find command to the same file, execute the following command:
+
+find /etc –name hostname > find_output.txt 2>&1
+cat find_output.txt
+
+sysadmin@localhost:~$ find /etc -name hostname > find_output.txt 2>&1
+sysadmin@localhost:~$ cat find_output.txt
+/etc/hostname
+find: '/etc/ssl/private': Permission denied
+
+In the command above, the 2>&1 expression is used to send stderr to the same location as stdout.

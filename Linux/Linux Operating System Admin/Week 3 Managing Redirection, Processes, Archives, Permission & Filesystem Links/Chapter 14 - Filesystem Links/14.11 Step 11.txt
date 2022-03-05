@@ -1,0 +1,11 @@
+14.11 Step 11
+
+You can tell that these files are all hard linked together by using the -i option to the ls command:
+
+ls -i
+
+[root@localhost test]# ls -i                                                    
+132383356 crontab  132383356 hcrontab  132383356 newcrontab
+
+Because all of these files share the same inode number, they are hard linked together.
+

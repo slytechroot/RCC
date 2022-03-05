@@ -1,0 +1,15 @@
+18.30 Step 30
+
+View the contents of the /etc/init directory:
+
+1s /etc/init
+
+[root@centos ~]# ls /etc/init
+control-alt-delete.conf  quit-plymouth.conf  serial.conf
+init-system-dbus.conf    rc.conf             splash-manager.conf
+kexec-disable.conf       rcS.conf            start-ttys.conf
+plymouth-shutdown.conf   rcS-emergency.conf  tty.conf
+prefdm.conf              rcS-sulogin.conf
+[root@centos ~]#
+
+Recall that the /etc/init directory is used by Upstart. If this distribution purely used Upstart (and no traditional init scripts), then there would be more files in this directory to define when services would start.

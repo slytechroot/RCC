@@ -1,0 +1,22 @@
+7.17 Step 17
+
+The tail command displays contents from the end of the file and not the beginning.
+
+tail [OPTION]... [FILE]...
+
+To view the last 10 lines of the /usr/share/dict/words file, execute the following command:
+
+tail /usr/share/dict/words
+
+sysadmin@localhost:~$ tail /usr/share/dict/words
+élan's
+émigré
+émigré's
+émigrés
+épée
+épée's
+épées
+étude
+étude's
+études
+

@@ -1,0 +1,22 @@
+18.9 The /etc/init Directory
+
+For users of Debian-derived Linux distributions, the /etc/init directory is used to store Upstart scripts. These scripts will start or stop different services based upon different events, including going to a specific runlevel.
+
+For Debian and its derivatives (like Ubuntu), know that the runlevels that are used vary slightly from those defined by the Linux Standard Base 4.1. Runlevels 0, 1, and 6 are the same as the standard. However, runlevel 2 is considered the default runlevel; this runlevel is configured for multiple users with the GUI running, much like the standard runlevel five. Runlevels 3, 4, and 5 are initially the same as runlevel 2.
+
+If an administrator wants to change the runlevels of a service, the configuration file for that service can be modified in the /etc/init directory. For example, in an installation of Ubuntu which includes the Apache web server, this directory normally contains the /etc/init/apache2.conf Upstart configuration file. Within the /etc/init/apache2.conf file should be two lines which define the runlevels to start and stop the server:
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+In this case, the service would be started up in runlevels 2 through 5 and would be stopped in runlevels that are not 2 through 5 because the ! character indicates "not these". To change the service to only be available in runlevels 2 and 3, change the lines to be like the following:
+
+start on runlevel [23]
+stop on runlevel [!23]
+
+To disable a service without uninstalling it, an override file can be created in the /etc/init directory. This file should have the same name as the service configuration file, but ending in .override instead of .conf. This is the preferred technique over commenting out the "start on" lines.
+
+The contents of the .override file should simply be the word manual, which means that the service will ignore any "start on" lines from the configuration file. For example, to override the apache2 configuration file and disable the web server, execute the following command:
+
+[sysadmin@localhost ~]$ sudo 'echo manual > /etc/init/apache2.override'
+

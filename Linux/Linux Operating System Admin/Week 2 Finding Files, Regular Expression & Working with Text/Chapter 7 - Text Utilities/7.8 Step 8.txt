@@ -1,0 +1,55 @@
+7.8 Step 8
+
+The split command is used to split the input file into two or more files. The syntax for the split command is:
+
+split [OPTION]... [INPUT [PREFIX]]
+
+To split a big file, such as the words file into smaller pieces, first copy the /usr/share/dict/words file to the current directory:
+
+cp /usr/share/dict/words .
+
+sysadmin@localhost:~$ cp /usr/share/dict/words .
+
+To split the words file into smaller pieces with the prefix output and then verify the result of the split command, execute the following commands:
+
+split words output
+ls output*
+
+sysadmin@localhost:~$ split words output
+sysadmin@localhost:~$ ls output*
+outputaa  outputan  outputba  outputbn  outputca  outputcn  outputda  outputdn
+outputab  outputao  outputbb  outputbo  outputcb  outputco  outputdb  outputdo
+outputac  outputap  outputbc  outputbp  outputcc  outputcp  outputdc  outputdp
+outputad  outputaq  outputbd  outputbq  outputcd  outputcq  outputdd  outputdq
+outputae  outputar  outputbe  outputbr  outputce  outputcr  outputde  outputdr
+outputaf  outputas  outputbf  outputbs  outputcf  outputcs  outputdf  outputds
+outputag  outputat  outputbg  outputbt  outputcg  outputct  outputdg  outputdt
+outputah  outputau  outputbh  outputbu  outputch  outputcu  outputdh  outputdu
+outputai  outputav  outputbi  outputbv  outputci  outputcv  outputdi  outputdv
+outputaj  outputaw  outputbj  outputbw  outputcj  outputcw  outputdj  outputdw
+outputak  outputax  outputbk  outputbx  outputck  outputcx  outputdk  outputdx
+outputal  outputay  outputbl  outputby  outputcl  outputcy  outputdl  outputdy  
+outputam  outputaz  outputbm  outputbz  outputcm  outputcz  outputdm
+
+By default, the new files created with the split command will be named with a prefix of x and an alphabetical suffix of aa, ab, etc.:
+
+PREFIX
+
+xaa  xab  xac  xad  xae  xaf  xag  xah  xai  xaj  xak
+
+SUFFIX
+
+xaa  xab  xac  xad  xae  xaf  xag  xah  xai  xaj  xak
+
+In the output of the command above, the words file is split into smaller files which are labeled with the specified prefix output and the default alphabetical suffix:
+
+PREFIX
+
+outputaa  outputan  outputba  outputbn  outputca  outputcn  outputda  outputdn
+... 
+
+SUFFIX
+
+outputaa  outputan  outputba  outputbn  outputca  outputcn  outputda  outputdn
+...  
+

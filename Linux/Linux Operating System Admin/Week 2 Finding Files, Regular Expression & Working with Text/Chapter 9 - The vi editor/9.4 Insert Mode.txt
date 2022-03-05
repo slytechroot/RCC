@@ -1,0 +1,10 @@
+9.4 Insert Mode
+
+Insert mode is used to add text to the document. There are a few ways to enter insert mode from command mode, each differing by where the text insertion will begin. The following table covers the most common. After using one of these commands, you may enter text. To return to command mode, use the Esc key.
+Input 	Purpose
+a 	Enter insert mode right after the cursor
+A 	Enter insert mode at the end of the line
+i 	Enter insert mode right before the cursor
+I 	Enter insert mode at the beginning of the line
+o 	Enter insert mode on a blank line after the cursor
+O 	Enter insert mode on a blank line before the cursor

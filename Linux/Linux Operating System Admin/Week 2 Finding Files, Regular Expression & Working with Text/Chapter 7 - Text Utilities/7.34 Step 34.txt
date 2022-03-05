@@ -1,0 +1,15 @@
+7.34 Step 34
+
+To replace the five letters (h, i, p, o, and n) with the five characters (!, @, #, $, and %) in the /etc/hosts file, execute the following command:
+
+cat /etc/hosts | tr 'hipon' '!@#$%' 
+
+sysadmin@localhost:~$ cat /etc/hosts | tr 'hipon' '!@#$%'
+127.0.0.1       l$cal!$st
+::1     l$cal!$st @#6-l$cal!$st @#6-l$$#back
+fe00::0 @#6-l$cal%et
+ff00::0 @#6-mcast#ref@x
+ff02::1 @#6-all%$des
+ff02::2 @#6-allr$uters
+192.168.1.2     l$cal!$st
+

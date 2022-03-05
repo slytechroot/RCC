@@ -1,0 +1,23 @@
+24.1.19 Step 19
+
+Your virtual system has been configured to act as a YUM repository. In order to be able to use this repository, some changes need to be made to your system. Begin by moving all of the files from the /etc/yum.repos.d directory into the /tmp directory:
+
+ls /etc/yum.repos.d
+mv /etc/yum.repos.d/* /tmp
+ls /etc/yum.repos.d
+ls /tmp
+
+[root@localhost tmp]# ls /etc/yum.repos.d                                       
+CentOS-Base.repo       CentOS-Sources.repo    epel.repo                  
+CentOS-CR.repo         CentOS-Vault.repo      mnt_local_repo_.repo        
+CentOS-Debuginfo.repo  CentOS-fasttrack.repo                              
+CentOS-Media.repo      epel-testing.repo                                  
+[root@localhost tmp]# mv /etc/yum.repos.d/* /tmp                          
+[root@localhost tmp]# ls /etc/yum.repos.d                                 
+[root@localhost tmp]# ls /tmp                                             
+CentOS-Base.repo       CentOS-Sources.repo    epel.repo                   
+CentOS-CR.repo         CentOS-Vault.repo      etc                         
+CentOS-Debuginfo.repo  CentOS-fasttrack.repo  mnt_local_repo_.repo        
+CentOS-Media.repo      epel-testing.repo      usr
+
+Normally, you want these files in the /etc/yum.repos.d directory as they allow you to connect to repositories on the internet or on local media devices (like your DVD drive). However, for this lab, these files conflict with the local repository.

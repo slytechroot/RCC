@@ -1,0 +1,12 @@
+8.12 Step 12
+
+The egrep command is an alternative to the grep –E command. To match the same extended regular expression used in the previous example, execute the following command:
+
+ls /etc | egrep 'rc[3-6]+\.d'
+
+sysadmin@localhost:~$ ls /etc | egrep 'rc[3-6]+\.d'
+rc3.d
+rc4.d
+rc5.d
+rc6.d
+

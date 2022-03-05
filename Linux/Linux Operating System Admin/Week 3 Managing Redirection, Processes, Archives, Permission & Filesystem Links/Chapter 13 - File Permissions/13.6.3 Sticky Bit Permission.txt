@@ -1,0 +1,50 @@
+13.6.3 Sticky Bit Permission
+
+The final advanced permission to discuss is the sticky permission, which is sometimes called the sticky bit. Setting this permission can be important to prevent users from deleting other user's files.
+
+Recall that to be able to delete a file, only the write and execute permissions on the directory are necessary. The write and execute permissions are also necessary to add files to a directory. So, if an administrator wants to make a directory where any user can add a file, the required permissions mean that the user can also delete any other user's file in that directory.
+
+The sticky permission on a directory modifies the write permission on a directory so that only specific users can delete a file within the directory:
+
+    The user who owns the file.
+    The user who owns the directory that has the sticky bit set (typically this is the root user).
+    The root user.
+
+On a typical Linux installation, there will normally be two directories that have the sticky permission set by default: the /tmp and /var/tmp directories. Besides user home directories, these two directories are the only locations that regular users have write permission for by default.
+
+As their name suggests, these directories are intended to be used for temporary files. Any user can copy files to the /tmp or /var/tmp directories to share with others.
+
+Since the /tmp or /var/tmp directories have the sticky permission, you don't have to worry about users deleting the shared files. However, there is a reason that these directories are considered temporary: these directories are automatically purged of their contents on a regular schedule. If you put a file in them, it will be removed automatically at some point in the future.
+
+To set the sticky bit permission symbolically, execute a command like the following:
+
+chmod o+t <directory>
+
+To set the sticky bit permission numerically, add 1000 to the directory's existing permissions (assume the directory in the following example originally had 775 for its permissions):
+
+chmod 1775 <file|directory>
+
+To remove the sticky permission symbolically, run:
+
+chmod o-t <directory>
+
+‌⁠​​⁠​To remove the sticky bit permission numerically, subtract 1000 from the directory's existing permissions:
+
+chmod 0775 <directory>
+
+When a directory has the sticky permission, a t will replace the x in the set of permissions for others. For example, the following shows the permissions of the /tmp directory:
+
+sysadmin@localhost:~$ ls -ld /tmp
+drwxrwxrwt 1 root root 0 Oct 17 19:17 /tmp
+
+The /tmp directory has an octal permission mode of 1777, or full permissions for everyone plus the sticky permission on the directory. When the others permission set includes the execute permission, then the t will be in lowercase. If there is an uppercase T, it means that the execute permission is not present for others. This does not mean that the directory does not have an effective sticky permission; however, it does mean that the users who are affected by the others permission can't change to this directory or create files in the directory.
+
+There are cases in which users may not want to have the execute permission for others, but still have the sticky bit permission on a directory. For example, when creating shared directories with the setgid permission. Consider the following command:
+
+root@localhost:~# chmod 3770 /shared
+
+Notice that the special permissions of setgid and sticky bit can be added together, the 2000 permission plus the 1000 permission gives you 3000 for the special permissions. Add this to the basic permissions for the user, group, and others; The owner and group have full access, and others get none. Listing the directory after making the changes with the ls -ld /shared command results in the following output:
+
+drwxrws--T. 2 root team 4096 Jan 10 09:08 /shared
+
+The uppercase T in the execute permission position for others indicates there is no execute permission for others. However, since multiple users of the group still have access, the sticky permission is effective for the team group.

@@ -1,0 +1,10 @@
+21.13 Step 13
+
+Press the Enter key to accept the default for the First sector:
+
+Enter
+
+Command (m for help): n
+Allspace for primary partitions is in use.
+Adding logical partition 5
+First sector (4096-8388607, default 4096):

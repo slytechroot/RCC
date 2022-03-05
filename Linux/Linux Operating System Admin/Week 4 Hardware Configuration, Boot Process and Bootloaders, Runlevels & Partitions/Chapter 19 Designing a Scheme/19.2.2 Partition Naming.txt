@@ -1,0 +1,30 @@
+19.2.2 Partition Naming
+
+In order to distinguish one partition from another, each partition is given a unique name. Recall that everything in Linux is treated as a file, so the names of devices, such as drives and partitions, are stored in the /dev directory.
+
+There are two different types of drive interfaces:‌⁠​​⁠​ 
+Device Type 	Name 	Example
+Drives that start with sd are either SATA (Serial ATA), SCSI (Small Computer System Interface) or USB drives. 	/dev/sd* 	
+
+/dev/sda
+
+/dev/sdb
+
+
+Drives that start with hd are PATA (Parallel ATA), also known as IDE (Integrated Drive Electronics) drives. 	/dev/hd* 	
+
+/dev/hda
+
+/dev/hdb
+
+Partitions are then given names based on the drive they reside on. A number is added to the end of the drive name to distinguish one partition from another. For example, the partitions located on drive sda would be named sda1, sda2, etc. Partitions located on drive sdb would sdb1, sdb2, etc. The following output shows the device files for a SATA hard drive with nine partitions:
+
+sysadmin@localhost:~$ cd /dev
+sysadmin@localhost:/dev$ ls sd*
+sda  sda1  sda2  sda3  sda4  sda6  sda7  sda9
+
+Similarly, partitions on drive hda would be hda1, hda2, etc., while partitions on hdb would be hdb1, hdb2, etc.
+
+Note
+
+It is not critical that you understand the difference between SATA, IDE, etc. It is, however, critical that you understand that the files used to refer to hard drives are stored in the /dev directory and begin with either sd or hd.

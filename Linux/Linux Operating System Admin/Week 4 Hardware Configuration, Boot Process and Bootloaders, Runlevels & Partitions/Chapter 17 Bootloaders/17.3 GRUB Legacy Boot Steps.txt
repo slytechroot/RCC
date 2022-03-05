@@ -1,0 +1,8 @@
+17.3 GRUB Legacy Boot Steps
+
+All bootloaders work in stages, as the location for the initial bootloader code is very small, under 512 KB, and GRUB Legacy gets around this by utilizing 2.5 stages to load the entire bootloader and reach the main system’s bootloader.
+
+GRUB Legacy typically writes the stage 1 bootloader to the Master Boot Record (MBR), and that is just enough code to get the stage 1.5 bootloader, which usually occupies the first 30KiB of the disk that directly follows the MBR. The stage 1.5 loader has just enough code to load up the filesystem drivers needed to load the stage 2 loader from the /boot/grub location.
+
+The GRUB Legacy bootloading stages will then turn over the rest of the system initialization to the /sbin/init or systemd equivalent for the continuation of the system boot.
+

@@ -1,0 +1,24 @@
+8.3.5 Match Subpatterns With |
+
+When used in extended regular expressions, the alternation | operator separates alternative expressions that can match. It acts similarly to a Boolean OR.
+
+For example, to match both the word gray or its alternative spelling grey, use the expression gray|grey:
+
+sysadmin@localhost:~/Documents$ grep -E 'gray|grey' spelling.txt
+American English: Do you consider gray to be a color or a shade?
+British English: Do you consider grey to be a colour or a shade?
+
+Parentheses can also be used with alternation. The previous example of gray|grey could be rewritten as gr(a|e)y. When parentheses are used in regular expressions from the command line, remember to enclose them in the single quotes to prevent the shell from interpreting them:
+
+sysadmin@localhost:~/Documents$ grep -E 'gr(a|e)y' spelling.txt
+American English: Do you consider gray to be a color or a shade?
+British English: Do you consider grey to be a colour or a shade?
+
+Pattern 	Meaning
+abc|xyz 	Matches the abc string or the xyz string
+
+ab(c|d|e)
+
+ab[cde]
+	Matches the ab string followed by a c or d or e character
+

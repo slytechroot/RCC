@@ -1,0 +1,21 @@
+13.2.4 Changing File Group Owner
+
+Another option is for the user owner of the file to change the group owner by using the chgrp command. For example, if you forgot to use the newgrp command to switch to the user’s primary group before creating the file, you can execute the following commands instead:
+
+sysadmin@localhost:~/Documents$ touch newfile2.txt
+sysadmin@localhost:~/Documents$ ls -l newfile2.txt
+-rw-rw-r-- 1 sysadmin sysadmin 0 Mar 21 18:03 newfile2.txt
+sysadmin@localhost:~/Documents$ sudo chgrp nogroup
+newfile2.txt
+sysadmin@localhost:~/Documents$ ls -l newfile2.txt
+-rw-rw-r-- 1 sysadmin nogroup 0 Mar 21 18:03 newfile2.txt
+sysadmin@localhost:~/Documents$ cd
+sysadmin@localhost:~$
+
+In the example above, a file called newfile2.txt was created, then the chgrp command was used to change the group owner of the file from the default primary group sysadmin to the group nogroup.
+
+The chgrp command does not change your current primary group, so when creating many files, it is more efficient just to use the newgrp command instead of executing the chgrp command for each file.
+
+Note
+
+Only the owner of the file and the root user can change the group ownership of a file.

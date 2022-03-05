@@ -1,0 +1,23 @@
+7.14 Step 14
+
+If the number of lines is not specified, the head command will display the first 10 lines. To view the first 15 lines of the output of the /usr/share/dict/words file, execute the following command:
+
+head -15 /usr/share/dict/words
+
+sysadmin@localhost:~$ head -15 /usr/share/dict/words
+A
+A's
+AMD
+AMD's
+AOL
+AOL's
+Aachen
+Aachen's
+Aaliyah
+Aaliyah's
+Aaron
+Aaron's
+Abbas
+Abbas's
+Abbasid
+

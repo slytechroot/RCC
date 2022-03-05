@@ -1,0 +1,18 @@
+18.1 Step 1
+
+
+Please use the Legacy CentOS image to complete the remaining steps. Select the CentOS PC by clicking on the tab in the window on the right side of the screen.
+This portion of the lab requires an older version of CentOS in order to practice using Grub Legacy, which is unavailable on modern systems.
+
+Click on the CentOS PC tab and log in to the system using the root account. When prompted, provide the root password:
+
+root
+netlab123
+
+CentOS release 6.10 (Final)
+Kernel 2.6.32-754.el6.x86_64 on an x86_64
+ 
+centos login: root
+Password:
+[root@centos ~]#
+

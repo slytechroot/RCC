@@ -1,0 +1,7 @@
+6.0 Introduction
+
+In Linux, files are used to store data such as text, graphics, and programs; while directories are a type of file used to store other files. In this lab, we will cover how to find files in the Linux directory structure, called a filesystem.
+
+The locate and find commands are used to search for a file within a file system. While both commands perform similar tasks, each does so by using a different technique, with its own distinctive advantages and disadvantages. The locate command uses a database that is updated once a day using a cron job, while the find command searches the live filesystem.
+
+It is also useful to know where commands are located in the filesystem. The whereis command can be used to search the PATH, the man page and source files for any given command. The which command can be used to find out which executable file is used when executing a command. In addition, the type command can be used to determine information about various commands.

@@ -1,0 +1,14 @@
+24.3.7 Step 7
+
+Run the following command to view package status, it should show i for installed:
+
+zypper se cowsay
+
+#localhost:~ # zypper se cowsay                                                  
+Loading repository data...                                                      
+Reading installed packages...                                                   
+                                                                                
+S  | Name   | Summary                                             | Type        
+---+--------+-----------------------------------------------------+--------     
+i+ | cowsay | Configurable talking cow (and some other creatures) | package
+

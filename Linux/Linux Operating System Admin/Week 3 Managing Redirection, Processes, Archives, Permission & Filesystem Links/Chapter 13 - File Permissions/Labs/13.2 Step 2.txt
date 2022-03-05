@@ -1,0 +1,10 @@
+13.2 Step 2
+
+Execute the following command to attempt to view the /etc/shadow file:
+
+more /etc/shadow
+
+sysadmin@localhost:~$ more /etc/shadow
+more: cannot open /etc/shadow: Permission denied
+
+The command failed because only the root user and the members of the shadow group can view the contents of this file.

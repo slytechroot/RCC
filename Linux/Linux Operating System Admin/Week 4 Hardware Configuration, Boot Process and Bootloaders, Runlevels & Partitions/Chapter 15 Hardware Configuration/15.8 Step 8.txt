@@ -1,0 +1,18 @@
+15.8 Step 8
+
+Display devices along with their device code by executing the lspci command with the -nn option:
+
+lspci -nn
+
+[root@cenos ~]# lspci -nn 
+
+00:00.0 Host bridge [0600]: Intel Corporation 440FX - 82441FX PMC [Natoma] (rev 02)[8086:1237]  	 
+00:01.0 ISA bridge [0601]: Intel Corporation 82371SB PIIX3 ISA [Natoma/Triton II] [8086:7000]
+00:01.1 IDE interface [0101]: Intel Corporation 82371SB PIIX3 IDE [Natoma/Triton II] [8086:7010]
+00:01.3 Bridge [0680]: Intel Corporation 82371AB/EB/MB PIIX4 ACPI [8086:7113] (rev 03)
+08:02.0 VGA compatible controller [0300]: Device [1234:1111] (rev 02)
+00:03.0 Ethernet controller [0200]: Intel Corporation 82540EM Gigabit Ethernet Controller [8086:100e](rev 03)  
+00:1a.0 USB controller 0c03]: Intel Corporation 82371SB PIIX3 [Natoma/Triton II] [8086:7020] (rev 01)	 
+00:01.2 USB controller [0c03]: Intel Corporation 82371SB PIIX3 USB [Natoma/Triton II] [8086:7020] (rev 01) 
+
+Important Take note of the highlighted USB controller device code, as you will need this code to perform the next example.

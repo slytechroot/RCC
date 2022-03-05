@@ -1,0 +1,11 @@
+24.1.21 Step 21
+
+Type the letter i to enter Insert mode and then type the following:
+
+[Local]
+name=Local
+baseurl=file:///mnt/local_repo
+gpgcheck=0
+enabled=1
+
+The baseurl setting defines where the RPM files are stored. Normally this would be a network-based address, either http or ftp based. The gpgcheck setting is set to 0 to prevent the yum command from checking the digital signature of the packages. The enabled setting is set to 1 in order to make use of this repository.

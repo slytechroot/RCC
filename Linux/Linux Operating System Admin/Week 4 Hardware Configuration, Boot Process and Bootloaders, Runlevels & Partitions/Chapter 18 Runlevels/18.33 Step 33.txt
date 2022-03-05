@@ -1,0 +1,8 @@
+18.33 Step 33
+
+Change the shutdown command so it doesn't happen immediately, but rather that it waits 5 minutes to allow everyone the time to save work and log off. First, open the file in the vi editor:
+
+vi control-alt-delete.override
+
+[root@centos init]# vi control-alt-delete.override
+

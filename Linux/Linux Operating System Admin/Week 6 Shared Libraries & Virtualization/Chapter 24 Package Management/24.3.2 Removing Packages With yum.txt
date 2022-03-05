@@ -1,0 +1,32 @@
+24.3.2 Removing Packages With yum
+
+If you have a choice as an administrator, you should also use the yum command to remove packages as it will resolve dependency issues for you. When removing a package that has other packages that depend upon it, then the yum command will offer to remove the dependencies.
+
+For example, if an attempt is made to remove the libicu package, then the yum command would offer to also remove the x3270 and x3270-x11 packages. The yum command supports using either the remove or erase command:
+
+[root@localhost ~]# yum remove libicu
+
+[root@localhost ~]# yum erase libicu
+
+The output from both commands shows that it will remove not only the requested package, but the two other packages that depend upon the libicu package:
+
+================================================================================
+ Package            Arch          Version                  Repository      Size
+================================================================================
+Removing:
+ libicu             i686          4.2.1-9.1.el6_2          @base           19 M
+Removing for dependencies:
+ x3270              i686          3.3.6-10.5.el6           @base          383 k
+ x3270-x11          i686          3.3.6-10.5.el6           @base          768 k
+
+Transaction Summary
+================================================================================
+‌⁠​​⁠​ 
+Remove        3 Package(s)
+
+Installed size: 20 M
+Is this ok [y/N]:
+
+The above action can be confirmed by typing y and pressing the Enter key. The use of the -y option is discouraged for erasing packages, to prevent the accidental removal of a package that is needed.
+
+To remove an entire group of commands, use the yum groupremove command followed by the group name.

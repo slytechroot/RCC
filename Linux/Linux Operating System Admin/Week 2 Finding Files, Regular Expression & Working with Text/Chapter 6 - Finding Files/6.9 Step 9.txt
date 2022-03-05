@@ -1,0 +1,11 @@
+6.9 Step 9
+
+To display a count of all of the files in the /etc directory structure that end in .conf, execute the following command:
+
+find /etc -name "*.conf" 2>/dev/null | wc -l
+
+Be aware that the last option in the command above is a lowercase "L", not a number one.
+
+sysadmin@localhost:~$ find /etc -name "*conf" 2>/dev/null | wc -l           
+92
+

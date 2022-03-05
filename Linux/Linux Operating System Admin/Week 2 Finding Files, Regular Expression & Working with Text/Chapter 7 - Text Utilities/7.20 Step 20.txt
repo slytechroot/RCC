@@ -1,0 +1,12 @@
+7.20 Step 20
+
+To display the last 4 lines of the /etc/hosts file (the total number of lines in this file is 7, only the last 4 lines will be displayed), execute the following command:
+
+tail -n -4 /etc/hosts
+
+sysadmin@localhost:~$ tail -n -4 /etc/hosts
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+192.168.1.2     localhost
+

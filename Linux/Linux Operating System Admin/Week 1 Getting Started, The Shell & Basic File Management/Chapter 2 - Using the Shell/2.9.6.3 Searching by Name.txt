@@ -1,0 +1,18 @@
+2.9.6.3 Searching by Name
+
+Sometimes it isn't clear which section a man page is stored in. In cases like this, you can search for a man page by name.
+
+The -f option to the man command will display man pages that match, or partially match, a specific name and provide a brief description of each man page:
+
+sysadmin@localhost:~$ man -f passwd
+passwd (1ssl)        - compute password hashes
+passwd (1)           - change user password
+passwd (5)           - the password file
+
+Note that on most Linux distributions, the whatis command does the same thing as man -f. On those distributions, both will produce the same output.
+
+sysadmin@localhost:~$ whatis passwd
+passwd (1ssl)        - compute password hashes
+passwd (1)           - change user password
+passwd (5)           - the password file
+

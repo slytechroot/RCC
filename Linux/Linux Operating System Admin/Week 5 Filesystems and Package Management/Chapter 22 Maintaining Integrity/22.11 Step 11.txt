@@ -1,0 +1,13 @@
+22.11 Step 11
+
+This output contains very useful filesystem information. For example, to display the number of Free inodes (every file needs an inode, so the number of Free inodes indicates how many more files you can place on this filesystem), execute the following command:
+
+dumpe2fs /dev/sda1 | grep “Free inodes” | head -1
+
+Note that the option after the head command is a number 1, not a lower-case letter L.
+
+root@centos:~# dumpe2fs /dev/sda1 | grep "Free inodes" | head -1
+dumpe2fs 1.42.9 (28-Dec-2013)
+Free inodes:              32434
+
+Once a filesystem has been created, the number of total inodes is set in stone.

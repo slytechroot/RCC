@@ -1,0 +1,15 @@
+8.3 Step 3
+
+The back anchor $ operator can be used to ensure a pattern appears at the end of the line. To find the occurrences of the pattern bash at the end of the line in the /etc/passwd file, execute the following command:
+
+grep 'bash$' /etc/passwd
+
+ 
+sysadmin@localhost:~$ grep 'bash$' /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+operator:x:1000:37::/root:/bin/bash
+sysadmin:x:1001:1001:System Administrator,,,,:/home/sysadmin:/bin/bash
+alice:x:1002:1005:Alice White:/home/alice:/bin/bash
+maya:x:1003:1006:Maya Brown:/home/maya:/bin/bash
+joe:x:1004:1007:Joe Green:/home/joe:/bin/bash
+

@@ -1,0 +1,7 @@
+17.23 Step 23
+
+Press the Down Arrow key once and then press the letter e to edit the kernel line:
+
+Press Down Arrow
+e
+

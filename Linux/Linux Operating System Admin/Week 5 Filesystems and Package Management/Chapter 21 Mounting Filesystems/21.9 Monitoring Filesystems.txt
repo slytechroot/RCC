@@ -1,0 +1,12 @@
+21.9 Monitoring Filesystems
+
+The df command can also be used to view mounted filesystems. The output of this command displays the usage of the filesystem, where it's mounted, and the space usage of the device. To have the df command display filesystem sizes in human-readable format, use the -h option. Use the -T option to have the df command display the filesystem type:
+
+root@localhost:~# df -hT
+Filesystem    Type    Size  Used Avail Use% Mounted on
+/dev/sda2     ext4    6.3G  3.2G  2.9G  53% /
+tmpfs        tmpfs    351M   84K  351M   1% /dev/shm
+/dev/sda1     ext4    485M   52M  408M  12% /boot
+/dev/sda5     ext4    2.2G   69M  2.0G   4% /home
+
+The output displays the filesystems that have variable free space; the tmpfs filesystem, which is similar to a RAM disk, falls into this category, while other pseudo-filesystems like the proc filesystem, do not.

@@ -1,0 +1,12 @@
+6.15 Step 15
+
+To view the location of the binary for the find command separate from the man page and info page, use the -b and -m options respectively:
+
+whereis -b find
+whereis -m find
+
+sysadmin@localhost:~$ whereis -b find
+find: usr/bin/find
+sysadmin@localhost:~$ whereis -m find
+find: /usr/share/man/man1/find.1.gz /usr/share/info/find.info.gz
+

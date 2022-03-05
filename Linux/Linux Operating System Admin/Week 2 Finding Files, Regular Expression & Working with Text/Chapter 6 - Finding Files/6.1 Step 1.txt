@@ -1,0 +1,35 @@
+6.1 Step 1
+
+The locate command searches a database that contains the location of the files on the filesystem. The locate command accepts a search string as an argument.
+
+locate [OPTION]... PATTERN...
+
+To locate all files which have the word hostname in the file name, execute the following command:
+
+locate hostname
+
+sysadmin@localhost:~$ locate hostname                                      
+/bin/hostname                                                              
+/etc/hostname                                                              
+/lib/systemd/systemd-hostnamed                                              
+/lib/systemd/system/dbus-org.freedesktop.hostname1.service                  
+/lib/systemd/system/hostname.service                                        
+/lib/systemd/system/systemd-hostnamed.service                               
+/usr/bin/hostnamectl                                                        
+/usr/lib/gettext/hostname                                                   
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname          
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname/__init__.py
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname/__pycache__
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname/_implementati
+on.py                                  
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname/__pycache__/_
+_init__.cpython-36.pyc                                                     
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname/__pycache__/_
+implementation.cpython-36.pyc                                              
+/usr/share/bash-completion/completions/hostname                            
+/usr/share/bash-completion/completions/hostnamectl                  
+/usr/share/dbus-1/system-services/org.freedesktop.hostname1.service         
+/usr/share/dbus-1/system.d/org.freedesktop.hostname1.conf                   
+...
+
+Some output has been omitted in the example above.

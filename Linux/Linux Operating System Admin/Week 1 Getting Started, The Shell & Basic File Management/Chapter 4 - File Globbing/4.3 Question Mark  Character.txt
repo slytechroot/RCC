@@ -1,0 +1,26 @@
+4.3 Question Mark ? Character
+
+The question mark ? character in a string will match exactly one character. For example, to see all of the files in the /usr/bin directory that only have one character in the file name, use the /usr/bin/? pattern:
+
+sysadmin@localhost:~$ cd /usr/bin
+sysadmin@localhost:/usr/bin$ echo /usr/bin/? 
+/usr/bin/[ /usr/bin/w
+
+By adding more question mark ? characters, it is possible to match additional characters. In order to see which files had two or three characters as their file names, execute the following two echo commands:
+
+sysadmin@localhost:/usr/bin$ echo ??
+‌⁠​​⁠​ du ex hd id nl od pg pr sg tr ul vi wc xz
+sysadmin@localhost:/usr/bin$ echo ???
+a2p apt awk cal cmp col cut dig env eqn fmt gpg lcf ldd man pdb pic ptx rcp rev
+rsh s2p scp see seq ssh sum tac tbl tee tic toe top tty ucf who xxd yes zip
+
+The incorporation of other characters to patterns using the question mark ? character, including other wildcard characters, allow for more specific searches. For example, the w?? pattern will match files that started with the letter w, and are exactly three characters long:
+
+sysadmin@localhost:/usr/bin$ echo w??
+who
+
+While the w??* pattern will match files that started with the letter w, but are at least three characters long:
+
+sysadmin@localhost:/usr/bin$ echo w??*
+w.procps wall watch wget whatis whereis which who whoami write
+

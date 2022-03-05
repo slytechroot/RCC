@@ -1,0 +1,12 @@
+23.23 Step 23
+
+Another technique that you can use is to manually switch the filesystem state from clean to not clean. To do this, execute the following command:
+
+debugfs -w -R "ssv state 0" /dev/sdb5
+
+root@ubuntu:~# debugfs -w -R "ssv state 0" /dev/sdb5
+debugfs 1.44.1 (24-Mar-2018)
+
+A filesystem state of not clean just indicates that the filesystem was not properly unmounted. There may be problems with the filesystem, but then again, there may be no problems at all. If a filesystem is set to not clean, then the fsck utility will check the filesystem.
+The debugfs command can make changes directly to the filesystem. Use this utility with caution on filesystems that are on critical systems, as you could easily damage the filesystem with this utility.
+

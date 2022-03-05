@@ -1,0 +1,20 @@
+8.21 Step 21
+
+The -v option for the grep command will cause all lines that don't match the pattern to be displayed. To display all lines that do not contain the local pattern in the /etc/hosts file, execute the following commands:
+
+more /etc/hosts
+grep –v "local" /etc/hosts
+
+sysadmin@localhost:~$ more /etc/hosts
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+192.168.1.2     localhost
+sysadmin@localhost:~$ grep -v "local" /etc/hosts
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+

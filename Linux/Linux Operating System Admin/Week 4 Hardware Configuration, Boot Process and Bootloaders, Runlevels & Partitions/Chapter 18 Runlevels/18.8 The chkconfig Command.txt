@@ -1,0 +1,65 @@
+18.8 The chkconfig Command
+
+The chkconfig command can be used to view what services will be started for different runlevels. This command can also be used to turn on or turn off a service for specific runlevels. On Linux distributions that are not Red Hat-derived, this tool may not be available.
+
+To view all the services that are set to start or stop automatically, the administrator can execute the chkconfig --list command and the output would look something like the following (although there would be many more lines of output):
+
+Note
+
+The following examples represent a system that is different from the virtual machine in this module. The examples may not match the output in our virtual environment.
+
+[root@localhost ~]# chkconfig --list
+auditd          0:off   1:off   2:on    3:on    4:on    5:on    6:off
+crond           0:off   1:off   2:on    3:on    4:on    5:on    6:off
+httpd           0:off   1:off   2:off   3:off   4:off   5:off   6:off
+iptables        0:off   1:off   2:on    3:on    4:on    5:on    6:off
+netconsole      0:off   1:off   2:off   3:off   4:off   5:off   6:off
+netfs           0:off   1:off   2:off   3:on    4:on    5:on    6:off
+network         0:off   1:off   2:on    3:on    4:on    5:on    6:off
+quota_nld       0:off   1:off   2:off   3:off   4:off   5:off   6:off
+rdisc           0:off   1:off   2:off   3:off   4:off   5:off   6:off
+restorecond     0:off   1:off   2:off   3:off   4:off   5:off   6:off
+rsyslog         0:off   1:off   2:on    3:on    4:on    5:on    6:off
+saslauthd       0:off   1:off   2:off   3:off   4:off   5:off   6:off
+sendmail        0:off   1:off   2:on    3:on    4:on    5:on    6:off
+sshd            0:off   1:off   2:on    3:on    4:on    5:on    6:off
+udev-post       0:off   1:on    2:on    3:on    4:on    5:on    6:off
+
+The output for each line shows the name of the script file found in the /etc/rc.d/init.d directory, followed by each runlevel number, a colon, and whether the service is set to be on or off. For example, based on the output from the previous graphic, the auditd service is started at runlevels 2, 3, 4, and 5.
+
+To view a single service's settings, use the chkconfig --list SCRIPT command where SCRIPT is the name of a script file found in the /etc/rc.d/init.d directory. For example, to view the web server script, execute:
+
+[root@localhost ~]# chkconfig --list httpd
+httpd            0:off   1:off   2:off    3:off    4:off    5:off    6:off
+
+To enable the service to start for most runlevels, use the chkconfig SERVICE on command, where the SERVICE is the name of a script file found in the /etc/rc.d/init.d directory. Thus, to enable the web server to start at most runlevels, execute the chkconfig httpd on command:
+
+[root@localhost ~]# chkconfig httpd on
+[root@localhost ~]# chkconfig --list httpd
+httpd            0:off   1:off   2:on    3:on    4:on    5:on    6:off
+
+For most services, if the chkconfig command is used to enable the service, it will be started automatically in runlevels 2 through 5 and automatically stopped in runlevels 0, 1, and 6. This may vary slightly based on the contents of the script itself.
+
+In the /etc/rc.d/init.d/httpd script, there is a line that contains the following:
+
+[root@localhost ~]# chkconfig: - 85 15
+
+The - indicates that the service is not enabled in any runlevels automatically when it is first added to chkconfig management. In other words, this service is not set to start automatically unless an administrator uses the chkconfig httpd on command.
+
+Some scripts have a different chkconfig value; for example, the etc/rc.d/init.d/atd script has the following line:
+
+[root@localhost ~]# chkconfig:   345 95 5
+
+The 345 means that atd defaults to being enabled in runlevels 3, 4, and 5.
+
+To turn on or off services for a non-default level, the --level option can be used with the chkconfig command. For example, the following two commands would ensure that the atd service was available in runlevels 2 and 4, but not available in runlevels 3 and 5:
+
+[root@localhost ~]# chkconfig --level 24 atd on
+[root@localhost ~]# chkconfig --level 35 atd off
+
+Two other chkconfig options should also be mentioned, although they are rarely used directly. The chkconfig options --add and --del can be used manually, but normally they are automatically used when an administrator either installs a new service software package or removes a service software package.
+
+If an administrator were to create an init script named serviced and store it in the /etc/rc.d/init.d directory, the chkconfig --add SERVICE command would need to be executed first before using either the chkconfig SERVICE on or chkconfig SERVICE off command. A command similar to this is executed when a new software package containing a service is installed.
+
+The chkconfig --del SERVICE command would remove any links in the runlevel directories and services would not be started or stopped automatically at any runlevel. A command similar to this is executed when an existing software package for a service is removed.
+

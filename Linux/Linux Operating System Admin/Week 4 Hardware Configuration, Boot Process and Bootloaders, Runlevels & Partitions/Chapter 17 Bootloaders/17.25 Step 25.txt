@@ -1,0 +1,8 @@
+17.25 Step 25
+
+Press the Backspace key 10 times to remove the rhgb and quiet settings. Then, type single:
+
+Press Backspace Key 10x
+single
+
+By adding single to the end of the kernel line, the system will be booted to the single user runlevel.

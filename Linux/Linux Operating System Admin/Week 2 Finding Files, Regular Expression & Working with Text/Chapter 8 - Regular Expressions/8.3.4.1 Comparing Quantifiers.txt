@@ -1,0 +1,42 @@
+8.3.4.1 Comparing Quantifiers
+
+The *, +, ?, and { } characters are considered to be quantifying operators. The curly braces { } can be used instead of the other quantifiers. The following chart illustrates some examples of using curly braces:
+Pattern 	Meaning
+
+xyz*
+
+xyz{0,}
+	Matches the xy string followed by zero or more of the z character
+
+x(yz)*
+
+x(yz){0,}
+	Matches the x character followed by zero or more copies of the yz string
+
+xyz+
+
+xyz{1,}
+	Matches the xy string followed by one or more of the z character
+
+(xyz)+
+
+(xyz){1,}
+	Matches one or more copies of the xyz string
+
+xyz?
+
+xyz{0,1}
+	Matches the xy string followed by zero or one of the z character
+
+xyz{,5}
+	Matches the xy string followed by five or fewer of the z character
+
+xyz{5,}
+	Matches the xy string followed by five or more of the z character
+
+xyz{3,5}
+	Matches the xy string followed by three to five of the z character
+
+[0-9]{1,3}%
+	Matches one to three numeric characters, followed by the % character
+

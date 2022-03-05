@@ -1,0 +1,91 @@
+10.7 xargs Command
+
+A command’s options and parameters are usually specified on the command line, as command line arguments. Alternatively, we can use the xargs command to gather arguments from another input source (such as a file or standard input) and then pass those arguments to a command. The xargs command can be called directly and will accept any input:
+
+sysadmin@localhost:~$ xargs
+Hello
+There
+
+To exit the xargs command, press Ctrl+C.
+
+The default action of the xargs command is to pass the input to the echo command when another command does not explicitly follow it. Upon pressing Ctrl+D, the xargs command will send the input to the echo command:
+
+Hello There
+sysadmin@localhost:~$
+
+Important
+
+Pressing Ctrl+D after exiting the xargs command by using Ctrl+C will log you out of the current shell. To send the input of the xargs command to the echo command without logging out of the shell, press Ctrl+D while you are still running the xargs command.
+
+The xargs command is most useful when it is called in a pipe. In the next example, four files will be created using the touch command. The files will be named 1a, 1b, 1c, and 1d based on the output of the echo command.
+
+sysadmin@localhost:~$$ echo '1a 1b 1c 1d' | xargs touch
+sysadmin@localhost:~$ ls
+1a  1c  Desktop    Downloads  Pictures  Templates  timer.txt
+1b  1d  Documents  Music      Public    Videos
+
+These four files can be removed just as easily by changing the touch command to the rm command:
+
+sysadmin@localhost:~$ echo '1a 1b 1c 1d' | xargs rm
+sysadmin@localhost:~$ ls
+Desktop    Downloads  Pictures  Templates  timer.txt
+Documents  Music      Public    Videos
+
+A delimiter can be set using the -d option with the xargs command. To view the contents of the ~/Documents directory containing the word alpha with all instances of the dash - character replaced with a space, type the following:
+
+sysadmin@localhost:~$ cd Documents/
+sysadmin@localhost:~/Documents$ ls | grep alpha | xargs -d '-'
+alpha first.txt
+alpha second.txt
+alpha third.txt
+alpha.txt
+
+The double pipe as the output of the ls command became the input of the grep command, and finally the xargs command.
+
+In the following example, the red.txt file will be used as the input of the xargs command:
+
+sysadmin@localhost:~/Documents$ cat red.txt
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root
+reel
+read
+
+Before running the xargs command, the contents of the ~/Documents directory are:
+
+sysadmin@localhost:~/Documents$ ls
+School            alpha-third.txt  hidden.txt    numbers.txt  spelling.txt
+Work              alpha.txt        letters.txt   os.csv       words
+adjectives.txt    animals.txt      linux.txt     people.csv
+alpha-first.txt   food.txt         longfile.txt  profile.txt
+alpha-second.txt  hello.sh         newhome.txt   red.txt
+
+After running the xargs command with the touch command, eleven new files appear:
+
+sysadmin@localhost:~/Documents$ cat red.txt | xargs touch
+sysadmin@localhost:~/Documents$ ls
+School            alpha.txt    linux.txt     profile.txt  reeed  rot
+Work              animals.txt  longfile.txt  rd           reef   spelling.txt
+adjectives.txt    food.txt     newhome.txt   read         reel   words
+alpha-first.txt   hello.sh     numbers.txt   red          rod
+alpha-second.txt  hidden.txt   os.csv        red.txt      roof
+alpha-third.txt   letters.txt  people.csv    reed         root
+
+In the previous example, the output of the cat command was used as input to the touch command using xargs and a command-line pipe. The xargs command can also be used with pipes to send the output of a command as an argument to another command:
+
+sysadmin@localhost:~$ find ~ -maxdepth 1 -name 'D*' | xargs du -sh
+4.0K    /home/sysadmin/Downloads
+1.2M    /home/sysadmin/Documents
+4.0K    /home/sysadmin/Desktop
+
+In the example above, the find command output is used as an argument to the du disk usage command using the xargs command. The first command preceding the pipe finds all file names that match the D* pattern. The output of the find command is then passed to the du command as an argument to display the disk usage of the files.
+
+Consider This
+
+The xargs command has many, many more options that can be studied using the corresponding man page.

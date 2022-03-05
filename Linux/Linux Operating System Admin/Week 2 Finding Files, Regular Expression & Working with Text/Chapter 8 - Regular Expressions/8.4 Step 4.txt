@@ -1,0 +1,10 @@
+8.4 Step 4
+
+The period operator . is used to match any character except the newline character. To match the pattern r..t (i.e. any pattern containing r, followed by exactly two characters, and then followed by t) in the /etc/passwd file, execute the following command:
+
+grep 'r..t' /etc/passwd
+
+sysadmin@localhost:~$ grep 'r..t' /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+operator:x:1000:37::/root:/bin/bash
+

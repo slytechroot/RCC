@@ -1,0 +1,43 @@
+24.1.26 Step 26
+
+Install the quota package by executing the following yum command. When prompted Is this ok, type the Y key:
+
+yum install quota
+y
+
+[root@localhost /]# yum install quota                                         
+Loaded plugins: fastestmirror, ovl                                              
+Loading mirror speeds from cached hostfile                                      
+Resolving Dependencies                                                          
+--> Running transaction check                                                   
+---> Package quota.x86_64 1:4.01-17.el7 will be installed                       
+--> Finished Dependency Resolution                                              
+                                                                                
+Dependencies Resolved                                                           
+                                                                                
+================================================================================
+ Package         Arch             Version                 Repository       Size 
+================================================================================
+Installing:                                                                     
+ quota           x86_64           1:4.01-17.el7           Local           179 k 
+                                                                                
+Transaction Summary                                                             
+================================================================================
+Install  1 Package                                                              
+                                                                                
+Total download size: 179 k                                                      
+Installed size: 887 k                                                           
+Is this ok [y/d/N]: y                                                           
+Downloading packages:                                                           
+Running transaction check                                                       
+Running transaction test                                                        
+Transaction test succeeded                                                      
+Running transaction                                                             
+  Installing : 1:quota-4.01-17.el7.x86_64                                   1/1 
+  Verifying  : 1:quota-4.01-17.el7.x86_64                                   1/1 
+                                                                                
+Installed:                                                                      
+  quota.x86_64 1:4.01-17.el7                                                    
+                                                                                
+Complete!
+

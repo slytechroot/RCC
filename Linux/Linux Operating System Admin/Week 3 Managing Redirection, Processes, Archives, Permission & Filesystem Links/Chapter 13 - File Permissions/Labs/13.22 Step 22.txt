@@ -1,0 +1,8 @@
+13.22 Step 22
+
+Verify the changed permissions by executing the following command:
+
+ls -ld /srv/data
+
+root@localhost:~# ls -ld /srv/data
+drwxrwx--- 2 root root 4096 May 16 16:31 /srv/data

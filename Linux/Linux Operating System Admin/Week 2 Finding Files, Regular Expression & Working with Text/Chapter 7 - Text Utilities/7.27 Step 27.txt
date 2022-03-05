@@ -1,0 +1,34 @@
+7.27 Step 27
+
+The sort command is useful for working with data organized in columns. It is used to display a file sorted on a specific field of data.
+
+sort [OPTION]... [FILE]...
+
+To specify the fields to sort from first to last, use the sort command with one or more -k options.
+
+First, view the file adjectives.txt in the Documents directory using the cat command:
+
+cd Documents/
+cat adjectives.txt
+
+sysadmin@localhost:~$ cd Documents/
+sysadmin@localhost:~/Documents$ cat adjectives.txt
+1 golden
+2 honey
+3 fruit
+4 grey
+5 bald
+
+To sort the adjectives.txt file using the second field (i.e., the adjective: 1 golden) as a key, execute the following command:
+
+sort -k2 adjectives.txt
+
+sysadmin@localhost:~/Documents$ sort -k2 adjectives.txt
+5 bald
+3 fruit
+1 golden
+4 grey
+2 honey
+
+In the command above, the -k option has one argument: the 2, which indicates the second field to sort.
+

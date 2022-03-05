@@ -1,0 +1,8 @@
+18.23 Step 23
+
+Reboot the machine:
+
+reboot
+
+[root@centos rc3.d]# reboot
+

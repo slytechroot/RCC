@@ -1,0 +1,9 @@
+9.21 Step 21
+
+The standard editor is the program that the system calls by default for editing text files. It’s possible to change the standard editor by customizing the system you are logged into. Regular users can change this default for their own login but changing it for all users requires root privileges. First, let's determine what the standard editor is on our system by typing the following command:
+
+echo $EDITOR
+
+sysadmin@localhost:~$ echo $EDITOR
+vi
+

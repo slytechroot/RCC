@@ -1,0 +1,98 @@
+6.2 Filesystem Hierarchy Standard
+
+The open source licensing of many Linux components makes it possible for anyone to create their own distribution. Most people start with a well-known distribution, make modifications, and release a fork of the original.
+A timeline of Linux distribution evolution, displaying how the major distribution have been forked off.
+
+Consider This
+
+An illustration containing many more of the distributions and their origins can be found at http://futurist.se/gldt/wp-content/uploads/12.02/gldt1202.svg.
+
+Since there are so many Linux distributions, it would be expected that numerous people would change the names of the files and folders, eventually making the distributions incompatible. This makes a basic agreement necessary concerning the naming and location of important system files and directories.
+
+The Filesystem Hierarchy Standard (FHS) is an agreement to standardize the names and locations of directories and their content for use within most Linux filesystems. It helps to know what directories to expect to find, and what files one should expect to find in them. More importantly, it allows programmers to write programs that will be able to work across a wide variety of systems that conform to this standard.
+
+During the development of the first series of this standard from 1994 to 1995, it was known as the Filesystem Standard (FSSTND). When the second series was started in 1997, it was renamed to the Filesystem Hierarchy Standard (FHS). The final 2.3 version of this second series of this FHS standard was published in 2004 at http://refspecs.linuxfoundation.org/fhs.shtml. In 2011, a draft version of the third series of this standard was published at http://www.linuxbase.org/betaspecs/fhs/fhs.html.
+
+The Linux file structure is best visualized as an upside-down tree, with directories and files branching out from the top-level root / directory. While the actual standard details many more directories than listed below, the image and table highlight some of the most important ones to know.
+
+The Filesystem Hierarchy Standard defines four hierarchies of directories used in organizing the files of the filesystem. 
+The root directory is to the top level of the Linux system, serving as the first hierarchy. 
+It contains the following directories: /bin/ boot/, /dev, /etc, /home, /lib, /lib64, /media, /mnt, /opt, /proc, /root, /sbin, /srv, /sys, /tmp, /usr, and /var. 
+
+The second and third hierarchies, located under the /usr and /usr/local directories, repeat the pattern of many of the key directories found under the first hierarchy or root filesystem. 
+The fourth hierarchy, the /var directory, also repeats some of the top level directories such as lib, opt and tmp.
+
+
+Directory 	Purpose
+/ 		The root of the primary filesystem hierarchy.
+/bin 		Contains essential user binary executables.
+/boot 		Contains the kernel and bootloader files.
+/dev 		Populated with files representing attached devices.
+/etc 		Configuration files specific to the host.
+/home 		Common location for user home directories.
+/lib 		Essential libraries to support /bin and /sbin executables.
+/mnt 		Mount point for temporarily mounting a filesystem.
+/opt 		Optional third-party add-on software.
+/root 		Home directory for the root user.
+/sbin 		Contains system or administrative binary executables.
+/srv 		May contain data provided by system services.
+/tmp 		Location for creating temporary files.
+/usr 		The root of the secondary filesystem hierarchy.
+/usr/bin 	Contains the majority of the user commands.
+/usr/include 	Header files for compiling C-based software.
+/usr/lib 	Shared libraries to support /usr/bin and /usr/sbin.
+/usr/local 	The root of the third filesystem hierarchy for local software.
+/usr/sbin 	Non-vital system or administrative executables.
+/usr/share 	Location for architecturally-independent data files.
+/usr/share/dict 	Word lists.
+/usr/share/doc 	Documentation for software packages.
+/usr/share/info 	Information pages for software packages.
+/usr/share/locale 	Locale information.
+/usr/share/man 	Location for man pages.
+/usr/share/nls 	Native language support files.
+
+Vendors of Linux distributions have continued to make some changes, even though a new version of the standard has not been published in over ten years. Two notable new additions include the /run directory and the /sys directory. The /run directory is being considered for use in the forthcoming FHS versions to contain volatile data that changes at runtime. Previously, this data was supposed to be stored under the /var/run directory, but due to the unavailability of this directory at boot time, this data can become scattered in other places, such as hidden files in the /dev directory.
+
+The /sys directory in some traditional UNIX systems was used to hold files related to the kernel. In modern Linux systems, the /sys directory is used to mount the sysfs pseudo-filesystem. This filesystem is used to export information about kernel objects and their relationships to each other. The kernel objects are represented by directories, and the files that they contain are named for the attributes of those objects. The contents of the files represent the value for that attribute. Symbolic links are used to represent relationships between objects.
+
+Another notable change that some Linux distributions are making is the conversion of the /bin, /sbin and /lib directories into symbolic links which point to /usr/bin, /usr/sbin and /usr/lib, respectively. All user executables are now in the /usr/bin directory, administrator executables are now in the /usr/sbin directory, and the libraries to support all these executables are now in the /usr/lib directory.
+
+Note
+
+A symbolic link, also called a soft link, is simply a file that points to another file.
+
+Links will be covered in greater detail later in the course.
+
+The merger of the /bin, /sbin and /lib directories into the /usr/bin, /usr/sbin and /usr/lib directories has been somewhat controversial. Many administrators are comfortable with the long-standing subdivisions of these files into different directories.
+
+Because the way that UNIX booted, the /bin, /sbin and /lib directories had to be part of the root filesystem as they contain critical boot executables. Some developers now argue that the reason for having them split is no longer valid. In early versions of UNIX, the developers had two filesystems of about 1.5 MiB each on two separate disks for the root filesystem and the /usr filesystem. As the root filesystem started to become full, the developers decided to move some of the executable files that were in the /bin and /sbin directories that were not essential to booting the system into the corresponding directories /usr/bin and /usr/sbin (in the separate /usr filesystem).
+
+The FHS standard categorizes each system directory in a couple of ways for security purposes:
+
+Shareable / Unshareable
+
+    Shareable files can be stored on one host and used on others. For instance, /var/www is often used as the root directory of a web server, which shares files with other hosts. Another example is the user home directories.
+
+    Unshareable files should not be shared between hosts. These include process states in the /var/run directory and the /boot directory.
+
+Variable / Static
+
+    Static files generally do not change, including library files and documentation pages. An example is the info pages located at /usr/share/info.
+
+    Variable files normally change during the execution of programs. The /var/run directory contains files that are both variable and unshareable.
+
+The table below summarizes the main distinctions between file types:
+		Shareable 		Unshareable
+Static 		/usr			/etc			
+		/opt			/boot
+	
+
+Variable 	/var/mail		/var/run	
+		/var/spool/news		/var/lock
+
+
+
+	
+
+
+

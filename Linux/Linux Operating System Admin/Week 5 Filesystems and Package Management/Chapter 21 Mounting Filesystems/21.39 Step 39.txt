@@ -1,0 +1,10 @@
+21.39 Step 39
+
+In this case, the / filesystem has plenty of space. Create a large file with the following dd command in the /var directory (which is part of the / partition):
+
+dd if=/dev/zero of=/var/swapfile bs=1M count=100
+
+root@ubuntu:~# dd if=/dev/zero of=/var/swapfile bs=1M count=100
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB, 100MiB) 0.118785 s, 858MB/s

@@ -1,0 +1,20 @@
+22.8 Step 8
+
+The du command is useful because once you discover that a filesystem is close to becoming full, you need to determine where the largest chunks of files are. A common way of doing this is to see which of the directories under the root directory are using the most space. Execute the following command to see a demonstration:
+
+du -sh /*
+
+[root@centos~]# du -sh /*
+0        /bin
+100M     /boot
+0        /dev
+33M      /etc
+20K      /home
+0        /lib
+0        /lib64
+16K      /lost+found
+4.0K     /media
+4.0K     /mnt
+4.0K     /opt
+
+Some output has been omitted in the example above for brevity.

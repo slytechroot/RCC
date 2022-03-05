@@ -1,0 +1,10 @@
+18.37 Step 37
+
+Recall that the configuration files in the /etc/init.d directory determine which services are started at different run levels. For example, execute the following command to see which runlevels the ssh service starts:
+
+grep runlevel /etc/init.d/ssh
+
+root@ubuntu:~# grep runlevel /etc/init.d/ssh
+([ "$previous" ] && [ "$runlevel" ]) || [ "$runlevel"= S ]
+
+Note in the output above, the string "$runlevel"= S indicates that the runlevel is single user mode

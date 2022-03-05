@@ -1,0 +1,93 @@
+3.2.1 Local and Environment Variables
+
+A local variable is only available to the shell in which it was created. An environment variable is available to the shell in which it was created, and it is passed into all other commands/programs started by the shell.
+
+To set the value of a variable, use the following assignment expression. If the variable already exists, the value of the variable is modified. If the variable name does not already exist, the shell creates a new local variable and sets the value:
+
+variable=value
+
+In the example below, a local variable is created, and the echo command is used to display its value:
+
+sysadmin@localhost:~$ name="judy"
+sysadmin@localhost:~$ echo $name  
+judy
+
+By convention, lowercase characters are used to create local variable names, and uppercase characters are used when naming an environment variable. For example, a local variable might be called test while an environment variable might be called TEST. While this is a convention that most people follow, it is not a rule. An environment variable can be created directly by using the export command.
+
+export variable=value
+
+In the example below, an environment variable is created with the export command:
+
+sysadmin@localhost:~$ export JOB=engineer
+
+Recall that the echo command is used to display output in the terminal. To display the value of the variable, use a dollar sign $ character followed by the variable name as an argument to the echo command:
+
+sysadmin@localhost:~$ echo $JOB 
+engineer
+
+We can see the difference between local and environment variables by opening a new shell with the bash command:
+
+sysadmin@localhost:~$ bash
+To run a command as administrator (user "root"), use "sudo" command.
+See "man sudo_root" for details.                 	 
+sysadmin@localhost:~$ echo $name
+sysadmin@localhost:~$ echo $JOB
+engineer
+
+Notice that the local variable name is empty, while the environment variable JOB returns the value engineer. Also notice that if you return to the first shell by using the exit command, both variables are still available in the original shell:
+
+sysadmin@localhost:~$ exit
+exit                                                                       	 
+sysadmin@localhost:~$ echo $name                                           	 
+judy                                                                       	 
+sysadmin@localhost:~$ echo $JOB                                           	 
+engineer
+
+The local variable name is not available in the new shell because by default, when a variable is assigned in the Bash shell, it is initially set as a local variable. When you exit the original shell, only the environment variables will be available. There are several ways that a local variable can be made into an environment variable.
+
+First, an existing local variable can be exported with the export command.
+
+export variable
+
+In the example below, the local variable name is exported to environment (with the standard convention of all caps):
+‌⁠​​⁠​ 
+
+sysadmin@localhost:~$ NAME=judy                                       	 
+sysadmin@localhost:~$ export NAME                                          	 
+sysadmin@localhost:~$ echo $NAME                                           	 
+judy
+
+Second, a new variable can be exported and assigned a value with a single command as demonstrated below with the variable DEPARTMENT:
+
+sysadmin@localhost:~$ export DEPARTMENT=science  
+sysadmin@localhost:~$ echo $DEPARTMENT
+science
+
+Third, the declare or typeset command can be used with the export -x option to declare a variable to be an environment variable. These commands are synonymous and work the same way:
+
+sysadmin@localhost:~$ declare -x EDUCATION=masters                                                                                               	 
+sysadmin@localhost:~$ echo $EDUCATION
+masters                                                                    	 
+sysadmin@localhost:~$ typeset -x EDUCATION=masters                    	 
+sysadmin@localhost:~$ echo $EDUCATION
+masters
+
+The env command is used to run commands in a modified environment. It can also be used to temporarily create or change environment variables that are only passed to a single command execution by using the following syntax:
+
+env [NAME=VALUE] [COMMAND]
+
+For example, servers are often set to Coordinated Universal Time (UTC), which is good for maintaining consistent time on servers across the planet, but can be frustrating for practical use to simply tell the time:
+
+sysadmin@localhost:~$ date
+Sun Mar 10 22:47:44 UTC 2020
+
+To temporarily set the time zone variable, use the env command. The following will run the date command with the temporary variable assignment:
+
+sysadmin@localhost:~$ env TZ=EST date                                 	 
+Sun Mar 10 17:48:16 EST 2020
+
+The TZ variable is set only in the environment of the current shell, and only for the duration of the command. The rest of the system will not be affected by this variable. In fact, running the date command again will verify that the TZ variable has reverted to UTC.
+
+sysadmin@localhost:~$ date
+Sun Mar 10 22:49:46 UTC 2020
+

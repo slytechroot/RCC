@@ -1,0 +1,27 @@
+6.2 Step 2
+
+To locate all files which have the word hostname in the file name and make the search case insensitive, execute the following command:
+
+locate –i hostname
+
+sysadmin@localhost:~$ locate -i hostname                                   
+/bin/hostname                                                               
+/etc/hostname                                                               
+/lib/systemd/systemd-hostnamed                                              
+/lib/systemd/system/dbus-org.freedesktop.hostname1.service                  
+/lib/systemd/system/hostname.service                                        
+/lib/systemd/system/systemd-hostnamed.service                               
+/usr/bin/hostnamectl                                                        
+/usr/lib/gettext/hostname                                                   
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname          
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname/__init__.py  
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname/__pycache__ 
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname/_implementation.py                                                                    
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname/__pycache__/__init__.cpython-36.pyc                                                   
+/usr/lib/python3/dist-packages/urllib3/packages/ssl_match_hostname/__pycache__/_implementation.cpython-36.pyc                                            
+/usr/lib/x86_64-linux-gnu/perl/5.26.1/Sys/Hostname.pm                      
+/usr/lib/x86_64-linux-gnu/perl/5.26.1/auto/Sys/Hostname                     
+/usr/lib/x86_64-linux-gnu/perl/5.26.1/auto/Sys/Hostname/Hostname.so         
+...
+
+Some output has been omitted in the example above for brevity.

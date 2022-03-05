@@ -1,0 +1,23 @@
+10.1 Step 1
+
+Standard output is redirected using the greater-than > character followed by the name of the file to which it will be written. Redirecting output using a single greater-than > character will create a new file, or overwrite the contents of an existing file with the same name. To redirect the output of the ls command to the ls_output.txt file, execute the following command:
+
+ls > ls_output.txt
+
+sysadmin@localhost:~$ ls > ls_output.txt
+
+To view the contents of the newly created ls_output.txt file, use the following command:
+
+cat ls_output.txt
+
+sysadmin@localhost:~$ cat ls_output.txt
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+ls_output.txt
+

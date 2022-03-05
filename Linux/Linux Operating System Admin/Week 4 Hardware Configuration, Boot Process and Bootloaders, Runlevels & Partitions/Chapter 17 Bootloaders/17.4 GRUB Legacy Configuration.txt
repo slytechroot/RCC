@@ -1,0 +1,109 @@
+17.4 GRUB Legacy Configuration
+
+Within the GRUB Legacy configuration file, disks are referred to with a special syntax that does not differ based upon the type of disk. This is different from how the Linux operating system refers to IDE disks.
+
+In GRUB Legacy, the first disk detected is referred to as hd0, the second disk as hd1 and so on. Partitions on disks are also numbered starting at zero. Therefore, use hd0,0 to refer to the first partition on the first disk, hd1,0 for the first partition on the second disk, etc.
+
+Note
+
+Device files are used by the operating system to refer to hard drives and partitions. The naming convention is different than GRUB Legacy's naming convention, which may lead to frustration.
+
+For example, the first SATA device would have a device file name of /dev/sda. The first partition on this device would be named /dev/sda1. The first IDE device would have a device file name of /dev/hda. So, the first partition on this device would be named /dev/hda1.
+
+Not only does GRUB Legacy not distinguish between SATA and IDE drives, it also doesn't number drives with letters like the operating system does. For example, the first hard drive is 0, not a.
+
+Additionally, the partition numbers are different. The operating system numbers the first partition of a drive 1, while for GRUB Legacy it would be partition 0.
+
+For example, the device /dev/sda1 might be referred to as hd0,0 in GRUB Legacy. The device /dev/hdb3 might be hd1,2 in GRUB Legacy. The term "might be" is used because the drive number really depends on the order in which GRUB Legacy "finds" the drives.
+
+Disks and partitions are covered in greater detail in a later chapter.
+
+The GRUB Legacy bootloader is typically installed as part of the installation process. In the event that the GRUB Legacy bootloader needs to be reinstalled, then GRUB Legacy can be reinstalled by running the following command:
+
+Note
+
+The following examples may not match the output in our virtual environment.
+
+sysadmin@localhost:~$  grub-install '(hd0)'
+
+The grub-install command shown above will install the GRUB Legacy bootloader to the first disk device in the system. The grub-install command exists primarily to gather information about the system, its disks, filesystems, and the location of the /boot/grub directory on disk, and then install the GRUB Legacy bootloader’s image (with the necessary location information) files to the proper location(s) on the system’s disks/partitions.
+
+Note
+
+GRUB Legacy can have either or both of the following two main configuration files: the /boot/grub/menu.lst and /boot/grub/grub.conf files. Depending on the distribution, one file is preferred over the other. Examples include Red Hat distributions focusing on the grub.conf file, and SUSE distributions preferring to use the menu.lst file. Many distributions simply have one of these files existing as a symbolic link to the other.
+
+GRUB Legacy began life using the menu.lst file, with grub.conf appearing later in its history. For the sake of clarity and reducing confusion, this section will focus on the newer and more common file location, /boot/grub/grub.conf.
+
+Because the default is to have a working version of the GRUB configuration file, /etc/grub.conf, generated and installed by the installation routines, a user may not have to generate a new configuration by hand. However, it is useful to know what the grub-mkconfig command can do for you in case your configuration is damaged or somehow gets corrupted on disk.
+
+The grub-mkconfig command will query the running system for the contents of the /boot directory, the contents of the /etc/default/grub location if it exists, and any scripts that are located in the /etc/grub.d directory.
+
+Next, it will output the properly-formatted configuration file to the specified location. For example, to generate the /boot/grub/grub.cfg file, you would use the following command:
+
+sysadmin@localhost:~$ grub-mkconfig -o /boot/grub/grub.cfg
+
+In the example above, the -o option specifies the output location, which is the /boot/grub/grub.cfg file. That file will contain the gathered information formatted accordingly and should be what the system needs to boot the currently installed system properly.
+
+While the location of grub.conf is the /boot/grub/grub.conf file, on some systems a symbolic link named /etc/grub.conf makes it easier for the administrator to find:
+
+sysadmin@localhost:~$ ls -l /etc/grub.conf
+lrwxrwxrwx 1 root root 22 Jun 18  2012 /etc/grub.conf -> ../boot/grub/grub.conf
+
+Keep in mind that only the root user can modify the /boot/grub/grub.conf file. A typical /boot/grub/grub.conf file would look something like the following:
+
+#global options
+default=0
+fallback=1
+timeout=5
+splashimage=(hd0,0)/grub/splash.xpm.gz
+hiddenmenu
+password notencypted
+
+#bootable title sections
+title CentOS (2.6.32-358.6.1.el6.i686)
+	root (hd0,2)
+	kernel /vmlinuz-2.6.32-358.6.1.el6.i686 ro root=/dev/mapper/vg_livecd-lv_root rd_NO_LUKS LANG=en_US.UTF-8 rd_LVM_LV=vg_livecd/lv_swap rd_NO_MD rd_LVM_LV=vg_livecd/lv_root SYSFONT=latarcyrheb-sun16 crashkernel=auto  KEYBOARDTYPE=pc KEYTABLE=us rd_NO_DM rhgb quiet
+	initrd /initramfs-2.6.32-358.6.1.el6.i686.img
+title CentOS (2.6.32-358.2.1.el6.i686)
+	password --md5 $1$D20Ia1$iN6djlheGF0NQoyerYgpp/
+	root (hd0,2)
+	kernel /vmlinuz-2.6.32-358.2.1.el6.i686 ro root=/dev/mapper/vg_livecd-lv_root rd_NO_LUKS LANG=en_US.UTF-8 rd_LVM_LV=vg_livecd/lv_swap rd_NO_MD rd_LVM_LV=vg_livecd/lv_root SYSFONT=latarcyrheb-sun16 crashkernel=auto  KEYBOARDTYPE=pc KEYTABLE=us rd_NO_DM rhgb quiet
+	initrd /initramfs-2.6.32-358.2.1.el6.i686.img
+title OtherOS (Windows)
+	rootnoverify (hd0,0)
+	chainloader +1
+
+Comments can be added to the grub.conf file by beginning the lines with a hash # character.
+
+Global options appear first, followed by title blocks, which contain at least three directives: root, kernel, and initrd. These title blocks define an operating system to boot, as well as options to the kernel that indicate how to boot the operating system.
+
+Like hard drives, GRUB Legacy numbers each bootable title starting with the number zero. Directives such as default and fallback are set to equal these values indicating the title to boot. For instance, default=1 will boot the second title.
+Directive 	Meaning
+default= 	Specifies the title to attempt to boot by default after the timeout number of seconds has passed.
+fallback= 	Specifies the title to attempt to boot if the default title fails to boot successfully.
+timeout= 	Specifies the number of seconds to wait before automatically attempting to boot the default title.
+splashimage= 	Specify a background graphic that appears behind the text of the menu.
+hiddenmenu 	Prevents GRUB Legacy from displaying all but the default bootable title until the user presses a key. If the user presses a key, then all titles are displayed.
+title 	The title directive starts a new block of directives that form the directives necessary to boot the system. A title block ends when the next title directive appears or when the end of the file is reached.
+root 	Uses the special hard disk syntax to refer to the location of the /boot directory.
+kernel 	This line specifies the kernel image file, followed by all the parameters that are passed to the kernel, such as ro for read-only and root=/path/to/rootfs.
+initrd 	This line should specify an initial ramdisk that matches the version and release of the Linux kernel. This file provides a minimal filesystem during kernel initialization prior to mounting the root filesystem.
+password 	This option can be used as either a global option or a title option. When specified globally, this requires the user to submit the specified password before appending, editing, or using the GRUB Legacy command line. As a title option, this requires the user to submit the password before GRUB will attempt to boot the title.
+rootnoverify 	This directive is used to specify a bootable partition for a non-Linux operating system.
+chainloader 	Used to specify a path to another bootloader or +1 if the bootloader is located in the first sector of the partition specified by the rootnoverify directive.
+
+The password that is specified can be specified as clear text, like in the example /boot/grub/grub.conf file shown earlier in this section:
+
+password notencrypted
+
+For an encrypted password, use the --md5 option for the password directive:
+
+password --md5 $1$D20Ia1$iN6djlheGF0NQoyerYgpp/. 
+
+To generate the encrypted password, use the grub-md5-crypt command or execute the grub command and then at the grub prompt, type the md5crypt command:
+
+sysadmin@localhost:~$ grub-md5-crypt
+Password:
+Retype password:
+$1$eRsrb1$v1p5us79Harrku4vbJgKF0
+

@@ -1,0 +1,21 @@
+20.10 Creating Swap Space
+
+Consider a situation in which a system has a total of 8GB of RAM. Initially, this system functions properly, however, as time goes on and new software is added to the system, Insufficient RAM errors start occurring. Running out of usable RAM has been an issue for operating systems since RAM was first introduced.
+
+While the best solution might be to add more RAM to the system, this isn't always possible. Hardware limitations or budget constraints may necessitate another solution. Swap space is designed to provide a solution to this problem.
+
+Swap space (also called virtual memory) is hard drive space that can be used by the kernel and memory management routines to store data that is normally stored in RAM. When RAM starts to become full, the kernel will take some of this data and swap it to the hard drive. At a later time, as it’s needed, the data will be swapped back to RAM.
+
+Even if the system has plenty of RAM, creating a swap space is still useful because if the system ever crashes, swap space is used to store a crash dump file which is used by advanced system administrators to determine why the system crashed. As a result, typically the size of the swap space is at least equal to the size of RAM.
+
+Consider This
+
+The rule of “swap space should be equal to RAM” works up to a point; however, there is much discussion about what to do when a system has a very large amount of RAM as it seems wasteful to dedicate 128, 256, or 512 GB of disk space to swap.
+
+It is best to research the distribution vendor or organizer’s recommended amounts of swap space. The major supported distributions will have support and recommendations for swap amounts in their documentation.
+
+There are two types of swap spaces that can be created:
+
+    Swap Partition: The more common of the two, a swap partition is a partition that doesn't have a regular filesystem on it, and is not mounted. During installation, a swap partition is created, but additional swap partitions can be created at a later time.
+
+    Swap File: In the event that there is no unpartitioned space left on the hard drive, a swap file can be used. Swap partitions are typically faster than swap files as they are a filesystem, not a file, that is located on top of another filesystem. Swap files are more flexible and can be created on the fly without the need to repartition the hard drive.

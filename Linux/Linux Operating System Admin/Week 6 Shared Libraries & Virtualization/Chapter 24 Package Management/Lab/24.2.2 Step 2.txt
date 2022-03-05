@@ -1,0 +1,18 @@
+24.2.2 Step 2
+
+The Debian package management system can install software from repositories listed in /etc/apt/sources.list. In a networked environment, these Internet sites can usually be reached. In this virtual environment, none of the repositories are reachable. Use the tail command to view a portion of this file:
+
+tail /etc/apt/sources.list
+
+root@localhost:~# tail /etc/apt/sources.list
+## respective vendors as a service to Ubuntu users.
+# deb http://archive.canonical.com/ubuntu bionic partner
+# deb-src http://archive.canonical.com/ubuntu bionic partner
+ 
+deb http://security.ubuntu.com/ubuntu bionic-security main restricted
+# deb-src http://security.ubuntu.com/ubuntu bionic-security main restricted
+deb http://security.ubuntu.com/ubuntu bionic-security universe
+#deb-src http://security.ubuntu.com/ubuntu bionic-security universe
+deb http://security.ubuntu.com/ubuntu bionic-security multiverse
+# deb-src http://security.ubuntu.com/ubuntu bionic-security multiverse
+

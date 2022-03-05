@@ -1,0 +1,134 @@
+12.8 The tar Command
+
+An archive is a single file, which consists of many files, though not necessarily compressed. The tar command is typically used to make archives within Linux. These tar archive files, sometimes called tarballs, were originally used to backup data onto magnetic tape. Tar is derived from the words "tape archive".
+
+While the primary purpose of the tar command is to merge multiple files into a single file, it is capable of many different operations, and there are numerous options. The functionality of the tar command can be broken down into three basic functions: creating, viewing, and extracting archives.
+
+    Create: Make a new archive out of a series of files. -> x
+    Extract: Pull one or more files out of an archive.	-> -x
+    List: Show the contents of the archive without extracting. -> --extract
+
+The tar command accepts all three styles of options, (x -x --extract) as parameters. Do not be surprised to see it used with options that have no hyphens (BSD style), a single hyphen (UNIX style) or two hyphens (GNU style).
+Create Mode
+
+tar -c [-f ARCHIVE] [OPTIONS] [FILE...]
+
+Creating an archive with the tar command requires two named options:
+-c 	Create an archive.
+-f ARCHIVE 	Use the ARCHIVE file. The argument ARCHIVE will be the name of the resulting archive file.
+
+All the remaining arguments, [FILE…], are considered as input file names either as a list of files, as a wildcard, or both.
+
+To create an archive of the Documents directory, use the create -c option and file -f option to specify a new file, followed by the directory to archive. Note that the -f option must be specified last since it is indicating a file name:
+
+sysadmin@localhost:~$ tar -cf mydocuments.tar ~/Documents
+tar: Removing leading `/' from member names
+sysadmin@localhost:~$ ls
+Desktop    Downloads  Pictures  Templates  mydocuments.tar
+Documents  Music      Public    Videos
+
+The verbose -v option will cause the tar command to display the files that are being included in the archive. If compression is going to be used, then the appropriate option needs to be specified. For the gzip command, the -z option needs to be added.
+-v 	Verbosely list the files processed.
+-z 	Compress (or decompress) the archive using the gzip command.
+
+File extensions are not relevant to Linux; however, it is customary to add .tar.gz to the name of the compressed archive. The next example shows the same command as the prior example, but with the addition of the .gz extension to the original file name and the -z and -v options:
+
+sysadmin@localhost:~$ tar -cvzf mydocuments.tar.gz ~/Documents
+tar: Removing leading `/' from member names
+/home/sysadmin/Documents/
+/home/sysadmin/Documents/animals.txt
+/home/sysadmin/Documents/alpha-third.txt
+/home/sysadmin/Documents/longfile.txt
+/home/sysadmin/Documents/red.txt
+/home/sysadmin/Documents/alpha.txt
+/home/sysadmin/Documents/hidden.txt
+/home/sysadmin/Documents/food.txt
+/home/sysadmin/Documents/adjectives.txt
+/home/sysadmin/Documents/spelling.txt
+/home/sysadmin/Documents/os.csv
+/home/sysadmin/Documents/letters.txt
+Output Omitted...
+sysadmin@localhost:~$ ls
+Desktop    Downloads  Pictures  Templates  mydocuments.tar
+Documents  Music      Public    Videos     mydocuments.tar.gz
+
+It is often preferable to archive files before zipping them in any format, whether bzip, gzip, or xz. The following example archives the test directory using the tar command before compressing it with the xz command:
+
+sysadmin@localhost:~$ mkdir test
+sysadmin@localhost:~$ tar -cf testdirectory.tar test
+sysadmin@localhost:~$ ls
+Desktop    Music     Templates             mydocuments.tar
+Documents  Pictures  Videos                test
+Downloads  Public    mydocuments.tar.gz  testdirectory.tar
+sysadmin@localhost:~$ xz -z testdirectory.tar
+sysadmin@localhost:~$ ls
+Desktop    Music     Templates             mydocuments.tar
+Documents  Pictures  Videos                test
+Downloads  Public    mydocuments.tar.gz    testdirectory.tar.xz
+
+The tar command originally did not support compression, but a newer version that was developed by the GNU project supports gzip, bzip2, and xz compression. To compress (or decompress) an archive with the tar command, choose the appropriate option:
+-z 	Filter the archive through the gzip command.
+-j 	Filter the archive through the bzip2 command.
+-J 	Filter the archive through the xz command.
+
+If a version of the tar command does not support these compression utilities, the commands can be used separately on the tar file.
+
+Remove the testdirectory.tar.xz file created in the previous example. Then, to compress the test directory once again using the xz compression directly with the tar command, use the -J option:
+
+sysadmin@localhost:~$ rm *.xz
+sysadmin@localhost:~$ ls
+Desktop    Downloads  Pictures  Templates  mydocuments.tar.gz  test
+Documents  Music      Public    Videos     mydocuments.tar
+sysadmin@localhost:~$ tar -cJf testdirectory.tar.xz test
+sysadmin@localhost:~$ ls
+Desktop    Music     Templates             mydocuments.tar
+Documents  Pictures  Videos                test
+Downloads  Public    mydocuments.tar.gz    testdirectory.tar.xz
+
+List Mode
+
+tar -t [-f ARCHIVE] [OPTIONS]
+
+Use the -t option to the tar command to view a list (table of contents) of a tar file.
+-t 	List the files in the archive.
+-f ARCHIVE 	Operate on the given archive.
+
+Even if the archive file is compressed, the correct compression option does not need to be specified to view a tar archive file. Only the file -f option and the list -t option are required to view the table of contents. Once again, note that the -f option is used last so that the file name can be specified as an argument to this option:
+
+sysadmin@localhost:~$ tar -tf mydocuments.tar.gz
+home/sysadmin/Documents/
+home/sysadmin/Documents/animals.txt
+home/sysadmin/Documents/alpha-third.txt
+home/sysadmin/Documents/longfile.txt
+home/sysadmin/Documents/red.txt
+home/sysadmin/Documents/alpha.txt
+home/sysadmin/Documents/hidden.txt
+home/sysadmin/Documents/food.txt
+home/sysadmin/Documents/adjectives.txt
+home/sysadmin/Documents/spelling.txt
+home/sysadmin/Documents/os.csv
+home/sysadmin/Documents/letters.txt
+Output Omitted...
+
+To view the table of contents of the archive in a format similar to a long listing (like the ls -l command), add the verbose -v option:
+
+sysadmin@localhost:~$ tar -vtf mydocuments.tar.gz
+-drwxr-xr-x sysadmin/sysadmin 0 2019-04-24 16:24 home/sysadmin/Documents/
+-rw-r--r-- sysadmin/sysadmin 42 2019-04-24 16:24 home/sysadmin/Documents/animals.txt
+-rw-r--r-- sysadmin/sysadmin 195 2019-04-24 16:24 home/sysadmin/Documents/alpha-third.txt
+-rw-r--r-- sysadmin/sysadmin 66540 2019-04-24 16:24 home/sysadmin/Documents/longfile.txt
+-rw-r--r-- sysadmin/sysadmin    51 2019-04-24 16:24 home/sysadmin/Documents/red.txt
+-rw-r--r-- sysadmin/sysadmin   390 2019-04-24 16:24 home/sysadmin/Documents/alpha.txt
+-rw-r--r-- sysadmin/sysadmin    67 2019-04-24 16:24 home/sysadmin/Documents/hidden.txt
+-rw-r--r-- sysadmin/sysadmin    14 2019-04-24 16:24 home/sysadmin/Documents/food.txt
+Output Omitted...
+
+Extract Mode
+
+tar -x [-f ARCHIVE] [OPTIONS]
+
+To extract the files from the tar file, use the -x option.
+-x 	Extract files from an archive.
+-f ARCHIVE 	Operate on the given archive.
+
+If a version of the tar command does not support these compression utilities, the commands can still be used separately on the tar file.

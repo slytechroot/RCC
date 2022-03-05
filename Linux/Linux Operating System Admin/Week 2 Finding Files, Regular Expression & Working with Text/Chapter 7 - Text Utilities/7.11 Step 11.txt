@@ -1,0 +1,27 @@
+7.11 Step 11
+
+The nl command will number the lines of its output. The syntax for the nl command is:
+
+nl [OPTION]... [FILE]...
+
+To display the newhome.txt file in the Documents directory with line numbers, execute the following commands:
+
+cd Documents/
+nl newhome.txt
+
+sysadmin@localhost:~$ cd Documents/
+sysadmin@localhost:~/Documents$ nl newhome.txt
+     1  Thanks for purchasing your new home!!
+
+     2  **Warning** it may be haunted.
+
+     3  There are three bathrooms.
+
+     4  **Beware** of the ghost in the bedroom.
+
+     5  The kitchen is open for entertaining.
+
+     6  **Caution** the spirits don't like guests.
+
+     7  Good luck!!!
+

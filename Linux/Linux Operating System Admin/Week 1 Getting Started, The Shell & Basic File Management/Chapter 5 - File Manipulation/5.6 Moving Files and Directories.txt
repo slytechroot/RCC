@@ -1,0 +1,45 @@
+5.6 Moving Files and Directories
+
+The mv command is used to move a file from one path name in the filesystem to another. When you move a file, it's like creating a copy of the original file with a new path name and then deleting the original file.
+
+mv [OPTION]... SOURCE DESTINATION
+
+If you move a file from one directory to another, and you don't specify a new name for the file, then it will retain its original name. For example, the following will move the ~/Documents/red.txt file into the home directory and the resulting file name will be red.txt:
+
+sysadmin@localhost:~$ cd Documents
+sysadmin@localhost:~/Documents$ mv red.txt ~
+sysadmin@localhost:~/Documents$ ls ~
+Desktop	Downloads  Pictures  Templates  red.txt
+Documents  Music   Public    Videos
+
+Like the cp command, the mv command will allow you to specify multiple files to move, as long as the final argument provided to the command is a directory.
+
+mv [OPTION]... SOURCE... DIRECTORY
+
+For example:
+
+sysadmin@localhost:~/Documents$ mv animals.txt food.txt alpha.txt /tmp
+sysadmin@localhost:~/Documents$ ls /tmp
+alpha.txt  animals.txt  food.txt
+
+There is no need for a recursive option with the mv command. When a directory is moved, everything it contains is automatically moved as well.
+
+Moving a file within the same directory is an effective way to rename it. For example, in the following command, the people.csv file is moved from the current directory to the current directory and given a new name of founders.csv. In other words, people.csv is renamed founders.csv:
+
+sysadmin@localhost:~/Documents$ mv people.csv founders.csv
+
+Use the mv command to move a directory from one location to another. Just like moving files, the original directory will be deleted from its previous location. In the following example, the mv command is used to move the Engineering directory from the School directory to the Work directory:
+
+sysadmin@localhost:~/Documents$ cd
+sysadmin@localhost:~$ ls Documents/School                     
+Art  Engineering  Math                          	 
+sysadmin@localhost:~$ mv Documents/School/Engineering Documents/Work       	 
+sysadmin@localhost:~$ ls Documents/Work                  	 
+Engineering
+
+Moving a file using the mv command requires the write and execute permissions on both the origin and destination directories.
+
+Command 	File Type 	Permission
+mv 	Source Directory 	Write, Execute
+mv 	Destination Directory 	Write, Execute
+

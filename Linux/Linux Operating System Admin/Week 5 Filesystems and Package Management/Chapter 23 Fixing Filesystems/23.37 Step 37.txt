@@ -1,0 +1,13 @@
+23.37 Step 37
+
+Next, unmount the filesystem and use the dd command to create an error in the filesystem:
+
+umount /data
+dd if=/dev/zero of=/dev/sdb5 bs=1024 count=1 seek=1
+
+root@ubuntu:~# umount /data
+root@ubuntu:~# dd if=/dev/zero of=/dev/sdb5 bs=1024 count=1 seek=1
+1+0 records in
+1+0 records out
+1024 bytes (1.0 kB) copied, 0.00596831 s, 172 kB/s
+

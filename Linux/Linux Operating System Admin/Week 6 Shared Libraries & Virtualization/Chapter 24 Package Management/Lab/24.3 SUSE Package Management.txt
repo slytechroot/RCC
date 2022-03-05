@@ -1,0 +1,7 @@
+24.3 SUSE Package Management
+
+Please use the SUSE image to complete the following steps. Select the OpenSUSE PC by clicking on the Opensuse PC tab in the window on the right side of the screen.
+Highlighted Opensuse PC PC tab above the virtual machine on the right side of the screen
+
+The SUSE package management system is based on the ZYpp/libzypp package management engine, which is mainly implemented by openSUSE, SUSE Linux Enterprise and Ark. ZYpp/Libzypp is the background package management engine for the zypper command line tool. This package management utility provides users with the ability to query, install, remove, and update software packages as well as the ability to satisfy software dependencies during these actions. In this portion of the lab, you will practice using the zypper command to manage packages on the OpenSUSE operating system.
+

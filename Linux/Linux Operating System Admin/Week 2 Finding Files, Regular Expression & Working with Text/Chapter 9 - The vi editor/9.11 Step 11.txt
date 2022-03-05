@@ -1,0 +1,30 @@
+9.11 Step 11
+
+Delete the current word by typing dw:
+
+dw
+
+-rwxr-xr-x 1 root root      92744 Aug  4  2018 lexgrog
+-rwxr-xr-x 1 root root      15775 Nov 19 15:54 libnetcfg
+-rwxr-xr-x 1 root root      30904 Jan 18  2018 link
+-rwxr-xr-x 1 root root       4090 Jun 21  2016 linux-check-removal
+-rwxr-xr-x 1 root root       6320 Jun  5  2016 linux-update-symlinks
+-rwxr-xr-x 1 root root       2696 Sep 17  2016 linux-version
+lrwxrwxrwx 1 root root          7 Oct 15  2018 linux32 -> setarch
+lrwxrwxrwx 1 root root          7 Oct 15  2018 linux64 -> setarch
+-rwxr-xr-x 1 root root      22888 Feb 26  2018 lnstat
+lrwxrwxrwx 1 root root         13 Mar 22 17:41 loadkeys -> /bin/loadkeys
+-rwxr-xr-x 1 root root      26760 Jan 22  2018 loadunimap
+-rwxr-xr-x 1 root root      50592 Apr 16  2018 locale
+-rwxr-xr-x 1 root root      10240 Feb  5 07:32 -check
+-rwxr-xr-x 1 root root      22600 Feb 28 21:03 localectl
+-rwxr-xr-x 1 root root     338744 Apr 16  2018 localedef
+lrwxrwxrwx 1 root root         24 Mar 22 17:41 locate -> /etc/alternatives/locate
+-rwxr-xr-x 1 root root      47792 Oct 15  2018 logger
+-rwxr-xr-x 1 root root      30904 Jan 18  2018 logname
+-rwxr-xr-x 1 root root      10472 Jan 17  2018 look
+-rwxr-xr-x 1 root root       2885 Jan 17  2018 lorder
+-rwxr-xr-x 1 root root      10240 Jan 24 23:11 lsattr
+-rwxr-xr-x 1 root root       3638 Aug  7  2017 lsb_release
+/local
+

@@ -1,0 +1,15 @@
+7.23 Step 23
+
+To merge the two files again using the colon : character as the delimiter instead of the default tab delimiter, execute the following command:
+
+paste –d : head tail > total
+cat total
+
+sysadmin@localhost:~$ paste -d : head tail > total
+sysadmin@localhost:~$ cat total
+A:épée's
+A's:épées
+AMD:étude
+AMD's:étude's
+AOL:études
+

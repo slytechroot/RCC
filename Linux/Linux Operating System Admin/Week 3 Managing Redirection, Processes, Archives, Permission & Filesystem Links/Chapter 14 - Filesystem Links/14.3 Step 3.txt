@@ -1,0 +1,10 @@
+14.3 Step 3
+
+Execute the following command to view the file that the /etc/rc.local file is pointing to:
+
+ls -l /etc/rc.d/rc.local
+
+[root@localhost ~]# ls -l /etc/rc.d/rc.local                                    
+-rwxr-xr-x 1 root root 220 Dec 15  2015 /etc/rc.d/rc.local
+
+Note that when the link is followed, the permissions on the real file are what is used to provide access to the file. As a result, soft link files typically have the permissions of rwxrwxrwx while the files that they point to have real permissions.

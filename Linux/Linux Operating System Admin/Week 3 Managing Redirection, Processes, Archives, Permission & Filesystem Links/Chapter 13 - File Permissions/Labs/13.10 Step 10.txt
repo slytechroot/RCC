@@ -1,0 +1,10 @@
+13.10 Step 10
+
+Verify the permission change by executing the following command:
+
+ls -l /srv/lab.txt
+
+root@localhost:~# ls -l /srv/lab.txt
+-rw-r----- 1 root root 27 May 16 12:29 /srv/lab.txt
+
+Notice that the read permission has been removed in the others permission set.

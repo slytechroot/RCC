@@ -1,0 +1,83 @@
+5.5 Copying Files
+
+Creating copies of files can be useful for numerous reasons:
+
+    If a copy of a file is created before changes are made, then it is possible to revert back to the original.
+
+    It can be used to transfer a file to removable media devices.
+
+    A copy of an existing document can be made; in this way, it is possible to take advantage of the existing layout and content to get started more quickly than from scratch.
+
+The cp command is used to copy files. It takes at least two arguments: the first argument is the path to the file to be copied and the second argument is the path to where the copy will be placed. The files to be copied are sometimes referred to as the source, and the location where the copies are placed is called the destination.
+
+cp [OPTION]... SOURCE DESTINATION
+
+Recall that the tilde ~ character represents your home directory; it is commonly used as a source or destination. To view the current contents of the home directory, use the ls command:
+
+sysadmin@localhost:~$ ls                                                 
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+
+To demonstrate how the cp command works, the /etc/services file can be copied to the home directory using the following command:
+
+sysadmin@localhost:~$ cp /etc/services ~
+
+The result of executing the previous command would create a copy of the contents of the /etc/services file in your home directory. The new file in your home directory would also be named services. The success of the cp command can be verified using the ls command:
+
+sysadmin@localhost:~$ ls
+Desktop	Downloads  Pictures  Templates  newfile   	 
+Documents  Music  	Public	Videos 	services
+
+To copy a file and rename the file in one step you can execute a command like:
+
+sysadmin@localhost:~$ cp /etc/services ~/ports
+
+The previous command would copy the contents of the /etc/services file into a new file named ports in your home directory:
+
+sysadmin@localhost:~$ ls           
+Desktop	Downloads  Pictures  Templates  newfile  services      	 
+Documents  Music  	Public	Videos 	ports
+
+To copy multiple files into a directory, additional file names to copy can be included as long as the last argument is a destination directory:
+
+cp [OPTION]... SOURCE... DIRECTORY
+
+Although they may only represent one argument, a wildcard pattern can be expanded to match multiple path names. The following command copies all files in the Documents directory that start with an n to the home directory; as a result, newhome.txt and numbers.txt are copied.
+
+sysadmin@localhost:~$ cp Documents/n* ~         
+sysadmin@localhost:~$ ls        
+Desktop	Downloads  Pictures  Templates  newfile  	numbers.txt  services
+Documents  Music  	Public	Videos 	newhome.txt  ports
+
+An issue that frequently comes up when using wildcard patterns with the cp command is that sometimes they match the names of directories as well as regular files. If an attempt is made to copy a directory, the cp command will print an error message.
+
+Using the -v option makes the cp command print verbose output, so you can always tell what copies succeed as well as those that fail. In the following wildcard example, we've marked in red the lines which indicate that the directories were matched, but not copied.
+
+sysadmin@localhost:~$ cp -v /etc/b* ~                                   
+'/etc/bash.bashrc' -> '/home/sysadmin/bash.bashrc'                       
+cp: -r not specified; omitting directory '/etc/bind'                     
+'/etc/bindresvport.blacklist' -> '/home/sysadmin/bindresvport.blacklist' 
+cp: -r not specified; omitting directory '/etc/binfmt.d'
+
+In order to copy a directory, its contents must be copied as well, including all files within the directories and all of its subdirectories. This can be done by using the -r or -R recursive options.
+
+sysadmin@localhost:~$ cp -R -v /etc/perl ~                              
+'/etc/perl' -> '/home/sysadmin/perl'                                     
+'/etc/perl/CPAN' -> '/home/sysadmin/perl/CPAN'                          
+'/etc/perl/Net' -> '/home/sysadmin/perl/Net'                             
+'/etc/perl/Net/libnet.cfg' -> '/home/sysadmin/perl/Net/libnet.cfg'
+
+Copying a file using the cp command requires the execute permission to access the directory where the file is located and the read permission for the file you are trying to copy.
+
+You will also need to have the write and execute permissions on the directory where you want to put the copied file.
+
+Command 	File Type 	Permission
+cp 	Source Directory 	Execute
+cp 	Source File 	Read
+cp 	Destination Directory 	Write, Execute
+
+Consider This
+
+The archive -a option of the cp command copies the contents of the file and also attempts to maintain the original timestamps and file ownership. For regular users, only original timestamps can be maintained, since regular users can't create files owned by other users. If the root user uses the -a option, then the cp command will create a new file owned by the original file owner and also use the original file's timestamps.
+
+The -a option also implies that recursion will be done. Therefore, it can also be used to copy a directory.
+

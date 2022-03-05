@@ -1,0 +1,28 @@
+2.9.6 Man Page Sections
+
+Until now, we have been displaying man pages for commands. However, sometimes configuration files also have man pages. Configuration files (sometimes called system files) contain information that is used to store information about the operating system or services.
+
+Additionally, there are several different types of commands (user commands, system commands, and administration commands) as well as other features that require documentation, such as libraries and kernel components.
+
+As a result, there are thousands of man pages on a typical Linux distribution. To organize all of these man pages, the pages are categorized by sections, much like each individual man page is broken into sections.
+
+By default, there are nine sections of man pages:
+
+    Executable programs or shell commands
+    System calls (functions provided by the kernel)
+    Library calls (functions within program libraries)
+    Special files (usually found in /dev)
+    File formats and conventions, e.g. /etc/passwd
+    Games
+    Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7)
+    System administration commands (usually only for root)
+    Kernel routines [non-standard]
+
+When you use the man command, it searches each of these sections in order until it finds the first match. For example, if you execute the command man cal, the first section (Executable programs or shell commands) is searched for a man page called cal. If not found, then the second section is searched. If no man page is found after searching all sections, you will receive an error message:
+
+sysadmin@localhost:~$ man zed
+No manual entry for zed
+
+Consider This
+
+Typically, there are many more sections than the standard nine. Custom software designers make man pages, using non-standard section names, for example "3p".

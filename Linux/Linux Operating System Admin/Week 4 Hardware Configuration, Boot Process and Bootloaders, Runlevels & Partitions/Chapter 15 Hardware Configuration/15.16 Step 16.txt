@@ -1,0 +1,10 @@
+15.16 Step 16
+
+Verify that the vfat module has been loaded by executing the following command:
+
+lsmod | grep fat
+
+[root@centos ~]# lsmod | grep fat
+vfat                	10584	0
+fat                 	54992	1  vfat
+

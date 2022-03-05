@@ -1,0 +1,10 @@
+11.4 Multi-Session Command Line Utilities
+
+Now that we have discussed process creation and management, we can talk about a related topic, which is how you can manage multiple processes inside a single Bash shell environment.
+
+The need for multiple processes inside a single shell is not very important to a console user, who can simply switch to another TTY (terminal session accessible via hardware means) and run another shell, or open another instance of the graphical terminal app on a desktop session. However, imagine the user is connected via the ssh command to another system that does not have those multiple terminal capabilities but needs to accomplish several tasks inside their one connected shell session on that remote system.
+
+Such a user might need to run a command to monitor CPU usage, edit a configuration file, and possibly execute a command to initiate a system update. However, without special program assistance, they would only be able to do one at a time, or would have to use the jobs command method of putting each command into the background and having little more than the ability to switch between the jobs.
+
+There are a couple of options to accomplish true multiple terminal session productivity when limited to a single Bash shell connection on a system. We will focus on the screen and tmux commands, both of which allow the user to start processes in a session that can be detached while still running, then re-attached and managed by various methods.
+

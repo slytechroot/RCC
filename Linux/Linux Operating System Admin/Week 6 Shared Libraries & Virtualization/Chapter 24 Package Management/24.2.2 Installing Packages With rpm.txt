@@ -1,0 +1,49 @@
+24.2.2 Installing Packages With rpm
+
+A dependency is a software package (or a feature) that is required for another package to be installed and function correctly. When an administrator uses the rpm command to install a .rpm software package, that process will fail if the dependencies for that package are not already installed.
+
+For example, to install the x3270-x11-3.3.6-10.5.el6.i686.rpm package, execute:
+
+[sysadmin@localhost ~]$ rpm -i x3270-x11-3.3.6-10.5.el6.i686.rpm
+
+If there were any missing dependencies, the rpm command would fail and display an error message like the following:
+
+[sysadmin@localhost ~]$ rpm -i x3270-x11-3.3.6-10.5.el6.i686.rpm
+error: Failed dependencies:
+	libicuuc.so.42 is needed by x3270-x11-3.3.6-10.5.el6.i686
+	x3270 = 3.3.6 is needed by x3270-x11-3.3.6-10.5.el6.i686
+
+Based upon the previous output, a library or shared object file named libicuuc.so.42 and the x3270 package (version 3.3.6) are missing. The library file is a bit tricky since it is not clear what package it belongs to. Searching the internet using the library file name reveals that the missing package needed in order to install the library file is named libicu.
+
+It is important to note that sometimes a package and its dependencies must be installed at the same time if there are any circular dependencies between them. Once the x3270 and libicu packages are located, then the administrator would install them along with the x3270-x11 package by executing a command like the following:
+
+[sysadmin@localhost ~]$ rpm -i x3270-x11-3.3.6-10.5.el6.i686.rpm x3270-3.3.6-10.5.el6.i686.rpm libicu-4.2.1-9.1.el6_2.i686.rpm
+
+The RPM system uses a database to track the capabilities of each previously installed package. An RPM file contains a list of package dependencies. Before installing an RPM package, the rpm command compares this information to determine if the dependencies were satisfied.
+
+Most administrators determine package dependencies by examining the output of a failed RPM package install. However, it is also possible to check the requirements and dependencies of a package in advance with the following rpm query (partial output shown):
+
+[sysadmin@localhost ~]$ rpm -qpR x3270-x11-3.3.6-10.5.el6.i686.rpm
+/bin/sh
+/usr/bin/mkfontdir
+gtk2 >= 2.6
+libICE.so.6
+libicuuc.so.42
+libnsl.so.1
+libssl.so.10
+libutil.so.1
+x3270 = 3.3.6
+
+Note
+
+To see what each package provides, perform a query with the --provides option. The output from the following command demonstrates that this package provides the required x3270 package with the version equal to 3.3.6:
+
+[sysadmin@localhost ~]$ rpm -qp --provides x3270-3.3.6-10.5.el6.i686.rpm
+config(x3270) = 3.3.6-10.5.el6
+x3270 = 3.3.6-10.5.el6
+x3270(x86-32) = 3.3.6-10.5.el6
+
+Occasionally, a package needs to be reinstalled, perhaps because a file from that package is missing. Normally, the rpm command will refuse to install a package that is already installed, but it can be forced by adding the --force option. For example, to reinstall the x3270 package, execute the following command:
+
+[sysadmin@localhost ~]$ rpm --force -i x3270-3.3.6-10.5.el6.i686.rpm
+

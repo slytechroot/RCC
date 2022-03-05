@@ -1,0 +1,9 @@
+4.6 Step 6
+
+The asterisk * character matches zero or more characters, whereas the question mark ? character matches exactly one character. To search for all files with names beginning with D and having at least one more character, execute the following command:
+
+echo D?*
+
+sysadmin@localhost:~$$ echo D?*                                    
+Desktop Documents Downloads
+

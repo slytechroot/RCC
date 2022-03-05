@@ -1,0 +1,16 @@
+10.19 Step 19
+
+A delimiter can be set using the -d option with the xargs command. To view the contents of the /etc directory beginning with ca with all instances of the dash - character replaced with a space character, use the following commands:
+
+ls /etc | grep ^ca
+ls /etc | grep ^ca | xargs -d '-'
+
+sysadmin@localhost:~$ ls /etc | grep ^ca
+ca-certificates
+ca-certificates.conf
+calendar
+sysadmin@localhost:~$ ls /etc | grep ^ca | xargs -d '-'
+ca certificates
+ca certificates.conf
+calendar
+

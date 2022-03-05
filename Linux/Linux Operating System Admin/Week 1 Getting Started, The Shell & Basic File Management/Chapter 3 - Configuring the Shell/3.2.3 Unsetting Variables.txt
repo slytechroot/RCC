@@ -1,0 +1,15 @@
+3.2.3 Unsetting Variables
+
+If you create a variable and then no longer want that variable to be defined, use the unset command to delete it:
+
+unset VARIABLE
+
+sysadmin@localhost:~$ example=12
+sysadmin@localhost:~$ echo $example
+12
+sysadmin@localhost:~$ unset example
+sysadmin@localhost:~$ echo $example
+
+Warning
+
+Do not unset critical system variables like the PATH variable, as this may lead to a malfunctioning environment.

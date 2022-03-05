@@ -1,0 +1,10 @@
+14.2 Step 2
+
+Execute the following command to see a soft link file:
+
+ls -l /etc/rc.local
+
+[root@localhost ~]# ls -l /etc/rc.local                                         
+lrwxrwxrwx 1 root root 13 Feb  4  2016 /etc/rc.local -> rc.d/rc.local
+
+Note that soft links are easy to see as the file type (first character before permissions) is a letter l and the filename includes the link. 

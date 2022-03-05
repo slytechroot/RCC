@@ -1,0 +1,32 @@
+9.15 Step 15
+
+Type :q and then press the Enter key to attempt to quit the document:
+
+:q
+Enter
+
+-rw-r--r-- 1 root root  5975 Jan 28  2018 _journalctl
+-rw-r--r-- 1 root root   651 Jan 28  2018 _kernel-install
+-rw-r--r-- 1 root root  3585 Jan 28  2018 _localectl
+-rw-r--r-- 1 root root  5804 Jan 28  2018 _loginctl
+-rw-r--r-- 1 root root  1243 Jan 28  2018 _networkctl
+-rw-r--r-- 1 root root   116 Jan 28  2018 _sd_hosts_or_user_at_host
+-rw-r--r-- 1 root root   279 Jan 28  2018 _sd_outputmodes
+-rw-r--r-- 1 root root   255 Jan 28  2018 _sd_unit_files
+-rw-r--r-- 1 root root 15069 Feb 28 21:03 _systemctl
+-rw-r--r-- 1 root root  3839 Jan 28  2018 _systemd
+-rw-r--r-- 1 root root  2912 Jan 28  2018 _systemd-analyze
+-rw-r--r-- 1 root root   564 Jan 28  2018 _systemd-delta
+-rw-r--r-- 1 root root  1061 Jan 28  2018 _systemd-inhibit
+-rw-r--r-- 1 root root  2378 Jan 28  2018 _systemd-resolve
+-rw-r--r-- 1 root root  3136 Jan 28  2018 _systemd-run
+-rw-r--r-- 1 root root   736 Jan 28  2018 _systemd-tmpfiles
+-rw-r--r-- 1 root root  2042 Jan 28  2018 _timedatectl
+-rw-r--r-- 1 root root  5997 Jan 28  2018 _udevadm
+
+/usr/src:
+total 0
+the end
+~
+E37: No write since last change (add ! to override)
+

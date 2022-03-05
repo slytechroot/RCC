@@ -1,0 +1,223 @@
+5.2 Listing Files
+
+While technically not a file management command, the ability to list files using the ls command is critical to file management. By default, the ls command will list the files in the current directory:
+
+sysadmin@localhost:~$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos 
+
+For arguments, the ls command will accept an arbitrary number of different path names to attempt to list:
+
+ls [OPTION]... [FILE]...
+
+Note the use of the period . character in the following example. When used where a directory is expected, it represents the current directory.
+
+sysadmin@localhost:~$ ls . Documents  /usr/local                                      
+.:                                                                   
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos       
+                                                                        
+/usr/local:                                                              
+bin  etc  games  include  lib  man  sbin  share  src                            
+                                                                         
+Documents:                                                               
+School        	  alpha-third.txt  hidden.txt	numbers.txt  spelling.tx
+Work          	  alpha.txt        letters.txt   os.csv      words      
+adjectives.txt    animals.txt      linux.txt     people.csv              
+alpha-first.txt   food.txt         longfile.txt  profile.txt             
+alpha-second.txt  hello.sh         newhome.txt   red.txt
+
+However, when the period . character is used at the beginning of a file or directory name, it makes the file hidden by default. These hidden files are not normally displayed when using the ls command, though many can be commonly found in user home directories. Hidden files and directories are typically used for individual specific data or settings. Using the -a option will display all files, including hidden files:
+
+sysadmin@localhost:~$ ls -a
+.             .bashrc   .selected_editor  Downloads  Public	 
+..            .cache	Desktop       	  Music      Templates
+.bash_logout  .profile  Documents     	  Pictures   Videos
+
+The -A option to the ls command will display almost all files of a directory. The current directory file . and the parent directory file .. are omitted.
+
+sysadmin@localhost:~$ ls -A                                         	 
+.bash_logout  .profile     	 Documents  Pictures   Videos
+.bashrc       .selected_editor   Downloads  Public                   	 
+.cache         Desktop       	 Music      Templates
+
+The -d option to the ls command is also important. When listing a directory, the ls command normally will show the contents of that directory, but when the -d option is added, then it will display the directory itself:
+
+sysadmin@localhost:~$ ls -ld /var/log                                   
+drwxrwxr-x 1 root syslog 4096 Mar  8 02:11 /var/log
+
+Listing the contents of a directory using the ls command only requires the read permission on the directory.
+
+Command 	File Type 	Permission
+ls 	Directory 	Read
+Long Listing
+
+To learn the details about a file, such as the type of file, permissions, ownership, or the timestamp, perform a long listing, using the -l option to the ls command. Because it provides a variety of output, the /var/log directory is listed as an example below:
+
+sysadmin@localhost:~$ ls -l /var/log/
+total 900                                                                       
+-rw-r--r-- 1 root   root  15322 Feb 22 16:32 alternatives.log       	 
+drwxr-xr-x 1 root   root   4096 Jul 19  2018 apt                   	 
+-rw-r----- 1 syslog adm     560 Mar  8 02:17 auth.log
+-rw-r--r-- 1 root   root  35330 May 26  2018 bootstrap.log          	 
+-rw-rw---- 1 root   utmp      0 May 26  2018 btmp                   	 
+-rw-r----- 1 syslog adm     293 Mar  8 02:17 cron.log               	 
+-rw-r--r-- 1 root   adm   85083 Feb 22 16:32 dmesg                	 
+-rw-r--r-- 1 root   root 351960 Jul 19  2018 dpkg.log         	 
+-rw-r--r-- 1 root   root  32064 Feb 22 16:32 faillog               	 
+drwxr-xr-x 2 root   root   4096 Jul 19  2018 journal          	 
+-rw-rw-r-- 1 root   utmp 292584 Mar  8 02:11 lastlog              	 
+-rw-r----- 1 syslog adm   14289 Mar  8 02:17 syslog              	 
+-rw------- 1 root   root  64128 Feb 22 16:32 tallylog              	 
+-rw-rw-r-- 1 root   utmp.   384 Mar  8 02:11 wtmp   
+
+Viewing the above output as fields that are separated by spaces, they indicate:
+File Type
+
+-rw-r--r-- 1 root root	15322 Feb 22 16:32 alternatives.log
+drwxr-xr-x 1 root root	 4096 Jul 19  2018 apt
+
+The first character of each line indicates the type of file. The file types are:
+Symbol 	File Type 	Description
+d 	directory 	A file used to store other files.
+- 	regular file 	Includes readable files, image files, binary files, and compressed files.
+l 	symbolic link 	Points to another file.
+s 	socket 	Allows for communication between processes.
+p 	pipe 	Allows for communication between processes.
+b 	block file 	Used to communicate with hardware.
+c 	character file 	Used to communicate with hardware.
+
+Note that alternatives.log is a regular file -, while the apt is a directory d.
+
+Permissions
+
+drwxr-xr-x 1 root root	4096 Jul 19 2018 journal
+
+The next nine characters demonstrate the permissions of the file. Permissions indicate how certain users can access a file.
+
+The permissions are read r, write w, and execute x. Breaking this down a bit:
+User Owner 	 	
+Read 	Write 	Execute
+
+r	w	x
+
+Group Owner	
+Read 	Write 	Execute
+
+r	-	x
+
+Other
+Read 	Write 	Execute
+
+r	-	x
+
+	
+Permissions will be covered in greater detail later in the course.
+
+Hard Link Count
+
+-rw-r----- 1 syslog adm 560 Mar 8 02:17 auth.log
+
+‌⁠​​⁠​ There is only one directory name that links to this file.
+Links will be covered in greater detail later in the course.
+
+User Owner
+
+-rw-r----- 1 syslog adm 293 Mar 8 02:17 cron.log
+
+The syslog user owns this file. Every time a file is created, the ownership is automatically assigned to the user who created it. This is important because the owner has the rights to set permissions on a file.
+File ownership will be covered in greater detail later in the course.
+
+Group Owner
+
+-rw-rw-r-- 1 root utmp 292584 Mar 8 02:11 lastlog
+
+This indicates which group owns this file. This is important because any member of this group has a set of permissions on the file. Although root created this file, any member of the utmp group has read and write access to it (as indicated by the group permissions).
+File ownership will be covered in greater detail later in the course.
+
+File Size
+
+-rw-r----- 1 syslog adm	14289 Mar 8 2018 syslog
+
+This displays the size of the file in bytes.
+
+Timestamp
+
+-rw-rw---- 1 root   utmp      0 May 26  2018 btmp
+-rw-r--r-- 1 root   adm   85083 Feb 22 16:32 dmesg
+
+This indicates the time that the file's contents were last modified. This time would be listed as just the date and year if the file was last modified more than six months from the current date. Otherwise, the month, day, and time is displayed. Using the ls command with the --full-time option will display timestamps in full detail.
+
+File Name
+
+-rw-r--r-- 1 root root 35330 May 26 2018 bootstrap.log
+
+The final field contains the name of the file or directory. In the case of symbolic links, the link name will be shown along with an arrow and the path name of the file that is linked is shown.
+
+lrwxrwxrwx. 1 root root 22 Nov 6 2012 /etc/grub.conf -> ../boot/grub/grub.conf
+
+Links will be covered in greater detail later in the course.
+
+While listing the contents of a directory using the ls command only requires the read permission on the directory, viewing file details with the -l option also requires the execute permission on the directory.
+
+Command 	File Type 	Permission
+ls -l 	Directory 	Read, Execute
+Sorting
+
+The output of the ls command is sorted alphabetically by file name. It can sort by other methods as well:
+Option 	Function
+-S 	Sorts files by size
+-t 	Sorts by timestamp
+-r 	Reverses any type of sort
+
+With both time and size sorts, add the -l option or the --full-time option, to be able to view those details:
+
+sysadmin@localhost:~$ ls -t --full-time                                         
+total 32                                                                        
+drwxr-xr-x 2 sysadmin sysadmin 4096 2019-02-22 16:32:34.000000000 +0000 Desktop
+drwxr-xr-x 4 sysadmin sysadmin 4096 2019-02-22 16:32:34.000000000 +0000 Documents  
+drwxr-xr-x 2 sysadmin sysadmin 4096 2019-02-22 16:32:34.000000000 +0000 Downloads  
+drwxr-xr-x 2 sysadmin sysadmin 4096 2019-02-22 16:32:34.000000000 +0000 Music   
+drwxr-xr-x 2 sysadmin sysadmin 4096 2019-02-22 16:32:34.000000000 +0000 Pictures
+drwxr-xr-x 2 sysadmin sysadmin 4096 2019-02-22 16:32:34.000000000 +0000 Public  
+drwxr-xr-x 2 sysadmin sysadmin 4096 2019-02-22 16:32:34.000000000 +0000 Templates  
+drwxr-xr-x 2 sysadmin sysadmin 4096 2019-02-22 16:32:34.000000000 +0000 Videos
+
+Recursion
+
+When managing files, it is important to understand what the term recursive option means. When the recursive option is used with file management commands, it means to apply that command to not only the specified directory, but also to all subdirectories and all of the files within all subdirectories. To perform a recursive listing with the ls command, add the -R option.
+
+sysadmin@localhost:~$ ls -lR /var/log
+/var/log:                                                                       
+total 900
+
+-rw-r--r-- 1 root   root  15322 Feb 22 16:32 alternatives.log          	 
+drwxr-xr-x 1 root   root   4096 Jul 19  2018 apt                      	 
+-rw-r----- 1 syslog adm     560 Mar  8 02:17 auth.log                  	 
+-rw-r--r-- 1 root   root  35330 May 26  2018 bootstrap.log             	 
+-rw-rw---- 1 root   utmp      0 May 26  2018 btmp                      	 
+-rw-r----- 1 syslog adm     293 Mar  8 02:17 cron.log                  	 
+-rw-r--r-- 1 root   adm   85083 Feb 22 16:32 dmesg                     	 
+-rw-r--r-- 1 root   root 351960 Jul 19  2018 dpkg.log                  	 
+-rw-r--r-- 1 root   root  32064 Feb 22 16:32 faillog                   	 
+drwxr-xr-x 2 root   root   4096 Jul 19  2018 journal                  	 
+-rw-rw-r-- 1 root   utmp 292584 Mar  8 02:11 lastlog                   	 
+-rw-r----- 1 syslog adm   14289 Mar  8 02:17 syslog                    	 
+-rw------- 1 root   root  64128 Feb 22 16:32 tallylog                  	 
+-rw-rw-r-- 1 root   utmp.   384 Mar  8 02:11 wtmp                             
+                                                                            
+/var/log/apt:                                                                   
+total 144                                                                    
+-rw-r--r-- 1 root root  13232 Jul 19  2018 eipp.log.xz                      
+-rw-r--r-- 1 root root  18509 Jul 19  2018 history.log                      
+-rw-r----- 1 root adm  108711 Jul 19  2018 term.log                         
+                                                                           
+/var/log/journal:                                                           
+total 0
+
+Warning
+
+Use the recursive option carefully because its impact can be huge! With the ls command, using the -R option can result in a large amount of output in your terminal. For the other file management commands, the recursive option can impact a large number of files and a large amount of disk space.
+
+Consider This
+
+Some commands use the -r option for recursion while others use the -R option. The -R option is used recursively with the ls command because the -r option is used for reversing how the files are sorted.
+

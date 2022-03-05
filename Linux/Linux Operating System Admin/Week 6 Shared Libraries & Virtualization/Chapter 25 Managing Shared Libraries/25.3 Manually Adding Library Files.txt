@@ -1,0 +1,65 @@
+25.3 Manually Adding Library Files
+
+If an administrator is compiling software from the source or using software that is not packaged, a .conf file needs to be manually created. For example, the administrator may have downloaded and installed software that was not packaged in an .rpm or a .deb file and then installed it in directories under the /usr/local directory structure, with its library files located under the /usr/local/lib directory structure. In order for these library files to be able to be loaded, create a /etc/ld.so.conf.d/local.conf file with the following content:
+
+/usr/local/lib
+
+After adding or removing files in the /etc/ld.so.conf.d directory, the administrator needs to execute the ldconfig command to update the /etc/ld.so.cache cache file.
+
+After updating the /etc/ld.so.cache file, the ldconfig command can be used to display useful information about the system's libraries
+
+To display the name and path information for all the libraries that have been added to the cache, use the ldconfig command with the -p option:
+
+sysadmin@localhost:~$ ldconfig -p | head -n 20
+799 libs found in cache `/etc/ld.so.cache'
+	libzypp.so.1702 (libc6,x86-64) => /usr/lib64/libzypp.so.1702
+	libzio.so.1 (libc6,x86-64) => /usr/lib64/libzio.so.1
+	libz.so.1 (libc6,x86-64) => /lib64/libz.so.1
+	liby2util.so.5 (libc6,x86-64) => /usr/lib64/liby2util.so.5
+	liby2.so.4 (libc6,x86-64) => /usr/lib64/liby2.so.4
+	libyui.so.8 (libc6,x86-64) => /usr/lib64/libyui.so.8
+	libyelp.so.0 (libc6,x86-64) => /usr/lib64/libyelp.so.0
+	libycpvalues.so.6 (libc6,x86-64) => /usr/lib64/libycpvalues.so.6
+	libycp.so.5 (libc6,x86-64) => /usr/lib64/libycp.so.5
+	libyaml-0.so.2 (libc6,x86-64) => /usr/lib64/libyaml-0.so.2
+	libx86emu.so.1 (libc6,x86-64) => /usr/lib64/libx86emu.so.1
+	libxtables.so.12 (libc6,x86-64) => /usr/lib64/libxtables.so.12
+	libxslt.so.1 (libc6,x86-64) => /usr/lib64/libxslt.so.1
+	libxshmfence.so.1 (libc6,x86-64) => /usr/lib64/libxshmfence.so.1
+	libxml2.so.2 (libc6,x86-64) => /usr/lib64/libxml2.so.2
+	libxml-security-c.so.17 (libc6,x86-64) =>
+/usr/lib64/libxml-security-c.so.17
+	libxklavier.so.16 (libc6,x86-64) => /usr/lib64/libxklavier.so.16
+	libxkbfile.so.1 (libc6,x86-64) => /usr/lib64/libxkbfile.so.1
+	libxkbcommon.so.0 (libc6,x86-64) => /usr/lib64/libxkbcommon.so.0
+
+The output above shows how many libraries are configured in the cache, and also displays the library names and paths where they were found when added to the cache. Due to the very large number of libraries that a typical Linux system has installed, the examples are limited by using the head command.
+
+To display the list of library directories that are configured as well as their contents, the -v option can be used:
+
+sysadmin@localhost:~$ ldconfig -v | head -n 20
+/usr/local/lib64:
+/usr/local/lib:
+/usr/lib64/graphviz:
+	libgvplugin_neato_layout.so.6 -> libgvplugin_neato_layout.so.6.0.0
+	libgvplugin_dot_layout.so.6 -> libgvplugin_dot_layout.so.6.0.0
+	libgvplugin_core.so.6 -> libgvplugin_core.so.6.0.0
+/lib:
+/lib64:
+	libmultipath.so.0 -> libmultipath.so.0
+	libmpathpersist.so.0 -> libmpathpersist.so.0
+	libmpathcmd.so.0 -> libmpathcmd.so.0
+	libpamc.so.0 -> libpamc.so.0.82.1
+	libpam_misc.so.0 -> libpam_misc.so.0.82.1
+	libpam.so.0 -> libpam.so.0.84.2
+	libreadline.so.7 -> libreadline.so.7.0
+	libhistory.so.7 -> libhistory.so.7.0
+	libtirpc.so.3 -> libtirpc.so.3.0.0
+	libtinfow.so.6 -> libtinfow.so.6.1
+	libtinfo.so.6 -> libtinfo.so.6.1
+	libticw.so.6 -> libticw.so.6.1
+
+The ldconfig command has several other options, which can be viewed by executing the man ldconfig command.
+
+sysadmin@localhost:~$ man ldconfig
+

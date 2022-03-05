@@ -1,0 +1,8 @@
+13.14 Step 14
+
+Execute the following command to provide members of the others permission set the ability to both view and modify the /srv/lab.txt file:
+
+chmod o+rw /srv/lab.txt
+
+root@localhost:~# chmod o+rw /srv/lab.txt
+root@localhost:~#

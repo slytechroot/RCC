@@ -1,0 +1,10 @@
+24.1.16 Step 16
+
+Execute the following ls command to view the new edquota file:
+
+ls /tmp/usr/sbin
+
+[root@localhost tmp]# ls /tmp/usr/sbin
+convertquota  quot        quotaoff  quotastats  rpc.rquotad  xqmstats   
+edquota       quotacheck  quotaon   repquota    setquota
+

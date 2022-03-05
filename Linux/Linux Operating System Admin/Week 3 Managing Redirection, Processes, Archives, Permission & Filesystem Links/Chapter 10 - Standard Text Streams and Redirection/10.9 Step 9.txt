@@ -1,0 +1,21 @@
+10.9 Step 9
+
+Both input as well as output redirection can be used together in the same command. To translate all the lower-case characters in the /etc/hosts file to upper-case characters and save the output in the ~/myhosts file, execute the following command:
+
+tr 'a-z' 'A-Z' < /etc/hosts > ~/myhosts
+
+sysadmin@localhost:~$ tr 'a-z' 'A-Z' < /etc/hosts > ~/myhosts
+
+To view the redirected standard input and standard output in the contents of the ~/myhosts file, use the following command:
+
+cat ~/myhosts
+
+sysadmin@localhost:~$ cat ~/myhosts
+127.0.0.1       LOCALHOST
+::1     LOCALHOST IP6-LOCALHOST IP6-LOOPBACK
+FE00::0 IP6-LOCALNET
+FF00::0 IP6-MCASTPREFIX
+FF02::1 IP6-ALLNODES
+FF02::2 IP6-ALLROUTERS
+192.168.1.2     LOCALHOST
+

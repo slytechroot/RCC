@@ -1,0 +1,9 @@
+15.15 Step 15
+
+Load the vfat module into memory by executing the following command:
+
+modprobe vfat
+
+[root@centos ~]# modprobe vfat
+[root@centos ~]#
+

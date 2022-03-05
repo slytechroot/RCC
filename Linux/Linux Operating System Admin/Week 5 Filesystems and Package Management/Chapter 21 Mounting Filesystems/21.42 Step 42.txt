@@ -1,0 +1,14 @@
+21.42 Step 42
+
+Add the swap file to the current swap space and then confirm by executing the following commands:
+
+swapon /var/swapfile
+swapon -s
+
+root@ubuntu:~# swapon /var/swapfile
+swapon: /var/swapfile: insecure permissions 0644, 0600 suggested.
+root@ubuntu:~# swapon -s
+Filename                         Type             Size    Used    Priority
+/dev/dm-1                        partition       524284   0        -2
+/dev/sdb6                        partition      3986428   0        -3
+/var/swapfile                         file       102396   0        -4

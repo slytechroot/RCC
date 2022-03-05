@@ -1,0 +1,9 @@
+4.4 Step 4
+
+To list all the files in the /usr/bin directory with names beginning with pyd, execute the following command:
+
+echo /usr/bin/pyd*
+
+sysadmin@localhost:~$ echo /usr/bin/pyd*                             
+/usr/bin/pydoc3 /usr/bin/pydoc3.6
+

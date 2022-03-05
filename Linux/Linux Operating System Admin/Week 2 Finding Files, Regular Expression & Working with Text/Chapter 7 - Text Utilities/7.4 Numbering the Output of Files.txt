@@ -1,0 +1,52 @@
+7.4 Numbering the Output of Files
+
+The nl command will number the lines of its output.
+
+nl [OPTION]... [FILE]...
+
+By default, it only numbers non-empty lines:
+
+sysadmin@localhost:~/Documents$ nl newhome.txt
+     1  Thanks for purchasing your new home!!
+ 
+     2  **Warning** it may be haunted.
+ 
+     3  There are three bathrooms.
+ 
+     4  **Beware** of the ghost in the bedroom.
+ 
+     5  The kitchen is open for entertaining.
+ 
+     6  **Caution** the spirits don't like guests.
+ 
+     7  Good luck!!!
+
+The nl command offers many formatting options for line numbering, including separate styles for headers, footers, sections, and the body of a file. For example, to have the nl command number every line in the newhome.txt file, execute the following command:
+
+sysadmin@localhost:~/Documents$ nl -ba newhome.txt
+     1  Thanks for purchasing your new home!!
+     2
+     3  **Warning** it may be haunted.
+     4
+     5  There are three bathrooms.
+     6
+     7  **Beware** of the ghost in the bedroom.
+     8
+     9  The kitchen is open for entertaining.
+    10
+    11  **Caution** the spirits don't like guests.
+    12
+    13  Good luck!!!
+
+In the previous example, the option -ba may cause some confusion as it is really just one option, not two. The -b option is the --body-numbering option, abbreviated in its short version as -b. The a is actually an argument that means number all lines. In other words, the command could also be executed:
+
+sysadmin@localhost:~/Documents$ nl -b a newhome.txt
+
+This is one of the reasons some Linux users prefer the long argument technique. Using a long argument, the command could have been written:
+
+sysadmin@localhost:~/Documents$ nl --body-numbering=a newhome.txt
+
+Consider This
+
+It is also possible to number lines using the cat -n command with the -n option, which numbers every line by default.
+

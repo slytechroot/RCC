@@ -1,0 +1,7 @@
+8.0 Introduction
+
+Regular expressions are patterns interpreted by certain commands. The patterns are enclosed in single quotes to prevent the shell from misinterpreting them. Regular expressions differ from globbing, which is a function performed by the shell and therefore not associated directly with any command.
+
+The grep command is used to demonstrate the use of regular expressions.
+
+There are two types of regular expressions – basic and extended. While the basic expressions are interpreted by most commands, the extended expressions can be used along with an option in commands that support their interpretation.

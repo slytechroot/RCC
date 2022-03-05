@@ -1,0 +1,48 @@
+2.8 Command Completion
+
+A useful tool of the Bash shell is the ability to complete commands and their arguments automatically. Like many command line shells, Bash offers command line completion, where you type a few characters of a command (or its file name argument) and then press the Tab key. The Bash shell will complete the command (or its file name argument) automatically for you. For example, if you type ech and press Tab, then the shell will automatically complete the command echo for you.
+
+There will be times when you type a character or two and press the Tab key, only to discover that Bash does not automatically complete the command. This will happen when you haven't typed enough characters to match only one command. However, pressing the Tab key a second time in this situation will display the possible completions (possible commands) available.
+
+A good example of this would be if you typed ca and pressed Tab; then nothing would be displayed. If you pressed Tab a second time, then the possible ways to complete a command starting with ca would be shown:
+
+sysadmin@localhost:~$ ca
+cal                capsh              cat                cautious-launcher
+calendar           captoinfo          catchsegv
+caller             case               catman
+sysadmin@localhost:~$ ca
+
+Another possibility may occur when you have typed too little to match a single command name uniquely. If there are more possible matches to what you've typed than can easily be displayed, then the system will use a pager to display the output, which will allow you to scroll through the possible matches.
+
+For example, if you just type c and press the Tab key twice, the system will provide you with many matches that you can scroll through:
+
+c_rehash                   cksum                                                
+cal                        clear                                                
+calendar                   clear_console                                        
+caller                     cmp                                                  
+capsh                      codepage                                             
+captoinfo                  col                                                  
+case                       colcrt                                               
+cat                        colrm                                                
+catchsegv                  column                                               
+catman                     comm                                                 
+cautious-launcher          command                                              
+cd                         compgen                                              
+cfdisk                     complete                                             
+chage                      compopt                                              
+chardet3                   compose                                              
+chardetect3                continue                                             
+chattr                     coproc                                               
+chcon                      corelist                                             
+chcpu                      cp                                                   
+chfn                       cpan                                                 
+chgpasswd                  cpan5.26-x86_64-linux-gnu                            
+chgrp                      cpgr                                                 
+chmem                      cpio                                                 
+--More--
+
+You may not wish to scroll through all these options; in that case, press Q to exit the pager. In a situation like this, you should probably continue to type more characters to achieve a more refined match.
+
+A common mistake when typing commands is to misspell the command name. Not only will you type commands faster, but you will type more accurately if you use command completion. Using the Tab key to complete the command automatically helps to ensure that the command is typed correctly.
+
+Note that completion also works for arguments to commands when the arguments are file or directory names.

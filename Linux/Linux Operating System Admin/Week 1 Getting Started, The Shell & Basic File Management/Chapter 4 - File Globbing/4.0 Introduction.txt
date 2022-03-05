@@ -1,0 +1,7 @@
+4.0 Introduction
+
+In this task, you will explore the usage of glob characters, which are wildcards used to match files or path names.
+
+Globbing expands the given wildcard pattern into a list of path names matching the pattern. This function is performed by the shell and is extremely useful for file operations. It can be used with the grep and echo commands as well as various file commands such as ls, cp, mv, and rm.
+
+File globbing allows you to expand or restrict your search by modifying the wildcard pattern.

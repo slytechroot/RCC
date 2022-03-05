@@ -1,0 +1,17 @@
+24.1.4 Step 4
+
+To view the scripts that are included with the package, execute the following command:
+
+rpm -qi --scripts setup
+
+[root@localhost /]# rpm -q --scripts setup
+postinstall scriptlet (using <lua>):
+for i, name in ipairs({"passwd", "shadow", "group", "gshadow"}) do
+     os.remove("/etc/"..name..".rpmnew")
+end
+if posix.access("/usr/bin/newaliases", "x") then
+  os.execute("/usr/bin/newaliases >//dev/null")
+end
+
+Note that in the example output provided, the postinstall scriptlet would be executed immediately after the package was installed.
+

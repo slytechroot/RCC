@@ -1,0 +1,10 @@
+15.3 Plug and Play
+
+In addition to the core hardware, there are many other components, commonly known as peripherals, that may be used with the computer system. It is important to know if a peripheral requires that the power to the computer system be turned off at the time it is connected, or if the peripheral may be connected while the computer system is on. If the power to the computer system is on and the peripheral requires that the power be turned off, connecting the device may result in damage to the peripheral, ‌⁠​​⁠​ the computer system, or both.
+
+Devices that are supposed to be connected when the power is off are known as coldplug devices. Devices that can be connected when the power is on are known as hotplug devices. In order to "plug and play", or plug in a device while the system is powered on and have it work, the device, the interface, the driver, and the operating system all must support hotplugging for that device.
+
+Consider This
+
+Typically, USB devices are hot pluggable. This means that the USB device will be auto-recognized by the running operating system, so you don't have to do anything for the system to “see” the device; just plug it in, and the USB drivers will see it, auto-configure, and connect it properly.
+

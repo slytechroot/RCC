@@ -1,0 +1,45 @@
+13.7 Default File Permissions
+
+Unlike other operating systems where the permissions on a new directory or file may be inherited from the parent directory, Linux sets the default permissions on these new objects based upon the value of the creator's umask setting. The umask command is used to both set the umask value and display it.
+
+The umask command is automatically executed when a shell is started. To have a persistent setting for umask, a custom umask command can be added to the ~/.bashrc file.
+
+To customize the umask value, it is first important to understand what the umask value does. The umask value only affects the permissions placed on new files and directories at the time they are created. It only affects the basic permissions for the user owner, the group owner, and others. The umask value does not affect the special advanced permissions of setuid, setgid, or sticky bit.
+
+The umask is an octal value based upon the same values that you saw earlier in this section:
+Octal Value 	Permission
+4 		read
+2 		write
+1 		execute
+0 		none
+
+When using the chmod command with octal values, add together the values for the user, the group, and others. However, the umask octal value is used to specify permissions to be removed. In other words, the octal value set for the umask is subtracted from the maximum possible permission to determine the permissions that are set when a file or directory is created.
+
+The maximum default permissions are different for files and directories:
+Files Type 	Octal 	Symbolic
+Files 		666 	rw-rw-rw-
+Directories 	777 	rwxrwxrwx
+
+Three digits are provided, representing the octal values of the permissions to remove for the user owner, the group owner, and others respectively. Recall the octal values for the permission sets:
+Octal Value 	Permission Set
+7 		rwx
+6 		rw-
+5 		r-x
+4 		r--
+3 		-wx
+2 		-w-
+1 		--x
+0 		---
+
+The umask command can be used to display the current umask value:
+
+sysadmin@localhost:~$ umask
+0002
+
+A breakdown of the output:
+
+    The initial 0 in the umask value is for special permissions (setuid, setgid and sticky bit). Since those are never set by default, the initial 0 is not necessary when setting the umask value.
+    The second 0 (---) indicates which permissions to subtract from the default user owner's permissions.
+    The third 0 (---) indicates which permissions to subtract from the default group owner's permissions.
+    The last number 2 (-w-) indicates which permissions to subtract from the default other's permissions.
+

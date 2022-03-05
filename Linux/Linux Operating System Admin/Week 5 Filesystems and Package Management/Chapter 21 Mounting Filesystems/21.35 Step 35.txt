@@ -1,0 +1,46 @@
+21.35 Step 35
+
+Use the nano editor to edit the /etc/fstab file:
+
+nano /etc/fstab
+
+root@ubuntu:~# nano /etc/fstab
+
+To have the new swap partition enabled automatically at boot, add the following line to the bottom of the /etc/fstab file:
+
+LABEL=myswap	none	swap	sw	0	0
+
+# /etc/fstab: static file system information.
+#
+# Use ‘blkid’ to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>    <type>  <options>      <dump>  <pass>
+/dev/mapper/ubuntu—vg-root /                 ext4  errors=remount-ro 0   1
+/dev/mapper/ubuntu—vg-swap_1 none             swap   sw              0   0
+/dev/fd0       /media/floppy0  auto     rw,user,noauto,exec,utf8 0     0
+/dev/sdb5      /data                    ext4            defaults     1     1
+LABEL=myswap                   none     swap            sw           0     0
+
+
+^G Get Help ^O Write Out ^W Where Is ^K Cut Text   ^J Justify  ^C Cur Pos    M-U Undo
+^X Exit     ^R Read File ^\ Replace  ^U Uncut Text ^T To Spell ^_ Go To Line M-E Redo
+
+Type Ctrl+X to exit the nano editor. At the Save modified buffer? prompt, type the Y key.
+
+Ctrl+X
+Y
+
+Save modified buffer? (Answering “No” will DISCARD changes.)
+Y Yes
+N No           ^C Cancel
+
+Press Enter to save (write) the file.
+
+Enter
+
+File Name to Write: /etc/fstab_
+^G Get Help              M-D DOS Format          M-A Append           M-B Backup File
+^C Cancel                M-M Mac Format          M-P Prepend          ^T
+

@@ -1,0 +1,9 @@
+4.5 Step 5
+
+The question mark ? character can be used for matching exactly one character. To view all files with names consisting of exactly two characters in the /usr/bin directory, execute the following command:
+
+echo /usr/bin/??
+
+sysadmin@localhost:~$ echo /usr/bin/??                             
+/usr/bin/du /usr/bin/ex /usr/bin/hd /usr/bin/id /usr/bin/mc /usr/bin/nl /usr/bin/od /usr/bin/pr /usr/bin/sg /usr/bin/tr /usr/bin/ua /usr/bin/ul /usr/bin/vi /usr/bin/wc /usr/bin/xz
+

@@ -1,0 +1,10 @@
+24.1.9 Step 9
+
+Install the quota package by executing the following command:
+
+rpm -i /mnt/local_repo/quota*
+
+[root@localhost /]# rpm -i /mnt/local_repo/quota*
+
+The quota package is being installed from a local repository, a collection of packages that have been downloaded from the internet ahead of time for this lab.
+

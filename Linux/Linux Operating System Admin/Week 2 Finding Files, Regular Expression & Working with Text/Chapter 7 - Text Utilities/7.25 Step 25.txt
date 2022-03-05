@@ -1,0 +1,12 @@
+7.25 Step 25
+
+A range of fields can also be provided to the cut command. To extract the fields 1 – 4 from the /etc/passwd file, execute the following command:
+
+cut –d: -f1-4 /etc/passwd | head –n 4
+
+sysadmin@localhost:~$ cut -d: -f1-4 /etc/passwd | head -n 4
+root:x:0:0
+daemon:x:1:1
+bin:x:2:2
+sys:x:3:3
+

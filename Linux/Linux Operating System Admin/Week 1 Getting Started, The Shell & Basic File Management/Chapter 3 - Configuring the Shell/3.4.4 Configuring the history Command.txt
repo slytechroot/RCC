@@ -1,0 +1,43 @@
+3.4.4 Configuring the history Command
+
+When you close the shell program, it takes commands in the history list and stores them in the ~/.bash_history file, also called the history file. By default, five hundred commands will be stored in the history file. The HISTFILESIZE variable will determine how many commands to write to this file.
+
+If a user wants to store the history commands in a file that is different from ~/.bash_history, then the user can specify an absolute path to the different file as the value for the HISTFILE local variable:
+
+HISTFILE=/path/to/file
+
+The HISTSIZE variable will determine how many commands to keep in memory for each Bash shell. If the size of HISTSIZE is greater than the size of HISTFILESIZE, then only the most recent number of commands specified by HISTFILESIZE will be written to the history file when the Bash shell exits.
+
+Although it is not normally set to anything by default, you may want to take advantage of setting a value for the HISTCONTROL variable in an initialization file like the ~/.bash_profile file. The HISTCONTROL variable could be set to any of the following features:
+
+HISTCONTROL=ignoredups
+
+Prevents duplicate commands that are executed consecutively.
+
+HISTCONTROL=ignorespace
+
+Any command that begins with a space will not be stored. This provides the user with an easy way to execute a command that won't go into the history list.
+
+HISTCONTROL=ignoreboth
+
+Consecutive duplicates and any commands that begin with a space will not be stored.
+
+HISTCONTROL=erasedups
+
+Commands that are identical to another command in your history will not be stored. (The previous entry of the command will be deleted from the history list.)
+
+HISTCONTROL=ignorespace:erasedups
+
+Includes the benefit of erasedups with the advantage of ignorespace.
+
+Another variable that will affect what gets stored in the history of commands is the HISTIGNORE variable. Most users do not want the history list cluttered with basic commands like the ls, cd, exit, and history commands. The HISTIGNORE variable can be used to tell Bash not to store certain commands in the history list.
+
+To have commands not included in the history list, include an assignment like the following in the ~/.bash_profile file:
+
+HISTIGNORE='ls*:cd*:history*:exit'
+
+Note
+
+The * character is used to indicate anything else after the command. So, ls* would match any ls command, such as ls -l or ls /etc.
+
+Globbing will be covered in greater detail later in the course.

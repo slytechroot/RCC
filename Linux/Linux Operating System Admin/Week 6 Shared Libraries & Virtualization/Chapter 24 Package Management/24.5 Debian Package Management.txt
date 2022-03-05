@@ -1,0 +1,37 @@
+24.5 Debian Package Management
+
+Debian's package management system is based upon the format used to package the software files for the Debian distribution; these package file names end in the .deb extension. The Debian package management system is used by many other distributions including Ubuntu and Mint Linux. These .deb files are archives that contain the software and the information to configure it for installation or removal.
+
+The .deb packages contain binary files compiled to execute on a particular computer architecture. In the Debian's package management system, the source packages, which contain the original source, have the .dsc extension.
+
+While software packages are often installed from either a CD-ROM or a DVD during the installation process of a Debian-derived distribution, package files are also commonly installed by downloading them directly from repositories located on internet servers. The primary configuration file that is used to locate these repositories is the /etc/apt/sources.list file.
+
+Before working with packages, run the apt-get update command. This will ensure that the system has a current list of the packages that are available in the repositories listed in the /etc/apt/sources.list file. Debian package files follow a naming convention that makes it easy to determine the package name, version, release, and architecture. For example, the joe_3.7-2.3_i386.deb file uses this generic pattern:
+
+package-name_version-release_architecture.deb
+
+Package Name
+
+joe_3.7-2.3_i386.deb
+
+The package name is the first part of the file name up to the first underscore _ character.
+
+Version
+
+joe_3.7-2.3_i386.deb
+
+The version is the second part of the file name. It starts after the first underscore and continues until a hyphen - character is found.
+
+Release
+
+joe_3.7-2.3_i386.deb
+
+The third part of the file name is the release. The release is set by the organization that packages and distributes the package file. The release starts after the hyphen following the version and ends before the underscore _ character before the architecture.
+
+Architecture
+
+joe_3.7-2.3_i386.deb
+
+The final part of the file name after the release, but before .deb is the architecture for which the package was compiled. Not only does Debian support multiple PC architectures, including amd64, i386 and ia64, but numerous other architectures like armel, armhf, mips, mipsel, powerpc, s390, s390x, and sparc. For the joe_3.7-2.3_i386.deb package, the architecture of i386 indicates this package is built to run on a 32-bit Intel-compatible processor.
+
+The dpkg command is the most direct tool available for managing .deb packages. It can be used for installing, removing, and querying packages for information, although other higher-level tools like synaptic, or the Advanced Package Tool (APT) provide more powerful capabilities for managing dependencies between packages. The synaptic command is a graphical user interface that allows an administrator to install, remove, and update packages by navigating menus. Some of the commands that are a part of APT are discussed later in this unit.

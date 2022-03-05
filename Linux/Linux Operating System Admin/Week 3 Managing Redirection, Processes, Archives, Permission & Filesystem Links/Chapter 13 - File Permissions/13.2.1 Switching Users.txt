@@ -1,0 +1,57 @@
+13.2.1 Switching Users
+
+There are many different ways to execute a command that requires administrative or root privileges. Logging in to the system as the root user allows you to execute commands as the administrator. This access is potentially dangerous because you may forget that you are logged in as root and might run a command that could cause problems on the system. As a result, it is not recommended to log in as the root user directly.
+
+The su command allows you to run a shell as a different user. While switching to the root user is what the su command is used for most frequently, it can also switch to other users as well.
+
+su [OPTIONS] [USERNAME]
+
+When switching users, utilizing the login shell option is recommended as the login shell fully configures the new shell with the settings of the new user, ensuring any commands executed run correctly. If this option is omitted, the new shell changes the UID but doesn't fully log in as the user. The login shell option can be specified one of three ways:
+
+su -
+su -l
+su --login
+
+By default, if a username is not specified, the su command opens a new shell as the root user. The following two commands are equivalent ways to start a shell as the root user:
+
+su - root
+su -
+
+After pressing Enter to execute either one of these commands, the user must provide the password of the root user to start the new shell. If you don't know the password of the account that you are shifting to, then the su command will fail.
+
+Note
+
+The password of the root user in our virtual machine environment is netlab123.
+
+sysadmin@localhost:~$ su -
+Password:
+root@localhost:~# id
+uid=0(root) gid=0(root) groups=0(root)
+
+After using the shell started by the su command to perform the necessary administrative tasks, return to your original shell (and original user account) by using the exit command.
+
+root@localhost:~# exit
+logout
+sysadmin@localhost:~$ id
+uid=1001(sysadmin) gid=1001(sysadmin) groups=1001(sysadmin),4(adm),27(sudo)
+
+The sudo command allows users to execute commands as another user. Similar to the su command, the root user is assumed by default.
+
+sudo [OPTIONS] COMMAND
+
+In distributions that do not allow the root user to login directly or via the su command, the installation process automatically configures one user account to be able to use the sudo command to execute commands as if the root user executed them.
+
+When using the sudo command to execute a command as the root user, the command prompts for the user's own password, not that of the root user. This security feature could prevent unauthorized root access if the user were to leave their computer unattended.
+
+Note
+
+The password of the sysadmin user in our virtual machine environment is netlab123.
+
+Consider that administrative privileges are necessary to view the /etc/shadow file, therefore, use the sudo command to execute the head command on the /etc/shadow file as the root user:
+
+sysadmin@localhost:~$ sudo head -3 /etc/shadow
+[sudo] password for sysadmin:
+root:$6$gWn1b01z$/awsehiCL9PPBmlYgEbtpeSXkafiLZPcugO5VjU.R5bjhGlg8IoTOLVmkBoXlqObOBUQ0lCkVHmg2ucnoHpsY0:18010:0:99999:7:::
+daemon:*:17962:0:99999:7:::
+bin:*:17962:0:99999:7:::
+

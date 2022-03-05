@@ -1,0 +1,56 @@
+7.3 Splitting Files
+
+While the cat command can concatenate two or more files into one file, the split command can take one file and split it into multiple files. One application of the split command would be to take a file that is too large to fit on some kind of removable media and break that file apart so that each piece could be stored on separate media. This way, the pieces of the split files can each fit on a removable media for transfer to another system.
+
+This can also be a useful way to send larger files across a slow network that has connection issues. Breaking files into smaller pieces would make it easier to transfer the data across a poor network connection. Once the pieces are copied to the other system, the cat command can be used to reassemble the pieces into a single file once again.
+
+The syntax for the split command is:
+
+split [OPTION]... [INPUT [PREFIX]]
+
+The INPUT argument is typically a file name, but the split command is able to read from standard input as well.
+
+Note
+
+Standard input and output streams will be covered in greater detail later in the course.
+
+By default, the new files will be named with a prefix of x and an alphabetical suffix of aa, ab, etc.:
+
+sysadmin@localhost:~/Documents$ split longfile.txt
+sysadmin@localhost:~/Documents$ ls                                              
+School            alpha.txt    linux.txt     profile.txt   xac  xai             
+Work              animals.txt  longfile.txt  red.txt       xad  xaj             
+adjectives.txt    food.txt     newhome.txt   spelling.txt  xae  xak             
+alpha-first.txt   hello.sh     numbers.txt   words         xaf                  
+alpha-second.txt  hidden.txt   os.csv        xaa           xag                  
+alpha-third.txt   letters.txt  people.csv    xab           xah
+
+As indicated by the command syntax, it is possible to specify a prefix other than x. For example, the following example denotes file. as the prefix:
+
+sysadmin@localhost:~/Documents$ split longfile.txt file.‌
+sysadmin@localhost:~/Documents$ ls                                              
+School            animals.txt  file.ag   hidden.txt    people.csv    xac  xaj   
+Work              file.aa      file.ah   letters.txt   profile.txt   xad  xak   
+adjectives.txt    file.ab      file.ai   linux.txt     red.txt       xae        
+alpha-first.txt   file.ac      file.aj   longfile.txt  spelling.txt  xaf        
+alpha-second.txt  file.ad      file.ak   newhome.txt   words         xag        
+alpha-third.txt   file.ae      food.txt  numbers.txt   xaa           xah        
+alpha.txt         file.af      hello.sh  os.csv        xab           xai   
+
+The -d option will allow for the split files to have a numeric suffix instead of a default alphabetic suffix. If -d is added to the previous command, the resulting file names would be:
+
+sysadmin@localhost:~/Documents$ split -d longfile.txt file.
+sysadmin@localhost:~/Documents$ ls
+School            file.00  file.08  file.af   hidden.txt    profile.txt   xae   
+Work              file.01  file.09  file.ag   letters.txt   red.txt       xaf   
+adjectives.txt    file.02  file.10  file.ah   linux.txt     spelling.txt  xag   
+alpha-first.txt   file.03  file.aa  file.ai   longfile.txt  words         xah   
+alpha-second.txt  file.04  file.ab  file.aj   newhome.txt   xaa           xai   
+alpha-third.txt   file.05  file.ac  file.ak   numbers.txt   xab           xaj   
+alpha.txt         file.06  file.ad  food.txt  os.csv        xac           xak   
+animals.txt       file.07  file.ae  hello.sh  people.csv    xad  
+
+By default, the split command will break apart a file into 1,000 line chunks. The first 1,000 lines of the original file will go into the first file, the second 1,000 lines will go into the second file, etc. The above file longfile.txt splits into 11 files, meaning it is approximately 11,000 lines long.
+
+The -l option can be used to specify the number of lines to split upon. Alternatively, the -b option may be used to specify the maximum number of bytes to use per file.
+

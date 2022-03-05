@@ -1,0 +1,43 @@
+21.2 Step 2
+
+Use the fdisk command to display the current partitions:
+
+fdisk -l
+
+root@ubuntu:~# fdisk -l
+Disk /dev/sda: 9.8 GiB 10485760000 bytes, 20580000 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifierL 0x9f6a80de
+
+Device	      Boot  Start	      End  Sectors   Size   Id  Type
+/dev/sda1   *      2048   20477951 20475904   9.8G   8e  Linux LVM
+
+Disk /dev/sdb: 4 GiB, 4294967296 bytes, 8388608 sectors
+Units: sectors of 1 *512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+[   816.422399] print_req_error: I/O error, dev fd0, sector 0
+
+[   816.446441] print_req_error: I/O error, dev fd0, sector 0
+
+Disk /dev/mapper/ubuntu—vg-root: 9.3 GiB, 994469784 bytes, 19423232 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+Disk /dev/mapper/ubuntu—vg-swap_1: 512 MiB, 536870912 bytes, 1048576 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+The following describes key components of the output:
+Device 	The specific partition that the row is describing. For example, /dev/sda1 is the first partition on the first SATA hard drive.
+Start 	The starting sector of the partition.
+End 	The ending sector of the partition.
+Blocks 	The size of the partition in blocks.
+Id 	An identifier which is used to tell the kernel what type of filesystem should be placed on this partition. For example, the value 83 indicates that this partition should have an ext2, ext3, or etx4 filesystem type.
+System 	A human-readable name that indicates the type of filesystem the Id column refers to. For example, 83 is a Linux filesystem.

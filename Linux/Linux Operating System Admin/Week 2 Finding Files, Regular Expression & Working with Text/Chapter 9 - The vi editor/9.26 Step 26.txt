@@ -1,0 +1,32 @@
+9.26 Step 26
+
+Of course, vi is still available at the command line. To get started using vi, simply type the command followed by the path and name of the file to edit or the file you wish to create:
+
+vi newfile
+
+sysadmin@localhost:~$ vi newfile
+
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+"newfile" [New File]
+

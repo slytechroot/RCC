@@ -1,0 +1,84 @@
+21.4 Unmounting Filesystems Manually
+
+To maximize performance, Linux keeps parts of the filesystem in memory. If media, such as USB devices, were to be removed before those memory buffers were flushed, some data may not be written to disk. This is known as an “unclean” dismount. This may result in data loss or even filesystem corruption. Unmounting is the procedure used to flush all the buffers and make the disk safe to remove.
+
+To unmount a filesystem, use the umount command with either the filesystem or the directory given as an argument. For example, to unmount the /mnt directory that was previously mounted, execute the following command:
+
+Note
+
+The following examples may not match the output in our virtual environment.
+
+root@localhost:~# umount /mnt
+
+Because the /dev/sdb1 filesystem was mounted under the /mnt directory, the following command would have also worked:
+
+root@localhost:~# umount /dev/sdb1
+
+There are a few instances where the umount command will fail to unmount a filesystem:
+
+    There is a file open that is located within the filesystem. The term open means in use by a program. For example, if the file was being edited by a text editor like the vi editor, it would be considered to be open.
+
+    There is an executable file running that is located within the filesystem.
+
+    A user has a directory within the filesystem as their current working directory.
+
+When the umount command fails to unmount a filesystem, it will normally report that the device is busy:
+
+root@localhost:~# umount /mnt
+umount: /mnt: device is busy.
+	(In some cases useful info about processes that use
+	 the device is found by lsof(8) or fuser(1))
+
+To determine what is making the filesystem busy, use the lsof or fuser commands as suggested in the output of the previous example.
+
+The output of the lsof command is the list of all open files on the operating system, which can easily number in the thousands. Therefore, it is important to filter the output of the lsof command to find the correct opened file. A good way to do this is to pipe the output of the lsof command to the grep command. Use the grep command to find the filesystem that should be unmounted. For example, if the /mnt directory was busy, the root user can execute the following command from the /mnt directory:
+
+root@localhost:/mnt# lsof | grep /mnt
+bash      2577      root  cwd       DIR        8,1     1024          2 /mnt
+lsof      2631      root  cwd       DIR        8,1     1024          2 /mnt
+grep      2632      root  cwd       DIR        8,1     1024          2 /mnt
+lsof      2633      root  cwd       DIR        8,1     1024          2 /mnt
+
+The first three columns are most useful: the name of the process, the process ID, and the user running the process. Using the process ID along with the kill command, a system administrator can terminate processes that may be keeping the directory busy. However, be very careful about killing processes that have files open for writing as this may damage files or directories within a filesystem.
+
+The fuser command provides much more concise output, and it will indicate if a file is open for writing. It is even able to terminate processes, much like the kill command.
+
+The -v option to the fuser command produces slightly more output, including the name of the user who is running the process and a code which indicates the way that a process is using the directory. For example, if unsuccessfully attempting to unmount the /mnt directory, try executing the following fuser command:
+
+root@localhost:~# fuser -v /mnt
+                     USER        PID ACCESS COMMAND
+/mnt:                root       2529 ..c.. bash
+
+In this case, the process keeping the /mnt directory busy is being run by the root user. The process id is 2529, the access of c indicates the process is using the directory as its current directory. The process itself is the Bash shell.
+
+Access codes that might be reported by the fuser command are:
+Access Code 	Meaning
+c 	The process is using the mount point or a subdirectory as its current directory.
+e 	The process is an executable file that resides in the mount point structure.
+f 	The process has an open file from the mount point structure.
+F 	The process has an open file from the mount point structure that it is writing to.
+r 	The process is using the mount point as the root directory.
+m 	The process is a mmap'ed file or shared library.
+
+If the process has a file open for writing or the mount point is a root directory, it is not wise to kill that process. Otherwise, to terminate the process, execute the following command:
+
+root@localhost:~# fuser -k /mnt
+
+As with the kill command, the default signal sent by the fuser command is the TERM signal. Use the fuser -l command to list the signals that can be used:
+
+root@localhost:~# fuser -l
+HUP INT QUIT ILL TRAP ABRT IOT BUS FPE KILL USR1 SEGV USR2 PIPE ALRM TERM STKFLT CHLD CONT STOP TSTP TTIN TTOU URG XCPU XFSZ VTALRM PROF WINCH IO PWR SYS
+
+These are the same signals that are available for the kill command. To send a specific signal with the fuser command, place a hyphen in front of the signal name. For example, to end a stubborn process that is keeping the /mnt directory busy, execute the following command:
+
+root@localhost:~# fuser -k -KILL /mnt
+
+Once the process has been terminated, it should be possible to execute the umount command to unmount the filesystem.
+
+Consider This
+
+As with the kill command, the fuser command must be executed with root privileges when attempting to manage a process that is not owned by the current user.
+
+The fuser command is designed to stop processes so a filesystem can be unmounted. Because filesystems typically require root privileges to unmount, it would seem to be unusual for a regular user to execute either the fuser or umount commands.
+
+However, removable media, such as USB dongles and optical devices, typically can be unmounted by regular users. As a result, knowing how the fuser command works can be useful for regular users, as well as administrators.

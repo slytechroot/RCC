@@ -1,0 +1,126 @@
+7.7 Combining File Output
+
+The paste command will merge the lines of one or more files, line by line, separating them with a tab as a delimiter (separator) by default.
+
+paste [OPTION]... [FILE]...
+
+To demonstrate the paste command’s functionality, the numbers.txt and letters.txt will be used:
+
+sysadmin@localhost:~/Documents$ cat numbers.txt
+1
+2
+3
+4
+5
+sysadmin@localhost:~/Documents$ cat letters.txt
+a
+b
+c
+d
+e
+
+To paste these files together with a tab between the elements, use the paste command:
+
+sysadmin@localhost:~/Documents$ paste numbers.txt letters.txt
+1       a
+2       b
+3       c
+4       d
+5       e
+
+It is also possible to use other characters as delimiters. For instance, if the intent is to create a file that a spreadsheet could easily open, a comma would be chosen as the delimiter. The -d option is used to specify the delimiter.
+
+sysadmin@localhost:~/Documents$ paste -d , numbers.txt letters.txt
+1,a
+2,b
+3,c
+4,d
+5,e
+
+Similar to the paste command, the join command is able to combine two files. Instead of simply going line by line through the files, the join command matches the values of fields to determine which lines to combine. In other words, it will join files based on a common field between the files.
+
+Consider This
+
+For those familiar with Structured Query Language (SQL), the join command is similar to the SQL join statement, which combines records from two tables of related tables by matching values in joined fields.
+
+In order to break a line into fields, the join command uses either tabs or spaces between the contents of the files and breaks each line into separate fields.
+
+join [OPTION]... FILE1 FILE2
+
+To demonstrate this properly, we will use the following two files.
+
+sysadmin@localhost:~/Documents$ cat adjectives.txt
+1 golden
+2 honey
+3 fruit
+4 grey
+5 bald
+sysadmin@localhost:~/Documents$ cat animals.txt
+1 retriever 
+2 badger
+3 bat
+4 wolf
+5 eagle
+
+If the data that is used to join the files is the first field, then there is no need to specify which join fields to use. However, the field that is used in the joining process must be sorted in both files first, or else errors may occur. Also, missing elements in the key of either file will not appear in the results.
+
+In the following example, the first field is used to merge the two files together. When the files are joined, the number field is used as a key to determine which words to join:
+
+sysadmin@localhost:~/Documents$ join adjectives.txt animals.txt
+1 golden retriever
+2 honey badger
+3 fruit bat
+4 grey wolf
+5 bald eagle
+
+The first field in each file containing numbers is only shown once in the output, followed by a space and the second field from the first file, finally by another space and the second field from the second file. For illustration purposes, the same two files are shown being combined with the paste and cat commands:
+
+sysadmin@localhost:~/Documents$ paste adjectives.txt animals.txt
+1    golden    1    retriever
+2    honey     2    badger
+3    fruit     3    bat
+4    grey      4    wolf
+5    bald      5    eagle
+sysadmin@localhost:~/Documents$ cat adjectives.txt animals.txt
+1    golden
+2    honey
+3    fruit
+4    grey
+5    bald
+1    retriever
+2    badger
+3    bat
+4    wolf
+5    eagle
+
+Use the -t option to specify an alternate delimiter. For example, if two spreadsheets were exported into comma separated value .csv files, join could use those commas to distinguish one field from another.
+
+The next example illustrates a more advanced use of the join command. Two files, people.csv and os.csv., will be combined by the join command using data that isn't in the first field.
+
+sysadmin@localhost:~/Documents$ cat people.csv
+Dennis,Richie
+Andrew,Tanenbaum
+Ken,Thompson
+Linus,Torvalds
+sysadmin@localhost:~/Documents$ cat os.csv
+1970,Unix,Richie
+1987,Minix,Tanenbaum
+1970,Unix,Thompson
+1991,Linux,Torvalds
+
+The following join command will join the files according to the field containing last names:
+
+join -1 2 -2 3 -t',' people.csv os.csv
+
+To specify that the join field for the first file is the second field, -1 2 is used. The -1 option means "field of the first file" and the 2 argument means "the second field".
+
+To specify that the join field for the second file is the third field, -2 3 is used. The -2 option means "field of the second file" and the 3 argument means "the third field".
+
+These files also use a delimiter that is neither a tab nor a space, so the delimiter is specified as a comma , character with the -t',' option:
+
+sysadmin@localhost:~/Documents$ join -1 2 -2 3 -t',' people.csv os.csv
+Richie,Dennis,1970,Unix
+Tanenbaum,Andrew,1987,Minix
+Thompson,Ken,1970,Unix
+Torvalds,Linus,1991,Linux
+

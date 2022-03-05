@@ -1,0 +1,8 @@
+24.1.17 Step 17
+
+Execute the following command to copy this file to the correct location:
+
+cp /tmp/usr/sbin/edquota /usr/sbin
+
+[root@localhost tmp]# cp /tmp/usr/sbin/edquota /usr/sbin
+

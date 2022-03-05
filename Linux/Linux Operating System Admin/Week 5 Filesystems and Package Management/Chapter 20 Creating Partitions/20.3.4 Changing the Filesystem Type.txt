@@ -1,0 +1,76 @@
+20.3.4 Changing the Filesystem Type
+
+By default, the fdisk utility sets the filesystem type to Id 83 (Linux) for primary and logical partitions. For extended partitions, the Id should be 5 and should never be changed.
+
+To change the filesystem type, use the t command:
+
+Command (m for help): t
+
+The fdisk utility will prompt for the number of the partition to be changed:
+
+Partition number (1-6): 6
+
+Lastly, the user will be prompted to enter a hexadecimal value for the Id. In the following example output, the user enters a value of 82, which changes the partition Id to Linux swap/Solaris:
+
+Hex code (type L to list codes): 82
+
+Changed system type of partition 6 to 82 (Linux swap / Solaris)
+
+While at the Hex Code prompt, the user can display a list of the hex codes that are available by typing the L character:
+
+Hex code (type L to list codes): L
+
+ 0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris
+ 1  FAT12           39  Plan 9          82  Linux swap / So c1  DRDOS/sec (FAT-
+ 2  XENIX root      3c  PartitionMagic  83  Linux           c4  DRDOS/sec (FAT-
+ 3  XENIX usr       40  Venix 80286     84  OS/2 hidden C:  c6  DRDOS/sec (FAT-
+ 4  FAT16 <32M      41  PPC PReP Boot   85  Linux extended  c7  Syrinx
+ 5  Extended        42  SFS             86  NTFS volume set da  Non-FS data
+ 6  FAT16           4d  QNX4.x          87  NTFS volume set db  CP/M / CTOS / .
+ 7  HPFS/NTFS       4e  QNX4.x 2nd part 88  Linux plaintext de  Dell Utility
+ 8  AIX             4f  QNX4.x 3rd part 8e  Linux LVM       df  BootIt
+ 9  AIX bootable    50  OnTrack DM      93  Amoeba          e1  DOS access
+ a  OS/2 Boot Manag 51  OnTrack DM6 Aux 94  Amoeba BBT      e3  DOS R/O
+ b  W95 FAT32       52  CP/M            9f  BSD/OS          e4  SpeedStor
+ c  W95 FAT32 (LBA) 53  OnTrack DM6 Aux a0  IBM Thinkpad hi eb  BeOS fs
+ e  W95 FAT16 (LBA) 54  OnTrackDM6      a5  FreeBSD         ee  GPT
+ f  W95 Ext'd (LBA) 55  EZ-Drive        a6  OpenBSD         ef  EFI (FAT-12/16/
+10  OPUS            56  Golden Bow      a7  NeXTSTEP        f0  Linux/PA-RISC b
+11  Hidden FAT12    5c  Priam Edisk     a8  Darwin UFS      f1  SpeedStor
+12  Compaq diagnost 61  SpeedStor       a9  NetBSD          f4  SpeedStor
+14  Hidden FAT16 <3 63  GNU HURD or Sys ab  Darwin boot     f2  DOS secondary
+16  Hidden FAT16    64  Novell Netware  af  HFS / HFS+      fb  VMware VMFS
+17  Hidden HPFS/NTF 65  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE
+18  AST SmartSleep  70  DiskSecure Mult b8  BSDI swap       fd  Linux raid auto
+1b  Hidden W95 FAT3 75  PC/IX           bb  Boot Wizard hid fe  LANstep
+1c  Hidden W95 FAT3 80  Old Minix       be  Solaris boot    ff  BBT
+1e  Hidden W95 FAT1
+
+There are technically dozens of filesystem types as demonstrated by the previous output. However, only a handful of these filesystems can realistically be used on a Linux operating system. Many of the filesystems that are listed in the previous graphic are older. Each Linux distribution can support different filesystems as this is actually a feature of the kernel, so it is best to look at the system's documentation to determine which filesystem types work on a particular distribution.
+
+In the following example, the /dev/sda6 partition is changed to 82, a swap partition, using the same steps described above.
+
+Command (m for help): t
+Partition number (1-6): 6
+Hex code (type L to list codes): 82
+Changed system type of partition 6 to 82 (Linux swap / Solaris)
+
+It is always a good idea to double-check the new Id by printing the partition table:
+
+Command (m for help): p
+
+Disk /dev/sda: 11.3 GB, 11261706240 bytes
+255 heads, 63 sectors/track, 1369 cylinders, total 21995520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000ee7d2
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     1026047      512000   83  Linux
+/dev/sda2         1026048    20971519     9972736   8e  Linux LVM
+/dev/sda3        20971520    21176319      102400   83  Linux
+/dev/sda4        21176320    21995519      409600    5  Extended
+/dev/sda5        21178368    21383167      102400   83  Linux
+/dev/sda6        21385216    21995519      305152   82  Linux swap / Solaris
+

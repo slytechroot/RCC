@@ -1,0 +1,13 @@
+24.1.14 Step 14
+
+Execute the following commands to extract all of the files from the quota package into the /tmp directory:
+
+cd /tmp
+rpm2cpio /mnt/local_repo/quota* | cpio -imud
+
+[root@localhost /]# cd /tmp
+[root@localhost tmp]# rpm2cpio /mnt/local_repo/quota* | cpio -imud
+1783 blocks
+
+It isn't really necessary to extract all of the files, but there are a couple of reasons why you might. To begin with, using the -imud option to the cpio command is easier than trying to specify a single file to extract. Another reason to extract all of the files is that it is likely that more than one file is missing.
+

@@ -1,0 +1,9 @@
+17.15 Step 15
+
+This system supports traditional GRUB. View the /boot/grub/grub.conf file by executing the following command:
+
+cat /boot/grub/grub.conf
+
+[root@centos ~]# cat /boot/grub/grub.conf
+
+The timeout value determines how long the user has before the system starts booting to the default OS. In this example, there is only one OS, defined by the title directive. The hiddenmenu directive indicates that the GRUB menu is not displayed by default during the countdown provided by the GRUB before booting the system.

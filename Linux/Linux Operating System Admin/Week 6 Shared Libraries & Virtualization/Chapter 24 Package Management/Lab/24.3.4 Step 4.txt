@@ -1,0 +1,34 @@
+24.3.4 Step 4
+
+To find a package to install, the search se command can be used to query the configured repositories on the system. Use the following command to search for the python package:
+
+zypper se python
+
+localhost:~ # zypper se python
+Loading repository data...                                                      
+Reading installed packages...                                                   
+                                                                                
+S | Name                | Summary                                      | Type   
+--+---------------------+----------------------------------------------+--------
+i | libpython2_7-1_0    | Python Interpreter shared library            | package
+i | python              | Python Interpreter                           | package
+i | python-base         | Python Interpreter base package              | package
+i | python-gobject2     | Python bindings for GObject                  | package
+i | python-pyliblzma    | Python bindings for liblzma                  | package
+i | python-rpm-macros   | RPM macros for building of Python modules    | package
+i | python-urlgrabber   | A high-level cross-protocol url-grabber      | package
+i | python-xml          | A Python XML Interface                       | package
+i | python2-cssselect   | CSS3 selectors for Python                    | package
+i | python2-dbus-python | Python bindings for D-Bus                    | package
+i | python2-deltarpm    | Tools to Create and Apply deltarpms          | package
+i | python2-gobject     | Python bindings for GObject                  | package
+i | python2-gpgme       | A Python module for working with OpenPGP m-> | package
+i | python2-iniparse    | Python Module for Accessing and Modifying -> | package
+i | python2-lxml        | Pythonic XML processing library              | package
+i | python2-pycurl      | PycURL -- cURL library module                | package
+i | python2-rpm         | Python Bindings for Manipulating RPM Packa-> | package
+i | python2-six         | Python 2 and 3 compatibility utilities       | package
+i | python2-yum         | YUM update notification daemon               | package
+
+Note that in the output above, the status field (S) contains the letter i, which means that the python package is currently installed.
+

@@ -1,0 +1,28 @@
+5.3 Viewing File Types
+
+‌⁠​​⁠​When viewing a binary file in a CLI, the terminal may become corrupted and unable to display the output of other subsequent commands correctly. To avoid viewing binary files, use the file command. The file command "looks at" the contents of a file to report what kind of file it is; it does this by matching the content to known types stored in a magic file.
+
+Many commands that you will use in Linux expect that the file name provided as an argument is a text file (rather than some sort of binary file). As a result, it is a good idea to use the file command before attempting to access a file to make sure that it does contain text. For example, the Documents/newhome.txt file is in ASCII English text format and can be viewed without any problem:
+
+sysadmin@localhost:~$ file Documents/newhome.txt
+Documents/newhome.txt: ASCII text
+
+In the next example, the file /bin/ls is an Executable Link Format (ELF); this file shouldn't be displayed with the cat command. While the cat command is able to output the contents of binary files, the terminal application may not handle displaying the content of binary files correctly.
+
+sysadmin@localhost:~$ file /bin/ls
+/bin/ls: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically lin
+ked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]
+=9567f9a28e66f4d7ec4baf31cfbf68d0410f0ae6, stripped
+
+Note
+
+The cat command used to display the content of text files.
+
+This command will be covered in greater detail later in the course.
+
+Important
+
+If you use a command that is expecting a text file argument, you may get strange results if you provide a non-text file. Your terminal may become disrupted by attempting to output binary content; as a result, the terminal may not be able to function properly anymore.
+
+The result will be strange characters being displayed in the terminal. If this occurs, use the exit or logout commands to leave the terminal you were using and then reconnect or log in again. It may also be possible to execute the reset command. If this does not solve the problem, closing the terminal and opening a new one will solve the problem.
+

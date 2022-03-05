@@ -1,0 +1,20 @@
+
+18.1 Introduction
+
+Linux uses the concept of different runlevels to define what services or processes will be running. Although the Linux kernel can recognize runlevel values from 0 to 9, typically only runlevels 0 through 6 are used. Traditionally, init and Upstart used these runlevels to define which services were started according to the needs of a particular runlevel. Being able to define a specific runlevel is essential for troubleshooting systems when software components, such as hardware drivers, are causing the kernel to crash.
+
+Recently, these programs have been replaced on many distributions by systemd, a service and system manager originally designed by Red Hat. It does something similar to runlevels called targets, which are shown in the following table with their runlevel equivalent.
+
+The Linux Standards Base 4.1 defines the purpose of each runlevel like this:
+‌⁠​​⁠
+Runlevel 	Purpose 	systemd Target
+0 	Halt or shut off the system 	poweroff.target
+1 	Single-user mode for administrative tasks 	rescue.target
+2 	Multi-user mode without configured network interfaces or network services 	multi-user.target
+3 	Normal startup of the system 	multi-user.target
+4 	User-definable 	multi-user.target
+5 	Start the system normally with a graphical display manager 	graphical.target
+6 	Restart the system 	reboot.target
+
+While these runlevels are considered "standard", not all distributions use them for the same purposes. Check the documentation that comes with your distribution to confirm the purpose of each runlevel. In fact, for systems that no longer use the traditional init process, the use of runlevels may only be provided for maintaining compatibility with processes that may expect them.
+

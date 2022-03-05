@@ -1,0 +1,22 @@
+19.2.1 Understanding Partitions
+
+Consider a situation in which a school official needs to organize a library at a university. This library will cater to the needs of three different groups of students: law students, engineering students, and general education students. The administrator determines that it would be beneficial to separate the library books into three physical locations based on these groups, but there is only one physical building available. A solution would be to place all of the law books on the first floor, all of the engineering books on the second floor, and all other books on the third floor.
+
+This is the concept of partitioning. The hard drive is a storage container that is capable of storing all of the system’s files. However, there are benefits to breaking this large container into smaller containers.
+
+Within the library building, the separation would be easy to see, as this could be done by floor or by constructing walls between sections of the building. With a hard drive, it is important first to understand how a hard drive is physically constructed. Consider the following graphic:
+Hard Drive diagram showing 3 cylinders, boom, head, sector, spindle, track, platter.
+
+A typical hard disk drive (HDD) consists of multiple platters, which store data in magnetic form. Heads are able to read and write on both sides of each platter. The platters are connected to the spindle and spin at the same speed. The boom moves back and forth, allowing each head to read from or write to the same location on each platter simultaneously.
+
+One complete rotation around one side of a platter is called a track. The same track on both sides of all of the platters forms a cylinder:
+Cylinder diagram showing a cylinder labeled Cylinder X made up of four platters and a track on each platter labeled Track X.
+
+A typical hard drive may have thousands of cylinders. Multiple consecutive cylinders can be assigned to a partition. For example, consider the following graphic:
+Diagram showing four cylinders as dotted lines on four platters. The outside cylinder is labeled 1, the second is labeled 544, the third is labeled 1040 and the innermost cylinder is labeled 1600.
+
+The first partition would be from cylinder 1 to cylinder 544. The second partition would be from cylinder 545 to cylinder 1040. The last partition would be from cylinder 1041 to 1600.
+
+Creating these partitions is accomplished by a partitioning tool, such as the fdisk utility that will be covered in a later chapter.
+
+So, to summarize, a hard disk is broken into partitions by assigning consecutive cylinders to specific partitions. Each partition will then have a filesystem formatted on it to give the operating system a way to organize files and directories.

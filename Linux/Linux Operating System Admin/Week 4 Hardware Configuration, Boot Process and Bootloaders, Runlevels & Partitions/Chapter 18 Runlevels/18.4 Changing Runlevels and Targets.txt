@@ -1,0 +1,49 @@
+18.4 Changing Runlevels and Targets
+
+Both the traditional SysVinit and Upstart support passing runlevels to the kernel as parameters from the bootloader to override the default runlevel.
+
+To specify a different runlevel at boot time on a system that uses systemd, append to the kernel parameters an option with the following syntax where DESIRED.TARGET is one of the systemd targets:
+
+systemd.unit=DESIRED.TARGET
+
+The root user can also change runlevels while the operating system is running by using several commands, including the init and telinit commands, which allow the desired runlevel to be specified. There are also several commands that don't directly specify the runlevel number but are designed to make the system change runlevels.
+The init and telinit Commands
+
+To directly specify the runlevel to go to, either use init or telinit. The telinit command in some distributions has a -t option, which allows for a time delay in seconds to be specified; otherwise, the init and telinit commands are functionally identical. In fact, on some systems, the telinit command may be simply a link to the init command.
+
+To use these commands, simply specify the desired runlevel as an argument. For example, to reboot the system, use either the init 6 command or the telinit 6 command. Or, to go to runlevel 5, use either init 5 or telinit 5.
+
+Important
+
+Changing runlevels will affect the applications or services you are running and can cause data loss or connection interruption for users accessing the system for those services.
+
+With the systemd replacement for init, the init command can still be used to modify the runlevel; systemd will translate the desired runlevel to a target. For example, if init 5 is executed, then systemd would attempt to change to the graphical.target state.
+
+To have systemd natively switch to a target state, with root privileges execute:
+
+systemctl isolate DESIRED.TARGET
+
+For example, to take the system to runlevel 1 execute the systemctl isolate rescue.target command. Likewise, to natively go to runlevel 5, execute the systemctl isolate graphical.target command.
+The halt, poweroff, reboot, and shutdown Commands
+
+To bring the system down to runlevel zero, execute the halt, poweroff, or shutdown command.
+
+While the halt and poweroff commands will begin shutting down the system immediately, the shutdown command requires a time argument to indicate when the shutdown should begin. Formats of this time argument can be the word now, a countdown time in the HH:MM format, or the number of minutes to delay in the +M format. A message that will appear in the terminals of all users can also be specified with the shutdown command. For example:
+
+Note
+
+The example below may not match the output in our virtual environment.
+
+root@localhost:~# shutdown now "System going down for repairs"
+
+The message System going down for repairs would be displayed in the terminal window of each user who is currently logged in.
+
+Oddly enough, if an option is not specified, then the shutdown command will actually take the system down to runlevel 1. The shutdown command used with the -r option is similar to using the reboot command and will cause the system to go to runlevel 6. The shutdown command used with the -h option is similar to using the halt command and will cause the system to go to runlevel 0.
+
+Consider This
+
+It isn't always necessary to go to runlevel 5 (in most distributions) in order to be able to use the Graphic User Interface (GUI). The GUI that is usually provided by software known as X Windows can also be started by the startx command.
+
+After using the graphical environment, use the graphical logout to end the X Windows session.
+
+Using the startx command doesn't require root privileges the way that the init 5 or systemctl isolate graphical.target commands do.

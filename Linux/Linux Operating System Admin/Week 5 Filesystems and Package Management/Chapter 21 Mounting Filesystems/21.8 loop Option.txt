@@ -1,0 +1,22 @@
+21.8 loop Option
+
+The loop option to the mount command is used to mount special filesystems that are stored within a file. These files have the extension of .img or .iso (for ISO 9660 filesystem files), which contain complete filesystems that can be mounted with the mount command by using the loop option:
+
+root@localhost:~# mount -o loop fs.img /mnt
+
+root@localhost:~# mount -o loop cdrom.iso /mnt
+
+To better understand the purpose of the loop option, consider the following scenario: A system administrator has been instructed to download an ISO file software.iso from the internet. This ISO file contains several RPM software packages that need to be installed on some local systems. The administrator has two choices, burn a DVD of the ISO file, or to mount the ISO file as part of the filesystem. To conserve resources, the administrator chooses to mount the ISO file.
+
+To gain access to these software packages, which all end with the .rpm extension, the system administrator mounts the ISO file and then copies the software packages by executing the following commands:
+
+root@localhost:~# mount -o loop software.iso /mnt
+root@localhost:~# mkdir /root/latestrpms
+root@localhost:~# cp /mnt/*.rpm /root/latestrpms
+
+After copying the software packages to the /root/latestrpms directory, the software.iso file can be unmounted and deleted from the system.
+
+Note
+
+Almost everything in Linux is a file, including optical disks. If there is an image of a disk inside a file, it can be mounted directly from the file without needing to burn the image back on a disk using the loop option.
+

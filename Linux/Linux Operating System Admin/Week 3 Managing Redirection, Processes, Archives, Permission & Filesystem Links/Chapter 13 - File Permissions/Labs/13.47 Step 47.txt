@@ -1,0 +1,17 @@
+13.47 Step 47
+
+Execute the following commands to attempt to delete the previously created file. When prompted with the message, rm: remove write-protected regular empty file `/pub/myfile'?, type the Y key and then press Enter:
+
+rm /pub/mylabfile
+Y
+Enter
+ls -l /pub
+
+sysadmin@localhost:~$ rm /pub/mylabfile
+rm: remove write-protected regular empty file '/pub/mylabfile'? y
+rm: cannot remove '/pub/mylabfile': Operation not permitted
+sysadmin@localhost:~$ ls -l /pub
+total 0
+-rw-r--r-- 1 root root 0 Apr 18 20:16 myfile
+
+Notice that this time, the sysadmin user was not able to delete the mylabfile file.

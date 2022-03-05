@@ -1,0 +1,12 @@
+15.10 Step 10
+
+Display all of the SATA drives on the system by executing the following command:
+
+ls /dev/sd*
+
+[root@centos ~]# ls /dev/sd*
+/dev/sda	/dev/sda1	/dev/sda2
+[root@centos ~]#
+
+Devices that begin with sd in the /dev directory are device files that represent SATA or SCSI devices.
+

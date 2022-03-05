@@ -1,0 +1,21 @@
+8.3 Extended Regular Expressions
+
+While most commands that use regular expressions can interpret basic regular expressions, the use of extended regular expressions often requires a special option be provided to the command to recognize them.
+
+Extended regular expression patterns support the basic regex operators PLUS the following additional operators:
+Extended Regex 	Operators 	Meaning
+Grouping operator 	( ) 	Groups characters together to form a subpattern.
+Asterisk operator 	* 	Previous character (or subpattern) is present zero or more times.
+Plus operator 	+ 	Previous character (or subpattern) is present at least one or more times.
+Question mark operator 	? 	Previous character (or subpattern) is present zero or one time (but not more).
+Curly brace operator 	{,} 	Specify minimum, maximum, or exact matches of the previous character (or subpattern).
+Alternation operator 	| 	Logical OR of choices. For example, abc|def|xyz matches abc or def or xyz.
+
+The grep command understands both basic and extended regular expressions. By default, the grep command assumes only basic regular expressions, meaning the +, ?, {, |, (, and ) operators are interpreted as literal characters.
+
+Historically, there is a command called egrep, which is similar to the grep command, but can understand extended regular expressions. Now, the egrep command is deprecated in favor of using grep with the -E option.
+
+Note
+
+The term subpattern introduced above will be covered in the next section.
+

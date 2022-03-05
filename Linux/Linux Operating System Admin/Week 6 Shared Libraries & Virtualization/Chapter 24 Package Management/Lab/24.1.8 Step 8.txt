@@ -1,0 +1,22 @@
+24.1.8 Step 8
+
+Determine what the quota package requires in order for it to work correctly by executing the following command:
+
+rpm -qp --requires /mnt/local_repo/quota* | head
+
+[root@localhost /]# rpm -qp --requires /mnt/local_repo/quota* | head
+[root@localhost /]# rpm -qp --requires /mnt/local_repo/quota* | head
+/bin/sh                                                            
+/bin/sh                                  
+/bin/sh                                                              
+/bin/sh                                                               
+config(quota) = 1:4.01-17.el7                                          
+libc.so.6()(64bit)                                                    
+libc.so.6(GLIBC_2.2.5)(64bit)                                          
+libc.so.6(GLIBC_2.3)(64bit)                                            
+libc.so.6(GLIBC_2.3.4)(64bit)                                         
+libc.so.6(GLIBC_2.4)(64bit)      
+[root@localhost /]#
+
+Recall that this is a list of files, commands, libraries, and software packages that need to be on the system for this package to function correctly.
+

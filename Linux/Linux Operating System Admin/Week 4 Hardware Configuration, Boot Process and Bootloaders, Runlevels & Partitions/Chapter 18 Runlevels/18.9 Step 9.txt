@@ -1,0 +1,15 @@
+18.9 Step 9
+
+Execute the following commands to view a list of the scripts that are started when the system is brought to runlevel 3:
+
+cd /etc/rc.d/rc3.d
+1s S*
+
+[root@centos ~]# cd /etc/rc.d/rc3.d
+[root@centos rc3.d]# ls S*
+ 
+S02lvm2-monitor   S11auditd   S15mdmonitor         S26udev-post  S90crond
+S07iscsid         S12rsyslog  S25blk-availability  S55sshd       S99local
+S10network        S13iscsi    S25netfs             S80postfix                 
+[root@centos rc3.d]#
+

@@ -1,0 +1,15 @@
+7.24 Step 24
+
+The cut command is used to extract fields from a text file. The space and tab are the default delimiters and can be changed using the -d option.
+
+To extract the 1st, 3rd and 4th fields from the /etc/passwd file, execute the following command:
+
+cut –d: -f1,3,4 /etc/passwd | head –n 4
+
+sysadmin@localhost:~$ cut -d: -f1,3,4 /etc/passwd | head -n 4
+root:0:0
+daemon:1:1
+bin:2:2
+sys:3:3
+
+In the example above, the head command is used to limit the output of the cut command.

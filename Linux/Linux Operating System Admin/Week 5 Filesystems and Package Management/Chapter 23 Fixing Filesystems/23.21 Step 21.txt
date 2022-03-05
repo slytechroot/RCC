@@ -1,0 +1,15 @@
+23.21 Step 21
+
+Unmount the /dev/sda5 partition and then attempt to run the fsck utility on the /dev/sda5 filesystem by executing the following commands:
+
+umount /dev/sdb5
+fsck /dev/sdb5
+
+root@ubuntu:~# umount /dev/sdb5
+root@ubuntu:~# fsck /dev/sdb5
+fsck from util-linux 2.31.1
+e2fsck 1.44.1 (24-Mar-2018)
+/dev/sdb5: clean, 11/51200 files, 12115/204800 blocks
+
+The clean value indicates that this filesystem is either new or has been correctly unmounted. Therefore, there is no need to run fsck because the filesystem is not broken.
+

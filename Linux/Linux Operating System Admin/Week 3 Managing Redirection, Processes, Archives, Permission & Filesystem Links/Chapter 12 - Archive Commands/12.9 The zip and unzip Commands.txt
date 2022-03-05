@@ -1,0 +1,60 @@
+12.9 The zip and unzip Commands
+
+Of the many commands available in Linux that take multiple files and combine them into one, the zip command might be most familiar. The functionality of zip compressed file management has been available in the personal computing world prior to Windows and is now included within the file management graphical utilities found within Microsoft's Windows and Apple's MacOS.
+
+The zip command is very useful for creating archives that can easily be shared across multiple operating systems. The basic form of a zip command is:
+
+zip [OPTIONS]... [FILE]...
+
+The destination file will automatically have a .zip extension added to it if an extension is not specified. Also, the original files will not be replaced.
+
+sysadmin@localhost:~/Documents$ cd
+sysadmin@localhost:~$ zip ./example/package ./example/*
+  adding: example/one (stored 0%)
+  adding: example/three (stored 0%)
+  adding: example/two (stored 0%)
+sysadmin@localhost:~$ ls ./example/
+one  package.zip  three  two
+
+One especially useful option for the zip command is the -r option, which allows the zip command to recursively compress multiple directories into a single file. For example, to back up the files stored in the /var/log/apt directory, execute the following command:
+
+sysadmin@localhost:~$ zip -r ./example/logfiles /var/log/apt/
+  adding: var/log/apt/ (stored 0%)
+  adding: var/log/apt/eipp.log.xz (stored 0%)
+  adding: var/log/apt/history.log (deflated 77%)
+  adding: var/log/apt/term.log (deflated 91%)
+sysadmin@localhost:~$ ls ./example/
+logfiles.zip  one  package.zip  three  two
+
+Note
+
+The log files had been compressed using the gzip command prior to the use of the zip command.
+
+The unzip command is used to extract the files from the zip archive file. Use the unzip command without options to extract a zip archive:
+
+sysadmin@localhost:~$ cd ./example/
+sysadmin@localhost:~/example$ unzip ./logfiles.zip
+Archive:  ./logfiles.zip
+   creating: var/log/journal/
+   creating: var/log/apt/
+ extracting: var/log/apt/eipp.log.xz
+  inflating: var/log/apt/history.log
+  inflating: var/log/apt/term.log
+sysadmin@localhost:~/example$ ls ~/example/var/log/apt
+eipp.log.xz  history.log  term.log
+
+A new directory tree is created ~/example/var/log/apt that contains the files that were contained inside of the zip archive file.
+
+To view the contents of a zip file without unpacking it, use the unzip command with the list -l option:
+
+sysadmin@localhost:~/example$ unzip -l ./package.zip
+Archive:  ./package.zip
+        Archive:  ./package.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  2019-03-22 00:14   example/one
+        0  2019-03-22 00:14   example/three
+        0  2019-03-22 00:14   example/two
+---------                     -------
+        0                     3 files
+

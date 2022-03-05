@@ -1,0 +1,6 @@
+17.9 Step 9
+
+Press the Down Arrow key once and then press the Enter key to select Advanced options for Ubuntu. This will display another menu, which includes the ability to boot to a recovery mode:
+
+Press Down Arrow
+[Enter]

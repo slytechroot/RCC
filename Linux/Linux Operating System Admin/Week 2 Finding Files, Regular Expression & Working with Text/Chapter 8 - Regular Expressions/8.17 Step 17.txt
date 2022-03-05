@@ -1,0 +1,9 @@
+8.17 Step 17
+
+Special characters, such as the asterisk * operator and the plus + operator, need to be escaped using the backslash \ character to avoid their interpretation as a special character during expression evaluation. To find all occurrences of the pattern * in the /etc/rsyslog.conf file, execute the following command:
+
+grep "\*" /etc/rsyslog.conf
+
+sysadmin@localhost:~$ grep "\*" /etc/rsyslog.conf
+$IncludeConfig /etc/rsyslog.d/*.conf
+

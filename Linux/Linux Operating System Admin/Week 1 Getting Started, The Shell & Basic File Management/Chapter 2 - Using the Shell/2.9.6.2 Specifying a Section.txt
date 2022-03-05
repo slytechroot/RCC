@@ -1,0 +1,22 @@
+2.9.6.2 Specifying a Section
+
+In some cases, you will need to specify the section in order to display the correct man page. This is necessary because sometimes there will be man pages with the same name in different sections.
+
+For example, there is a command called passwd that allows you to change your password. There is also a file called passwd that stores account information. Both the command and the file have a man page.
+
+The passwd command is a user command, so the following command will display the man page for the passwd command, located in the first section, by default:
+
+sysadmin@localhost:~$ man passwd
+
+PASSWD(1)                        User Commands                       PASSWD(1)
+ 
+NAME
+       passwd - change user password
+
+To specify a different section, provide the number of the section as the first argument of the man command. For example, the command man 5 passwd will look for the passwd man page in section 5 only:
+
+PASSWD(5)                File Formats and Conversions                PASSWD(5)
+ 
+NAME
+       passwd - the password file
+

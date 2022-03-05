@@ -1,0 +1,11 @@
+23.30 Step 30
+
+You can use a backup superblock to fix the primary superblock. Unfortunately, if the primary superblock is corrupted, then you can't use the dumpe2fs command to view the location of backup superblocks:
+
+dumpe2fs /dev/sdb5 | grep superblock
+
+root@ubuntu:~# dumpe2fs /dev/sdb5 | grep superblock
+dumpe2fs: 1.44.1 (24-Mar-2018)
+dumpe2fs: Bad magic number in super-block while trying to open /dev/sdb5
+Couldn’t find valid filesystem superblock.
+

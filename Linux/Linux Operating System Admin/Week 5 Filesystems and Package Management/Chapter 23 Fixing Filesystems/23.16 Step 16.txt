@@ -1,0 +1,18 @@
+23.16 Step 16
+
+After the system finishes booting, log in to the system using the root account. When prompted, provide the root password:
+
+root
+netlab123
+
+Ubuntu 18.04.2 LTS ubuntu tty1
+ubuntu login:
+Password:
+Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-45-generic x86_64)
+ 
+* Documentation:	https://help.ubuntu.com
+* Management:	https://landscape.canonical.com
+* Support:		https://ubuntu.com/advantage
+ 
+root@ubuntu:~#
+

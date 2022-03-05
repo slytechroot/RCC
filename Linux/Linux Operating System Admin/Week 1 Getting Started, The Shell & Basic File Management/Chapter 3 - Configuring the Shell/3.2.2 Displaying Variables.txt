@@ -1,0 +1,55 @@
+3.2.2 Displaying Variables
+
+There are several ways to display the values of variables. The set command by itself will display all variables (local and environment) Here, we will pipe the output to the tail command so we can see some of the variables that were set in the previous section:
+
+sysadmin@localhost:~$ set | tail
+DEPARTMENT=science                                                                 	 
+SHELL=/bin/bash                                                            	 
+SHELLOPTS=braceexpand:emacs:hashall:histexpand:history:interactive-comments:monitor                                                                    	SHLVL=1                                                                    	 
+TERM=xterm                                                                 	 
+UID=1001                                                                   	 
+USER=sysadmin                                                              	 
+VISUAL=vi                                                                  	 
+_=set                                                                      	 
+name=judy
+
+Note
+
+The example above utilizes a command line pipe, represented by the | character. The pipe character can be used to send the output of one command to another.
+
+The command line pipes will be covered in greater detail later in the course.
+
+Note
+
+The tail command is used to display only the last few lines of a file, (or, when used with a pipe, the output of a previous command). By default, the tail command displays ten lines of a file provided as an argument.
+
+The tail command will be covered in greater detail later in the course.
+
+To display only environment variables, you can use several commands that provide nearly the same output:
+
+env
+declare -x
+typeset -x
+export -p
+
+sysadmin@localhost:~$ env | tail
+NAME=judy                                                                  	 
+MAIL=/var/mail/sysadmin                                                    	 
+SHELL=/bin/bash                                                            	 
+TERM=xterm                                                                 	 
+SHLVL=1                                                                    	 
+EDUCATION=masters                                                          	 
+LOGNAME=sysadmin                                                           	 
+PATH=/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
+/bin:/usr/games:/usr/local/games                                           	 
+LESSOPEN=| /usr/bin/lesspipe %s                                            	 
+_=/usr/bin/env
+
+To display the value of a specific variable, use the echo command with the name of the variable prefixed by the $ (dollar sign). For example, to display the value of the PATH variable, you would execute echo $PATH:
+
+sysadmin@localhost:~$ echo $PATH
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+
+Consider This
+
+Variables can also be enclosed in the curly brace {} characters in order to delimit them from surrounding text. While the echo ${PATH} command would produce the same result as the echo $PATH command, the curly braces set the variable apart visually, making it easier to see in scripts in some contexts.

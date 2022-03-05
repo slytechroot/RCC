@@ -1,0 +1,16 @@
+9.25 Step 25
+
+Load a new shell by typing the bash command at the prompt.
+
+bash
+
+sysadmin@localhost:~$ bash
+sysadmin@localhost:~$
+
+Use the following command to see the change.
+
+echo $EDITOR
+
+sysadmin@localhost:~$ echo $EDITOR
+nano
+

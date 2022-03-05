@@ -1,0 +1,53 @@
+21.4 Step 4
+
+At the Command prompt, type the m command to display the help section:
+
+m
+
+root@ubuntu:~# fdisk /dev/sdb
+Welcome to disk (util-linux 2.31.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+Created a new DOS disk label with disk identifier 0xdcd69338.
+
+Command (m for help): m
+
+DOS  (MBR)
+ a    toggle a bootable flag
+ b    edit nested BSD disklabel
+ c    toggle the dos compatibility
+
+Generic
+ d   delete a partition
+ F   list free unpartitioned space
+ l   list know partition types
+ n   add a new partition
+ p   print the partition table
+ t   change a partition type
+ v   verify the partition table
+ i  print information about a partition
+
+Misc
+ m  print this menu
+ u  change display/entry units
+ x  extra functionality (experts only)
+
+Script
+ l  load disk layout from sfdisk script file
+ 0  dump disk layout to sfdisk script file
+
+Save & Exit
+ w  write table to disk and exit
+ q  quit without saving changes
+
+Create a new label
+ g  create a new empty GPT partition table
+ G  create a new empty SGI (IRIX) partition table
+ o  create a new empty DOS partition table
+ s  create a new empty Sun partition table
+
+Command (m for help):
+
+As you can see from the output of the m command, there are many things you can do with the fdisk utility. For this lab, we are going to focus on just two things: creating partitions and changing partition types.

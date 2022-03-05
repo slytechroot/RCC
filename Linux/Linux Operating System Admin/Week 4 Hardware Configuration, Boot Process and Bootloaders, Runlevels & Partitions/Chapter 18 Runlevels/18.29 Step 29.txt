@@ -1,0 +1,10 @@
+18.29 Step 29
+
+Verify that the sshd daemon started by checking the status:
+
+/etc/init.d/sshd status
+
+[root@centos ~]# /etc/init.d/sshd status
+openssh-daemon (pid  1203) is running...
+[root@centos ~]#
+

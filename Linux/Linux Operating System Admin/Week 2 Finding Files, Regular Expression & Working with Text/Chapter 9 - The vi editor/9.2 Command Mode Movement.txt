@@ -1,0 +1,31 @@
+9.2 Command Mode Movement
+
+There are three modes used in the vi editor: command mode, insert mode, and ex mode.
+
+Initially, the program starts in command mode. Command mode is used to type commands, such as those used to move around a document, manipulate text, and access the other two modes. To return to command mode at any time, press the Esc key.
+
+Once some text has been added into a document, to perform actions like moving the cursor, the Esc key needs to be pressed first to return to command mode. This seems like a lot of work, but remember that vi works in a terminal environment where a mouse is useless.
+
+Movement commands in vi have two aspects: a motion and an optional number prefix, which indicates how many times to repeat that motion. The general format is as follows:
+
+[count] motion
+
+The following table summarizes the motion keys available:
+‌⁠​​⁠​ 
+Motion 	Result
+h 	Left one character
+j 	Down one line
+k 	Up one line
+l 	Right one character
+w 	One word forward
+b 	One word back
+^ 	Beginning of the line
+$ 	End of the line
+
+Note
+
+Since the upgrade to vim, it is also possible to use the arrow ←↓↑→ keys instead of hjkl respectively.
+
+These motions can be prefixed with a number to indicate how many times to perform the movement. For example, the 5h command would move the cursor five characters to the left and 3w would move the cursor three words to the right.
+
+To move the cursor to a specific line number, type that line number followed by the G character. For example, to get to the fifth line of the file, type the 5G command. The 1G or gg commands can be used to go to the first line of the file, while a single G will take you to the last line. To find out which line the cursor is currently on, use Ctrl+G.

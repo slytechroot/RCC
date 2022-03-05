@@ -1,0 +1,51 @@
+24.2 RPM Package Management
+
+Red Hat's package management system is based upon the file format used to package the software files used within that distribution, known as the RPM Package Manager. Although invented at Red Hat, RPM is used for managing software for many different distributions and is the baseline software management system defined by the Linux Standards Base.
+
+Consider This
+
+Originally, this software management system was simply called RPM, or Red Hat Package Manager. It seems strange that it is now referred to as the RPM Packager Manager since the "PM" in RPM originally stood for "Package Manager". In a sense, it is similar to referring to an ATM as an "ATM machine" while ATM stands for "Automated Teller Machine".
+
+In reality, RPM no longer stands for "Red Hat Package Manager". When RPM became part of the Linux Standards Base (LSB), it was renamed RPM Package Manager to avoid including "Red Hat" in its name. This is primarily because the LSB attempts to be as neutral as possible when it comes to Linux distributions.
+
+Typically, RPM Package Manager is simply referred to as RPM.
+
+RPM files are available in two formats: .src.rpm files and .rpm files. Unless you are compiling the software yourself or viewing the source code of the software, you don't need to be concerned with the .src.rpm files. These files contain the source code that is used to build the binary .rpm files. The binary .rpm files are the ones that contain the compiled code that is ready to use.
+
+The files that are used by RPM have a specific naming convention to help identify the package, its version number, its release identifier, and which architecture the software was built for. For example, if a file was named:
+
+x3270-x11-3.3.6-10.5.el6.i686.rpm
+
+Then critical information could be discovered from just the file name:
+
+package_name-version-release.architecture.rpm
+
+Package Name
+
+x3270-x11-3.3.6-10.5.el6.i686.rpm
+
+The name of the package may include a hyphen. The name ends where the version number begins; the version number is always a decimal delimited number.
+
+Version Number
+
+x3270-x11-3.3.6-10.5.el6.i686.rpm
+
+Immediately following the package name and the hyphen that follows the package name is the version number. This version number is set by the original developer of the software.
+
+Release Identifier
+
+x3270-x11-3.3.6-10.5.el6.i686.rpm
+
+Following the hyphen after the version number is the release identifier. Release identifiers are chosen by the packager (not the software developers) of the software, which is normally the vendor of the distribution.
+
+Architecture
+
+x3270-x11-3.3.6-10.5.el6.i686.rpm
+
+If a package contains binary code, then the computer architecture that the code was compiled on will be the final part of the file name before the .rpm file extension. There are several architecture types:
+Code 	Architecture
+noarch 	Packages that do not contain binary code, such as those that may only contain script files
+src 	Packages that have not been compiled
+i686 	Packages compiled to run in 32-bit mode on a Pentium 4 or later processor
+x86_64 	Packages compiled to run in 64-bit mode on either an AMD 64-bit processor or an Intel EM64T 64-bit compatible processor
+

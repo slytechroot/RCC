@@ -1,0 +1,9 @@
+19.2.5 Linux Filesystem Components
+
+When talking about Linux the term filesystem often refers to the ext2/ext3/ext4 family of filesystems. While there are differences between these filesystems, they are similar enough when it comes to core filesystem components.
+
+A full discussion of filesystem components is beyond the scope of this course, and also presents somewhat of a moving target with virtualization and cloud computing gaining prominence. However, since Linux still operates by the kernel communicating with external resources, all system administrators need to be familiar with the key filesystem components described below:
+Component 	Description
+Superblock 	At the beginning of the filesystem is an area called the superblock. This area is used to store important information about the filesystem, including the size of the filesystem, the type of filesystem, and which data blocks (where file data is stored) are available. The superblock is a key component of the filesystem; a corrupted superblock would make the filesystem inaccessible.
+Group Block 	The filesystem is divided into smaller sections called groups. The group block serves to hold data about the group. Each group block also contains a backup copy of the superblock.
+Inode Table 	Each file is assigned a unique inode number for the filesystem. This inode number is associated with a table that stores the file's metadata.

@@ -1,0 +1,53 @@
+21.10 Mount a Filesystem
+
+The following describes how to configure a new filesystem that has been created on the /dev/sdb1 device to mount during the boot process automatically. One single line will be added at the end of the /etc/fstab file. The assumption for this example is that the partition has been created by the fdisk command and the filesystem has been created by the mkfs command.
+
+Before modifying the /etc/fstab file, first, gather the information needed. Use the blkid command to determine the UUID or label of the new filesystem. The result will be similar to the following:
+
+root@localhost:~# blkid dev/sdb1
+/dev/sdb1: UUID="a9183c2c-ee1f-4e57-9a60-b0d9e87a0337" TYPE="ext4" LABEL="mydata"
+
+In this example, the filesystem label will be used. So, the first field should be:
+
+LABEL="mydata"
+
+Next, create a mount point in the existing tree with the mkdir command:
+
+root@localhost:~# mkdir /data
+
+Now, place the following as the second field:
+
+LABEL="mydata" /data
+
+Assuming the filesystem on the partition is the Fourth Extended type, the value for the third field will be:
+
+LABEL="mydata" /data ext4
+
+Unless there is a compelling reason not to do so, use the defaults for the mount options field by specifying the value for the fourth field as:
+
+LABEL="mydata" /data ext4 defaults
+
+Since /dev/sdb1 is formatted as an ext4 filesystem and this device is local to the system, the fifth field (the dump check) should be enabled with the value of:
+
+LABEL="mydata" /data ext4 defaults 1
+
+By the same logic, the sixth field should have the value:
+
+LABEL="mydata" /data ext4 defaults 1 2
+
+Putting all of these fields together for the normal entry into the /etc/fstab file results in the following line:
+
+LABEL="mydata"  /data		ext4		defaults	1	2
+
+Device 		Mount Point 	Filesystem 	Options 	dump 	fsck
+
+After modifying the /etc/fstab file, check that the new line has been added correctly by mounting the filesystem with only the mount point or device name as an argument:
+
+root@localhost:~# mount /data
+
+root@localhost:~# mount /dev/sdb1
+
+Important
+
+If there is an error when trying to mount the filesystem, then go back and fix the /etc/fstab file or restore the backup of this file. Do not reboot the system until the error is fixed; errors in the /etc/fstab file can prevent the system from booting.
+

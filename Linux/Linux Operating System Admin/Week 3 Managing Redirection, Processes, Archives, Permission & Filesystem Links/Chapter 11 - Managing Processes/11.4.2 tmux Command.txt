@@ -1,0 +1,184 @@
+11.4.2 tmux Command
+
+The tmux command, short for terminal multiplexer, allows for multiple terminals to be opened and viewed on the same screen. Fundamentally, the tmux command is similar to the screen command, but layers on more visual aspects. For example, the tmux command includes a status bar at the bottom of the terminal the user is running tmux in that shows various items of information.
+
+To start using the tmux command, execute the command at the prompt:
+
+sysadmin@localhost:~$ tmux
+
+The shell session will appear, showing the usual green last-row indicator bar, which contains session and other information about the tmux command.
+
+sysadmin@localhost:~$
+
+
+
+[0] 0:bash*                                        "localhost" 05:24 01-Apr-19
+
+It is now possible to run a command in the current tmux session. For example, run the top command in the current session:
+
+sysadmin@localhost:~$ top
+
+top - 23:06:02 up 15 days, 45 min,  2 users,  load average: 2.86, 2.73, 2.18
+Tasks:  11 total,   1 running,  10 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  6.2 us,  4.2 sy,  0.0 ni, 89.3 id,  0.1 wa,  0.0 hi,  0.2 si,  0.0 st
+KiB Mem : 13201464+total, 58008456 free, 29883988 used, 44122196 buff/cache
+KiB Swap: 13419622+total, 13419622+free,        0 used. 10150048+avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+    1 root      20   0   18376   3172   2900 S   0.0  0.0   0:00.07 init
+    9 syslog    20   0  191328   3772   3272 S   0.0  0.0   0:00.04 rsyslogd
+   12 root      20   0   28356   2756   2488 S   0.0  0.0   0:00.00 cron
+   15 root      20   0   72296   3244   2496 S   0.0  0.0   0:00.00 sshd
+   25 bind      20   0 1141792  39948   7088 S   0.0  0.0   0:01.05 named
+   44 root      20   0   78636   3708   3156 S   0.0  0.0   0:00.00 login
+   62 sysadmin  20   0   19220   4172   2968 S   0.0  0.0   0:00.04 bash
+   87 sysadmin  20   0   27096   3688   3100 S   0.0  0.0   0:00.11 tmux: serv+
+   88 sysadmin  20   0   19300   4196   2948 S   0.0  0.0   0:00.03 bash
+   97 sysadmin  20   0   38692   3120   2676 R   0.0  0.0   0:00.36 top
+  105 sysadmin  20   0   18460   2996   2676 S   0.0  0.0   0:00.00 tmux: clie+
+
+
+[0] 0:top*                                           "localhost" 23:05 03-Apr-19
+
+To detach from the running command, in this case, the top command, press Ctrl+B, then the D command key. The action should be executed as Ctrl and lowercase b at the same time, then release and press d. This will return the user to a shell session as well as indicate that the user is detached (from session 0) and is back at the shell prompt:
+
+[detached (from session 0)]]
+sysadmin@localhost:~$
+
+Similar to the screen command, the tmux command uses a prefix key, the combination of the Control key plus a letter key, in this case, the B key. The Ctrl+B key sequence prefixes all tmux in-session commands, similar to the prefix key Ctrl+A used by the screen command.
+
+Consider This
+
+To learn more about tmux in-session commands, refer to the man pages of the tmux command where you will find the commands explained in complete detail.
+
+sysadmin@localhost:~$ man tmux
+
+To find out what tmux sessions currently exist, use either of the commands below:
+
+tmux list-sessions
+tmux ls
+
+sysadmin@localhost:~$ tmux list-sessions
+0: 1 windows (created Wed Apr  3 22:49:41 2019) [80x23]
+sysadmin@localhost:~$ tmux ls
+0: 1 windows (created Wed Apr  3 22:49:41 2019) [80x23]
+
+To create a new tmux session and run a new command in it, use the tmux new-session command:
+
+sysadmin@localhost:~$ tmux new-session 'less /etc/passwd'
+
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+systemd-network:x:101:102:systemd Network Management,,,:/run/systemd/netif:/usr/
+sbin/nologin
+/etc/passwd
+[1] 0:less*                                          "localhost" 23:10 03-Apr-19
+
+Then, to detach from the tmux session running the less command, press the Ctrl+B key sequence and then the D key, to be returned to the shell prompt again:
+
+[detached (from session 1)]
+sysadmin@localhost:~$
+
+Confirm that another session now exists with the tmux ls command:
+
+sysadmin@localhost:~$ tmux ls
+0: 1 windows (created Wed Apr  3 22:49:41 2019) [80x23]
+1: 1 windows (created Wed Apr  3 23:09:57 2019) [80x23]
+
+To re-attach to a running tmux session, such as session 0, use the tmux attach command with the target-session -t flag which specifies the session to act upon:
+
+Note
+
+The -t option used in this example is specific to the attach command, not the tmux command itself. For more information, consult the man page of the tmux command.
+
+sysadmin@localhost:~$ tmux attach -t 0
+
+top - 23:46:09 up 15 days,  1:25,  3 users,  load average: 2.86, 1.70, 1.42
+Tasks:  12 total,   1 running,  11 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  2.3 us,  2.7 sy,  0.0 ni, 95.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem : 13201464+total, 78182592 free, 30386524 used, 23445524 buff/cache
+KiB Swap: 13419622+total, 13419622+free,        0 used. 10099883+avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+    1 root      20   0   18376   3172   2900 S   0.0  0.0   0:00.07 init
+    9 syslog    20   0  191328   3772   3272 S   0.0  0.0   0:00.04 rsyslogd
+   12 root      20   0   28356   2756   2488 S   0.0  0.0   0:00.00 cron
+   15 root      20   0   72296   3244   2496 S   0.0  0.0   0:00.00 sshd
+   25 bind      20   0 1207588  40208   7088 S   0.0  0.0   0:01.57 named
+   44 root      20   0   78636   3708   3156 S   0.0  0.0   0:00.00 login
+   62 sysadmin  20   0   19220   4172   2968 S   0.0  0.0   0:00.04 bash
+   87 sysadmin  20   0   27096   3764   3164 S   0.0  0.0   0:00.42 tmux: serv+
+   88 sysadmin  20   0   19300   4196   2948 S   0.0  0.0   0:00.03 bash
+   97 sysadmin  20   0   38692   3120   2676 R   0.0  0.0   0:01.31 top
+  101 sysadmin  20   0    6912   1020    916 S   0.0  0.0   0:00.00 less
+  123 sysadmin  20   0   18460   3096   2776 S   0.0  0.0   0:00.00 tmux: clie+
+
+
+
+[0] 0:top*                                           "localhost" 23:46 03-Apr-19
+
+This will re-attach the user to the tmux session 0 and the top command will reappear on the screen.
+
+Another major difference between the tmux and screen commands is that the screen command only allows for the use of full terminal sessions. Whereas the tmux command allows sessions to be viewed in multiple on-screen windows. To enable two tmux sessions in side-by-side vertical windows, press Ctrl+B then the % key (Shift+5):
+Terminal showing a vertical split screen with the top command running on the left side of the screen and the sysadmin@localhost:~$ prompt on the right side of the screen.
+
+The new session can now be viewed along-side the first tmux session (session 0) running the top command. To run a process in the new session, simply type the command or process to run at the prompt. For example, to view the last five lines of the /etc/passwd file using the tail command in the new session:
+Terminal showing a vertical split screen with the top command running on the left side of the screen and the sysadmin@localhost:~$ prompt followed by the tail -n -5 /etc/passwd command and output on the right side of the screen.
+
+To create a new session in a horizontal window, type Ctrl+B and the “ key (Shift+’):
+Terminal showing a vertical split screen with the top command running on the left side of the screen and the sysadmin@localhost:~$ prompt followed by the tail -n -5 /etc/passwd command and output on the top right side of the screen. The right side of the screen is split horizontally and the bottom right portion is displaying the sysadmin@localhost:~$ prompt.
+
+Once again, the new session can be viewed along-side the other sessions. In the new session we will use the pgrep command to search for the less command running in the previously created tmux session (session 1):
+Terminal showing a vertical split screen with the top command running on the left side of the screen and the sysadmin@localhost:~$ prompt followed by the tail -n -5 /etc/passwd command and output on the top right side of the screen. The right side of the screen is split horizontally and the bottom right portion is displaying the sysadmin@localhost:~$ prompt followed by the pgrep -i less command and output.
+
+Notice in the example above, the PID in the output of the pgrep command (101) matches a PID in the top command running in the vertical window on the left-hand side of the terminal. To exit out of a window, use the exit command. Use the exit command in the two windows on the right-hand side of the terminal until only the top command remains:
+Animation shows the exit command being typed at the prompt in the bottom right session which quits the session and only the two previous sessions remain on the left and right. The exit command is then typed into the session on the right which quits that session and only the first session running the top command remains as a full screen.
+
+It is now possible to quit the top command by pressing the Q key.
+
+To leave the tmux session and go back to the shell prompt, use the exit command:
+
+Output Omitted...
+
+sysadmin@localhost:~$ exit
+[0] 0:bash*                                          "localhost" 23:46 03-Apr-19
+
+The other tmux session is still active, which can be confirmed with the tmux ls command again:
+
+sysadmin@localhost:~$ tmux ls
+1: 1 windows (created Wed Apr  3 23:09:57 2019) [80x23]
+sysadmin@localhost:~$
+
+To kill the other session without returning to it (which should be used carefully, so as not to corrupt any data), use the following command with the target-session -t flag and the number of the session to be killed:
+
+tmux kill-session
+
+sysadmin@localhost:~$ tmux kill-session -t 1
+
+The session or window indicator numeral should correspond to the session or window that is desired to be ended; in this case it is the indicator numeral 1.
+
+To verify that there are no longer any tmux sessions running, use the tmux ls command:
+
+sysadmin@localhost:~$ tmux ls
+no server running on /tmp/tmux-1001/default
+sysadmin@localhost:~$
+
+Although it is beyond the scope of this course, the tmux command can be almost infinitely modified to execute more complex and interesting actions.
+

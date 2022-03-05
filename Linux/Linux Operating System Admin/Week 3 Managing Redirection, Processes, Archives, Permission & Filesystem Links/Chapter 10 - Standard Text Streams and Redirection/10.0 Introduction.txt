@@ -1,0 +1,30 @@
+
+10.0 Introduction
+
+Filters are commands that read in text as input, alter it, and then produce text as output. Standard input, standard output, standard error redirection, and pipes are used to apply filter commands and to work with text streams.
+
+When a command executes without any errors, the output that is produced is known as standard out, also called stdout or STDOUT. By default, this output will be sent to the terminal where the command is being executed. The standard out is highlighted below.
+
+sysadmin@localhost:~$ ls
+Desktop Documents Downloads Music Pictures Public Templates Videos
+
+When a command encounters an error, it will produce output that is known as standard error, also called stderr or STDERR. Like standard out, the standard error output is normally sent to the same terminal where the command is currently being executed. The standard error is highlighted below.
+
+sysadmin@localhost:~$ fakecommand
+-bash: fakecommand: command not found
+
+Standard input, also called stdin or STDIN, normally comes from the keyboard with input provided by the user who runs the command. In this example, the sort command reads lines of input until Ctrl+D is pressed. The Ctrl+D key combination signals the end of input.
+
+sysadmin@localhost:~$ sort
+Banana
+Peach
+Apple
+CTRL+D
+Apple
+Banana
+Peach
+
+Lastly, command pipelines are often used to make effective use of filter commands. In a command pipeline, the output of one command is sent to another command as input.
+
+sysadmin@localhost:~$ history | less
+

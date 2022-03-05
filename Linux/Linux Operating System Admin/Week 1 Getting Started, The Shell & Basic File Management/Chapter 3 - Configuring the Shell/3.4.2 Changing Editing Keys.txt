@@ -1,0 +1,23 @@
+3.4.2 Changing Editing Keys
+
+The keys that are available for editing a command are determined by the settings of a library called Readline. The keys are typically set to match the key assignments found within the emacs text editor (a popular Linux editor) by default.
+
+To bind the keys to match the key assignments found with another popular text editor, the vi editor. The shell can be configured with the set -o vi command. To set the key bindings back to the emacs text editor, use the set -o emacs command.
+
+Note
+
+If you don't know how to use the vi editor yet, you may want to stick with the emacs keys as the vi editor has a bigger learning curve.
+
+The vi editor will be covered in greater detail later in the course.
+
+To automatically configure the edit history options at login, edit the ~/.inputrc file. If this file doesn't exist, the /etc/inputrc file is used instead. Key bindings are set differently in configuration files than on the command line; for example, to enable the vi key binding mode for an individual, add the following lines to the ~/.inputrc file:
+‌⁠​​
+
+set editing-mode vi
+set keymap vi
+
+If the situation is reversed, perhaps due to the above two lines being added to the /etc/inputrc file, a user can enable the emacs mode by adding the following lines to the ~/.inputrc file:
+
+set editing-mode emacs
+set keymap emacs
+

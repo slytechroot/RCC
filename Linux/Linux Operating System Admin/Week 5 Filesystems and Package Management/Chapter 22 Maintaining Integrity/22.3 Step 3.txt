@@ -1,0 +1,15 @@
+22.3 Step 3
+
+To view the output of the df command in more human-readable format, use the -h option:
+
+df -h
+
+[root@centos~]# df -h
+Filesystem                         Size    Used Available Use% Mounted on
+/dev/mapper/VolGroup-lv_root       3.9G    997M      2.7G  28% /
+devtmpfs                           232M       0      232M   0% /dev
+tmpfs                              244M       0      244M   0% /dev/shm
+tmpfs                              244M    4.5M      240M   2% /run
+tmpfs                              244M       0      244M   0% /sys/fs/cgroup
+/dev/sda1                          488M    101M      352M  23% /boot
+tmpfs                               49M       0       49M   0% /run/user/0

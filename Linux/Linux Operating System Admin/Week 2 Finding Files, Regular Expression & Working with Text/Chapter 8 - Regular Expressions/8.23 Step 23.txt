@@ -1,0 +1,9 @@
+8.23 Step 23
+
+To search multiple files but view only the file names instead of every matching line, execute the following command:
+
+grep –l "script" /etc/mime* 
+
+sysadmin@localhost:~$ grep -l "script" /etc/mime*
+/etc/mime.types
+

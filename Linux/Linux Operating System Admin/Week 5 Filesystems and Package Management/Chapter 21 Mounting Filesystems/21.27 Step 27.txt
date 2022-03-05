@@ -1,0 +1,17 @@
+21.27 Step 27
+
+Create a new partition by entering n at the Command prompt and use the rest of the information provided below:
+
+n
+Enter
+Enter
+
+Command (m for help): n
+All space for primary partitions is in use.
+Adding logical partition 6
+First sector (415744-8388607, default 415744):
+Last sector, +sectors or +size{K,M,G} (4415744-8388607, default 8388607):
+
+Created a new partition 6 of type ‘Linux’ and of size 3.8 GiB.
+
+Command (m for help):

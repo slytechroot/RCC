@@ -1,0 +1,68 @@
+20.3.1 Displaying Partitions
+
+To use fdisk in its non-interactive mode, add the -l option. To demonstrate, the following command will display a list of all partitions of all hard disk devices:
+
+root@localhost:~# fdisk -cul
+Disk /dev/sda: 21.5 GB, 21474836480 bytes
+255 heads, 63 sectors/track, 2610 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000571a2
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1        2481    19921920   83  Linux
+/dev/sda2            2481        2611     1046529    5  Extended
+/dev/sda5            2481        2611     1046528   82  Linux swap / Solaris
+
+It isn't critical that you understand the entire output of this command. The following describes the key components of the output that a system administrator should understand in order to manage partitions effectively:
+
+    Device Info
+
+    Disk /dev/sda: 10.7 GB, 10737418240 bytes
+
+    The device name and size of the device in bytes.
+
+    Columns
+
+       Device Boot      Start         End      Blocks   Id  System
+    /dev/sda1   *           1        2481    19921920   83  Linux
+    /dev/sda2            2481        2611     1046529    5  Extended
+    /dev/sda5            2481        2611     1046528   82  Linux swap / Solaris
+
+    Device 	The specific partition that the row is describing. For example, /dev/sda1 is the first partition on the first SATA hard drive.
+    Start 	The starting sector of the partition.
+    End 	The ending sector of the partition.
+    Blocks 	The size of the partition in blocks.
+    Id 	An identifier which is used to tell the kernel what type of filesystem should be placed on this partition. For example, the value 83 indicates that this partition should have an ext2, ext3, or ext4 filesystem type.
+    System 	A human-readable name that indicates the type of filesystem the Id column refers to. For example, 83 is a Linux filesystem.
+
+To see the partitions of a specific hard disk, add the pathname for the disk as an argument to the previous command.
+
+Note
+
+The example below may not match the output in our virtual environment.
+
+root@localhost:~# fdisk -c=dos -u=sectors -l /dev/sdb
+Disk /dev/sdb: 505 MB, 505413632 bytes
+5 heads, 52 sectors/track, 3796 cylinders, total 987136 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x7f08b2c3
+
+   Device Boot  	Start     	End  	Blocks   Id  System
+/dev/sdb1        	2552  	987135  	492292	6  FAT16
+
+Note
+
+The partition table described above is stored permanently in the MBR. When the system is booted, a copy is created in memory. This copy is used by the kernel for various system tasks. The kernel can't look directly at a filesystem to determine what type it is. So, the partition table stores this information for the benefit of the kernel. When the partition is created, it is the responsibility of the system administrator to indicate what type of filesystem will be placed on that partition by providing the partition type.
+
+The commands used to create the filesystems are covered in greater detail later in the chapter.
+
+Consider This
+
+The non-interactive mode option can also be used to save partition information before using interactive mode. Mistakes can be made when partitioning a disk using fdisk in interactive mode. A useful tip is to first create a copy of the output of the fdisk -l command, and send that copy-output to a file on disk. Anyone who has ever made a mistake when partitioning a disk and needs to refer to the previous setup will appreciate having a copy of the exact cylinders and filesystems to refer to.
+
+root@localhost:~# fdisk -l /dev/sda > mydisklayout.txt
+

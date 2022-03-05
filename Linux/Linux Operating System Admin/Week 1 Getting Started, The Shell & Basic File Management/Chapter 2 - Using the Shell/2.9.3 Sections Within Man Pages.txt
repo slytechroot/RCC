@@ -1,0 +1,84 @@
+2.9.3 Sections Within Man Pages
+
+Each man page is broken into sections. Each section is designed to provide specific information about a command. While there are common sections that you will see in most man pages, some developers also create sections that you will only see in a specific man page.
+
+The following table describes some of the more common sections that you will find in man pages:
+NAME
+
+Provides the name of the command and a very brief description.
+
+NAME                                                                            
+       ls - list directory contents
+
+SYNOPSIS
+
+A brief summary of the command or function's interface. A summary of how the command line syntax of the program looks.
+
+SYNOPSIS                                                                        
+       ls [OPTION]... [FILE]...
+
+DESCRIPTION
+
+Provides a more detailed description of the command.
+
+DESCRIPTION                                                                     
+       List  information  about  the FILEs (the current directory by default).  
+       Sort entries alphabetically if none of -cftuvSUX nor --sort  is  speci-  
+       fied.
+
+OPTIONS
+
+Lists the options for the command as well as a description of how they are used. Often this information is found in the DESCRIPTION section and not in a separate OPTIONS section.
+
+-a, --all                                                                
+              do not ignore entries starting with .  
+ 
+       -A, --almost-all                                                         
+              do not list implied . and ..                                      
+                                                                                
+       --author                                                                 
+              with -l, print the author of each file                            
+                                                                                
+       -b, --escape                                                            
+              print C-style escapes for nongraphic characters                   
+                                                                                
+       --block-size=SIZE                                                        
+              scale sizes by SIZE before printing them; e.g., '--block-size=M'  
+              prints sizes in units of 1,048,576 bytes; see SIZE format below
+
+FILES
+
+Lists the files that are associated with the command as well as a description of how they are used. These files may be used to configure the command's more advanced features. Often this information is found in the DESCRIPTION section and not in a separate FILES section.
+AUTHOR
+
+Provides the name of the person who created the man page and (sometimes) how to contact the person.
+
+AUTHOR                                                                          
+       Written by Richard M. Stallman and David MacKenzie.
+
+REPORTING BUGS
+
+Provides details on how to report problems with the command.
+
+REPORTING BUGS                                                                 
+       GNU coreutils online help: <http://www.gnu.org/software/coreutils/>      
+       Report ls translation bugs to <http://translationproject.org/team/>
+
+COPYRIGHT
+
+Provides basic copyright information.
+
+COPYRIGHT                                                                       
+       Copyright (C) 2017 Free Software Foundation, Inc.  License GPLv3+:  GNU  
+       GPL version 3 or later <http://gnu.org/licenses/gpl.html>.               
+       This  is  free  software:  you  are free to change and redistribute it.  
+       There is NO WARRANTY, to the extent permitted by law.
+
+SEE ALSO
+
+Provides you with an idea of where you can find additional information. This often includes other commands that are related to this command.
+
+SEE ALSO                                                                        
+       Full documentation at: <http://www.gnu.org/software/coreutils/ls>        
+       or available locally via: info '(coreutils) ls invocation'
+

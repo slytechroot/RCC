@@ -1,0 +1,18 @@
+24.1.2 Step 2
+
+Display some of the installed software packages on the system by using the head command to display the first 10 packages. Execute the following command:
+
+rpm -qa | head
+
+[root@localhost /]# rpm -qa | head
+nano-2.3.1-10.el7.x86_64
+systemd-libs-219-62.el7_6.6.x86_64
+libsolv-0.6.34-2.el7.x86_64
+bash-4.2.46-31.el7.x86_64
+hwdata-0.252-9.1.el7.x86_64
+nss-softokn-freebl-3.36.0-5.el7_5.x86_64
+libusbx-1.0.21-1.el7.x86_64
+rpcbind-0.2.0-47.el7.x86_64
+filesystem-3.2-25.el7.x86_64
+tcp_wrappers-7.6-77.el7.x86_64
+

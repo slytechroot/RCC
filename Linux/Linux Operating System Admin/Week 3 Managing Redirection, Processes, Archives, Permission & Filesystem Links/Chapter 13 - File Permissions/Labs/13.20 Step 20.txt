@@ -1,0 +1,7 @@
+13.20 Step 20
+
+Create a directory called /srv/data by executing the following command:
+
+mkdir /srv/data
+
+root@localhost:~# mkdir /srv/data

@@ -1,0 +1,43 @@
+7.9 Extract Fields in a File
+
+The cut command extracts fields of information from a text file.
+
+cut [OPTION]... [FILE]...
+
+Note the output of the following head command for the first line of the /etc/passwd command. There are 7 fields, each separated by the colon : character as a delimiter:
+
+sysadmin@localhost:~/Documents$ head -1 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+
+root	x	0	0	root	/root	/bin/bash
+
+1 	2 	3 	4 	5 	6 	7
+
+The default field separator is either a space or tab; this can be modified with the delimiter -d option. Use the -f option to specify a list of comma separated field numbers to display or a hyphenated range of fields to display.
+
+To extract certain fields from the /etc/passwd file, specify the delimiter using the colon character as an argument to the -d option. If only fields 1,5,6, and 7 were important, they could be extracted using the following command:
+
+sysadmin@localhost:~/Documents$ head -1 /etc/passwd | cut -d: -f1,5,6,7
+root:root:/root:/bin/bash
+
+The same result could be achieved by combining the fields 5,6,7 into the range 5-7:
+
+sysadmin@localhost:~/Documents$ head -1 /etc/passwd | cut -d: -f1,5-7
+root:root:/root:/bin/bash
+
+Given a file that has fields at fixed character positions, the cut command can be used to extract the characters one at a time by using the character -c option followed by a range.
+
+For example, in the /var/syslog file; the first fifteen characters specify a timestamp. To extract only those characters from the text, specify 1 through 15:
+
+sysadmin@localhost:~/Documents$ tail /var/log/syslog | cut -c1-15
+Jul 20 15:17:01
+Jul 20 15:59:02
+Jul 20 16:17:01
+Jul 20 16:41:22
+Jul 20 16:59:02
+Jul 20 17:17:01
+Jul 20 17:59:02
+Jul 20 18:17:01
+Jul 20 18:59:02
+Jul 20 19:17:01
+

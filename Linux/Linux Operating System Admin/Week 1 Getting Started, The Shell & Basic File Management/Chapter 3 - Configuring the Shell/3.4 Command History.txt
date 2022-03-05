@@ -1,0 +1,14 @@
+3.4 Command History
+
+In a sense, the ~/.bash_history file could also be considered to be an initialization file, since Bash also reads this file as it starts up. By default, this file contains a history of the commands that a user has executed within the Bash shell. When a user exits the Bash shell, it writes out the recent history to this file.
+
+There are several ways that this command history is advantageous to the user:
+
+    You can use the Up ↑ and Down ↓ Arrow Keys to review your history and select a previous command to execute again.
+
+    You can select a previous command and modify it before executing it.
+
+    You can do a reverse search through history to find a previous command to select, edit, and execute it. To start the search, press Ctrl+R and then begin typing a portion of a previous command.
+
+    You execute a command again, based upon a number that is associated with the command.
+

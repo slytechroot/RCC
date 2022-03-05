@@ -1,0 +1,13 @@
+22.5 Step 5
+
+To determine which directories are using the most disk space, use the du command. For example, execute the following command to determine how much space the /usr directory is using:
+
+du /usr | more
+
+[root@centos~]# du /usr | more
+
+output of du /usr | more command showing contents of /usr directory. Each line shows disk space on the left and the directory name on left.
+
+Type Q to exit the more command:
+
+q

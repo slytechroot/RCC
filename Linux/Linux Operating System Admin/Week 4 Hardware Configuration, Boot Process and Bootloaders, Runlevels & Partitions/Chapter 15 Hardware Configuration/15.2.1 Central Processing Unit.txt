@@ -1,0 +1,59 @@
+15.2.1 Central Processing Unit
+
+The central processing unit (CPU) is the brain of the computer, where the instructions to perform calculations or manipulate data are processed. There are numerous types of CPUs that are able to work with Linux, but the most common is the 64-bit x86_64 type, and decreasingly, the 32-bit x86 type. Both of these types of CPUs are backward compatible with the CPU used in the first IBM Personal Computer (PC), the Intel 8088 CPU.
+
+Knowing the type and capability of a system’s CPU is essential to knowing what software can be installed on it, and how it will perform. There are several ways to gather information about the type of CPU in a system. We will focus on determining this information from an already-installed Linux system.
+
+A prime location for CPU information is the firmware settings. Viewing the contents of the /proc/cpuinfo file will display extremely detailed information, including the model name, speed in MHz, and specific features available in a list of flags.
+
+The uname command is a valuable tool for quickly determining system information from the command line. Running the uname command with no parameters yields only the kernel name as shown below:
+
+sysadmin@localhost:~$ uname
+Linux
+
+The uname command has access to the files in the /proc and /sys directories which can display a lot of organized information about your system. Running uname with the -a option will show the following information (in order of appearance):
+Information 	Option 	Example
+Kernel name 	-s 	Linux
+Nodename 	-n 	localhost
+Kernel release 	-r 	4.4.0-72-generic
+Kernel version 	-v 	#93~14.04.1-Ubuntu SMP Fri Mar 31 15:05:15 UTC 2017
+Machine hardware 	-m 	x86_64
+Processor 	-p 	x86_64
+Hardware platform 	-i 	x86_64
+Operating System 	-o 	GNU/Linux
+
+sysadmin@localhost:~$ uname -a
+Linux localhost 4.4.0-72-generic #93~14.04.1-Ubuntu SMP Fri Mar 31 15:05:15 UTC
+2017 x86_64 x86_64 x86_64 GNU/Linux
+
+Each item can be display individually with the corresponding option. For a less detailed summary of the CPUs in your system, execute the uname -p command:
+
+sysadmin@localhost:~$ uname -p
+x86_64
+
+Another way to get more detailed information than the uname command can give you is to run the lscpu command. Much of the information the lscpu command returns is out of the scope of this objective but can be very useful in determining the hardware’s capabilities.
+
+sysadmin@localhost:~$ lscpu
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                8
+On-line CPU(s) list:   0-7
+Thread(s) per core:    1
+Core(s) per socket:    4
+Socket(s):             2
+NUMA node(s):          1
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 44
+Stepping:              2
+CPU MHz:               2394.000
+BogoMIPS:              4788.00
+Hypervisor vendor:     VMware
+Virtualization type:   full
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              12288K
+NUMA node0 CPU(s):     0-7
+

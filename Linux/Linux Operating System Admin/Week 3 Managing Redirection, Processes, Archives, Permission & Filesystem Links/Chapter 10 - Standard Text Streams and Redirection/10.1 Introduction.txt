@@ -1,0 +1,6 @@
+10.1 Introduction
+
+One of the key points in the UNIX philosophy was that all CLI commands should accept text as input and produce text as output. As this concept was applied to the development of UNIX (and later Linux), commands were developed to accept text as input, perform some kind of operation on the text and then produce text as output. Commands that read in text as input, alter that text in some way, and then produce text as output are sometimes known as filters.
+‌⁠​⁠​ 
+
+In order to be able to apply filter commands and work with text streams, it is helpful to understand a few forms of redirection that can be used with most commands: pipelines, standard output redirection, error output redirection, and input redirection.

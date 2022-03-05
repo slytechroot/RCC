@@ -1,0 +1,115 @@
+15.7 Kernel Modules
+
+In addition to detecting devices, the Linux kernel may load software called kernel modules to support the device. Some devices are so common that the software to support them is normally compiled into the kernel itself, for example, the software for the CPU. Other devices that are not as common will have modules that are only loaded if the device is detected, for example, a specific network card.
+
+The kernel module may even load additional software such as firmware from a file or from the device itself. One concern of some users is that these firmware files may contain code that is not open source, meaning there is no way for a user to know what the code does exactly because it is proprietary and not shared with the public. If the kernel loads "non-free" code, then the kernel is considered to be "tainted" as the code of the kernel itself is free.
+
+Kernel modules can be used for more than supporting devices; since modules are simply software that is able to run within the kernel, they are able to be used for virtually anything. Some common uses besides device drivers include filesystems modules, networking protocols modules, and cryptographic algorithms modules.
+
+To view the list of loaded kernel modules, use the lsmod command:
+
+sysadmin@localhost:~$ lsmod
+Module                  Size  Used by
+af_packet_diag         16384  0
+netlink_diag           16384  0
+dccp_diag              16384  0
+dccp                   73728  1 dccp_diag
+udp_diag               16384  0
+unix_diag              16384  0
+tcp_diag               16384  0
+inet_diag              20480  3 tcp_diag,dccp_diag,udp_diag
+xt_nat                 16384  700
+xt_tcpudp              16384  718
+Output Omitted...
+
+The columns of data in the output above are:
+
+    Module
+
+    dccp                   73728  1 dccp_diag
+
+    The name of the loaded module.
+
+    Size
+
+    dccp                   73728  1 dccp_diag
+
+    The size in bytes of the module.
+
+    Used by
+
+    dccp                   73728  1 dccp_diag
+
+    Indicates how many "things" depend on the current module being loaded. These "things" could include other modules, processes, or other features (such as a filesystem being mounted).
+
+    dccp                   73728  1 dccp_diag
+
+    Shows the name of the module that depends on the current module.
+
+It may be the case that you need to find modules based on the name, size, or dependencies. To filter the output of the lsmod command to only show specific modules, use the grep command:
+
+Note
+
+The following examples may not match the output in the virtual environment.
+
+sysadmin@localhost:~$ lsmod | grep ext4
+ext4                  465245  2
+crc16                  12503  1 ext4
+mbcache                17476  1 ext4
+jbd2                   82480  1 ext4
+
+The output above shows the modules that work together to support the ext4 filesystem. In other words, the ext4 filesystem depends on these modules.
+
+Additionally, you can get more details about a module by using the modinfo command. For example, to learn more about the snd kernel module, execute the following command:
+
+sysadmin@localhost:~$ modinfo snd
+filename:   	/lib/modules/3.13.0-35-generic/kernel/sound/core/snd.ko
+alias:      	char-major-116-*
+license:    	GPL
+description:	Advanced Linux Sound Architecture driver for soundcards.
+author:     	Jaroslav Kysela <perex@perex.cz>
+license:    	GPL
+description:	Jack detection support for ALSA
+author:     	Mark Brown <broonie@opensource.wolfsonmicro.com>
+srcversion: 	0EBCEABF53FC967306ED228
+depends:    	soundcore
+intree:     	Y
+vermagic:   	3.13.0-35-generic SMP mod_unload modversions
+signer:     	Magrathea: Glacier signing key
+sig_key:    	B1:41:4A:E9:6C:1B:0E:BB:7C:14:1F:A4:05:C1:F6:C9:8E:8A:66:F0
+sig_hashalgo:   sha512
+parm:       	debug:Debug level (0 = disable) (int)
+parm:       	slots:Module names assigned to the slots. (array of charp)
+parm:       	major:Major # for sound driver. (int)
+parm:       	cards_limit:Count of auto-loadable soundcards. (int)
+
+To get a list of all available modules, use the modprobe -l command:
+
+sysadmin@localhost:~$ modprobe -l | head
+kernel/arch/x86/kernel/cpu/mcheck/mce-inject.ko
+kernel/arch/x86/kernel/cpu/cpufreq/powernow-k8.ko
+kernel/arch/x86/kernel/cpu/cpufreq/mperf.ko
+kernel/arch/x86/kernel/cpu/cpufreq/acpi-cpufreq.ko
+kernel/arch/x86/kernel/cpu/cpufreq/pcc-cpufreq.ko
+kernel/arch/x86/kernel/cpu/cpufreq/p4-clockmod.ko
+kernel/arch/x86/kernel/test_nx.ko
+kernel/arch/x86/kernel/microcode.ko
+kernel/arch/x86/crypto/aes-i586.ko
+kernel/arch/x86/crypto/twofish-i586.ko
+
+Normally, kernel modules are loaded automatically by the kernel. To load a module manually, execute the modprobe command with the name of the module.
+
+For example, to load the ext4 module, execute the modprobe ext4 command. Note that if the module is loaded successfully, there is no output to this command. A quick use of the lsmod command will show if the module was loaded properly.
+
+One nice feature of the modprobe command is that it will automatically load all dependency modules, so in the case of loading the ext4 module, it would automatically load the crc16, mbcache, and jdb2 modules.
+
+The modprobe command can also be used to remove modules from memory with the -r option. Executing the modprobe -r ext4 command would remove the ext4 module from memory, and it will automatically remove the crc16, mbcache, and jdb2 modules from memory as long there was nothing else that depended upon them:
+
+sysadmin@localhost:~$ lsmod | grep ext4
+ext4                  465245  2
+crc16                  12503  1 ext4
+mbcache                17476  1 ext4
+jbd2                   82480  1 ext4
+sysadmin@localhost:~$ modprobe -r ext4
+sysadmin@localhost:~$ lsmod | grep ext4
+

@@ -1,0 +1,86 @@
+13.3 Understanding Permissions
+
+User and group owner information are important considerations when determining what permissions will be effective for a particular user. To determine which set applies to a particular user, first examine the user's identity. By using the whoami command or the id command, you can display your user identity.
+
+The whoami command prints the user name associated with the current user ID:
+
+sysadmin@localhost:~$ whoami
+sysadmin
+
+The id command displays the user ID and user name of the current user followed by the group ID and group name of the primary group, and the GIDs and group names of all group memberships:
+
+sysadmin@localhost:~$ id
+uid=1001(sysadmin) gid=1001(sysadmin) groups=1001(sysadmin),4(adm),27(sudo)
+
+Permission Groups
+
+When viewing the long listing of a file, the permissions are broken into three sets of three characters:
+
+-rwxr-xr-x. 1 root root 133792 Jan  18  2018 /bin/ls
+
+User Owner
+
+-rwxr-xr-x. 1 root root 133792 Jan  18  2018 /bin/ls
+
+Characters 2-4 indicate the permissions for the user that owns the file. If you are the owner of the file, then only the user owner permissions are used to determine access to that file.
+
+Group Owner
+
+-rwxr-xr-x. 1 root root 133792 Jan  18  2018 /bin/ls
+
+Characters 5-7 indicate the permissions for the group that owns the file. If you are not the owner but are a member of the group that owns the file, then only group owner permissions are used to determine access to that file.
+
+Other Permissions
+
+-rwxr-xr-x. 1 root root 133792 Jan  18  2018 /bin/ls
+
+Characters 8-10 indicate the permissions for others or what is sometimes referred to as the world's permissions. This group includes all users who are not the file owner or a member of the file's group.
+Permission Types
+
+Each permission group is granted three basic types of permissions: read, write, and execute.
+User Owner 			Group Owner 			Other
+Read 	Write 	Execute		Read 	Write 	Execute		Read 	Write 	Execute
+
+r	w	-		r	-	-		r	-	-
+
+
+The permissions themselves are deceptively simple and have a different meaning depending on whether they are applied to a file or a directory.
+
+Read
+
+The first character of each group represents the read permission. There is an r character if the group has the read permission, or a - character if the group does not.
+
+    On a file, this allows processes to read the contents of the file, meaning the contents can be viewed and copied.
+    On a directory, file names in the directory can be listed, but other details are not available.
+
+Write
+
+The second character of each group represents the write permission. There is a w character if the group has the write permission, or a - character if the group does not.
+
+    A file can be written to by the process, so changes to a file can be saved. Note that w permission really requires r permission on the file to work correctly.
+    On a directory, files can be added to or removed from the directory. Note that w permission requires x permission on the directory to work correctly.
+
+Execute
+
+The third character of each group represents the execute permission. There is an x character if the group has the execute permission, or a - character if the group does not.
+
+    A file can be executed or run as a process.
+    On a directory, the user can use the cd command to "get into" the directory and use the directory in a pathname to access files and, potentially, subdirectories under this directory.
+
+For example, use the following command in the virtual terminal and examine the permissions displayed.
+
+sysadmin@localhost:~$ ls -l /etc
+
+Answer the following questions:
+
+    Who owns the files in the /etc directory?
+    Can members of the root group modify (write to) these files?
+    Can users who are not the root user, nor members of the root group modify these files?
+
+Consider This
+
+Understanding which permissions apply is an important skill in Linux. For example, consider the output of the ls -l command for the following file:
+
+-r--rw-rwx. 1 bob staff 999 Apr 10 2013 /home/bob/test
+
+In this scenario, the user bob ends up having less access to this file than members of the staff group or everyone else. The user bob only has the r-- permissions. It doesn't matter if bob is a member of the staff group; once user ownership has been established, only the user owner permissions apply.

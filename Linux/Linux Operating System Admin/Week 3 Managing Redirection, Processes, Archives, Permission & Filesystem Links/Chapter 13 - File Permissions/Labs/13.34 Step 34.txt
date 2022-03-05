@@ -1,0 +1,10 @@
+13.34 Step 34
+
+Make a directory and check its permissions by executing the following commands:
+
+mkdir /srv/test
+ls -ld /srv/test
+
+root@localhost:~# mkdir /srv/test
+root@localhost:~# ls -ld /srv/test
+drwxr-xr-x 2 root root 4096 May 17 00:56 /srv/test

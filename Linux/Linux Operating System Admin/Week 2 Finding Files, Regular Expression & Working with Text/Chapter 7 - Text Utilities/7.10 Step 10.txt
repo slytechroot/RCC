@@ -1,0 +1,33 @@
+7.10 Step 10
+
+By default, the split command will break apart a file into 1,000-line chunks. The first 1,000 lines of the original file will go into the first file, the second 1,000 lines will go into the second file, etc. The -l option can be used to change the default number of lines to split upon. To split the words file at every 500th line, execute the following command:
+
+split words result –l 500
+ls result*
+
+sysadmin@localhost:~$ split words result -l 500
+sysadmin@localhost:~$ ls result*
+result00  result44  result88    resultbd  resultcv  resulten  resultgf
+result01  result45  result89    resultbe  resultcw  resulteo  resultgg
+result02  result46  result9000  resultbf  resultcx  resultep  resultgh
+result03  result47  result9001  resultbg  resultcy  resulteq  resultgi
+result04  result48  result9002  resultbh  resultcz  resulter  resultgj
+result05  result49  result9003  resultbi  resultda  resultes  resultgk
+result06  result50  result9004  resultbj  resultdb  resultet  resultgl
+result07  result51  result9005  resultbk  resultdc  resulteu  resultgm
+result08  result52  result9006  resultbl  resultdd  resultev  resultgn
+result09  result53  result9007  resultbm  resultde  resultew  resultgo
+result10  result54  result9008  resultbn  resultdf  resultex  resultgp
+result11  result55  result9009  resultbo  resultdg  resultey  resultgq
+result12  result56  result9010  resultbp  resultdh  resultez  resultgr
+result13  result57  result9011  resultbq  resultdi  resultfa  resultgs
+result14  result58  result9012  resultbr  resultdj  resultfb  resultgt
+result15  result59  resultaa    resultbs  resultdk  resultfc  resultgu
+result16  result60  resultab    resultbt  resultdl  resultfd  resultgv
+result17  result61  resultac    resultbu  resultdm  resultfe  resultgw
+result18  result62  resultad    resultbv  resultdn  resultff  resultgx
+result19  result63  resultae    resultbw  resultdo  resultfg  resultgy
+result20  result64  resultaf    resultbx  resultdp  resultfh  resultgz
+...
+
+Some output has been omitted in the terminal above.

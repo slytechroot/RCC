@@ -1,0 +1,9 @@
+25.5 Step 5
+
+Normally, the next step would be to copy the library files into the /usr/mylib directory. In this case, we will copy an existing one into this directory:
+
+cp /lib64/ld-2.17.so /usr/mylib
+
+[root@localhost ~]# cp /lib64/ld-2.17.so /usr/mylib
+[root@localhost ~]#
+

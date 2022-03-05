@@ -1,0 +1,15 @@
+21.8 Step 8
+
+At the Partition number prompt, type 2 to specify that you are going to use the second partition number. This will result in a partition device name of /dev/sdb2:
+
+2
+
+Command (m for help): n
+Partition type:
+    p    primary (2 primary, 0 extended, 2 free)
+    e    extended
+Select (default p): e
+Partition number (1-4, default 1): 2
+First sector (2048-8388607, default 2048): _
+
+Note that you never use extended partitions directly. In other words, you won't create filesystems on extended partitions, and you won't mount them. Their sole purpose is to be a container for logical partitions. 

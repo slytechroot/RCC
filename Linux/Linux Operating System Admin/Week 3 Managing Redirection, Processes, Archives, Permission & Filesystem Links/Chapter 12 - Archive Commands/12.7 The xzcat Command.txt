@@ -1,0 +1,23 @@
+12.7 The xzcat Command
+
+The xzcat command is used to print the contents of files compressed with the xz command to standard output on the terminal without uncompressing the target file.
+
+xzcat [FILE]...
+
+In the following example, the xz command is used to compress the animals.txt file, and then the xzcat command is used to view the file:
+
+sysadmin@localhost:~/Documents$ xz animals.txt
+sysadmin@localhost:~/Documents$ ls
+School            alpha-third.txt  hidden.txt      numbers.txt   words
+Work              alpha.txt        letters.txt.gz  os.csv
+adjectives.txt    animals.txt.xz   linux.txt       people.csv
+alpha-first.txt   food.txt         longfile.txt    red.txt.gz
+alpha-second.txt  hello.sh         newhome.txt     spelling.txt
+sysadmin@localhost:~/Documents$ xzcat animals.txt.xz
+1 retriever
+2 badger
+3 bat
+4 wolf
+5 eagle
+
+As demonstrated in the output above, when a new compressed file is created, the .xz extension is added to the file name.

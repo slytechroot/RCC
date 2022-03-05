@@ -1,0 +1,13 @@
+18.5 Step 5
+
+Execute the following commands to start the sshd service and verify that it is started:
+
+/etc/init.d/sshd start
+/etc/init.d/sshd status
+
+[root@centos ~]# /etc/init.d/sshd start
+Starting sshd:                                           [  OK  ]
+[root@centos ~]# /etc/init.d/sshd status
+openssh-daemon (pid   1295) is running...
+[root@centos ~]#
+

@@ -1,0 +1,11 @@
+23.45 Step 45
+
+Lastly, after you have finished running the fsck command, you should look in the lost+found directory for the filesystem to see if any lost files have been placed in that directory. Execute the following command:
+
+ls /data/lost+found
+
+root@ubuntu:~# ls /data/lost+found
+root@ubuntu:~#
+
+No output is a good thing. If there are any lost files, they will not have regular names; rather, they will be named after their inode number.
+

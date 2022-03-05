@@ -1,0 +1,27 @@
+7.8 Command Line Pipes
+
+To make effective use of filter commands, command pipelines are often used. The pipe | character can be used to send the output of one command to another:
+
+COMMAND 1 | COMMAND 2 | COMMAND 3 ...
+
+Typically, when a command has output or generates an error, the output is displayed on the screen; however, this does not have to be the case. Instead of being printed to the screen, the output of one command becomes input for the next command. This tool can be powerful, especially when looking for specific data; piping is often used to refine the results of an initial command.
+
+The head and tail commands are often used in command pipelines to limit the number of lines when dealing with large files. For example, to number only the last three lines of the alpha.txt file, pipe the output of the tail command to the nl command:
+
+sysadmin@localhost:~/Documents$ tail -3 alpha.txt | nl
+     1  hello                                                         
+     2  inkling                                                       
+     3  jogger
+
+Command pipelines can also be used to filter command output. For example, to list just the first five files in the current directory, pipe the output of the ls command to the head command:
+
+sysadmin@localhost:~/Documents$ ls | head -5
+School                                                                          
+Work                                                                            
+adjectives.txt                                                                  
+alpha-first.txt                                                                 
+alpha-second.txt
+
+Note
+
+Pipes will be covered in greater detail later in the course.

@@ -1,0 +1,14 @@
+10.12 Step 12
+
+The pipe | symbol can be used multiple times within a command. To extract some fields from the /etc/passwd file, sort them, and finally eliminate duplicate lines, execute the following command:
+
+cut –f7 –d: /etc/passwd | sort | uniq -c
+
+sysadmin@localhost:~$  cut -f7 -d: /etc/passwd | sort | uniq -c
+      3 /bin/bash
+      1 /bin/sync
+     24 /usr/sbin/nologin
+
+The previous command extracted the seventh field from the /etc/passwd file with the cut command, then sorted those lines with the sort command, and finally, eliminated duplicate lines with the uniq command.
+The -c option to the uniq command will prefix lines in the output with the total number of occurrences of that line in the file specified.
+

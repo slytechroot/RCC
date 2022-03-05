@@ -1,0 +1,21 @@
+24.3.1 Step 1
+
+Log in to the root account. When prompted, provide the root password:
+
+su -
+netlab123
+
+This lab has two user accounts (username :: password )                          
+                                                                                
+   root     :: netlab123                                                        
+   sysadmin :: netlab123                                                        
+                                                                                
+Press the [Enter] key to begin...                                               
+                                                                                
+                                                                                
+sysadmin@localhost:~> su -             
+Password:                                                                       
+Directory: /root                                                                
+Thu Feb 11 23:25:51 UTC 2021 
+localhost:~ #
+

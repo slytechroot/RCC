@@ -1,0 +1,41 @@
+19.3 Why Create Partitions?
+
+So why create partitions? To begin with, at least one partition needs to be created. Regardless of the operating system, whether Linux, Microsoft Windows, or Mac OSX, at least one single partition needs to be created because filesystems are stored within partitions, not entire hard disks.
+
+There are several reasons why an administrator will choose to create multiple partitions when installing a Linux operating system:
+Supporting Multiple Operating Systems
+
+Some systems may contain Linux as well as a Microsoft Windows operating systems; these are called dual boot systems. Because the filesystems that are used with Microsoft Windows are different than Linux, this requires multiple partitions.
+Home Directories
+
+A separate partition for the user home directories is common and typically provides many advantages, including:
+
+    It is easier to backup or restore an entire filesystem than it is to manage each user's home directory. Recall that each partition has a separate filesystem.
+
+    When home directories are separated from the root filesystem, upgrades of the operating system can be performed much more safely and efficiently.
+
+    Filesystems can have features enabled on them, such as disk quotas. A disk quota allows the administrator to limit how much space a user uses in a filesystem. Being able to create a disk quota for the home directories that doesn't affect the rest of the operating system can be an advantage.
+
+Common Writable Directories
+
+Some directories, such as the /tmp and /var/tmp directories, are world writable. This means that any user can store files in these directories without any limitations, by default. Unfortunately, that can cause problems if these directories are not placed on separate filesystems.
+
+If the /tmp and /var/tmp directories are not mount points, then files placed in these directories will go on the same partition as the / filesystem. If a user creates a very large file, then he could end up filling up the entire / filesystem. This would make the operating system unusable by all other users (except the root user for whom some space is reserved).
+
+Separating the /tmp and /var/tmp directories allows the administrator to enable disk quotas to limit how much space can be used by each user in those directories. Even if no quotas are put into effect, having directories on a separate partition means if a regular user fills up the partition(s) /tmp or /var/tmp are located on, the root filesystem or other critical filesystems are not affected.
+
+Consider This
+
+The /tmp and /var/tmp directories must be world writable for all users, in order for the operating system to function correctly.
+Security
+
+Using separate partitions may enhance security. Since each partition has separate inodes and data blocks, corruption to a single partition will be contained to its mount point within the virtual filesystem. Therefore, spreading files across multiple partitions is safer than having one partition that contains everything under the root directory.
+
+Sometimes a collection of files, perhaps old databases, need to be stored but shouldn't be modified. By placing them on a separate filesystem, that partition can be mounted as read-only to prevent any alteration.
+Heavily Active
+
+If running out of space is a concern due to heavy activity within a directory, it may be desirable to have it mounted on a separate partition. This is often the case for directories like the /var/log directory where the system adds log file data on a regular basis.
+
+When system processes (as opposed to regular users) write to the disk, quotas are not usually used to limit the space. Instead, these types of directories are mounted on separate filesystems so that if they fill up then it won't fill up the root / filesystem. While this may be bad because log files aren't generated, it is better than filling up the root / filesystem and making the operating system unusable for regular users.
+
+Another type of partition that is useful in making system tasking more efficient is swap space. To describe the concept of swap space, we will use another analogy of a physical library. In a library, there are always new books coming in and old ones going out. These books are usually kept in a storage room or basement, still organized but separate from the main shelves. If a book is being transferred, it is pulled from this storage and sent to another library where it will be used. In a computer filesystem, this area is called swap space. This is a location on the physical drive where data is stored while programs are using it. It emulates random access memory (RAM) and frees up the actual physical memory for other processing tasks. This allows the operating system to quickly provide information in files without having to read and write it to the main storage areas. When the user is finished with this data, it is written to the appropriate area on the drive, and the swap space is freed up for the next task. Swap space on an operating system can take the form of a dedicated partition (swap partition), a file (swap file), or both.

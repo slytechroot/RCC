@@ -1,0 +1,7 @@
+
+13.0 Introduction
+
+In this task, you will explore both basic and advanced file permissions. You will display file permissions, set basic permissions (read, write, and execute) and set advanced permissions (setuid, setgid, and sticky bit).
+
+In addition, you will display and set the umask value, which determines the default permissions to place on new files and directories.
+

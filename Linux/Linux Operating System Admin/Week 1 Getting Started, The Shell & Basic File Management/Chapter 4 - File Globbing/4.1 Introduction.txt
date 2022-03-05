@@ -1,0 +1,15 @@
+4.1 Introduction
+
+File globbing might sound like an unusual term, but the concept of globbing is probably a familiar one. Like a joker in a deck of cards, which you might be able to use as any card (a wildcard), glob characters are special characters that can be used to match file or path names.
+
+For the details of how globbing works, you can view the man page on glob in section 7 of the manual pages by executing:
+
+sysadmin@localhost:~$ man 7 glob
+
+‌
+
+From that manual page:
+
+    A string is a wildcard pattern if it contains one of the characters '?', '*', or '['. Globbing is the operation that expands a wildcard pattern into the list of path names matching the pattern.
+
+The shell is what performs the expansion of the wildcards; therefore, the use of globbing is not limited to a particular command. Globbing is especially useful for file management since it can be used to match the path names to files that you want to manage.

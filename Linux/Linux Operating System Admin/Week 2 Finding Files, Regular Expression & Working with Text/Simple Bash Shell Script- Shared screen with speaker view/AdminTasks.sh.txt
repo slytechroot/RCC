@@ -1,0 +1,34 @@
+#!/bin/bash
+# This bash script is meant to check for basic admin tasks 
+# Created by Attila Kun for the CIS-21A-45405 Linux Class
+# Create syslog file on Desktop folder syslog - delete syslog folder after inspecting
+mkdir ~/Desktop/syslog
+
+
+# Dump the /etc/passwd file to check if new users have been added to pass
+cat /etc/passwd > ~/Desktop/syslog/passwd.txt
+
+# Check running processes
+ps -aux > ~/Desktop/syslog/psaux.txt
+
+
+# Ping Google DNS IP to check Internet connectivity
+ping -c4 8.8.8.8 > ~/Desktop/syslog/ping.txt
+
+
+# Check the current netstat connections
+netstat -ant > ~/Desktop/syslog/netstat.txt
+
+# Check local network card ip config
+ifconfig >> ~/Desktop/syslog/netstat.txt
+
+ 
+#Prompt user to delete folder. Delete if 'yes'
+rm -r -i ~/Desktop/syslog
+
+
+
+
+
+
+

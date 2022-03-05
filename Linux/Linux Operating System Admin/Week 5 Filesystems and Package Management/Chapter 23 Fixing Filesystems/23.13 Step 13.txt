@@ -1,0 +1,20 @@
+23.13 Step 13
+
+Type p at the Command prompt to see your new partition:
+
+p
+
+Command (m for help): p
+Disk /dev/sdb: 4 GiB, 4294967296 bytes, 8388608 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifierL 0xb23bc72f
+ 
+Device	      Boot  Start	     End  Sectors   Size   Id  Type
+/dev/sdb1             2048   8388607 8386560      4G    5 Extended
+/dev/sdb5             4096    413695  409600    200M   83 Linux
+ 
+Command (m for help):
+

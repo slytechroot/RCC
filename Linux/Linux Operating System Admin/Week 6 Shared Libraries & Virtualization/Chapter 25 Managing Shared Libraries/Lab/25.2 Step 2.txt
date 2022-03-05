@@ -1,0 +1,13 @@
+25.2 Step 2
+
+Execute the following commands to verify that there are no customizations to the ldconfig command on this system:
+
+more /etc/ld.so.conf
+ls /etc/ld.so.conf.d
+
+[root@localhost ~]# more /etc/ld.so.conf
+include ld.so.conf.d/*.conf
+[root@localhost ~]# ls /etc/ld.so.conf.d
+mariadb-x86_64.conf
+[root@localhost ~]#
+

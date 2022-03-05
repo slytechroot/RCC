@@ -1,0 +1,14 @@
+24.2.13 Step 13
+
+While using Advanced Packaging Tools (APT) commands offers features like automatic dependency resolution and remote repositories, the dpkg command can also be used to remove or install software packages. Use the dpkg command to remove the xfsprogs package:
+
+dpkg -r xfsprogs
+y
+
+root@localhost:~# dpkg -r xfsprogs
+(Reading database ... 27691 files and directories currently installed.)
+Removing xfsprogs (4.9.0+nmu1ubuntu2) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+root@localhost:~#
+

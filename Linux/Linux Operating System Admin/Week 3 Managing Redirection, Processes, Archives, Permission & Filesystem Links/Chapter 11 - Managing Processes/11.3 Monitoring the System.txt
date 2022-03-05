@@ -1,0 +1,53 @@
+11.3 Monitoring the System
+
+There are also a couple of commands that can be used to monitor the overall state of the system: the uptime and free commands.
+
+The uptime command shows the current time and the amount of time the system has been running, followed by the number of users who are currently logged in and the load averages during the past one, five, and fifteen-minute intervals.
+
+To get a good idea of how busy a system is, use the uptime command:
+
+sysadmin@localhost:~$ uptime
+18:24:58 up 5 days, 10:43,  1 user,  load average: 0.08, 0.03, 0.05
+
+The numbers reported for the load averages are based upon how many CPU cores are available. Think of each processor as having 100% resources (CPU time) available. One processor = 100%, four processors = 400%. The uptime command is reporting the amount of resources used, but it is dividing by 100. So, 1.00 is actually 100% of the CPU time being used, 2.00 is 200% and so on.
+
+If a system has only one CPU core, then a value of 1.00 indicates that the system was fully loaded with tasks. If the system has two CPU cores, then a value of 1.00 would indicate a 50% load (1.00/2.00). An uptime reading of 1.00 (or 100%) usage on a 4 core CPU would imply that 1.00/4.00 (1/4 or 25%) of the CPU's total computational resources are being used.
+
+Consider This
+
+If you don’t know how many CPU cores are available on a Linux system, there is a way to obtain this information on the command line. The lscpu command can be used to see how many CPU cores are available on the system:
+
+sysadmin@localhost:~$ lscpu
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              16
+On-line CPU(s) list: 0-15
+Thread(s) per core:  2
+Core(s) per socket:  4
+Socket(s):           2
+Output Omitted...
+
+In the example above, the output indicates that there are eight total CPU cores. Two sockets and four cores per socket totals eight CPU cores.
+
+Although the lscpu command is beyond the scope of this course, it is covered in further detail in NDG Linux Essentials, where you can learn about understanding system hardware.
+
+To get an idea of how your system is using memory, the free command is helpful. This command displays not only the values for the random-access memory (RAM) but also for swap, which is space on the hard disk that is used as memory for idle processes when the random-access memory starts to become scarce.
+
+The free command reports the total amount of memory, as well as how much is currently being used and how much is free (available) for use. The output also breaks down the use of memory for buffers and caches:
+
+sysadmin@localhost:~$ free
+             total       used       free     shared    buffers     cached
+Mem:      16438128   13106024    3332104       3200       4276    9808896
+
+-/+ buffers/cache:    3292852   13145276
+Swap:            0          0          0
+
+If logged into the Gnome desktop environment, the user can use the gnome-system-monitor program. This tool (pictured below) is analogous to the Task Manager in Microsoft Windows. It provides four tabs to view information about the System, Processes, Resources, and File Systems.
+
+This graphical tool allows users to select a process and send a signal to it to terminate it, as well as view all current processes updated in real-time.
+The gnome-system-monitor graphical tool showing four tabs labeled System, Processes, Resources, and File Systems.
+
+Consider This
+
+The K desktop environment (KDE) has a similar program, the ksysguard command. The Gnome desktop environment is not available in the virtual environment for this chapter.

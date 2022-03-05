@@ -1,0 +1,11 @@
+21.33 Step 33
+
+To format the partition as swap space with a label of myswap, execute the following mkswap command:
+
+mkswap -L myswap /dev/sdb6
+
+root@ubuntu:~# mkswap -L myswap /dev/sdb6
+Setting up swapspace version 1, size = 3.8 GiB (4082102272 bytes)
+LABEL=myswap, UUID=624b1bad-c835-44e5-3bc9f71a50a4
+
+The UUID in the output above may be different in our virtual environment.

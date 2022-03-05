@@ -1,0 +1,22 @@
+11.2.2 Searching For Processes
+
+Since we have just shown how to find processes using the ps command, and how a user can use the ps command and the grep command to find certain named processes, it follows logically that we cover the pgrep command; effectively marrying the ps and grep commands together.
+
+The pgrep command parses through the running processes and looks for the specified names or other criteria of processes, rather than having to run the ps command, pipe its output to the grep command and then look at the results. Users can simply use the pgrep command and various options to return what they need to find. For example, recall that the -i option makes the grep command case insensitive. This option can also be used with the pgrep command.
+
+If you wanted to find all instances of the sshd command running on the system, you could use the following command:
+
+sysadmin@localhost:~$ pgrep -i sshd
+15
+
+The output shows the process IDs (PIDs) of the processes running that match the sshd string. Additionally, the -l option can be used with the pgrep command to list the process name along with the PID:
+
+sysadmin@localhost:~$ pgrep -li sshd
+15 sshd
+
+It is also possible to search for processes owned by a specific user by using the -u option:
+
+sysadmin@localhost:~$ pgrep -u sysadmin -l
+56 bash
+
+In the example above, the -u and -l options displayed the bash process which has the PID 56 and is owned by the sysadmin user.

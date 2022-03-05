@@ -1,0 +1,39 @@
+2.3.1.1 Quoting
+
+Arguments that contain unusual characters like spaces or non-alphanumeric characters will usually need to be quoted, either by enclosing them within double quotes or single quotes. Double quotes will prevent the shell from interpreting some of these special characters; single quotes prevent the shell from interpreting any special characters.
+
+In most cases, single quotes are considered safer and should probably be used whenever you have an argument that contains characters that aren't alphanumeric.
+
+To understand the importance of quotes, consider the echo command. The echo command displays text to the terminal and is used extensively in shell scripting.
+
+echo [STRING]...
+
+Consider the following scenario in which you want to list the contents of the current directory using the ls command and then use the echo command to display the string hello world!! on the screen.
+
+You might first try the echo command without any quotes, unfortunately without success:
+
+sysadmin@localhost:~$ ls
+sysadmin@localhost:~$ echo hello world!!
+echo hello worldls
+hello worldls
+
+Using no quotes failed because the shell interprets the !! characters as special shell characters; in this case, they mean "replace the !! with the last command that was executed". In this case, the last command was the ls command, so ls replaced !! and then the echo command displayed hello worldls to the screen.
+
+You may want to try the double quote " characters to see if they will block the interpretation (or expansion) of the exclamation !! characters. The double quotes block the expansion of some special characters, but not all of them. Unfortunately, double quotes do not block the expansion of the exclamation !! characters:
+
+‌sysadmin@localhost:~$ ls
+sysadmin@localhost:~$ echo "hello world!!"
+echo "hello worldls"
+hello worldls
+
+Using double quotes preserves the literal value of all characters that they enclose except metacharacters such as the $ dollar sign character, the ` backquote character, the \ backslash character and the ! exclamation point character. These characters, called wild cards, are symbol characters that have special meaning to the shell. Wild card characters are used for globbing and are interpreted by the shell itself before it attempts to run any command. Glob characters are useful because they allow you to specify patterns that make it easier to match file names in the command line. For example, the command ls e?? would list all files in that directory that start with an e and have any two characters after it. However, because glob characters are interpreted differently by the shell, they need to be enclosed appropriately to be interpreted literally.
+
+Note
+
+Globbing will be covered in greater detail later in the course.
+
+If you enclose text within the ' single quote characters, then all characters have their literal meaning:
+
+sysadmin@localhost:~$ ls
+sysadmin@localhost:~$ echo 'hello world!!'
+hello world!!

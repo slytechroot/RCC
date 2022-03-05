@@ -1,0 +1,44 @@
+2.7 Command Information
+
+The type command displays information about a command type. For example, if you entered type ls at the command prompt, it will return that the ls command is actually an alias for the ls --color=auto command:
+
+sysadmin@localhost:~$ type ls                                                   
+ls is aliased to `ls --color=auto'
+
+Using the -a option with the type command will return all locations of the files that contain a command; also called an executable file:
+
+sysadmin@localhost:~$ type -a ls                                                
+ls is aliased to `ls --color=auto'                                              
+ls is /bin/ls
+
+In the output above, the /bin/ls file path is the file location of the ls command.
+
+This command is helpful for getting information about commands and where they reside on the system. For internal commands, like the pwd command, the type command will identify them as shell builtins:
+
+sysadmin@localhost:~$ type pwd                                                  
+pwd is a shell builtin
+
+For external commands like the ip command, the type command will return the location of the command, in this case, the /sbin directory:
+
+sysadmin@localhost:~$ type ip                                                   
+ip is /sbin/ip
+
+Consider This
+
+The /bin directory contains executable programs needed for booting a system, commonly used commands, and other programs needed for basic system functionality.
+
+The /sbin directory also contains executable programs; mainly commands and tools designed for system administration.
+
+If a command does not behave as expected or if a command is not accessible, that should be, it can be beneficial to know where the shell is finding the command.
+
+The which command searches for the location of a command in the system by searching the PATH variable.
+
+sysadmin@localhost:~$ which ls                                       
+/bin/ls
+
+Note
+
+The PATH variable contains a list of directories that are used to search for commands entered by the user.
+
+The PATH variable will be covered in greater detail later in the course.
+

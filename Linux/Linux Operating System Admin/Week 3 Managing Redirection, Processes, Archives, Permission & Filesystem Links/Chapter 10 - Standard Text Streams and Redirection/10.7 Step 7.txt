@@ -1,0 +1,13 @@
+10.7 Step 7
+
+An alternative command to redirect both standard output and standard error:
+
+find /etc –name hostname &> find_output.txt
+cat find_output.txt
+
+sysadmin@localhost:~$ find /etc -name hostname &> find_output.txt
+sysadmin@localhost:~$ cat find_output.txt
+/etc/hostname
+find: '/etc/ssl/private': Permission denied
+
+In the examples above, the notation &> will redirect all output.

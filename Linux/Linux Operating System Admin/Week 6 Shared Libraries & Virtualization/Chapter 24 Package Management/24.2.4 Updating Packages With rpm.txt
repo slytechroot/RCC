@@ -1,0 +1,15 @@
+24.2.4 Updating Packages With rpm
+
+To update a package with a new version or newer release, use the rpm command with either the -U or the -F option. As was the case with installing or removing packages, dependency issues may arise when updating packages. Installing an updated package often requires the installation of updates to the packages that it depends upon.
+
+The -U option can be used with the rpm command to either install or update a package:
+
+[sysadmin@localhost ~]$ rpm -U x3270-4.3.6-10.5.el6.i686.rpm
+
+On the other hand, when using the rpm command with the -F option, the package will only be updated if the package is already installed; this is called freshening the package:
+
+[sysadmin@localhost ~]$ rpm -F x3270-4.3.6-10.5.el6.i686.rpm
+
+Important
+
+The kernel package is so critical that when a new version is available, it should be installed rather than updated or freshened. The kernel files are organized to allow for multiple versions to exist on the system simultaneously. In this way, if an updated kernel is installed on your system but is not functional, simply reboot the system and select the previous kernel from the bootloader menu.

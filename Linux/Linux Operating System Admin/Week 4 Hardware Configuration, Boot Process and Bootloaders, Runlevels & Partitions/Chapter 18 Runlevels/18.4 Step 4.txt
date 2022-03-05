@@ -1,0 +1,10 @@
+18.4 Step 4
+
+Execute the following commands to stop the sshd service and verify that it is stopped:
+
+/etc/init.d/sshd stop
+
+[root@centos ~]# /etc/init.d/sshd stop
+Stopping sshd:                                          [  OK  ]  
+[root@centos ~]#
+

@@ -1,0 +1,47 @@
+24.5.6 Installing/Updating Packages With apt-get
+
+After searching for a package, you may want to install that package and its required dependencies. Using the apt-get install PACKAGE command will download and prompt the administrator to install that package as well as its dependencies. For example, to install the apache2 package and its dependencies, execute the apt-get install apache2 command with administrative privileges:
+
+Note
+
+The sudo command requires the root password netlab123 in our virtual environment.
+
+Important
+
+Our virtual environment is not configured to download the following package. At the Do you want to continue? prompt, type n to cancel the install.
+
+sysadmin@localhost:~$ sudo apt-get install apache2
+[sudo] password for sysadmin:
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  apache2-bin apache2-data apache2-utils libapr1 libaprutil1
+  libaprutil1-dbd-sqlite3 libaprutil1-ldap libasn1-8-heimdal
+  libgssapi3-heimdal libhcrypto4-heimdal libheimbase1-heimdal
+  libheimntlm0-heimdal libhx509-5-heimdal libkrb5-26-heimdal libldap-2.4-2
+  libldap-common liblua5.2-0 libnghttp2-14 libroken18-heimdal libsasl2-2
+  libsasl2-modules libsasl2-modules-db libwind0-heimdal ssl-cert
+Suggested packages:
+  www-browser apache2-doc apache2-suexec-pristine | apache2-suexec-custom
+libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal
+  libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql
+  openssl-blacklist
+The following NEW packages will be installed:
+  apache2 apache2-bin apache2-data apache2-utils libapr1 libaprutil1
+  libaprutil1-dbd-sqlite3 libaprutil1-ldap libasn1-8-heimdal
+  libgssapi3-heimdal libhcrypto4-heimdal libheimbase1-heimdal
+  libheimntlm0-heimdal libhx509-5-heimdal libkrb5-26-heimdal libldap-2.4-2
+  libldap-common liblua5.2-0 libnghttp2-14 libroken18-heimdal libsasl2-2
+  libsasl2-modules libsasl2-modules-db libwind0-heimdal ssl-cert
+0 upgraded, 25 newly installed, 0 to remove and 28 not upgraded.
+Need to get 2896 kB of archives.
+After this operation, 11.2 MB of additional disk space will be used.
+Do you want to continue? [Y/n]n
+
+The apt-get install PACKAGE command can also update a package, if that package is installed and a newer version is available. If the package is not already on the system, it would be installed; if it is on the system, it would be updated. To only update, execute the apt-get --only-upgrade install PACKAGE command.
+
+sysadmin@localhost:~$ sudo apt-get --only-upgrade install apache2        
+
+ To update all packages of the system, two commands are executed. First, the apt-get update command to update the cache of all packages available should be executed. Second, execute the apt-get upgrade command; all packages and dependencies will be updated.
+

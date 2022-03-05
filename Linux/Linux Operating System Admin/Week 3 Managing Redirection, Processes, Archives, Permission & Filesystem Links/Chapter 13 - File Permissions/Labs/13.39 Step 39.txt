@@ -1,0 +1,12 @@
+13.39 Step 39
+
+In the next few steps, we will demonstrate the use of sticky bit directories. Start by creating a new directory by executing the following commands:
+
+mkdir /pub
+chmod 777 /pub
+ls -ld /pub
+
+root@localhost:~# mkdir /pub
+root@localhost:~# chmod 777 /pub
+root@localhost:~# ls -ld /pub
+drwxrwxrwx 2 root root 4096 Apr 18 20:10 /pub

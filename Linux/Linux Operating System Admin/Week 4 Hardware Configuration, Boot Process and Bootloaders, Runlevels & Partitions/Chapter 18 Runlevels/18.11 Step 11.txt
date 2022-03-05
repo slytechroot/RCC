@@ -1,0 +1,11 @@
+18.11 Step 11
+
+Execute the following command to see the chkconfig information for the sshd script:
+
+grep chkconfig /etc/init.d/sshd
+
+[root@centos rc3.d]# grep chkconfig /etc/init.d/sshd
+# chkconfig: 2345 55 25
+[root@centos rc3.d]#
+
+Recall that the first value (2345) is the runlevel that the sshd service should be run by default. The second value (55) is the start number for the script, and the third value (25) is the stop value for the script.

@@ -1,0 +1,34 @@
+24.6.1 md5sum
+
+The md5sum command, based on the MD5 (message-digest 5) algorithm, creates a 128-bit hash using the original file.
+
+The following syntax can be used to create a checksum with the md5sum command:
+
+md5sum [OPTIONS]... [FILE]...
+
+Create a file in the /tmp directory and create the hash using the md5sum command and view the result:
+
+[sysadmin@localhost]$ touch anyfile.txt
+[sysadmin@localhost]$ md5sum anyfile.txt > anyfile.md5
+[sysadmin@localhost]$ ls
+anaconda-post.log  anyfile.md5  anyfile.txt  ks-script-mbvg2Y  yum.log
+[sysadmin@localhost]$ cat anyfile.md5
+d41d8cd98f00b204e9800998ecf8427e  anyfile.txt
+
+In the output above, the checksum that was generated appears in the anyfile.md5 file:
+
+d41d8cd98f00b204e9800998ecf8427e
+
+As you can see from the output of the following command, this is the same number sequence that appears if you were to execute the md5sum command with the anyfile.txt file as an argument:
+
+[sysadmin@localhost]$ md5sum anyfile.txt
+d41d8cd98f00b204e9800998ecf8427e  anyfile.txt
+
+The md5sum command can also be used to authenticate the file(s) with the check -c option. This is the option used to verify the integrity of the file by comparing the computed checksum of the file with the previously generated .md5 file.
+
+[sysadmin@localhost]$ md5sum -c anyfile.md5
+anyfile.txt: OK
+
+Warning
+
+The algorithm used for MD5 is no longer considered secure and should not be relied on for files that might be intentionally tampered with. It can still be used for checking known files in situations where security isn’t a concern.

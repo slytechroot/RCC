@@ -1,0 +1,63 @@
+18.5 The wall Command
+
+Sometimes the system administrator needs to send messages regarding a pending event to all users. While it is possible to send a message using the shutdown command:
+
+root@localhost:~# shutdown now "System going down for repairs"
+
+There are instances when the notification may not require the imminent shutdown of the system. This is what the wall command is used for. The wall command can be used to display a message or the contents of a file to all users on the system. For example, the following message is being piped to the wall command from the echo command:
+
+root@localhost:~# exit
+logout
+sysadmin@localhost:~$ echo -e "The server will be offline on Saturday
+from\n6:00PM to 12:00PM for scheduled maintenance" | wall
+Broadcast message from sysadmin@localhost (console) (Wed May 29 22:13:59
+2019):
+
+The server will be offline on Saturday from
+6:00PM to 12:00PM for scheduled maintenance
+
+The wall command accepts standard input or the name of a file. To display a file, the wall command either requires the user to have root privileges or the contents to be piped in from another command, such as the cat command. Without either, the wall command will display an error message:
+
+Note
+
+The sudo command requires the root password netlab123 in our virtual environment.
+
+sysadmin@localhost:~$ cd Documents
+sysadmin@localhost:~/Documents$ wall letters.txt
+wall: will not read letters.txt - use stdin.
+sysadmin@localhost:~/Documents$ sudo wall letters.txt
+[sudo] password for sysadmin:
+
+Broadcast message from sysadmin@localhost (console) (Wed May 29 22:15:23
+2019):
+
+a
+b
+c
+d
+e
+
+sysadmin@localhost:~/Documents$ cat letters.txt | wall
+
+Broadcast message from sysadmin@localhost (console) (Wed May 29 22:17:44
+2019):
+
+a
+b
+c
+d
+e
+
+The -n option can be used by the wall command to suppress the leading banner:
+
+sysadmin@localhost:~/Documents$ sudo cat letters.txt | wall -n
+wall: --nobanner is available only for root
+
+Broadcast message from sysadmin@localhost (console) (Wed May 29 22:18:24
+2019):
+
+a
+b
+c
+d
+e

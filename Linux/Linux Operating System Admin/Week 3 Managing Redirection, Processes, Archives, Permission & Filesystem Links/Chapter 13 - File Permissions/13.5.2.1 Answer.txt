@@ -1,0 +1,13 @@
+13.5.2.1 Answer
+Question
+
+Given the following information, can the user bob delete the /home/bob/test file?
+
+drwxr-xr-x 1 root root  4096 Apr 23 21:08 /
+drwxr-xr-x 1 root root  4096 Apr 17 22:31 /home
+drwxr-xr-x 1 bob  staff 4096 Apr 23 21:09 /home/bob
+---------- 1 bob  staff 390  Apr 17 22:31 /home/bob/test
+
+Answer
+
+Yes. While it may seem like the user bob shouldn't be able to delete this file because he has no permissions on the file itself, to delete a file a user needs to have write permission in the directory that the file is stored in. File permissions do not apply when deleting a file.

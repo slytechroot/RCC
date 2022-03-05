@@ -1,0 +1,11 @@
+25.4 Step 4
+
+To add a new library directory to the system, first create a new directory and then create a configuration file in the /etc/ld.so.conf.d directory:
+
+mkdir /usr/mylib
+echo “/usr/mylib” > /etc/ld.so.conf.d/mylib.conf
+
+[root@localhost ~]# mkdir /usr/mylib
+[root@localhost ~]# echo "/usr/mylib" > /etc/ld.so.conf.d/mylib.conf
+[root@localhost ~]#
+

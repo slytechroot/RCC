@@ -1,0 +1,50 @@
+21.3 Mounting Filesystems Manually
+
+In order to properly mount a filesystem, at least two parameters must be provided to the mount command: the filesystem identifier and the directory path name to mount it on. If no other options are needed, the mount command will mount the filesystem on the specified directory mount point.
+
+Important
+
+Unless set up in the /etc/fstab file beforehand, mounting requires root user access.
+
+Note
+
+The following examples may not match the output in our virtual environment.
+
+root@localhost:~# mount /dev/sdb1 /mnt
+
+The first step to mounting a filesystem is to create a directory to serve as a mount point. Alternatively, the /mnt and /media directories may be used, which usually exist by default on most Linux distributions for this purpose. The /mnt and /media directories are typically only used to mount a temporary resource such as removable media, including USB drives and optical disks. Some desktop-oriented distributions will automatically mount removable devices under the /media/USERNAME/DEVICENAME directory.
+
+The easiest form of the manual mount command is shown above. In this situation, the Linux kernel understands that /dev/sdb1 is a filesystem and can even detect what kind of filesystem is on the disk. If the filesystem cannot be detected, then use the -t option to indicate the type of filesystem:
+
+root@localhost:~# mount -t iso9660 /dev/scd0 /mnt
+
+This last command mounts a device called /dev/scd0 on /mnt and tells the kernel to use the iso9660 filesystem, which is for CD and DVD devices. If it is necessary to tell the kernel what kind of filesystem is being used, then this should be a sign that something is amiss as the autodetection is generally reliable.
+
+When a filesystem is mounted, the default options for that filesystem are used. The -o option can be used to specify alternative mount options from the command line. Some mount options are only used when manually mounting a filesystem, while others are commonly used when automatically mounting a filesystem.
+
+To mount a filesystem read-only, pass the ro option, such as:
+
+root@localhost:~# mount /dev/sdb2 /opt -o ro
+
+Consider This
+
+Mounting a filesystem on a directory that already contains files will render those files temporarily inaccessible. Therefore be careful to mount on directories known to be empty.
+
+Once a filesystem is mounted on a directory, only the contents of that filesystem will be visible. What was previously visible in a directory is not gone, but will become visible only after the new filesystem is unmounted.
+
+For example, consider the situation in which the /data directory already contains files and then it is used as a mount point:
+
+root@localhost:~# ls /data
+file1 file2
+root@localhost:~# mount /dev/sda3 /data
+root@localhost:~# ls /data
+file3 file4
+
+It appears that file1 and file2 were deleted, but they are just hidden from view. If the filesystem was unmounted, then these files would reappear:
+
+root@localhost:~# ls /data
+file3 file4
+root@localhost:~# umount /data
+root@localhost:~# ls /data
+file1 file2
+

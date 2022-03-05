@@ -1,0 +1,23 @@
+20.3.6 The sfdisk Command
+
+There is a scriptable fdisk-like program called sfdisk. Not only can this program be used to automate partitioning, it is also capable of backing up and restoring the current partition table.
+
+To back up the partition table, first, determine the names of the disk devices. The sfdisk command will list the disk(s) and their sizes when provided the -s option. If the system contained only one 500 GB disk, then the output of the command may appear something like the following, with the pathname of the device and its size:
+
+Note
+
+The following examples may not match the output in our virtual environment.
+
+root@localhost:~# sfdisk -s
+/dev/sda:   500088608
+
+Before partitioning the disk, it would be a good idea to back up the current partition table data by using the -d option to the sfdisk command:
+
+root@localhost:~# sfdisk -d /dev/sda > sda.disk
+
+In the event that a mistake is made while using partition editing tools, the partition table can be restored to the original partition table by executing the sfdisk command with the -f option:
+
+root@localhost:~# sfdisk -f /dev/sda < sda.disk
+
+Beware that using the wrong file may corrupt the partition table, which could result in a total loss of data.
+

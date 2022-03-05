@@ -1,0 +1,13 @@
+23.6 Step 6
+
+At the Partition number prompt, type 1 to specify that you are going to use the first partition number:
+
+1
+
+Command (m for help): n
+Partition type:
+   p    primary (1 primary, 0 extended, 4 free)
+   e    extended
+Select (default p): e
+Partition number (1-4, default 1): 1
+

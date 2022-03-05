@@ -1,0 +1,11 @@
+17.26 Step 26
+
+Your screen should look like the following:
+
+ [ Minimal BASH-like line editing is supported. For the first word, TAB
+   lists possible command completions. Anywhere else TAB lists the possible
+   completions of a device/filename. ESC at any time cancels. ENTER
+   at any time accepts your changes.]
+ 
+<=VolGroup/lv_root  KEYBOARDTYPE=pc KEYTABLE=us rd_NO_DM single
+

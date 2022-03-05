@@ -1,0 +1,71 @@
+6.3.3 whereis Command
+
+There are many commands available to the operating system, and it is sometimes useful to know where they are. The whereis command can be used to search your PATH for the binary. It is also capable of searching for the man page, and source files for any given command.
+
+whereis [OPTION]... NAME...
+
+The echo command can be used to determine which directories are in the PATH:
+
+sysadmin@localhost:~$ echo $PATH
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+
+To find out where the grep command is located, use whereis without any options:
+
+sysadmin@localhost:~$ whereis grep
+grep: /bin/grep /usr/share/man/man1/grep.1.gz /usr/share/info/grep.info.gz
+
+The output of the whereis command returns three directories. The first is where the grep command is located, in the /bin/grep directory. There is also a path given for the man page of the grep command at /usr/share/man/man1/grep.1.gz and another path for the info page at /usr/share/info/grep.info.gz. Without an option, the whereis command provides all three pieces of information.
+
+To view the location of the binary separate from the man page and info page, use the -b and -m options respectively:
+
+sysadmin@localhost:~$ whereis -b grep
+grep: /bin/grep
+sysadmin@localhost:~$ whereis -m grep
+grep: /usr/share/man/man1/grep.1.gz /usr/share/info/grep.info.gz
+
+The -s option can be used to find source code that has been installed for a given command. In the case of grep, only the binary is currently installed:
+
+sysadmin@localhost:~$ whereis -s grep
+grep:
+
+Notice that no results are returned because the source code for the grep command is not installed.
+
+The -u option can be used to identify commands that do not have an entry for a requested attribute. To find out which commands in the /bin directory do not have man pages, use the following command:
+
+sysadmin@localhost:~$ cd /bin
+sysadmin@localhost:/bin$ whereis -m -u *
+dir: /usr/share/man/man1/dir.1.gz /usr/share/info/dir /usr/share/info/dir.old   
+grep: /usr/share/man/man1/grep.1.gz /usr/share/info/grep.info.gz                
+gzip: /usr/share/man/man1/gzip.1.gz /usr/share/info/gzip.info.gz                
+hostname: /usr/share/man/man7/hostname.7.gz /usr/share/man/man5/hostname.5.gz /u
+sr/share/man/man1/hostname.1.gz                                                 
+ip: /usr/share/man/man7/ip.7.gz /usr/share/man/man8/ip.8.gz                     
+nano: /usr/share/man/man1/nano.1.gz /usr/share/info/nano.info.gz                
+sed: /usr/share/man/man1/sed.1.gz /usr/share/info/sed.info.gz 
+sysadmin@localhost:/bin$ cd
+sysadmin@localhost:~$
+
+In the previous example, the asterisk * character is used to consider every file in the current directory.
+
+The example below identifies a specific command that does not have a man page:
+
+sysadmin@localhost:~$ whereis type
+
+This means that there is no man page for the type command:
+
+sysadmin@localhost:~$ man type
+No manual entry for type
+
+If the same example is repeated for the ls command, there will be no output because ls has a man page.
+
+sysadmin@localhost:~$ whereis ls
+ls: /bin/ls /usr/share/man/man1/ls.1.gz
+
+To limit the search to a specific path or paths, capitalized options can be used. The -B option searches for binaries, the -M option for manuals and documentation, and the -S option for sources. The -f option must be used to indicate the end of the path list and the beginning of the search term.
+
+whereis [OPTION]... [-BMS directory… -f] name...
+
+sysadmin@localhost:~$ whereis -B /home/sysadmin/ -f Desktop
+Desktop: /home/sysadmin//Desktop
+
+This type of searching, however, may be best left to the find command, as it allows for more specific criteria to be used in a search.

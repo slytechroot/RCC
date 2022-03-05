@@ -1,0 +1,7 @@
+24.1 Introduction
+
+The two most common software management systems were started by two of the most popular Linux distributions: Red Hat and Debian. Both of these systems provide similar functionality, including the ability to manually download and install a software program as well as automate the process. While some may argue that one system is better than the other, the argument is mostly moot since most administrators typically don't have a choice as to which software management system is available for their distribution.
+
+While there is a chance that you may only need to learn one system (the one that is used on your distribution of Linux), knowing both systems provides the flexibility of being able to manage software on many different Linux distributions. The good news is that once you understand one system, understanding the other is not too difficult.
+
+Another Linux distribution, SUSE, uses the package management system developed by Red Hat as well as its own package management system called Zypper. In this chapter, you will learn about Red Hat, Debian, and SUSE command line package management.

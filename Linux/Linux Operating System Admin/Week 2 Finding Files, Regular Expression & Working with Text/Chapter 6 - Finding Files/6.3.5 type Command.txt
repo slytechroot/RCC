@@ -1,0 +1,52 @@
+6.3.5 type Command
+
+The type command can be used to determine information about various commands.
+
+type [OPTION]... NAME...
+
+Some commands originate from a specific file:
+
+sysadmin@localhost:~$ type which                                                
+which is /usr/bin/which
+
+This output would be similar to the output of the which command:
+
+sysadmin@localhost:~$ which which
+/usr/bin/which
+
+The type command can also identify commands that are built into the Bash (or other) shell:
+
+sysadmin@localhost:~$ type echo
+echo is a shell builtin
+
+This output is significantly different than the output of the which command:
+
+sysadmin@localhost:~$ which echo
+/bin/echo
+
+Using the -a option, the type command can also reveal the path of another command:
+
+sysadmin@localhost:~$ type -a echo
+echo is a shell builtin
+echo is /bin/echo
+
+The type command can also identify aliases to other commands:
+
+sysadmin@localhost:~$ type ll
+ll is aliased to `ls -alF'
+sysadmin@localhost:~$ type ls
+ls is aliased to `ls --color=auto'
+
+The output of these commands indicates that ll is an alias for ls -alF, and even ls is an alias for ls --color=auto. Again, the output is significantly different than the which command:
+
+sysadmin@localhost:~$ which ll
+sysadmin@localhost:~$ which ls
+/bin/ls
+
+The type command supports other options, and can lookup multiple commands simultaneously. To display only a single word describing the echo, ll, and which commands, use the -t option:
+
+sysadmin@localhost:~$ type -t echo ll which
+builtin
+alias
+file
+

@@ -1,0 +1,4 @@
+15.0 Introduction
+In order to provide the functionality you need to apply these concepts, this VM may require a minute or two to load.
+
+There are a variety of files and commands that will provide useful information regarding the hardware that is attached to the system. This information can be used to configure or fine-tune how the hardware behaves on the system. The information is also very useful when troubleshooting hardware device issues.

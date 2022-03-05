@@ -1,0 +1,9 @@
+15.2 Step 2
+
+Unfortunately, hard links can't be made to directories. Execute the following command to see a demonstration:
+
+ln /etc /myetc
+
+root@ubuntu:~# ln /etc /myetc                                           
+ln: '/etc': hard link not allowed for directory
+

@@ -1,0 +1,50 @@
+20.3.2 fdisk Interactive Mode
+
+In the interactive mode, a system administrator can use the fdisk command to create and modify partitions. To enter the interactive mode, do not use the -l option, but still use -c and -u options. The pathname for the disk to edit is required. For example, to edit the partitions for the first SATA /dev/sda hard drive, execute the following command to display a prompt:
+
+Note
+
+The following examples may not match the output in our virtual environment.
+
+root@localhost:~# fdisk -cu /dev/sda
+Command (m for help):
+
+The m command will display a menu or help screen:
+
+Command (m for help): m
+
+Command action
+   a   toggle a bootable flag
+   b   edit bsd disklabel
+   c   toggle the dos compatibility flag
+   d   delete a partition
+   l   list known partition types
+   m   print this menu
+   n   add a new partition
+   o   create a new empty DOS partition table
+   p   print the partition table
+   q   quit without saving changes
+   s   create a new empty Sun disklabel
+   t   change a partition's system id
+   u   change display/entry units
+   v   verify the partition table
+   w   write table to disk and exit
+   x   extra functionality (experts only)
+
+Before creating any partitions, it is a good idea to print the partition table by choosing the p command action. Note that this doesn't really send output to a printer, but to the screen instead. The output will look very much like the output of the fdisk -l command.
+
+Command (m for help): p
+
+Disk /dev/sda: 11.3 GB, 11261706240 bytes
+255 heads, 63 sectors/track, 1369 cylinders, total 21995520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000ee7d2
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     1026047      512000   83  Linux
+/dev/sda2         1026048    20971519     9972736   8e  Linux LVM
+
+Note that based on the output from the previous command, there is some unpartitioned space on the /dev/sda device. The ending sector of the last partition /dev/sda2 is 20971519, and the /dev/sda device has a total of 21995520 sectors. This means that there are 1024001 sectors that haven't been partitioned. Given that a sector is 512 bytes, 1024001 sectors is approximately 500MB.
+

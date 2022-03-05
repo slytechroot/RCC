@@ -1,0 +1,21 @@
+24.2.7 Step 7
+
+Remove the htop package using the following command. When prompted whether to continue, press Enter to continue:
+
+apt-get remove htop
+y
+
+root@localhost:~# apt-get remove htop
+Reading package lists... Done
+Building dependency tree  	 
+Reading state information... Done
+The following packages will be REMOVED:
+  htop
+0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.
+After this operation, 221 kB disk space will be freed.
+Do you want to continue? [Y/n] y
+(Reading database ... 27628 files and directories currently installed.)
+Removing htop (2.1.0-3) ...
+Processing triggers for mime-support (3.60ubuntu1) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+

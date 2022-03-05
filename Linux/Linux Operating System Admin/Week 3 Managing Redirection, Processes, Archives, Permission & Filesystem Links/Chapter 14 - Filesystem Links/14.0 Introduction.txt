@@ -1,0 +1,5 @@
+14.0 Introduction
+
+Understanding filesystem links is important because a typical Linux filesystem has many of these files by default. As a regular user, you may routinely be accessing files that are actually symbolic links. Understanding how these files work will make it easier for you to use them.
+
+As an administrator, you will be responsible for maintaining the system's hard and soft links. You should know what these files are, the difference between hard and soft links and how to create them.

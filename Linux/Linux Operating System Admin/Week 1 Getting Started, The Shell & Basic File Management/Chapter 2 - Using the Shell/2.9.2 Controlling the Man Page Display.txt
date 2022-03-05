@@ -1,0 +1,56 @@
+2.9.2 Controlling the Man Page Display
+
+The man command uses a pager to display documents. Typically, this pager is the less command, but on some distributions, it may be the more command. Both are very similar in how they perform and will be discussed in more detail in a later chapter.
+
+To view the various movement commands that are available, use the H key or Shift+H while viewing a man page. This will display a help page.
+
+Note
+
+If you are working on a Linux distribution that uses the more command as a pager, your output will be different from the partial example shown here.
+
+Pagers will be covered in greater detail later in the course.
+
+                   SUMMARY OF LESS COMMANDS
+                                                                                
+      Commands marked with * may be preceded by a number, N.
+      Notes in parentheses indicate the behavior if N is given.
+      A key preceded by a caret indicates the Ctrl key; thus ^K is ctrl-K.
+ 
+  h  H                 Display this help.
+  q  :q  Q  :Q  ZZ     Exit.
+ ---------------------------------------------------------------------------
+ 
+                           MOVING
+ 
+  e  ^E  j  ^N  CR  *  Forward  one line   (or N lines).
+  y  ^Y  k  ^K  ^P  *  Backward one line   (or N lines).
+  f  ^F  ^V  SPACE  *  Forward  one window (or N lines).
+  b  ^B  ESC-v      *  Backward one window (or N lines).
+  z                 *  Forward  one window (and set window to N).
+  w                 *  Backward one window (and set window to N).
+  ESC-SPACE         *  Forward  one window, but don't stop at end-of-file.
+  d  ^D             *  Forward  one half-window (and set half-window to N).
+  u  ^U             *  Backward one half-window (and set half-window to N).
+‌
+  ESC-)  RightArrow *  Left  one half screen width (or N positions).
+  ESC-(  LeftArrow  *  Right one half screen width (or N positions).
+  F                    Forward forever; like "tail -f".
+  r  ^R  ^L            Repaint screen.
+  R                    Repaint screen, discarding buffered input.
+        ---------------------------------------------------
+        Default "window" is the screen height.
+        Default "half-window" is half of the screen height.
+ ---------------------------------------------------------------------------
+
+To exit the SUMMARY OF LESS COMMANDS, type Q.
+
+If your distribution uses the less command, you might be a bit overwhelmed with the large number of "commands" that are available. The following table provides a summary of the more useful commands:
+Command 	Function
+Return (or Enter) 	Go down one line
+Space 	Go down one page
+/term 	Search for term
+n 	Find next search item
+1G 	Go to the beginning of the page
+G 	Go to the end of the page
+h 	Display help
+q 	Quit man page

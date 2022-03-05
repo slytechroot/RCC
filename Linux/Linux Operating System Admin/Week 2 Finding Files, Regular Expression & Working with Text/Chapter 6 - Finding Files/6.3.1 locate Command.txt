@@ -1,0 +1,100 @@
+6.3.1 locate Command
+
+Of the two main search commands, the locate command can be described as fast, but always potentially out-of-date. Its speed comes from the fact that the locate command searches a database that contains the location of the files on the filesystem, but that database needs to be updated to be accurate.
+
+locate [OPTION]... PATTERN...
+
+In its simplest form, the locate command accepts a search string as an argument. For example, to find a file named passwd, use the following command:
+
+sysadmin@localhost:~$ locate passwd                                     
+/etc/passwd                                                         
+/etc/passwd-                                                           
+/etc/pam.d/chpasswd                                          
+/etc/pam.d/passwd                                                
+/etc/security/opasswd                                             
+/usr/bin/gpasswd                                                     
+/usr/bin/passwd                                                   
+/usr/lib/tmpfiles.d/passwd.conf                                       
+/usr/sbin/chgpasswd                                                     
+/usr/sbin/chpasswd                                                    
+/usr/sbin/update-passwd                                                
+/usr/share/base-passwd                                               
+/usr/share/base-passwd/group.master                          
+/usr/share/base-passwd/passwd.master                                
+/usr/share/doc/base-passwd                                   
+/usr/share/doc/passwd                                               
+/usr/share/doc/base-passwd/README                                   
+/usr/share/doc/base-passwd/changelog.gz                               
+/usr/share/doc/base-passwd/copyright                                  
+/usr/share/doc/base-passwd/users-and-groups.html                        
+/usr/share/doc/base-passwd/users-and-groups.txt.gz                      
+/usr/share/doc/passwd/NEWS.Debian.gz
+
+A few things to consider when using the locate command:
+
+    The locate command will only return results of files that the current user would normally have access to.
+
+    The locate command will display all files that have the search term anywhere in the file name. For example, the search term passwd would match both /etc/opasswd and /etc/thishaspasswdinit.
+
+    Like most things in Linux, the locate command is case sensitive. For example, the search term passwd would not match a file named /etc/PASSWD. To have the locate command not be case sensitive, use the -i option.
+
+Note
+
+The locate command accepts the -r option to use regular expressions in the search pattern which provides a more powerful way to search for files.
+
+Regular expressions will be covered in greater detail later in the course.
+
+The locate command is dependent on a database. This database can be updated manually by an administrator using the updatedb command, though typically this command is run automatically every day through cron, a system scheduling service that runs commands on a particular recurring schedule.
+
+When executed, the updatedb command creates a database of all files that it finds on the computer for quick searching. This command can only be executed by a user with administrative access, which can be achieved using the sudo command:
+
+sysadmin@localhost:~$ sudo updatedb
+[sudo] password for sysadmin:
+
+Note
+
+The sudo command allows users to execute commands using the privileges of another user. The sudo command is the preferred way to run commands with escalated privileges, and the root user is assumed by default.
+
+The sudo command circumvents the need to login as root; this is bad practice because all commands are executed with root privileges. This is seldom necessary and increases the risk that potentially dangerous commands may be executed as root, even though root privileges were not required or desired.
+
+Accordingly, some Linux distributions now prevent root logins entirely and require sudo to escalate privileges. The system administrator must specifically authorize each user that can use the sudo command and must specify which user(s) they can impersonate. For Linux system administrators, sudo plays a vital role is among the most frequently used commands.
+
+The updatedb command can be told not to search a particular name, path, or filesystem by changing the corresponding line in its configuration file, /etc/updatedb.conf. Below is an example of the default file in its entirety:
+
+sysadmin@localhost:~$ cat /etc/updatedb.conf                                  
+PRUNE_BIND_MOUNTS="yes"                                                         
+# PRUNENAMES=".git .bzr .hg .svn"                                               
+PRUNEPATHS="/tmp /var/spool /media /var/lib/os-prober /var/lib/ceph /home/.ecryp
+tfs /var/lib/schroot"                                               
+
+PRUNEFS="NFS nfs nfs4 rpc_pipefs afs binfmt_misc proc smbfs autofs iso9660 ncpfs
+ coda devpts ftpfs devfs devtmpfs fuse.mfs shfs sysfs cifs lustre tmpfs usbfs ud
+f fuse.glusterfs fuse.sshfs curlftpfs ceph fuse.ceph fuse.rozofs ecryptfs fusesm
+b"
+
+The /etc/updatedb.conf file can be edited as the root user. Any name, path, or filesystem that is listed in the file on the appropriate line will not be added to the database. Any line starting with the # symbol will be ignored since it is commented out.
+
+Since the locate command works with a database, it is able to work very quickly even on a system with hundreds of thousands of files. However, if you want to use the locate command to search for a file that was created very recently, it will fail to find the file if the database hasn't been updated since the file creation.
+
+Likewise, the database may contain outdated information about files that might have existed in the very recent past, so the command will report them incorrectly as still existing.
+
+The following example demonstrates the consequences that arise when the database is not updated in real time:
+
+    A new file called lostfile isn't initially found by the locate command.
+
+    sysadmin@localhost:~$ touch lostfile
+    sysadmin@localhost:~$ locate lostfile
+
+    After the database is updated by the updatedb command, the locate command can find the lostfile file.
+
+    sysadmin@localhost:~$ sudo updatedb
+    [sudo] password for sysadmin:
+    sysadmin@localhost:~$ locate lostfile
+    /home/sysadmin/lostfile
+
+    After the lostfile file has been deleted, the locate command will still report that the file exists.
+
+    sysadmin@localhost:~$ rm lostfile
+    sysadmin@localhost:~$ locate lostfile
+    /home/sysadmin/lostfile
+

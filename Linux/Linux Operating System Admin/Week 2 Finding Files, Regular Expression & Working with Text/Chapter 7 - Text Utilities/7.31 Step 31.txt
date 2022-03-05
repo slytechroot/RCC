@@ -1,0 +1,25 @@
+7.31 Step 31
+
+Use the -u option to the sort command to remove duplicate entries, as demonstrated below:
+
+cut -f7 -d: /etc/passwd | head > output
+more output
+sort -u output
+
+sysadmin@localhost:~$ cut -f7 -d: /etc/passwd | head > output
+sysadmin@localhost:~$ more output
+/bin/bash
+/usr/sbin/nologin
+/usr/sbin/nologin
+/usr/sbin/nologin
+/bin/sync
+/usr/sbin/nologin
+/usr/sbin/nologin
+/usr/sbin/nologin
+/usr/sbin/nologin
+/usr/sbin/nologin
+sysadmin@localhost:~$ sort -u output
+/bin/bash
+/bin/sync
+/usr/sbin/nologin
+

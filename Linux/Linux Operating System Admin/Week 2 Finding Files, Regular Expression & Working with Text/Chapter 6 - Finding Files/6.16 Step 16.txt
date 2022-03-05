@@ -1,0 +1,20 @@
+6.16 Step 16
+
+When the whereis command returns more than one result for a command, it may be useful to know which command is being used. The which command can be used to find out which result is used when executing the command.
+
+which [-a] FILENAME...
+
+To find all the binaries for the touch command, execute the following command:
+
+whereis -b touch
+
+sysadmin@localhost:~$ whereis -b touch
+touch: /usr/bin/touch /bin/touch
+
+To find out which of the touch command results is the real command, use the which command:
+
+which touch
+
+sysadmin@localhost:~$ which touch                                               
+/usr/bin/touch
+

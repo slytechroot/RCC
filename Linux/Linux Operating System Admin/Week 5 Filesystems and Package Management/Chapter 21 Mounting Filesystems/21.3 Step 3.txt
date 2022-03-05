@@ -1,0 +1,15 @@
+21.3 Step 3
+
+In this step, we will begin creating a new partition on the sdb drive. Execute the following command to start this process:
+
+fdisk /dev/sdb
+
+root@ubuntu:~# fdisk /dev/sdb
+Welcome to disk (util-linux 2.31.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+Created a new DOS disk label with disk identifier 0xdcd69338.
+
+Command (m for help):

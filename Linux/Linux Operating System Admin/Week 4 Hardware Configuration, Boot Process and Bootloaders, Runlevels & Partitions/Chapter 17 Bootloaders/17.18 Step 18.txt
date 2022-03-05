@@ -1,0 +1,9 @@
+17.18 Step 18
+
+Verify your changes by viewing the /boot/grub/grub.conf file by executing the following command:
+
+cat /boot/grub/grub.conf
+
+Contents of the /boot/grub/grub.conf file. Note the following settings: timeout=60 and #hiddenmenu.
+
+In traditional GRUB, changes to the configuration file do not require running any commands after editing the file.

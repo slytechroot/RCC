@@ -1,0 +1,18 @@
+7.26 Step 26
+
+Using the cut command, a specific field or set of fields can also be extracted from data containing fixed width columns. To extract the contents from column 31 to 43 from the output of the ls -l command, execute the following command:
+
+ls -l /etc | head | cut -c31-43
+
+sysadmin@localhost:~$ ls -l /etc | head | cut -c31-43
+
+ Jul  1  2019                                                                   
+ Mar  7  2019                                                                   
+ Jul  1  2019                                                                   
+ Mar 22  2019                                                                   
+ Mar 22  2019                                                                   
+ Apr 17  2019                                                                   
+ Mar 22  2019                                                                   
+ Apr  4  2018                                                                   
+ Apr  2  2018
+

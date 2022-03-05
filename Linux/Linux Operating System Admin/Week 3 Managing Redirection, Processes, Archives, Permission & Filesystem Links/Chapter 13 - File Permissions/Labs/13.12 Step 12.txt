@@ -1,0 +1,9 @@
+13.12 Step 12
+
+Verify that the sysadmin account cannot view the file contents by executing the following command:
+
+more /srv/lab.txt
+
+sysadmin@localhost:~$ more /srv/lab.txt
+more: cannot open /srv/lab.txt: Permission denied
+

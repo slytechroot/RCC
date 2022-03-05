@@ -1,0 +1,34 @@
+20.9 BTRFS
+
+BTRFS (sometimes pronounced b-tree FS or butter FS) is a Linux native filesystem created by Oracle and developed by multiple companies as well as many individual contributors to address the limitations of previous filesystems.
+Copy-On-Write
+
+BTRFS is a copy-on-write (COW) system. While a complex technical feature, the main point of copy on write is that BTRFS will not overwrite an existing file with updates, which traditional non-COW filesystems do routinely.
+
+For example, if you have a file named datafile1.txt and you make updates to the file’s contents, on a traditional non-COW filesystem, the file would be overwritten with the new data, making retrieval of the original version of the file something that could only be done by restoring from backup. Instead of BTRFS overwriting datafile1.txt, it will leave that file in place, untouched, and writes the new or changed portions of the file elsewhere, and then changes the file’s metadata to encompass the change.
+
+Copy-on-write is one reason why BTRFS has a significant advantage of recovery time from hardware failure, power outage, or other forms of catastrophe. The original version of the file will remain intact, and continue to be available even as follow-on versions or changes are written elsewhere. This has the added benefit of acting as a journal of sorts because transactions (updates) are either completed or not, and if not, the already written to disk portions of the file are safe and sound on disk.
+Snapshots
+
+BTRFS’s use of copy-on-write also makes snapshots possible and very useful to the system operator. A traditional snapshot is effectively a filesystem/volume copy that is made and time-stamped. BTRFS does this differently, it declares a reference to the original as a snapshot and if nothing is changed, effectively takes no additional space.
+
+When a change is made after a snapshot, the changes are noted and logged, but only that change is actually made as a copy, all of the rest of the filesystem does not need to be copied too. This is a tremendous space-saving measure, allowing the use of snapshots for even the smallest changes to be something that will not cause space issues.
+
+To demonstrate, suppose that after installation, the system operator performs a snapshot of the filesystem/volume and then creates the datafile1.txt file. The initial snapshot does not include the datafile1.txt file, but a second or subsequent snapshot would. Therefore, a comparison of the first and second snapshots would show that the only difference between them is the addition of the datafile1.txt file.
+
+Traditional cloning, backups or even some implementations of snapshots would copy all or some of the original filesystem or volume, but a BTRFS snapshot uses the original filesystem as a base, and subsequent snapshots only contain the differences between the original state and the previous snapshot, thus making snapshots extremely efficient on space.
+Subvolumes
+
+Another very important feature of BTRFS is its volume management, which is handled by the BTRFS volume manager. Those familiar with Logical Volume Manager, or LVM, will understand the basic concept of BTRFS being able to base its volumes/filesystems on multiple physical devices. Any volume can be based on one or more physical disks, and can also contain subvolumes, which are effectively portions of a volume that are used as a virtual disk.
+
+Consider This
+Virtual storage is represented logically. Logical computing basically means represented as software rather than hardware. The reason for creating logical storage is that it can be merged together to create one large storage pool. To get from hardware to software, the physical storage capacity from all the storage devices needs to be pooled together to form one large virtual disk.
+
+One of the main areas where subvolumes can be helpful is in the application of updates to a system. To do this, a subvolume is created that encompasses the main volume, the updates are applied, then the system is inspected for any issues with the updates, and if no issues are found, everything continues on as normal. If any issues are found, the system updates can be rolled back to the original volume’s state.
+
+
+Compression
+BTRFS also features compression options that can be turned on via mounting options, with the compress option using several levels or types, or no compression at all. There is even a compression option that will force compression of file types that do not compress well. It’s important to note that compression typically takes at least a minimal amount of processing to accomplish, so extremely large filesystems with hard-to-compress files will produce more system load than usual.
+
+As you move forward in your learning, it will become clear that Linux is an ever-changing system being improved and modified as needs arise. Partitions and filesystems are no exception, in fact, they are rapidly evolving, even as you progress through this course. Each system improves on the last, and a strong understanding of prior systems is needed not only for fundamental knowledge but also because Linux systems can operate for years or even decades. Accomplished system administrators will be called on to maintain, troubleshoot, and migrate older systems to newer technologies as business needs evolve.
+

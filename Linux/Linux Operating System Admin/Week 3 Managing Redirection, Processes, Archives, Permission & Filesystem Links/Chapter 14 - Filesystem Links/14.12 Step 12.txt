@@ -1,0 +1,9 @@
+14.12 Step 12
+
+Unfortunately, hard links can't be made to directories. Execute the following command to see a demonstration:
+
+ln /etc /myetc
+
+[root@localhost test]# ln /etc /myetc                                           
+ln: '/etc': hard link not allowed for directory
+

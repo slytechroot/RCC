@@ -1,0 +1,10 @@
+17.22 Step 22
+
+Type the letter e to edit the current title:
+
+e
+
+You will be provided with the following screen:
+GNU GRUB edit menu has three lines/options; a root line (highlighted), a kernel line and an initrd line.
+
+The line that you would most likely edit is the kernel line. By adding (or removing) arguments on this line, you can affect how the system will boot. Keep in mind that any changes made here are not permanent. To make them permanent, you must edit the /boot/grub/grub.conf file after booting the system.

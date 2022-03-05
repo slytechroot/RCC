@@ -1,0 +1,11 @@
+8.13 Step 13
+
+The alternation | operator, which is a part of extended regular expression characters, is used for matching two or more items. For example, to match the word root or games in the /etc/passwd file, execute the following command:
+
+grep –E 'root|games' /etc/passwd
+
+sysadmin@localhost:~$ grep -E 'root|games' /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+operator:x:1000:37::/root:/bin/bash
+

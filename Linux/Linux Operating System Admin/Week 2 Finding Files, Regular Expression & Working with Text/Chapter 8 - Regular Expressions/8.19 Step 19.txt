@@ -1,0 +1,25 @@
+8.19 Step 19
+
+Regular expressions also use the backslash \ character for designated backslash character combinations, called backslash sequences. Backslash sequences can represent special operators or character classes. For example, \b indicates the word boundary operator, \s indicates the whitespace character, and \w indicates a word character.
+
+Word boundary patterns can be specified when searching for a pattern by using the backslash sequence: \b. To replace the word is with was in the /etc/wgetrc file, execute the following command:
+
+sed 's/\bis\b/was/' /etc/wgetrc | head -n -45 | tail -n -15
+
+sysadmin@localhost:~$ sed 's/\bis\b/was/' /etc/wgetrc | head -n -45 | tail -n -15
+# You can set up other headers, like Accept-Language.  Accept-Language
+# was *not* sent by default.
+#header = Accept-Language: en
+
+# You can set the default proxies for Wget to use for http, https, and ftp.
+# They will override the value in the environment.
+#https_proxy = http://proxy.yoyodyne.com:18023/
+#http_proxy = http://proxy.yoyodyne.com:18023/
+#ftp_proxy = http://proxy.yoyodyne.com:18023/
+
+# If you do not want to use proxy at all, set this to off.
+#use_proxy = on
+
+# You can customize the retrieval outlook.  Valid options are default,
+# binary, mega and micro.
+

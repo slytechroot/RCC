@@ -1,0 +1,16 @@
+13.21 Step 21
+
+Changing permissions using the octal method requires that the permissions for all three sets be specified. It is based on the octal numbering system in which each permission type is assigned a numeric value:
+Octal Value 	Permission
+4 		read
+2 		write
+1 		execute
+0 		none
+
+By adding together the combination of numbers from 0 to 7, any possible combination of read, write, and execute permissions can be specified for a single permission group set. For example, for read, write, and execute: add 4 + 2 + 1 to get 7. Or, for read, not write, and execute: add 4 + 0 + 1 to get 5.
+
+Change the permissions on the /srv/data directory, so only members of the group owner and the user owner have access to this directory:
+
+chmod 770 /srv/data
+
+root@localhost:~# chmod 770 /srv/data

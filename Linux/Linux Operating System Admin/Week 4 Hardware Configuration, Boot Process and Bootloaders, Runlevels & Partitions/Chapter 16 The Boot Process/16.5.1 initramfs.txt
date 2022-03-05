@@ -1,0 +1,27 @@
+16.5.1 initramfs
+
+Introduced in the 2.6 kernel timeframe, the initramfs is the initial root filesystem that a Linux system typically has access to. Think of it as a temporary "starter" filesystem that provides the files and drivers that are necessary to start the real root filesystem and continue the system startup.
+
+The initramfs filesystem is a workaround to a "chicken or the egg" problem; something cannot happen before the other, and vice-versa, ad infinitum. For example, the kernel may require a disk driver to access a disk, but that driver is located on the disk it wants to access. The two workarounds to this dilemma are 1) use initramfs or 2) compile the driver into the kernel.
+
+However, compiling the driver into the kernel has its own problems, not the least of which is it's considered somewhat inelegant and causes the kernel to be larger and take longer to load. The issue is compounded if the driver needs to be updated as it's compiled into the kernel.
+
+The situation becomes even more complex when the system has devices or filesystems that require a userspace program be executed or a user interaction with a userspace program in order to load. Since the original location of these userspace programs is the disk they are enabling to be loaded, it becomes a circular problem.
+
+Consider This
+
+User space and kernel space are the two regions of RAM that the Linux kernel manages. Programs running in Kernel space have access to all the regions of RAM and when a program requests access to something, the kernel will access it in a safe manner and return the information to the program. User space RAM has restrictions, programs running there cannot access all of the kernel space RAM or RAM used by other programs, all access to those regions must be made via system calls and be managed by the kernel.
+
+The initramfs is a cpio archive, which can be inserted into a certain spot in the kernel, whose contents are unpacked by the kernel and loaded into a RAM disk by the kernel for access. The kernel will note the initramfs cpio archive has contents, create a temporary filesystem RAM disk called tmpfs, and unpack the contents of the cpio archive into it.
+
+After being unpacked, the kernel will launch the init script included in the root / filesystem of the initramfs RAM disk, which will then load the necessary drivers and execute the required userspace programs needed to load the real root filesystem for the system. (A typical use case would be Logical Volume Manager (LVM), RAID, or encrypted filesystems.)
+
+After the initramfs-included init script is done loading the appropriate drivers and loading the real root filesystem, it transfers control the /sbin/init binary program on the real root filesystem to continue the initialization of the system.
+
+Once the kernel is fully booted and the real root filesystem is mounted, the memory allocated to the initial RAM disk can be freed. This is the main advantage of placing drivers in initramfs instead of compiling them into the kernel; if a driver in initramfs is not needed, it will not continue to occupy RAM after the boot stage.
+
+The initramfs is built initially with the mkinitramfs utility, or updated by the update-initramfs utility, which can also create a new initramfs. These commands will gather the needed files and userspace utilities from their installed locations to a temporary directory, archived by cpio and then compressed with gzip.
+
+Note
+
+Creating an initramfs is out of the scope of the LPIC objectives and thus, this course.

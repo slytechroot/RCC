@@ -1,0 +1,32 @@
+18.36 Step 36
+
+Execute the following command to view the contents of the /etc/init directory:
+
+1s /etc/init.d | more
+
+root@ubuntu:~# ls /etc/init.d | more
+ 
+apparamor
+console-setup.sh
+cron
+dbus
+grub-common
+hwclock.sh
+irqbalance
+keyboard-setup.sh
+kmod
+lvm2
+lvm2-lvmetad
+lvm2-lvmpolld
+plymouth
+plymouth-log
+proccps
+quota
+quotarpc
+rsync
+rsyslog
+ssh
+udev
+ufw
+uuid
+

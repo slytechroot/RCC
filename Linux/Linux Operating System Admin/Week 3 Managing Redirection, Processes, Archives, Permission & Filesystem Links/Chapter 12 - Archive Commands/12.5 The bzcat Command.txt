@@ -1,0 +1,17 @@
+12.5 The bzcat Command
+
+The bzcat command prints the content of specified files compressed with the bzip2 command to the standard output.
+
+bzcat [OPTION]... [FILE]...
+
+In the example below, the bzip2 command is used to compress the profile.txt file, and the bzcat command is used to view the compressed file:
+
+sysadmin@localhost:~/Documents$ bzip2 profile.txt
+sysadmin@localhost:~/Documents$ bzcat profile.txt.bz2
+Hello my name is Joe.
+I am 37 years old.
+3121991
+My favorite food is avocados.
+I have 2 dogs.
+123456789101112
+

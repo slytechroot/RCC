@@ -1,0 +1,109 @@
+24.4 Installing Packages With DNF
+
+Dandified Yum, or DNF, is the next upcoming version of the yum command. This package management tool was introduced in the Red Hat sponsored Fedora 18 Linux distribution. DNF is designed to solve package management dependency issues, also referred to as depsolve problems, that were present in yum. Due to the growth in the creation and use of applications, retrieving applications has become increasingly complex, resulting in more dependency issues. DNF includes an upgraded dependency solver called state-of-the-art-satisfiability (SAT) dependency solver to address dependency issues.
+
+Another benefit of DNF over yum is a clearly documented Application Programming Interface (API). The API is the interface that allows applications to work with other applications. Regular users typically won’t have to interact at the API level when using applications as this is done by the developers of the applications. However, a poorly documented API can result in slow development or upgrade of applications. DNF is designed with a strict API for plugins and extensions and it mostly maintains command line compatibility with yum.
+
+Consider This
+
+In the previous output of package installs, you may have noted the terms plugins and extension:
+
+Loaded plugins:
+
+nautilus-open-terminal.i686 : Nautilus extension for an open terminal shortcut
+
+Generally speaking, these terms refer to software modules that add functionality to an application. The terms plugin and extension are not used consistently throughout computing. In the case of DNF, a plugin refers to software that provides extra functionality to DNF and modifies the DNF installation itself. Therefore, when you run DNF utilities, the plugins’ capabilities are available. This is analogous to adding new command line options to a command.
+
+Extensions are programs that import DNF functionality through DNF's Python libraries. They do not modify the DNF installation. This is analogous to adding a new command, versus adding options to a well-known command.
+
+To start using DNF, the dnf command can be executed using the following syntax:
+
+dnf [OPTIONS] <COMMAND> [<ARGUMENTS>...]
+
+Similar to the yum command, the dnf command uses the list command with the --available argument to list all available packages on the system:
+
+[root@localhost ~]# dnf list --available
+Last metadata expiration check: 0:25:49 ago on Sat Jun 22 23:41:27 2019.
+Available Packages
+cowsay.noarch                    3.04-4.el7                     mnt_local_repo_
+
+The output above indicates that the cowsay.noarch package is available for install. To install the cowsay.noarch package, the install option can be used:
+
+[root@localhost]# dnf install cowsay.noarch
+added from: file:///mnt/local_repo/             935 kB/s | 1.6 kB     00:00
+Dependencies resolved.
+================================================================================
+ Package        Arch           Version            Repository               Size
+================================================================================
+Installing:
+ cowsay         noarch         3.04-4.el7         mnt_local_repo_          42 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total size: 42 k
+Installed size: 77 k
+Is this ok [y/N]: y
+Downloading Packages:
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1
+  Installing       : cowsay-3.04-4.el7.noarch                               1/1
+  Verifying        : cowsay-3.04-4.el7.noarch                               1/1
+
+Installed:
+  cowsay-3.04-4.el7.noarch
+
+Complete!
+
+To verify that the cowsay.noarch package was successfully installed, list the recently installed packages using the list command with the --installed option:
+
+[root@localhost ~]# dnf list --installed
+Installed Packages
+acl.x86_64                         2.2.51-14.el7                    @System
+
+audit-libs.x86_64                  2.8.4-4.el7                      @System
+
+basesystem.noarch                  10.0-7.el7.centos                @System
+
+bash.x86_64                        4.2.46-31.el7                    @System
+
+bind-license.noarch                32:9.9.4-73.el7_6                @System
+
+binutils.x86_64                    2.27-34.base.el7                 @System
+
+bzip2-libs.x86_64                  1.0.6-13.el7                     @System
+
+ca-certificates.noarch             2018.2.22-70.0.el7_5             @System
+
+centos-release.x86_64              7-6.1810.2.el7.centos            @System
+
+chkconfig.x86_64                   1.7.4-1.el7                      @System
+
+coreutils.x86_64                   8.22-23.el7                      @System
+
+cowsay.noarch                      3.04-4.el7                       @mnt_local_r
+epo_                                                                           cpio.x86_64                        2.11-27.el7                      @System
+
+cpp.x86_64                         4.8.5-36.el7_6.1                 @System
+Output Omitted...
+
+Based on the output above, the cowsay.noarch package has been installed and the cowsay command can now be used on the system:
+
+[root@localhost sysadmin]# exit
+exit
+[sysadmin@localhost ~]$ cowsay Learning Linux is easy!
+ _________________________
+< Learning Linux is easy! >
+ -------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+[sysadmin@localhost ~]$
+

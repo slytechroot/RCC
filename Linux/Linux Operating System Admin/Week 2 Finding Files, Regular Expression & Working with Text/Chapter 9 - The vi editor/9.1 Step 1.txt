@@ -1,0 +1,18 @@
+9.1 Step 1
+
+To create a new file called edit.txt using vi, execute the following command:
+
+vi edit.txt
+
+sysadmin@localhost:~$ vi edit.txt
+
+The vi editor will open as shown below:
+
+
+~
+~
+~
+~
+~
+~
+"edit.txt" [New File]    

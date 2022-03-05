@@ -1,0 +1,24 @@
+16.5 The init Stage
+
+The init stage finishes booting the system. The first process of the operating system (also called init) is started. The init process has three important responsibilities:
+
+    Continue the booting process to get services running, login screens displaying, and consoles listening.
+    Start all other system processes.
+    Adopt any process that detaches from its parent.
+
+‌⁠​​⁠​
+
+Until recently, this process followed a design that was established with the release of System V of Unix, which is sometimes referred to as SysVinit. The actual process that is executed is the init process. Recently, other programs have emerged to compete with and replace the traditional init process with Upstart and systemd.
+
+If the system uses the traditional init program, then the /etc/inittab file is used to determine what scripts will be executed to start the services that will be available on the system.
+
+The inittab file points to other scripts that do the work, usually stored in the /etc/init.d directory. There will be more discussion of these scripts later, but in general, each service the system will run has a script that can start, stop, and restart a service, and init will cause each of these to be run in turn as needed to get the system to the desired state.
+
+If the traditional init has been replaced with Upstart, the scripts in the /etc/init directory are used to complete system initialization.
+
+If the traditional init has been replaced with Systemd, then the files in the /etc/systemd directory are used for starting up and running the system.
+
+Even if your system is using Systemd or Upstart as a replacement for the traditional init process, both replacements use an executable named init with the /sbin/init path name. This is to maintain compatibility with many legacy processes. So, while some of the behavior of Systemd and Upstart will be different, they have some features that are similar to the traditional init process.
+
+While your system will only use one of these booting technologies, it is important to understand all three. For example, while your current system uses the SysVinit technique, you might find yourself working on a different distribution in the future that makes use of Upstart. In any case, all three processes are testable topics on the LPIC exams.
+

@@ -1,0 +1,22 @@
+8.14 Step 14
+
+The extended regex curly brace {} operator is used to specify the number of occurrences of the preceding character or subpattern.
+Pattern 	Meaning
+a{0,} 	Zero or more a characters
+a{1,} 	One or more a characters
+a{0,1} 	Zero or one a characters
+a{5} 	Five a characters
+a{,5} 	Five or fewer a characters
+a{3,5} 	From three to five a characters
+
+To find all the occurrences of the letter o exactly twice in the /etc/passwd file, execute the following command:
+
+grep –E "o{2}" /etc/passwd
+
+sysadmin@localhost:~$ grep -E "o{2}" /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+operator:x:1000:37::/root:/bin/bash
+

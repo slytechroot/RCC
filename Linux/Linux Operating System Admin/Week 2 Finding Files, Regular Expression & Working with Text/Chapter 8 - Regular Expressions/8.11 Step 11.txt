@@ -1,0 +1,12 @@
+8.11 Step 11
+
+The extended regex plus + operator matches one or more of the previous characters, instead of zero or more like the basic regex asterisk * operator. To display the file names of the files in the /etc directory that have the literal characters rc, followed by one or more digit characters in the range 3-6, a literal period . character, and the letter d, use the extended regular expression rc[3-6]+\.d:
+
+ls /etc | grep –E 'rc[3-6]+\.d'
+
+sysadmin@localhost:~$ ls /etc | grep -E 'rc[3-6]+\.d'
+rc3.d
+rc4.d
+rc5.d
+rc6.d
+

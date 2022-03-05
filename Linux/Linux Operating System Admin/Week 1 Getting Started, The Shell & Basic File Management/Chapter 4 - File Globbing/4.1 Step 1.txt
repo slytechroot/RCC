@@ -1,0 +1,12 @@
+4.1 Step 1
+
+To display the names of all files in your current working directory, execute the echo command with the asterisk * character as the argument:
+
+echo *
+
+sysadmin@localhost:~$ echo *                                        
+Desktop Documents Downloads Music Pictures Public Templates Videos
+
+The echo command can be used to see which files a glob pattern will match. The asterisk * character is a wildcard pattern that is used for matching any string, including an empty string.
+
+In the output above, all the files in your current working directory are displayed.

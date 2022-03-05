@@ -1,0 +1,24 @@
+7.12 Step 12
+
+By default, the nl command is used to number non-blank lines in the output. To count the number of lines in the newhome.txt file, including blank lines, execute the following command:
+
+nl –ba newhome.txt
+cd
+
+sysadmin@localhost:~/Documents$ nl -ba newhome.txt                              
+     1  Thanks for purchasing your new home!!                                   
+     2                                                                          
+     3  **Warning** it may be haunted.                                          
+     4                                                                          
+     5  There are three bathrooms.                                              
+     6                                                                          
+     7  **Beware** of the ghost in the bedroom.                                 
+     8                                                                          
+     9  The kitchen is open for entertaining.                                   
+    10                                                                          
+    11  **Caution** the spirits don't like guests.                              
+    12                                                                          
+    13  Good luck!!!                                                            
+sysadmin@localhost:~/Documents$ cd                                              
+sysadmin@localhost:~$
+

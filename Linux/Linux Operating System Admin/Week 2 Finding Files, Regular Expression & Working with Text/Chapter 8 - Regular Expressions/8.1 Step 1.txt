@@ -1,0 +1,26 @@
+8.1 Step 1
+
+The simplest of all regular expressions just use literal characters, such as alphanumeric characters. Although very useful for the grep command, literal characters alone provide no wildcarding or special matching capabilities. For that, you will need to use the operators that are available in basic regular expressions.
+Basic Regex 	Operator 	Meaning
+Period operator 	. 	Matches any one single character.
+List operator 	
+
+[ ]
+
+[^ ]
+	Defines a list or range of literal characters that can match one character. If the first character is the negation ^ operator, it matches any character that is not in the list.
+Asterisk operator 	* 	Matches zero or more instances of the previous character.
+Front anchor operator 	^ 	If ^ is the first character in the pattern, then the entire pattern must be present at the beginning of the line to match. If ^ is not the first character, then it is treated as an ordinary literal ^ character.
+Back anchor operator 	$ 	If $ is the last character in the pattern, then the pattern must be at the end of the line to match, otherwise, it is treated as a literal $ character.
+
+To find the occurrences of the pattern root in the /etc/passwd file, execute the following command:
+
+grep 'root' /etc/passwd
+
+ 
+sysadmin@localhost:~$ grep 'root' /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+operator:x:1000:37::/root:/bin/bash
+
+The pattern argument of a command should be protected by strong quotes to prevent the shell from misinterpreting them as special shell characters. This means that you should place single quotes ‘ around a regular expression.
+

@@ -1,0 +1,20 @@
+21.11 Step 11
+
+At the Command prompt, type the p command to display the current partition table. You should see your new partition:
+
+p
+
+Command (m for help): p
+Disk /dev/sdb: 4 GiB, 4294967296 bytes, 8388608 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifierL 0xdcd69338
+
+Device	      Boot  Start	      End  Sectors   Size   Id  Type
+/dev/sdb2          2048    8388607  8386560     4G    5  Extended
+
+Command (m for help):
+
+It is always a good idea to check your work before saving the changes. The p command shows the current partition table, but changes haven't been made to the hard drive yet.

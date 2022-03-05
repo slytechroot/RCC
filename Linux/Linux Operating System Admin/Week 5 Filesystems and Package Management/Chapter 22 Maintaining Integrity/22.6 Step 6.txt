@@ -1,0 +1,9 @@
+22.6 Step 6
+
+The output of the du command can be immense. To see just a summary of how much space a specific directory structure is using, use the -s option:
+
+du -s /usr
+
+[root@centos~]# du -s /usr
+914376  /usr
+

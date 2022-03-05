@@ -1,0 +1,4 @@
+17.0 Introduction
+In order to provide the functionality required for this lab, the companion VM may require a minute or two to load.
+
+The boot process starts with the bootloader, the program that loads the kernel into memory and executes instructions to boot the system. Typically, administrators do not find it necessary to make many changes to the bootloader, but you should know how to modify some of the key GRUB configurations, as well as know how to interact with the bootloader interactively when the system is booting.

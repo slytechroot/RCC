@@ -1,0 +1,8 @@
+9.3 Step 3
+
+To make this lab more effective, you will create a file with the output of the ls command. This provides you with a file that already contains data (rather than having you create a file from scratch). Execute the following command to generate a file that you can work with:
+
+ls -lR /usr > data.txt
+
+sysadmin@localhost:~$ ls -lR /usr > data.txt
+

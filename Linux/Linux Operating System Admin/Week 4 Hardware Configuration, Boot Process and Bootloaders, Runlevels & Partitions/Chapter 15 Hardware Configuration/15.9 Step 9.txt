@@ -1,0 +1,19 @@
+15.9 Step 9
+
+Using the highlighted value from the output of the previous command, display the details about the USB Controller:
+
+lspci -v -d 8086:7020
+
+[root@localhost ~]# lspci -v -d 8086:7020                                  	 
+00:01.2 USB controller [0c03]: Intel Corporation 82371SB PIIX3 USB [Natoma/Triton II] [8086:7020] (rev 01) (prog-if 00 [UHCI])                                         	 
+    	Subsystem: Red Hat, Inc. QEMU Virtual Machine                 	 
+    	Flags: bus master, fast devsel, latency 0, IRQ 11                	 
+    	I/O ports at c040 [size=32]                                                                                  	 
+    	Kernel driver in use: uhci_hcd                                     	 
+00:04.0 USB controller: Intel Corporation 82371SB PIIX3 USB [Natoma/Triton II] (rev 01) (prog-if 00 [UHCI])
+  Subsystem: Red Hat, Inc. QEMU Virtual Machine
+  Physical Slot: 4               	 
+    	Flags: bus master, fast devsel, latency 0, IRQ 10                	 
+    	I/O ports at c060 [size=32]                                                                                  	 
+    	Kernel driver in use: uhci_hcd
+

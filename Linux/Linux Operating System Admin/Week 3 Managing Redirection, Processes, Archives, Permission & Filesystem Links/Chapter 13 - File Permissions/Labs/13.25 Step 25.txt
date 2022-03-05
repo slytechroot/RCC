@@ -1,0 +1,8 @@
+13.25 Step 25
+
+Execute the following command. This command should fail because the current user has no permission to access this directory:
+
+ls /srv/data
+
+sysadmin@localhost:~$ ls /srv/data
+ls: cannot open directory '/srv/data': Permission denied

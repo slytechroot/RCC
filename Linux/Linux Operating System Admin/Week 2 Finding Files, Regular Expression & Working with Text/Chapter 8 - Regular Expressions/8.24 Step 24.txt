@@ -1,0 +1,19 @@
+8.24 Step 24
+
+Using the -r option to the grep command will allow for directory searches to be recursive. To match the find pattern by recursively searching all of the files in the /etc directory, and then view the matching file names, execute the following command:
+
+grep -rl 'find' /etc/* 2>/dev/null
+
+sysadmin@localhost:~$ grep -rl 'find' /etc/* 2>/dev/null
+/etc/apparmor.d/abstractions/apparmor_api/is_enabled
+/etc/apparmor.d/abstractions/apparmor_api/find_mountpoint
+/etc/apparmor.d/usr.sbin.tcpdump
+/etc/init.d/screen-cleanup
+/etc/init.d/ufw
+/etc/locale.gen
+/etc/rmt
+/etc/vim/vimrc
+/etc/wgetrc
+
+The 2>/dev/null command is sending the error output (stderr) to the null device so that it is not displayed on the screen.
+

@@ -1,0 +1,13 @@
+24.1.18 Step 18
+
+Execute the following command to verify that the edquota command has been recovered:
+
+edquota -V
+
+[root@localhost /]# edquota -V
+Quota utilities version 4.01.
+Compiled with: USE_LDAP_MAIL_LOOKUP EXT2_DIRECT HOSTS_ACCESS RPC RPC_SETQUOTA BSD_BEHAVIOUR
+Bugs to jack@suse.cz
+
+The fact that the command works verifies that the file was restored correctly.
+Note that after recovering the file, you can delete all of the new files that were created. However, since you placed them in the /tmp directory, they would eventually be deleted since old files in the /tmp directory are routinely deleted.

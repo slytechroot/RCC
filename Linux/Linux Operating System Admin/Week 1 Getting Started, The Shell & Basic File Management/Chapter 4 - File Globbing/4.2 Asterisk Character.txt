@@ -1,0 +1,22 @@
+4.2 Asterisk * Character
+
+The asterisk* wildcard can be used to match any string, including the empty string.
+
+sysadmin@localhost:~$ echo *‌
+Desktop Documents Downloads Music Pictures Public Templates Videos
+
+In the screen capture above, the echo command is used to see which files a glob pattern will match. In this case, it displays the name of every file in the user's current directory.
+Consider This
+
+An empty string is a string that has nothing in it. It is commonly referred to as "".
+
+In order to limit the * wildcard, so that it matches fewer file names, it can be combined with other characters. For example, the D* pattern will only match file names that start with a D character:
+
+sysadmin@localhost:~$ echo D*
+Desktop Documents Downloads
+
+The * character can appear anywhere in the pattern; it can even appear multiple times. It is possible to find a file that not only starts with a D, but also contains the letter n, by using the D*n* pattern:
+
+sysadmin@localhost:~$ echo D*n*
+Documents Downloads
+

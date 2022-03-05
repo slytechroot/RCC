@@ -1,0 +1,16 @@
+23.2 Step 2
+
+In order to complete this lab, a new partition must be created. The steps to create a new partition will essentially be the same as what you performed in a previous lab. Execute the following command to start this process:
+
+fdisk /dev/sdb
+
+root@ubuntu:~# fdisk /dev/sdb
+Welcome to disk (util-linux 2.31.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+ 
+Device does not contain a recognized partition table.
+Created a new DOS disklabel with disk identifier 0xb23bc72f.
+ 
+Command (m for help):
+

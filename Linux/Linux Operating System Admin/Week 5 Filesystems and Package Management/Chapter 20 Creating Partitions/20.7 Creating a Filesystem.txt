@@ -1,0 +1,51 @@
+20.7 Creating a Filesystem
+
+If the fdisk command is used to create a partition, then the filesystem will have to be created separately.
+
+The mkfs command can be used to create a filesystem. To make a vfat type filesystem, which is compatible with multiple operating systems, including Microsoft Windows, execute a command like the following:
+
+root@localhost:~# mkfs -t vfat /dev/sdb1
+
+The mkfs command is a wrapper that executes another command, which will actually make the correct filesystem. When provided the -t vfat option, the mkfs command will call the mkdosfs command to make the actual filesystem. This is important to know because the mkfs command provides generic options while the underlying command may have options specific to the filesystem that it creates. Consult the documentation, such as the man pages, to see these additional options.
+
+A very common filesystem is the Fourth Extended Filesystem, ext4, the default filesystem on many Linux distributions. To create this type of filesystem, execute a command like the following:
+
+root@localhost:~# mkfs -t ext4 /dev/sdb1
+
+In this case, the mkfs command would end up calling the mke2fs command, which is capable of creating ext2, ext3, and ext4 type filesystems.
+
+Note
+
+When creating a filesystem, the partition is written to, so previously held data on the partition will be lost. As a result, be very careful when executing the mkfs command.
+
+Fortunately, the mkfs command will not work if the partition is currently in use, meaning it's mounted.
+
+Each filesystem has many options to modify features about the filesystem. To use these options, execute the filesystem creation command directly, rather than the mkfs command.
+
+For example, the mke2fs command has several options that will modify how the filesystem will behave after it has been created. Some of these features can be changed after the filesystem has been created, but others cannot. The following table describes a few of the common features that a system administrator may change for ext2/ext3/ext4 filesystems:
+Option 	Description
+-b 	Specifies the block size of the filesystem. While the default is typically fine for normal filesystems, for filesystems with large databases, a larger block size is more ideal.
+-N 	
+
+Specifies the number of inodes. Recall that each file needs an inode, so this value is an important one. By default, the mke2fs command uses a formula based on filesystem size to determine how many inodes to create.
+
+Typically, this generates a huge number of inodes, which on filesystems with only a handful of large files results in wasted spaces since these inodes take space even if they are not in use.
+The number of inodes can't easily be changed after the filesystem has been created.
+-m 	
+
+Specifies what percentage of the filesystem is reserved for system use. Consider the partial output of the df command shown below:
+
+Filesystem  Size  Used  Avail Use% Mounted on
+/dev/sda2   485M  114M  346M  25%  /
+
+There appears to be something wrong with this output. If 114M of a 485M filesystem is used, then there should be 368M available, not 346M! Also, the Use%, which displays how much space has been used, is inaccurate. It should be closer to 23%.
+
+The reason why these numbers are inaccurate is that 5% of the filesystem is reserved for system use. Regular users can't use this space, so it is considered to be unavailable; as a result, the df command takes that into consideration when reporting available space.
+
+To specify a different percentage of reserved space, use the -m option. This is a useful option for filesystems that the root user doesn't typically use, like the /home filesystem.
+The df command will be covered in greater detail later in the course.
+
+Consider This
+
+The mkfs command will create the appropriate filesystems for all, except ISO 9660 and Universal Disc Format. ISO 9660 is the format placed on CD-ROM discs and Universal Disc Format is used to format DVDs. To create an ISO 9660 filesystem, use the mkisofs command. In order to create a Universal Disc Format filesystem, use the mkudffs command.
+

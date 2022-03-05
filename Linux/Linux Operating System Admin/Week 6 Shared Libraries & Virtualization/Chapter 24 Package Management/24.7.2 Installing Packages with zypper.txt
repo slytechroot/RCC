@@ -1,0 +1,52 @@
+24.7.2 Installing Packages with zypper
+
+The zypper command can be used with the install in command to install packages.
+
+zypper in PACKAGE
+
+To install the gvim package, including any necessary dependencies, use the following command:
+
+localhost:~ # zypper in gvim
+Loading repository data...
+Reading installed packages...
+Resolving package dependencies...
+
+The following NEW package is going to be installed:
+  gvim
+
+1 new package to install.
+Overall download size: 1.6 MiB. Already cached: 0 B. After the operation, additional 3.2 MiB will be used.
+Continue? [y/n/...? shows all options] (y): y
+Retrieving package gvim-8.0.1568-3.20.x86_64                              (1/1),   1.6 MiB (  3.2 MiB unpacked)
+Checking for file conflicts: ........................................[done]
+(1/1) Installing: gvim-8.0.1568-3.20.x86_64 .........................[done]
+
+Now that the gvim package is installed, re-running the zypper se gvim command again would show an i in the Status column to show gvim is installed.
+
+localhost:~ # zypper se gvim
+Loading repository data...
+Reading installed packages...
+
+S | Name | Summary      | Type
+--+------+--------------+--------
+i | gvim | A GUI for Vi | package
+
+If for some odd reason a package is installed and doesn’t work or is damaged, it’s important to know how to reinstall it in order to fix the issue, hopefully.
+
+To re-install (and force the overwriting of) the gvim package, as the root user, use the command:
+
+localhost:~ # zypper in -f gvim
+Loading repository data...
+Reading installed packages...
+Forcing installation of 'gvim-8.0.1568-3.20.x86_64' from repository 'sle-module-desktop-applications'.
+Resolving package dependencies...
+
+The following package is going to be reinstalled:
+  gvim
+
+1 package to reinstall.
+Overall download size: 1.6 MiB. Already cached: 0 B. No additional space will be used or freed after the operation.
+Continue? [y/n/...? shows all options] (y): y
+Retrieving package gvim-8.0.1568-3.20.x86_64                              (1/1),   1.6 MiB (  3.2 MiB unpacked)
+Checking for file conflicts:..........................................[done]
+(1/1) Installing: gvim-8.0.1568-3.20.x86_64...........................[done]

@@ -1,0 +1,19 @@
+7.33 Step 33
+
+The tr command can be used to translate from one set of characters to another.
+
+tr [OPTION]... SET1 [SET2]
+
+To capitalize the /etc/hosts file with the tr command, execute the following command:
+
+cat /etc/hosts | tr 'a-z' 'A-Z'
+
+sysadmin@localhost:~$ cat /etc/hosts | tr 'a-z' 'A-Z'
+127.0.0.1       LOCALHOST
+::1     LOCALHOST IP6-LOCALHOST IP6-LOOPBACK
+FE00::0 IP6-LOCALNET
+FF00::0 IP6-MCASTPREFIX
+FF02::1 IP6-ALLNODES
+FF02::2 IP6-ALLROUTERS
+192.168.1.2     LOCALHOST
+

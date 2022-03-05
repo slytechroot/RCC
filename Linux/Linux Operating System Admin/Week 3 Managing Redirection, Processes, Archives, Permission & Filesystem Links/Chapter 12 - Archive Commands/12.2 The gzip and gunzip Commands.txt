@@ -1,0 +1,99 @@
+12.2 The gzip and gunzip Commands
+
+Compression reduces the amount of data needed to store or transmit a file while storing it in such a way that the file can be restored. A file with human-readable text might have frequently used words replaced by something smaller, or an image with a solid background might represent patches of that color by a code. The compressed version of the file is not typically viewed or utilized; instead, it is uncompressed before use.
+
+The gzip command is used to create a compressed file. Likewise, the gunzip command is used to view the contents of a compressed file, as well as extract those contents.
+
+gzip [OPTION]... [FILE]...
+gunzip [OPTION]... [FILE]...
+
+Important
+
+The gzip command should be used with caution since its default behavior is to replace the original file specified with a compressed version.
+
+In the following example, the red.txt file is replaced with the compressed red.txt.gz file after using the gzip command:
+
+sysadmin@localhost:~$ cd Documents/
+sysadmin@localhost:~/Documents$ ls red*
+red.txt
+sysadmin@localhost:~/Documents$ gzip red.txt
+sysadmin@localhost:~/Documents$ ls red*
+red.txt.gz
+
+To avoid replacing the original version of a file when using the gzip command, use the -c option. This causes the gzip command to send the compressed data to standard output, and given that the output of the gzip command is binary data, it will need to be redirected into a file. Capture the output of the gzip command and redirect it into a file, using the greater-than > character:
+
+sysadmin@localhost:~/Documents$ gzip -c numbers.txt > numbers.txt.gz
+sysadmin@localhost:~/Documents$ ls numbers*
+numbers.txt  numbers.txt.gz 
+
+Using the gzip command with the -c option and redirection created a gzipped file while leaving the original file intact. This can be useful as the gzipped file can be moved to an archive directory location while preserving the original file in its original location.
+
+The gunzip command reverses what gzip does, so files will be uncompressed, and the gzipped file will be replaced with the uncompressed file:
+
+sysadmin@localhost:~/Documents$ gunzip red.txt.gz
+sysadmin@localhost:~/Documents$ ls red*
+red.txt
+
+To list the amount of compression of an existing file, use the -l option with the gunzip command:
+
+sysadmin@localhost:~/Documents$ gunzip -l numbers.txt.gz
+         compressed        uncompressed  ratio uncompressed_name
+                 42                  10 -20.0% numbers.txt
+
+Consider This
+
+The gunzip command is just a script that calls gzip with different parameters.
+
+While the gzip command supports recursion with the -r option, by default, it attempts to replace the original file with the gzipped file. This leads to errors when the files being compressed are not owned by the user that tries to gzip them:
+
+sysadmin@localhost:~/Documents$ gzip -r /run
+gzip: /run/mount/utab.gz: Permission denied
+gzip: /run/utmp.gz: Permission denied
+gzip: /run/sshd.pid.gz: Permission denied
+gzip: /run/crond.pid.gz: Permission denied
+gzip: /run/named/session.key: Permission denied
+gzip: /run/named/named.pid.gz: Permission denied
+gzip: /run/motd.dynamic.gz: Permission denied
+gzip: /run/crond.reboot: Permission denied
+gzip: /run/rsyslogd.pid.gz: Permission denied
+gzip: /run/systemd/container.gz: Permission denied
+gzip: /run/systemd/resolve/stub-resolv.conf.gz: Permission denied
+gzip: /run/shm: Too many levels of symbolic links
+gzip: /run/initctl: Too many levels of symbolic links
+gzip: /run/init.upgraded.gz: Permission denied
+
+In order to be able to compress files with the gzip command recursively, a user needs to have the correct permissions on the directories the files are in. Typically, this is limited to directories within the user's own home directory.
+
+For example, using the gzip command recursively on the ~/example directory, it would be successful in replacing regular files with gzip archive files:
+
+sysadmin@localhost:~/Documents$ cd
+sysadmin@localhost:~$ mkdir example
+sysadmin@localhost:~$ touch example/one example/two example/three
+sysadmin@localhost:~$ ls example/
+one  three  two
+sysadmin@localhost:~$ gzip -r example
+sysadmin@localhost:~$ ls example/
+one.gz  three.gz  two.gz
+
+The gunzip command can also work recursively, assuming the user has the correct permissions. As it works, it removes the .gz extension from each file:
+
+sysadmin@localhost:~$ gunzip -r example/
+sysadmin@localhost:~$ ls example/
+one  three  two
+
+Note
+
+Permissions can have an impact on file management commands, such as the gzip and gunzip commands. To gzip or gunzip a file within a directory, a user must have the write and execute permissions on a directory as well as the read permission on the file. Regular users typically only have this type of permission in their home directory and its subdirectories.
+
+The ls command can be used to view the permissions of a directory prior to compressing files. For example, to view the permissions of the /run directory, use the ls command with the -l and -d options:
+
+sysadmin@localhost:~$ ls -ld /run
+drwxr-xr-x 1 root root 4096 Mar 26 21:22 /run
+
+The output above shows that the /run directory is owned by the user root and the group root. The permissions for others are read and execute, but not write:
+
+drwxr-xr-x 1 root root 4096 Mar 26  21:22 /run
+
+The absence of the write permission for all users aside from the root user prevents regular users from compressing files within this directory.
+
+Permissions will be covered in greater detail later in the course.

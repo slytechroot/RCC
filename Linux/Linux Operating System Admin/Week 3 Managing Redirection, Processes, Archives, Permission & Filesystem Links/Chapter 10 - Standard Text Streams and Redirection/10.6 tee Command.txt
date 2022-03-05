@@ -1,0 +1,42 @@
+10.6 tee Command
+
+A server administrator works like a plumber, using pipes, and the occasional tee command. The tee command splits the output of a command into two streams: one directed to standard output, which displays in the terminal, and the other into a file.
+
+The tee command can be very useful to create a log of a command or a script. For instance, to record the runtime of a process, start with the date command and make a copy of the output into the timer.txt file:
+
+sysadmin@localhost:~$ date | tee timer.txt
+Fri Nov  7 02:21:24 UTC 2020
+
+The timer.txt file now contains a copy of the date, the same output displayed in the preceding example:
+
+sysadmin@localhost:~$ cat timer.txt
+Fri Nov  7 02:21:24 UTC 2020
+
+Run the process that needs to be timed. The sleep command is being substituted for a timed process; it pauses for a given number of seconds:
+
+sysadmin@localhost:~$ sleep 15
+
+Then run the date command again. This time, append the time to the end of the timer.txt file by using the -a option:
+
+sysadmin@localhost:~$ date | tee -a timer.txt
+Fri Nov  7 02:28:43 UTC 2020
+
+Both times will then be recorded in the file.
+
+sysadmin@localhost:~$ cat timer.txt
+Fri Nov  7 02:21:24 UTC 2020
+Fri Nov  7 02:28:43 UTC 2020
+
+To run all of the above commands as a single command, use a semicolon ; character as a separator:
+
+sysadmin@localhost:~$ date | tee timer.txt; sleep 15; date | tee -a timer.txt
+Fri Nov  7 02:35:47 UTC 2020
+Fri Nov  7 02:36:02 UTC 2020
+
+The command above will display and record the first output of the date command, pause for 15 seconds, then display and record the output of the second date command. The timer.txt file now contains a permanent log of the runtime.
+‌⁠​​⁠​ 
+
+sysadmin@localhost:~$ cat timer.txt
+Fri Nov  7 02:35:47 UTC 2020
+Fri Nov  7 02:36:02 UTC 2020
+

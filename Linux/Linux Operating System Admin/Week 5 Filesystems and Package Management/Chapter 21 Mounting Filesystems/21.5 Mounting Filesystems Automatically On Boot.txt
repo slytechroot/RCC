@@ -1,0 +1,222 @@
+21.5 Mounting Filesystems Automatically On Boot
+
+Manually mounting filesystems with the mount command results in a non-persistent mount. If the system is rebooted, then the filesystem must be mounted again to be accessed. The same is true for activating swap devices with the swapon command.
+
+The /etc/fstab file is used to configure what filesystems will be mounted automatically at boot. It can also be used to activate swap devices automatically. It may be helpful to think of this file as the filesystem table, to remember its name. To those familiar with mounting a filesystem manually, the format of the file should make sense.
+
+Root privileges are required to make changes to the /etc/fstab file. Any changes made to this file should be performed with care, as mistakes may prevent the system from booting normally.
+
+In fact, it would be an excellent idea to create a backup of the /etc/fstab file before making changes. In the event of a disaster, the original file can be restored by copying the backup to the /etc/fstab file using a recovery of a live disk. To make a backup copy, as the root user, execute a command like the following:
+
+root@localhost:~# cp /etc/fstab /etc/fstab.backup
+
+A system with three filesystem partitions and one swap partition might have an /etc/fstab file that looks like the following:
+
+#
+# /etc/fstab
+# Created by anaconda on Fri Jan 17 10:31:51 2014
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      ext4    defaults        1 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  ext4    defaults        1 2
+UUID=5ee634a5-c360-4211-a41b-9aa40d78a804 /home  ext4    defaults        1 2
+UUID=34819281-65e3-4c78-ba2d-16952684c9cb swap   swap    defaults        0 0
+tmpfs                   /dev/shm                tmpfs   defaults        0 0
+devpts                  /dev/pts                devpts  gid=5,mode=620  0 0
+sysfs                   /sys                    sysfs   defaults        0 0
+proc                    /proc                   proc    defaults        0 0
+
+Notice that the first seven lines of this file are comments because they start with the #F character. To add comments to the file, start a line with a # character. The existing comments recommend referring to man pages for the fstab, findfs, mount, and blkid commands.
+
+The first four columns in the /etc/fstab file map directly to the parameters used to mount a filesystem manually with the mount command.
+Device Identifier
+
+The first column identifies the device to be mounted. This could be the name of a device like /dev/sdb1 in the previous manual mount examples. However, the /etc/fstab file is read at boot time when the system is unattended, so it is not always possible to predict the name of the devices. For example, if SATA cables are switched during maintenance, the /dev/sda device may change places with the /dev/sdb device.
+
+UUID
+
+For this reason, the most common way to refer to a partition is by using a universally unique identifier (UUID), as in the following example:
+
+UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      ext4    defaults        1 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  ext4    defaults        1 2
+UUID=5ee634a5-c360-4211-a41b-9aa40d78a804 /home  ext4    defaults        1 2
+
+To determine what the UUID value is for a device, use the blkid command. The output of this command will look similar to this, though the UUIDs will be different:
+
+root@localhost:~# blkid
+/dev/sda1: UUID="09d641d5-bc5a-4065-8d80-8ae797dfa7f3" TYPE="ext4"
+/dev/sda2: UUID="3db6ba40-67d2-403d-9c0a-9a901697cd8d" TYPE="ext4"
+/dev/sda3: UUID="34819281-65e3-4c78-ba2d-16952684c9cb" TYPE="swap"
+/dev/sda5: UUID="5ee634a5-c360-4211-a41b-9aa40d78a804" TYPE="ext4"
+/dev/sdb1: UUID="a9183c2c-ee1f-4e57-9a60-b0d9e87a0337" TYPE="ext4"
+/dev/sdb2: UUID="71b38ae6-6824-4ad3-9e2f-821d7f532b97" TYPE="swap"
+
+The blkid command can also be used with a path name for a filesystem as an argument and it will provide information about just that one device:
+
+root@localhost:~# blkid /dev/sdb1
+/dev/sdb1: UUID="a9183c2c-ee1f-4e57-9a60-b0d9e87a0337" TYPE="ext4"
+
+The UUID is automatically created when the filesystem is created. It is considered the best way to identify local filesystems in the /etc/fstab file because it doesn't change after the filesystem has been created and it should always be unique. Even if the hard drive is moved to another computer, the UUIDs will be unique for each filesystem. Unfortunately, the UUID isn't easy to remember or type, so it is difficult to use for manual mounting.
+
+Device Name
+
+A second, more traditional way of specifying a local filesystem is to use the path name for the device, such as /dev/sda1 for the first partition on the first disk:
+
+/dev/sda1  /      ext4    defaults        1 1
+/dev/sda2  /boot  ext4    defaults        1 2
+/dev/sda5  /home  ext4    defaults        1 2
+
+While device path names like /dev/sdb1 are easy to remember and type, they are not as reliable as UUIDs. As the naming of the disk drive depends on the order of detection during the boot process, the naming of the disks might change if the order of detection changes (such as when a new disk drive is added to the system).
+
+Labels
+
+Another option is to use filesystem labels. The volume label can be set using the e2label command. For example, the following command will set a label called mydata on the /dev/sdb1 filesystem:
+
+root@localhost:~# e2label /dev/sdb1 mydata
+
+The label for a filesystem can be viewed with the e2label command:
+
+root@localhost:~# e2label /dev/sdb1
+mydata
+
+Labels can also be created for the extents filesystem xfs, either while making the filesystem or by using the xfs_admin command:
+
+root@localhost:~# xfs_admin -L myapps /dev/sdb3
+
+Labels can be viewed (if they are set) with the blkid command just like they were for the UUIDs. The output of the blkid command is helpful, as it shows how to use the label:
+
+root@localhost:~# blkid /dev/sdb1
+/dev/sdb1: UUID="a9183c2c-ee1f-4e57-9a60-b0d9e87a0337" TYPE="ext4" LABEL="mydata"
+
+Labels can be used in the first field of the /etc/fstab file, such as LABEL="mydata". If labels are created by a single administrator, unique labels can be ensured; however, multiple users with root access may accidentally create partitions with the same label name:
+
+LABEL="root" /      ext4    defaults        1 1
+LABEL="boot" /boot  ext4    defaults        1 2
+LABEL="home" /home  ext4    defaults        1 2
+
+Warning
+
+Be careful with labels because they are human generated and can be duplicated when cloning a disk.
+
+If the system detects a duplicate label, it is unpredictable which disk partition the system will actually mount when that label is used.
+
+The following table provides a summary of these three methods of referring to the partition to mount:
+Method 	Advantages 	Disadvantages
+UUID 	Should always be unique, preventing any mounting conflicts. 	Hard to type and difficult to remember.
+Device Name 	Easy to type and remember. 	Device names can easily change, causing mounting errors.
+Label 	Easy to type and remember. Label names won't dynamically change like device names, but they are not always unique. 	May not be unique like UUID naming.
+Mount Point Field
+
+The second field is the mount point (mount directory) where the partition is to be mounted. It also corresponds to the second parameter to the mount command:
+
+UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      ext4    defaults        1 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  ext4    defaults        1 2
+UUID=5ee634a5-c360-4211-a41b-9aa40d78a804 /home  ext4    defaults        1 2
+
+There is nothing special about a mount point, it is either an empty directory that was created with the mkdir command for that purpose or an existing directory.
+Filesystem Field
+
+The third field is the filesystem type. Enter the correct Type Code using the values provided by the following table:
+Name 	Type Code
+Fourth Extended Filesystem 	ext4
+Third Extended Filesystem 	ext3
+Second Extended Filesystem 	ext2
+Extents Filesystem 	xfs
+File Allocation Table 	vfat
+ISO 9660 	iso
+Universal Disc Format 	udf
+
+In most cases, the filesystem type for regular partitions will be the ext4 filesystem:
+
+UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      ext4    defaults        1 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  ext4    defaults        1 2
+UUID=5ee634a5-c360-4211-a41b-9aa40d78a804 /home  ext4    defaults        1 2
+
+Mount Option Field
+
+The fourth field in the /etc/fstab file is a comma-separated list of the mount options which would normally be passed to mount with the -o options. This field is used to pass parameters to the filesystem driver, such as to make the device read-only or to adjust timeouts. Most filesystems have a huge number of mount options available:
+
+UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      ext4    defaults        1 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  ext4    defaults        1 2
+UUID=5ee634a5-c360-4211-a41b-9aa40d78a804 /home  ext4    defaults        1 2
+
+The man page for the mount command provides documentation of some of the mount options that apply to all filesystems. In addition, a search through the man page for the mount command will result in finding mount options for specific filesystems. The following is an excerpt:
+
+Mount options for ext4
+       The  ext4  filesystem is an advanced level of the ext3 filesystem which
+       incorporates scalability and reliability  enhancements  for  supporting
+       large filesystem.
+
+       The   options  journal_dev,  noload,  data,  commit,  orlov,  oldalloc,
+       [no]user_xattr [no]acl, bsddf, minixdf, debug, errors, data_err, grpid,
+       bsdgroups,  nogrpid  sysvgroups,  resgid,  resuid,  sb, quota, noquota,
+       grpquota and usrquota are backwardly compatible with ext3 or ext2.
+
+       journal_checksum
+              Enable checksumming of  the  journal  transactions.   This  will
+              allow  the recovery code in e2fsck and the kernel to detect cor-
+              ruption in the kernel.  It is a compatible change  and  will  be
+              ignored by older kernels.
+
+       journal_async_commit
+              Commit block can be written to disk without waiting for descrip-
+              tor blocks. If enabled older kernels cannot  mount  the  device.
+              This will enable 'journal_checksum' internally.
+
+The man page for the particular filesystem to be mounted will often include useful mount options. For example, when determining mount options for an ext4 filesystem, then the man page for mkfs.ext4 would display the correct documentation.
+
+Earlier in this chapter, it was mentioned that partitions could be mounted read-only. To prevent any changes to a filesystem, place the read-only mount option in the corresponding line of the /etc/fstab file:
+
+UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /date      ext4    ro        1 1
+
+The most common mount option is the defaults option. The defaults mount option implies a number of standard mount options are in effect. The following table lists the mount options that are in effect when defaults is used, the purpose of the mount option, and the option that is the opposite of the default mount option (if available):
+Mount Option 	Purpose 	Opposite
+rw 	Allow reading and writing 	ro
+suid 	Allow suid executes 	nosuid
+dev 	Allow device files 	nodev
+exec 	Allow executable files 	noexec
+auto 	Automatically mount 	noauto
+nouser 	Prevent ordinary users from mounting or unmounting the partition. Using the user option allows non-root users to mount that particular device, which is helpful for removable media. 	user
+async 	All writes should be asynchronous 	sync
+relatime 	Only update access time on file access if the file has been modified or its metadata changed since last access 	N/A
+
+Using the defaults keyword is clearer and faster than specifying each individual option.
+
+If multiple options are to be used, then they must be separated by a comma and have no embedded spaces. Any unspecified options will still use the default values, so using the defaults keyword can be thought of as a simple placeholder.
+
+The following configuration will still be mounted in read/write mode, allow executable files, and so forth:
+
+UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /date      ext4    nosuid,nodev   1 1
+
+It is interesting to note that when using defaults for the mount options, the only mount option that will be displayed when the mount command is executed will be the rw options:
+
+/dev/sda2 on / type ext4 (rw)
+
+Dump Field
+
+UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      ext4    defaults        1 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  ext4    defaults        1 2
+UUID=34819281-65e3-4c78-ba2d-16952684c9cb swap   swap    defaults        0 0
+
+The purpose of this field is to tell an administrator which filesystems should be backed up when using the dump command. The administrator would execute the dump -w command and the resulting output would be a list of the filesystems to back up. This list is generated by filesystems that have a value of 1 in the dump field of the /etc/fstab file. A value of 1 in this field is used for local real filesystems (filesystems on partitions that reside on local hard drives). Any pseudo-filesystems, remote filesystems, or swap space entries should have a 0 value in this field.
+
+This is a bit out of date, as the dump command is rarely used by system administrators on modern Linux distributions. However, it is important to know since the /etc/fstab file requires a valid entry in this field.
+Filesystem Check Field
+
+UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      ext4    defaults        1 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  ext4    defaults        1 2
+UUID=34819281-65e3-4c78-ba2d-16952684c9cb swap   swap    defaults        0 0
+
+The sixth field is for determining the order in which the filesystems will be checked by the fsck (File System ChecK ) utility during system boot. This utility is designed to find and fix filesystem problems.
+
+The root filesystem should always have a 1 in this field to indicate that it will be checked by the fsck program first. All other local filesystems (ext2/ext3/ext4) should have a value of 2 specified for this field, so they will be checked after the root filesystem.
+
+If the filesystems are within the same drive, they will be checked sequentially, but if they are on separate drives, they will be checked in parallel, if possible.
+
+Any pseudo-filesystems, remote filesystems, or swap space entries should have a 0 value in this field. These filesystems should never be checked by the fsck utility.
+
+Note
+
+The fsck utility will be covered in greater detail in a later chapter, as it can also be used as an interactive program.

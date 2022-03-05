@@ -1,0 +1,55 @@
+21.11 Activate Swap Space
+
+The following describes how to configure a new swap partition that has been created on the /dev/sdb2 device to activate during the boot process automatically. One single line will be added at the end of the /etc/fstab file. The assumption here is that the partition has been created by the fdisk command and the partition has been configured as a swap partition with the mkswap command.
+
+For the first field, specify the device. Again, use the blkid command to gather the information about this partition. The output would look something like the following:
+
+root@localhost:~# blkid /dev/sdb2
+/dev/sdb2: UUID="6f450a83-9d2e-409f-8bce-826696a49e54" TYPE="swap" LABEL="myswap"
+
+In this example, the swap label will be used. So, the first field should be:
+
+LABEL="myswap"
+
+Important
+
+When creating an entry for a swap file instead of a swap partition, always use the path name for the swap file, such as /root/swapfile. This is the only setting in the /etc/fstab entry that will be different for a swap file than a swap partition.
+
+For the mount point in the second field, all swap partitions always use the following:
+
+LABEL="myswap" swap
+
+For the filesystem type in the third field, all swap partitions always use the following:
+
+LABEL="myswap" swap swap
+
+The defaults mount option can be used with swap partitions or swap files, just as it can be used with regular filesystems. In most cases, using defaults is fine for performance if all swap devices are equal in read/write performance; for this example, the defaults option will work well for the value of the fourth field:
+
+LABEL="myswap" swap swap defaults
+
+Consider This
+
+Consider the pri mount option for swap partitions. This mount option will allow different priorities for different swap spaces. The higher priority a swap device has, the more likely the Linux kernel is to use that area.
+
+For example, if a swap file has a mount option of pri=1 and a swap partition has a mount option of pri=2, then the swap partition will have a higher priority and be more likely to be used than the swap file.
+
+In general, swap partitions should have better performance than swap files because the kernel needs to go through the regular filesystem to access swap files. This will slow down the access time. So, when using both swap partitions and swap files, assign a higher priority to the swap partition than to the swap file.
+
+The fifth and sixth fields, the dump check and filesystem check fields, are never enabled for either swap partitions or swap files, so they should both be zero:
+
+LABEL="myswap" swap swap defaults 0 0
+
+Putting all of these fields together for the normal swap partition into the /etc/fstab file results in the following line:
+
+LABEL="myswap" 		swap		swap		defaults		0	0
+Device 			Mount Point 	Filesystem 	Options 		dump 	fsck
+
+To verify that the swap partition or file has been added correctly, use the swapon -a command; this will activate all swap entries in the /etc/fstab file. Errors about not being able to activate spaces that were already active can be ignored, but errors in trying to activate the new swap space must be corrected in the /etc/fstab file before rebooting, or there may be issues later.
+
+After using the swapon -a command, verify that the swap partition or file is now activated by using the swapon -s command. If the output includes the new swap partition, then the entry should be correct in the /etc/fstab file.
+
+As mentioned previously, the only difference in a line that describes a swap partition versus a swap file is the first field:
+
+/var/swapfile		swap		swap		defaults		0	0
+Device 			Mount Point 	Filesystem 	Options 		dump 	fsck
+

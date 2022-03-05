@@ -1,0 +1,33 @@
+2.5 Displaying System Information
+
+The uname command displays system information. This command will output Linux by default when it is executed without any options.
+
+sysadmin@localhost:~$ uname
+Linux
+
+The uname command is useful for several reasons, including when you need to determine the name of the computer as well as the current version of the kernel that is being used.
+
+To display additional information about the system, you can use one of the many options available for the uname command. For example, to display all the information about the system, use the -a option with the uname command:
+
+sysadmin@localhost:~$ uname -a
+Linux localhost 4.4.0-72-generic #93~14.04.1-Ubuntu SMP Fri Mar 31 15:05:15 UTC 
+2017 x86_64 x86_64 x86_64 GNU/Linux
+
+To display information about what kernel version the system is running, use the -r option:
+
+sysadmin@localhost:~$ uname -r
+4.4.0-72-generic
+
+The options for the uname command are summarized below:
+Short Option 	Long Option 	Prints
+-a 	--all 	All information
+-s 	--kernel-name 	Kernel name
+-n 	--node-name 	Network node name
+-r 	--kernel-release 	Kernel release
+-v 	--kernel-version 	Kernel version
+-m 	--machine 	Machine hardware name
+-p 	--processor 	Processor type or unknown
+-i 	--hardware-platform 	Hardware platform or unknown
+-o 	--operating-system 	Operating system
+	--help 	Help information
+	--version 	Version information

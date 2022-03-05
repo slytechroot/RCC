@@ -1,0 +1,26 @@
+6.18 Step 18
+
+The type command can be used to determine information about various commands.
+
+type [OPTION]... NAME...
+
+To find out which specific file the less command originates from, execute the following command:
+
+type less
+
+sysadmin@localhost:~$ type less                                                
+less is /usr/bin/less
+
+The output of the command above is similar to the output of the which command:
+
+sysadmin@localhost:~$ which less
+/usr/bin/less
+
+To reveal all the paths of the less command, execute the type command with the -a option:
+
+type -a less
+
+sysadmin@localhost:~$ type -a less
+less is /usr/bin/less                                                           
+less is /bin/less
+

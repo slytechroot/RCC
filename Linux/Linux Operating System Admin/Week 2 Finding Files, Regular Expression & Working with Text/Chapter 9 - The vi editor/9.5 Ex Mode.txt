@@ -1,0 +1,30 @@
+9.5 Ex Mode
+
+Originally, the vi editor was called the ex editor. The name vi was the abbreviation of the visual command inside the ex editor that switched the editor to "visual" mode.
+
+In the original normal mode, the ex editor only allowed users to see and modify one line at a time. In the visual mode, users could see as much of the document that would fit on the screen. Since most users preferred the visual mode to the line editing mode, the ex program file was linked to a vi file, so that users could start ex directly in visual mode when they ran the vi link.
+
+Eventually, the actual program file was renamed vi, and the ex editor became a link that pointed to the vi editor.
+
+When the ex mode of the vi editor is being used, it is possible to view or change settings, as well as carry out file-related commands like opening, saving, or aborting changes to a file. In order to get to the ex mode, type a colon : character in command mode. The following table lists some common actions performed in ex mode:
+Input 	Purpose
+:w 	Write the current file to the filesystem
+:w filename 	Save a copy of the current file as filename
+:w! 	Force writing to the current file
+:1 	Go to line number 1 or whatever number is given
+:e filename 	Open filename
+:q 	Quit if no changes made to file
+:q! 	Quit without saving changes to file
+
+A quick analysis of the table above reveals if an exclamation mark ! character is added to a command, then the command attempts to force the operation. For example, imagine you make changes to a file in the vi editor and then try to quit with the :q command, only to discover that the "quit" command fails. The vi editor doesn't want to quit without saving the changes you made to a file, but you can force it to quit with the :q! command.
+
+Note
+
+While it may seem impossible, the vi editor can save changes to a read-only file. The command :w! will try to write to a file, even if it is read-only, by attempting to change the permissions on the file, perform the write to the file, and then change the permissions back to what they were originally.
+
+This means that the root user can make changes to almost any file in the vi editor, regardless of the permissions on the file. However, ordinary users will only be able to force writing to the files that they own. Using vi doesn't change the fact that regular users can't modify the permissions on files that they do not own.
+
+Permissions will be covered in greater detail later in the course.
+
+Although the ex mode offers several ways to save and quit, there's also the ZZ command that is available in command mode; this is the equivalent of :wq. There are many more overlapping functions between ex mode and command mode. For example, ex mode can be used to navigate to any line in the document by typing the colon : character followed by the line number, while the G command can be used in command mode as previously demonstrated.
+

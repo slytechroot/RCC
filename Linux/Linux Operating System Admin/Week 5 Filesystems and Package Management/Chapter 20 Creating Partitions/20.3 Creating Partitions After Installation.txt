@@ -1,0 +1,38 @@
+20.3 Creating Partitions After Installation
+
+Originally, hard disks were called fixed disks because they were not removable. Coincidentally, the most common command line tool for editing the partition tables on disks is called fdisk. This command can be used to create, modify, and list the partitions on a hard drive.
+
+One of the benefits of the fdisk tool is that it is very forgiving; if a mistake is made while using the tool, simply quit the program, and nothing will be changed on the system. Only when changes are written (saved) before quitting will the program update the partition table.
+
+The fdisk program can be used in two ways: interactive and non-interactive. The interactive mode is used to modify the partitions, and the non-interactive mode is used to list partitions. In either mode, the fdisk program requires root privileges to run.
+
+A couple of options can affect the output of the program when working with it in either mode. The units option -u will list the starting and ending locations for each partition in sectors instead of cylinders. Since Linux technically partitions by sector, it may be beneficial to use this option. If cylinders are used, the fdisk utility will translate into sectors, so using the -u option is only really required for fine tuning of partition sizes and to avoid seeing the following error message, highlighted below:
+
+root@localhost:~# fdisk -l /dev/sda
+Disk /dev/sda: 11.3 GB, 11261706240 bytes
+255 heads, 63 sectors/track, 1369 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000ee7d2
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1          64      512000   83  Linux
+Partition 1 does not end on cylinder boundary.
+/dev/sda2              64        1306     9972736   Linux LVM
+/dev/sda3           1306        1319     102400   82  Linux swap / Solaris
+Partition 3 does not end on cylinder boundary.
+
+‌⁠​​⁠​ 
+
+Consider This
+
+On almost every Linux distribution, the default fdisk output is displayed in cylinders. One exception is Ubuntu, which displays output in sectors by default. To display the output in cylinders, use the -u=cylinders option.
+
+When using the fdisk utility, a warning will occur by default:
+
+Warning
+DOS-compatible mode is deprecated.  It's strongly recommended to switch off the mode and change the display units to sectors.
+
+The -c option disables the warning regarding compatibility issues with the MS-DOS operating system. Although it is very unlikely that compatibility with this operating system will be an issue since DOS has not been available as a product for nearly twenty years, a warning will be issued if the -c option is not used.
+

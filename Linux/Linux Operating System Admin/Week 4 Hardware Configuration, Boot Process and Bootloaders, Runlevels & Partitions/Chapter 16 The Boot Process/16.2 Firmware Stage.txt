@@ -1,0 +1,19 @@
+16.2 Firmware Stage
+
+The firmware stage is the first stage to take place after the computer is powered on. At this point, the computer has power but needs to start executing some software that will eventually get a full kernel booted.
+
+Most PC firmware is referred to as the Basic Input/Output System (BIOS). The BIOS is stored on the motherboard in non-volatile memory such as Read Only Memory (ROM) or flash memory.
+
+The BIOS has three main jobs to perform as part of the first stage of the boot process:
+
+    Execute a power-on self test (POST) in order to ensure the hardware of the system is functioning properly. The POST runs some basic functional checks on the CPU, memory, and peripherals so that obvious errors, such as missing memory chips or malfunctioning disk devices are found early in the boot cycle.
+
+    Enumerate available hardware such as memory, disks, and USB devices.
+
+    Find the proper boot drive from the available storage devices and load the Master Boot Record (MBR) from that device. The Master Boot Record is the first sector (or 512 bytes) of the disk.
+
+Consider This
+
+Even on systems that have replaced the traditional BIOS with the Unified Extensible Firmware Interface (UEFI), the system firmware is still often referred to as BIOS. Both are firmware, the hardware-embedded tiny operating systems that manage the interface between hardware and the OS that you will be booting. BIOS is considered to be dated because it is limited to 16-bit memory addressing, can only be a certain size and boots by reading the first sector of a drive.UEFI uses a special partition on a drive called an EFI System Partition to store the bootloader for an OS.
+
+The BIOS and UEFI firmware have become more sophisticated over time. However, on most boot-ups, they are there to perform the three main steps above in order to get to the bootloader stage.

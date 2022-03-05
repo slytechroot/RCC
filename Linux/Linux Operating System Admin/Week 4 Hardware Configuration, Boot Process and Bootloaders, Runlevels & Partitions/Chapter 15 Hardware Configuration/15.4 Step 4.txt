@@ -1,0 +1,13 @@
+15.4 Step 4
+
+The free command gives details on total, used, and free memory the system has access to, including swap space on fixed disks that can be used as temporary storage for memory operations. Your output may differ, depending on system loads.
+
+To display information about memory usage, execute the following command:
+
+free
+
+root@ubuntu:~# free                                                   	 
+         	total    	used    	free  	shared  buff/cache   available
+Mem:           498828          50920   	      344884      4532      103024  	420876
+Swap:         5517308              0   	     5517308	
+

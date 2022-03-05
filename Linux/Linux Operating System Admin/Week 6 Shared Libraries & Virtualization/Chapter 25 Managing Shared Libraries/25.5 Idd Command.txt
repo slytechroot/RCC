@@ -1,0 +1,16 @@
+25.5 Idd Command
+
+To verify or view the library files associated with a program, use the ldd command. For example, to view the libraries that are used by the /bin/bash executable, execute the ldd /bin/bash command. The output from this command would appear similar to the following:
+
+sysadmin@localhost:~$ 1dd /bin/bash
+        linux-vdso.so.1 =>  (0x00007fffe7ffe000)
+        libtinfo.so.5 => /lib/x86_64-linux-gnu/libtinfo.so.5
+(0x00007f280231e000)
+        libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f280211a000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f2801d53000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f280254d000)
+
+If there is a problem with a library file not being loaded, then the line of the output may report not found. For example, if the mysq1-libs package library files were not correctly configured, then executing the 1dd /usr/bin/mysq1 command may display the following error output:
+
+sysadmin@localhost:~$ 1dd /usr/bin/mysq1
+ldd: /usr/bin/mysql: No such file or directory

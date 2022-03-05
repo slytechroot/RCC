@@ -1,0 +1,17 @@
+23.1 Introduction
+
+Filesystems and the data on them are extremely important components of any system, so knowing how to fix issues when they occur is equally critical. This is one of the main reasons why information that is stored on a filesystem should be copied to multiple locations, or secured via more traditional backups. It also highlights how important it is to understand how to fix a filesystem, should it break.
+
+Filesystems may require repair for a number of reasons:
+
+    Sudden power outage resulting in unclean dismount of partitions. An uninterruptible power supply (UPS) is typically used to prevent this.
+
+    Ejecting removable read/write media, such as a USB key or flash drive, before a clean dismount has occurred (i.e., removing the media before issuing the umount command).
+
+    Loss of network connectivity between a host and a partition that is mounted as a network file system (NFS).
+
+    Normal wear leading to corrupted disk sectors and gradual disk failure.
+
+    Electrical surges or exposure to magnetic fields.
+
+    Malware.

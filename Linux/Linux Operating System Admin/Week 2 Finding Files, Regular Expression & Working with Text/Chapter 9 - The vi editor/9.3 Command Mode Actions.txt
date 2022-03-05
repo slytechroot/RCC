@@ -1,0 +1,58 @@
+9.3 Command Mode Actions
+
+The standard convention for editing content with word processors is to use copy, cut, and paste. The vi program does not use these; instead, it uses the following three commands:
+‌⁠​​⁠​ 
+Standard 	Vi 	Meaning
+cut 	d 	delete
+copy 	y 	yank
+paste 	P | p 	put
+
+The motions learned from the previous page are used to specify where the action is to take place, always beginning with the present cursor location. Either of the following general formats for action commands is acceptable:
+
+action [count] motion
+[count] action motion
+
+Delete
+
+Delete removes the indicated text from the page and saves it into the buffer, the buffer being the equivalent of the "clipboard" used in Windows or Mac OSX. The following table provides some common usage examples:
+Action 	Result
+dd 	Delete the current line
+3dd 	Delete the next three lines
+dw 	Delete the current word
+d3w 	Delete the next three words
+d4h 	Delete four characters to the left
+Change
+
+Change is very similar to delete, where the text is removed and saved into the buffer. However, when using change, the program is switched to insert mode to allow immediate changes to the text. The following table provides some common usage examples:
+Action 	Result
+cc 	Change the current line
+cw 	Change the current word
+c3w 	Change the next three words
+c5h 	Change five characters to the left
+Yank
+
+Yank places content into the buffer without deleting it. The following table provides some common usage examples:
+Action 	Result
+yy 	Yank the current line
+3yy 	Yank the next three lines
+yw 	Yank the current word
+y$ 	Yank to the end of the line
+Put
+
+Put places the text saved in the buffer either before or after the cursor position. Notice that these are the only two options as put does not use the motions like the previous action commands.
+Action 	Result
+p 	Put (paste) after the cursor
+P 	Put before cursor
+Searching in vi
+
+Another standard function that word processors offer is the find function. Often, people use Ctrl+F or look under the edit menu. The vi program uses search. Search is more powerful than find because it supports both literal text patterns and regular expressions.
+
+To search forward from the current position of the cursor, use the slash / character to start the search, type a search term, and then press the Enter key to begin the search. The cursor will move to the first match that is found.
+
+To proceed to the next match using the same pattern, press the N key. To go back to a previous match, press the Shift+N key combination. If the end or the beginning of the document is reached, it will automatically wrap around to the other side of the document.
+
+To start searching backward from the cursor position, start by typing ?, then type the pattern to search for matches and press the Enter key.
+Action 	Result
+/term 	Search forwards for term
+?term 	Search backward for term
+An animated gif demonstrating a search in the vi program.

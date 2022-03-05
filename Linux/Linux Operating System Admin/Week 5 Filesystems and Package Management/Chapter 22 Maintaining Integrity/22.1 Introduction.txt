@@ -1,0 +1,5 @@
+22.1 Introduction
+
+Filesystems must be maintained in order to ensure that they continue to function correctly and that the system can continue to run. This section discusses filesystem administration, as well as maintenance and tuning.
+
+In order to maintain the integrity of a filesystem, it is vital to monitor it and to follow proper procedures in managing the system. Under normal circumstances, filesystems will function properly with no need for intervention, but in the event that a problem arises, it is important to know how to discover the source of the problem and how to fix it.

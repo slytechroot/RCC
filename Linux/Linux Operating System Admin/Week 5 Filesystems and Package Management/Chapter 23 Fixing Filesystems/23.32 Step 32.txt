@@ -1,0 +1,23 @@
+23.32 Step 32
+
+To fix the filesystem using the backup superblock, execute the following command. When prompted with Fix<y>? type the letter Y:
+
+fsck -b 8193 /dev/sdb5
+y
+
+root@ubuntu:~# fsck -b 8193 /dev/sdb5
+fsck from util-linux 2.31.1
+e2fsck 1.44.1 (24-Mar-2018)
+/dev/sdb5 1.44.1 was not cleanly unmounted, check forced.
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information 
+Block bitmap differences: +(8193--8451) +(24577--24835) +(40961--41219) +(57345--57603) +(73729--73987)
+Fix<y>? yes
+Inode bitmap differences: Group 1 inode bitmap does not match checksum.
+ 
+/dev/sdb5: ***** FILE SYSTEM WAS MODIFIED *****
+/dev/sdb5: 11/51200 files (0.0% non-contiguous), 12115/204800 blocks
+

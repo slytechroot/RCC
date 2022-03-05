@@ -1,0 +1,10 @@
+13.5 Step 5
+
+View the permissions of this file and notice that all users can view the file contents since all users have read permission for the file:
+
+ls -l /srv/lab.txt
+
+Be aware that both instances in the command above use a lowercase "L", not a number one.
+
+root@localhost:~# ls -l /srv/lab.txt
+-rw-r--r-- 1 root root 27 May 16 12:29 /srv/lab.txt

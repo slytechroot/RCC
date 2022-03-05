@@ -1,0 +1,14 @@
+6.14 Step 14
+
+The whereis command can be used to search the source files for any given command.
+
+whereis [OPTION]... NAME...
+
+To find out where the find command is located, use the whereis command without any options:
+
+whereis find
+
+sysadmin@localhost:~$ whereis find                                              
+find: /usr/bin/find /usr/share/man/man1/find.1.gz /usr/share/info/find.info.gz
+
+The output of the whereis command returns three directories. The first is where the find command is located, in the usr/bin/find directory. There is also a path given for the man page of the find command at /usr/share/man/man1/find.1.gz and another path for the info page at /usr/share/info/find.info.gz.

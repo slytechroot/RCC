@@ -1,0 +1,58 @@
+11.2.10 Process Priority
+
+When a process runs, it needs to have access to the CPU to perform actions. Not all processes have the same access to the CPU. For example, system processes typically have a higher priority when accessing the CPU.
+
+The Linux kernel dynamically adjusts the priority of processes to try to make the operating system seem responsive to the user and efficient at performing tasks. A user can influence the priority that will be assigned to a process by setting a value of something called niceness.
+Niceness scale. From left to right; -20 Highest priority, 0 Default niceness, 19 Lowest priority.
+
+The higher you set the niceness value, the lower the priority that will be assigned to a process. The default value of niceness for processes is zero; most user processes run at this nice value. Only a user with administrative (root) access can set negative niceness values or alter the niceness of an existing process to be a lower niceness value.
+
+To set the initial niceness of a command, use the nice command as a prefix to the command to execute.
+
+nice [OPTION] [COMMAND [ARG]...]
+
+The -n option indicates the desired niceness value. For example, to execute a command at the lowest priority possible, execute the following command:
+
+sysadmin@localhost:~$ nice -n 19 cat /dev/zero > /dev/null
+^Z
+[1]+  Stopped                 nice -n 19 cat /dev/zero > /dev/null
+
+If a user logs in as the root user, they could also execute a command with the highest priority possible by executing the following command:
+
+Note
+
+The su command used below allows a regular user to become the root user temporarily. The user is required to enter the root account password, when prompted. To use the su command in our virtual environment, enter the root password netlab123.
+
+sysadmin@localhost:~$ su -
+Password:
+root@localhost:~# nice -n -20 cat /dev/zero > /dev/null
+^Z
+[1]+  Stopped                 nice -n -20 cat /dev/zero > /dev/null
+root@localhost:~# nice -n 19 cat /dev/zero > /dev/null
+^Z
+[2]+  Stopped                 nice -n 19 cat /dev/zero > /dev/null
+
+To adjust the niceness of an existing process, use the renice command. This can be useful when the system becomes less responsive after running a CPU intensive command. A user could make the system more responsive again by making that process run "nicer".
+
+To accomplish this, the user would need to discover the process identifier for the process by using the ps command. For example:
+
+‌⁠​​⁠​ Note
+
+The Process ID in our virtual machine environment will likely be different than the one in the example.
+
+root@localhost:~# nice -n -20 cat /dev/zero > /dev/null &
+[1] 121
+root@localhost:~# ps
+  PID TTY          TIME CMD
+    1 ?        00:00:00 init
+   70 ?        00:00:00 login
+  108 ?        00:00:00 su
+  109 ?        00:00:00 bash
+  121 ?        00:00:04 cat
+  122 ?        00:00:00 ps
+
+Next, use the renice command to adjust the priority back to normal. Like the nice command, the -n option indicates the niceness value. The -p option indicates the process ID to operate on.
+
+root@localhost:~# renice -n 0 -p 121
+121 (process ID) old priority -20, new priority 0
+

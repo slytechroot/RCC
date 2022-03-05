@@ -1,0 +1,15 @@
+23.26 Step 26
+
+The following command is intended for testing purposes. Normally, you would never run this command on a production machine. Execute the following command to force the corruption of your primary superblock:
+
+Warning
+
+Be very careful when typing this command. If you don't type it exactly as shown, it may end up deleting the entire filesystem. If that happens, the only solution is to reset the VM and restart the lab.
+
+dd if=/dev/zero of=/dev/sdb5 bs=1024 count=1 seek=1
+
+root@ubuntu:~# dd if=/dev/zero of=/dev/sdb5 bs=1024 count=1 seek=1
+1+0 records in 
+1+0 records out
+1024 bytes (1.0 kB, 1.0 KiB) copied, 0.00405975 s, 252 kB/s
+

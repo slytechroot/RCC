@@ -1,0 +1,19 @@
+7.30 Step 30
+
+For certain fields, the sorting order required may be numerical instead of alphabetical. In order to have the sort command treat a field numerically, add an n as an argument to the -k option for that key field specification. To treat the sorting field numerically for the third field of the /etc/passwd file, execute the following command:
+
+sort –t: -k3n /etc/passwd | head –n 4
+
+sysadmin@localhost:~$ sort -t: -k3n /etc/passwd | head -n 4
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+
+A closer look at the output above demonstrates that the third field of the /etc/passwd file is now sorted numerically:
+
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+

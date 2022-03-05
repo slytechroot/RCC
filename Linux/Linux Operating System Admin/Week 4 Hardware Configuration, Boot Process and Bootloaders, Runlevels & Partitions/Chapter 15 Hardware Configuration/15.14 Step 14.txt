@@ -1,0 +1,11 @@
+15.14 Step 14
+
+Determine if the fat or vfat modules are currently loaded into memory by executing the following command:
+
+lsmod | grep fat
+
+[root@centos ~]# lsmod | grep fat
+[root@centos ~]#
+
+The lack of output from the previous command indicates that neither the fat nor vfat module is currently loaded into memory.
+

@@ -1,0 +1,9 @@
+18.39 Step 39
+
+Execute the following command to restart the ssh service:
+
+/etc/init.d/ssh restart
+
+root@ubuntu:~# /etc/init.d/ssh restart
+[ ok ] Restarting ssh (via systemctl): ssh.service.
+

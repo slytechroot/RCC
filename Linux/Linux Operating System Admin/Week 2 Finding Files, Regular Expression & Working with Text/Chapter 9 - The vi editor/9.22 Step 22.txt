@@ -1,0 +1,35 @@
+9.22 Step 22
+
+To use nano to view and edit the .bashrc file, use the following command:
+
+nano .bashrc
+
+sysadmin@localhost:~$ nano .bashrc
+
+The .bashrc file contains the environment variables for the standard editor at the bottom of the file. Unlike vi , nano allows you to simply use the Arrow Keys ←↑→↓ to navigate to any place in the document. Use the Down Arrow ↓ key to scroll to the bottom of the file:
+
+   GNU nano 2.9.3                           .bashrc
+
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+
+# add user bin to path
+PATH="$HOME/bin:$PATH"
+
+# set editor and visual envs to vim
+EDITOR=vi
+VISUAL=vi
+
+# change to home dir
+cd ~
+
+
+
+
+
+^G Get Help  ^O Write Out ^W Where Is  ^K Cut Text  ^J Justify   ^C Cur Pos
+^X Exit      ^R Read File ^\ Replace   ^U Uncut Text^T To Spell  ^_ Go To Line
+

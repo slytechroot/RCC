@@ -1,0 +1,50 @@
+7.6 Displaying the End of a File
+
+The opposite of the head command, the tail command, displays contents from the end of the file and not the beginning.
+
+head [OPTION]... [FILE]...
+
+The tail command also displays ten lines by default with no options given:
+‌⁠​​⁠​ 
+
+sysadmin@localhost:~/Documents$ tail alpha.txt
+Q is for Quark
+R is for Rat
+S is for Sloth
+T is for Turnip
+U is for Up
+V is for Velvet
+W is for Walrus
+X is for Xenon
+Y is for Yellow
+Z is for Zebra
+
+You may use either a number or the -n option as an argument to the tail command to specify how many lines you want to output from the end of the file. Therefore, the following two commands are equivalent:
+
+sysadmin@localhost:~/Documents$ tail -3 alpha.txt
+X is for Xenon
+Y is for Yellow
+Z is for Zebra
+sysadmin@localhost:~/Documents$ tail -n3 alpha.txt
+X is for Xenon
+Y is for Yellow
+Z is for Zebra
+
+With the tail command, the -n option has an interesting twist to it, as well. When using the -n option with a number prefixed by a plus sign + character, the number is interpreted as the line number in the file to start displaying content from; it will display from that line to the end of the file. In other words, the -n option used with the +20 argument will display the contents of the file starting at line twenty and continuing until the end of the file.
+
+sysadmin@localhost:~/Documents$ tail -n +20 alpha.txt
+T is for Turnip
+U is for Up
+V is for Velvet
+W is for Walrus
+X is for Xenon
+Y is for Yellow
+Z is for Zebra
+
+Consider This
+
+Another unusual, but useful feature of the tail command is its ability to follow a file. When the tail command is executed with the -f option and a file name argument, then it will initially output the number of lines specified. Instead of exiting after displaying the lines, the tail command continues to run, following any changes in the file and displaying new content as it is added to the end of the file.
+
+One of the main applications for this follow feature is for administrators to watch log files change while they are troubleshooting problems.
+
+Additionally, the -F option is used when following a log file that may have been rotated or archived, and a new empty file of the same name replaces it. The -F option allows tail to notice that the underlying inode number that matches the log file name has changed, and it will continue to watch the new log file.

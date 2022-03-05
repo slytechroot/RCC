@@ -1,0 +1,21 @@
+18.3 Viewing Current Runlevel
+
+Despite having a default runlevel, a system may be at a different runlevel either because it was overridden at boot time or it may have been changed after the system booted.
+
+One of the commands that displays the current runlevel is the runlevel command, which shows the previous runlevel first, followed by the current runlevel. If no previous runlevel was achieved, then it will show N for the previous runlevel. This means the system was booted into the current runlevel directly and has not switched.
+
+Note
+
+The following examples represent a system that is different from the virtual machine in this module. The examples may not match the output in our virtual environment.
+
+The following example demonstrates executing the runlevel command when the system has just booted to runlevel 5:
+
+root@ubuntu:~# runlevel
+N 2
+
+The who -r command also displays the current system runlevel. One benefit of this technique is that it will display the date and time that the current runlevel was reached:
+
+root@ubuntu:~# who -r
+        run-level 2  2019-05-29 14:25
+
+Although systemd doesn't actually use runlevels, it transparently translates its current target as a runlevel for compatibility with the runlevel and who -r commands. If a system has reached the multi-user.target, then that will be translated to runlevel 3; if a system has reached the graphical.target, then that is translated to runlevel 5.

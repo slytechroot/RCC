@@ -1,0 +1,21 @@
+25.7 Step 7
+
+Delete the previously created mylib.conf configuration file in the /etc/ld.so.conf.d directory:
+
+rm /etc/ld.so.conf.d/mylib.conf
+y
+
+[root@localhost ~]# rm /etc/ld.so.conf.d/mylib.conf  
+rm: remove regular file `/etc/ld.so.conf.d/mylib.conf'? y
+
+Now, verify that the directory is no longer used by the ldconfig command:
+
+ldconfig -v | grep mylib
+
+[root@localhost ~]# ldconfig -v | grep mylib
+ldconfig: Can't stat /libx32: No such file or directory            
+ldconfig: Path `/usr/lib' given more than once                      
+ldconfig: Path `/usr/lib64' given more than once                   
+ldconfig: Can't stat /usr/libx32: No such file or directory
+
+In most cases, if you are deleting the configuration file permanently, then you could also delete the directory that contains the libraries (/usr/mylib in this case).

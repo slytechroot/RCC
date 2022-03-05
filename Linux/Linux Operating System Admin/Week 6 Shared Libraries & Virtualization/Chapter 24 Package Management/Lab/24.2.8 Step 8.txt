@@ -1,0 +1,17 @@
+24.2.8 Step 8
+
+To find packages to install, you can use apt-cache search keyword. Search for packages related to apt by executing the following command:
+
+apt-cache search apt
+
+root@localhost:~# apt-cache search apt
+python-apt-common - Python interface to libapt-pkg (locales)
+libapt-pkg5.0 - package management runtime library
+libapt-inst2.0 - deb package format runtime library
+strace - System call tracer
+python3-apt - Python 3 interface to libapt-pkg
+apt-utils - package management related utility programs
+isc-dhcp-client - DHCP client for automatically obtaining an IP address
+apt - commandline package manager
+libpcap0.8 - system interface for user-level packet capture
+

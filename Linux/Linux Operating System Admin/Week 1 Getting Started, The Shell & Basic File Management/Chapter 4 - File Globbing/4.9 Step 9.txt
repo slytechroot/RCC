@@ -1,0 +1,9 @@
+4.9 Step 9
+
+To view all file names with the initial character in the range from A to D and containing at least three letters total, execute the following command:
+
+echo [A-D]??*
+
+sysadmin@localhost:~$ echo [A-D]??*                                 
+Desktop Documents Downloads
+

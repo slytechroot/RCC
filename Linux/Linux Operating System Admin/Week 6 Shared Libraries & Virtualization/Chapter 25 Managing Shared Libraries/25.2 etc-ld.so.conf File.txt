@@ -1,0 +1,13 @@
+25.2 /etc/ld.so.conf File
+
+The /etc/ld.so.conf file is used to configure which directories are searched for library files by the ldconfig command during the boot process or when executed by the administrator. The ldconfig command creates links and caches the most recent shared libraries that are required by programs installed on the system. The /etc/ld.so.conf file contains the following content:
+
+include ld.so.conf.d/*conf
+
+Instead of using the single file to contain a list of all the directories to search, the /etc/ld.so.conf.d directory contains *.conf files, which specify the library directories. This modular approach allows for packages that might be installed to add their own .conf file to the /etc/ld.so.conf.d directory. This, in turn, allows new libraries to be easily found. It also allows for those packages to simply remove their .conf file from that directory when the package is being removed. These actions would take place in the postinstall and postuninstall scripts.
+
+As an example of a package that uses shared libraries, consider the mysql-libs package. This package installs a /etc/ld.so.conf.d/mysql-i386 file, which contains the following:
+
+/usr/lib/mysql
+
+Although the mysql-libs package demonstrates how shared libraries can be specified in a .conf file, placed in the /etc/ld.so.conf.d directory, note that the administrator doesn't have to do any additional work beyond installing or removing the mysql-libs package. An administrator should not need to manually manage shared libraries for software that is already packaged.

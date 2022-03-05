@@ -1,0 +1,41 @@
+13.6.1 Setuid Permission
+
+When the setuid permission is set on an executable binary file (a program), the binary file is run as the owner of the file, not as the user who executed it. This permission is set on a handful of system utilities so that they can be run by normal users, but executed with the permissions of root, providing access to system files that the normal user doesn't normally have access to.
+
+For example, the passwd command has the setuid permission. The passwd command modifies the /etc/shadow file in order to update the value for the user's password. That file is not normally modifiable by an ordinary user; in fact, ordinary users normally have no permissions on the file.
+
+sysadmin@localhost:~$ more /etc/shadow
+/etc/shadow: Permission denied
+sysadmin@localhost:~$ ls -l /etc/shadow
+-rw-r-----. 1 root root 5195 Oct 21 19:57 /etc/shadow
+
+Since the passwd command is owned by the root user and has the setuid permission set, it executes with a "dual personality", which allows it to access files either as the person who is running the command or as the root user. When the passwd command attempts to update the /etc/shadow file, it uses the credentials of the root user to modify the file (the term credentials is akin to "authority").
+
+The following demonstrates what this setuid executable file looks like when listed with the ls -l command:
+
+sysadmin@localhost:~$ ls -l /usr/bin/passwd
+-rwsr-xr-x 1 root root 59640 Jan 25  2018 /usr/bin/passwd
+
+Notice from the listing, the fourth character is an s, where there would normally be an x if this file was just executable. When this character is a lowercase s, it indicates that both the setuid and execute permissions are set. An uppercase S in the fourth character position means that the file does not have the execute permission, only the setuid permission. Without the execute permission for the user owner, the setuid permission is ineffective, meaning that the file will not be executable by the user owner even if the setuid permission is set. Although not always the case, in some instances, an uppercase S can be interpreted as an error.
+
+Like the read, write, and execute permissions, special permissions can be set with the chmod command, using either the symbolic or octal method.
+
+To add the setuid permission symbolically, run:
+
+chmod u+s file
+
+To add the setuid permission numerically, add 4000 to the file's existing permissions (assume the file originally had 775 for its permission in the following example):
+
+chmod 4775 file
+
+To remove the setuid permission symbolically, run:
+
+chmod u-s file
+
+To remove the setuid permission numerically, subtract 4000 from the file's existing permissions:
+
+chmod 0775 file
+
+Previously, we set permission with the octal method using three-digit codes. When a three-digit code is provided, the chmod command assumes that the first digit before the three-digit code is 0. Only when four digits are specified is a special permission set.
+
+If three digits are specified when changing the permissions on a file that already has a special permission set, the first digit will be set to 0, and the special permission will be removed from the file.

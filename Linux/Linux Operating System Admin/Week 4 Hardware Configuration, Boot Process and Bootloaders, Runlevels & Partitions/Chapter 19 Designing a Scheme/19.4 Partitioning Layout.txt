@@ -1,0 +1,37 @@
+19.4 Partitioning Layout
+
+There are some requirements in the way partitions will map to the directories that they mount on. These requirements are documented in what is called the Filesystem Hierarchy Standard (FHS). The following table summarizes the FHS requirements, and provides some other suggestions:
+Directory 		Purpose 									Suggested Size
+/ 			The root filesystem holds the files essential to the operation of the system. It must contain the following directories or symbolic links: bin, boot, dev, etc, lib, media, mnt, opt, sbin, srv, tmp, usr, and var. 	
+Suggested Size
+500MiB-50GiB+
+
+Depends on what is mounted separately
+
+/boot 			The /boot directory contains the Linux kernel and the boot loader files. 	500MiB-2GB
+/home 			The /home directory is where user home directories are normally created. 	500MiB+ per user
+/tmp 			The /tmp directory is used to create temporary files for the system and users. If this directory is too small, it may prevent applications from functioning correctly. 	
+
+													Minimum of 5 GB +
+
+500MiB+ per user actively logged in
+/opt 	The /opt directory is where third-party software is often installed. Some examples include Google Chrome and Google Earth. 	
+
+100MiB+
+
+Depends on how many packages are installed
+swap 	Swap is virtual memory that is not mounted on a directory. This virtual memory is used when the actual memory of the system is low. On systems with large amounts of memory, swap is less important. 	Up to 2 times the physical memory of the system
+/usr 	The /usr directory contains the bulk of the operating system's files, including most of the commands and system software. 	2GiB-10GiB+
+/usr/local 	This directory is used for locally installed software that should not be upgraded or updated with the operating system. 	
+
+													100MiB+
+													Size depends on local needs
+
+
+/var 	There are many directories that may have heavy activity under /var for services like mail, ftp, http, and printing. 	
+
+													100MiB+
+													Depending on the volume of activity
+
+
+/boot/efi 	The /boot/efi directory contains the Linux kernel and the boot loader files. It is typically set up automatically by the installer. 	100MB-250MB

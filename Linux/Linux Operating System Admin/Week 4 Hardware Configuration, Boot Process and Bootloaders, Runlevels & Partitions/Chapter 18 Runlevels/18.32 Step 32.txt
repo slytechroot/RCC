@@ -1,0 +1,11 @@
+18.32 Step 32
+
+To modify the behavior of the system when someone performs a control-alt-delete key sequence, first make a copy of the /etc/init/control-alt-delete.conf file:
+
+cd /etc/init
+cp control-alt-delete.conf control-alt-delete.override
+
+[root@centos ~]# cd /etc/init
+[root@centos init]# cp control-alt-delete.conf control-alt-delete.override
+[root@centos init]#
+

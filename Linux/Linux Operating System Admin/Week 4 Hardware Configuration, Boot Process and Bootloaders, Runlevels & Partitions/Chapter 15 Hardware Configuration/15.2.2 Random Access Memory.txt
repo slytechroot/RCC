@@ -1,0 +1,56 @@
+15.2.2 Random Access Memory
+
+The random access memory (RAM) of a system is used to temporarily store data and instructions for the operating system and the programs that are executing. When the IBM PC debuted in 1981, it was able to access 1 MiB of memory, of which 640 KiB was RAM, and 384 KiB was for the system ROM.
+
+The maximum amount of memory that can be used with a 32-bit processor is 4 GiB, whereas a 64-bit processor can theoretically use 16 EiB of memory. In reality, many 32-bit systems may actually be limited to using 3 GiB of memory, and the hardware doesn't exist yet to be able to use the maximum amount of memory on a 64-bit system.
+
+From a practical perspective, if a system doesn't currently have at least 1 GiB of RAM, then it may not be able to use the graphical user interface (GUI) with Linux. When using only the command line interface (CLI), the memory requirements are much less.
+
+Consider This
+
+Unit 	Abbreviation 	Value (Bytes)
+kibibyte 	KiB 	1024
+mebibyte 	MiB 	10242 = 1,048,576
+gibibyte 	GiB 	10243 = 1,073,741,824
+tebibyte 	TiB 	10244 = 1,099,511,627,776
+exbibyte 	EiB 	10246 = 1,152,921,504,606,846,976
+
+A typical desktop in the year 2019 has 16 GiB of RAM. That is more than 26000 times the amount of RAM in a fully loaded IBM PC in the year 1981!
+
+Normally a system will have enough RAM to conduct its normal operations, run a few services, and maybe applications. If a system doesn't have sufficient RAM for the processes you are executing on it, then it will use virtual memory, called swap space in Linux. Swap space is hard drive space that is temporarily used to hold data that exceeds the amount of RAM available. When the system begins to run low on memory, it will "swap out" data that is least in demand at that moment, so that RAM space can free up for something that is currently in demand (typically a new process). If the system is using swap space constantly, then it will perform poorly in comparison to a system that doesn't; an increase in performance could be obtained if more RAM were added to the system.
+
+Swap space comes in two types; a swapfile that would reside on an existing filesystem, or a swap partition, which is a section of a disk that is dedicated to swap and is formatted with the swap filesystem. A swap partition is an essential part of a properly configured Linux system and yields the best performance for swap operations. Swap files have the overhead of being on an existing filesystem and should be used sparingly, and only if absolutely necessary.
+
+The amount of RAM in a system can be viewed in the firmware settings. For a very detailed breakdown of how much memory a system has and how it is being used, view the /proc/meminfo file:
+
+sysadmin@localhost:~$ cat /proc/meminfo
+MemTotal:       132014640 kB
+MemFree:        67439868 kB
+MemAvailable:   99487364 kB
+Buffers:         2116936 kB
+Cached:         27429740 kB
+SwapCached:           40 kB
+Active:         14409408 kB
+Inactive:       23724500 kB
+Active(anon):    8400252 kB
+Inactive(anon):   191680 kB
+Active(file):    6009156 kB
+Inactive(file): 23532820 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:      134196220 kB
+SwapFree:       134195752 kB
+Output Omitted...
+
+For a quick summary of RAM memory and swap space, execute the free command:
+
+sysadmin@localhost:~$ free
+              total        used        free      shared  buff/cache   available
+Mem:         128920       35120       89205           2        4594       93190
+Swap:        131050         140      130910
+
+The output above shows this system contains about 128 MiB of RAM memory; almost all of it is used. Very little memory is free because the system configures any unused memory for buffers and caches, which are temporary data stores, to speed up the system.
+
+Despite having so little free RAM, notice that the swap space of about 131 MiB has not been used at all; although if a heavy demand for memory (due to an additional load of processes) were placed on this system, then this swap space is available and would likely be used.
+
+Another notable bit of information from this output is that the swap space that has been configured is about twice as large as the amount of RAM. For systems with smaller amounts of RAM (under 16-32 GiB), it is common to configure the swap space to be twice the size of the amount of RAM.

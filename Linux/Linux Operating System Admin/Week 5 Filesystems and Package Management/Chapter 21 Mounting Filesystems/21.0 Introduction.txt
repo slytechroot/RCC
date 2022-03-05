@@ -1,0 +1,15 @@
+21.0 Introduction
+In order to provide the functionality you need to apply these concepts, this VM may require a minute or two to load.
+
+The lab component for Chapters 20 and 21 is combined into this single lab, due to the nature of the material.
+
+    In Chapter 20, we discussed creating partitions and filesystems.
+    In Chapter 21, we demonstrated how to access the partitions and filesystems via mounting.
+
+This lab combines these activities to avoid creating partitions twice.
+
+As requirements for an active system grow and the number of users increases, it is often necessary to add additional hard drive space. When you add a drive to the system, you will need to create one or more partitions. Partitions are used to divide a hard drive into smaller chunks. Even if you don't want to divide a hard drive into smaller chunks, you will need to at least create a single partition to make use of the drive.
+
+Once you have a partition, you will need to place a filesystem on the partition. After you create the filesystem, you will make the partition available via a mount point.
+
+You may also need to add additional swap space to the system, either in the form of a swap partition or swap file. Swap space is virtual memory that is used by the system when RAM becomes full.

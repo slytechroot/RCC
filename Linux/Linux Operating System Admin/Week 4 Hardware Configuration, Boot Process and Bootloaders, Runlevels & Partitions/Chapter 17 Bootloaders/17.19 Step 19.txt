@@ -1,0 +1,6 @@
+17.19 Step 19
+
+Reboot the system and watch the screen during the boot process for the countdown to begin:
+
+[root@centos ~]# reboot
+

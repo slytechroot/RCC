@@ -1,0 +1,35 @@
+24.3.8 Step 8
+
+Run the following command to use your newly installed program:
+
+cowsay Dare something worthy!
+
+localhost:~ # cowsay Dare something worthy!                                     
+ ________________________                                                       
+< Dare something worthy! >                                                      
+ ------------------------                                                       
+        \   ^__^                                                                
+         \  (oo)\_______                                                        
+            (__)\       )\/\                                                    
+                ||----w |                                                       
+                ||     ||        
+
+Like other Linux programs, the cowsay command has many advanced features:
+
+cowsay -f tux Learning Linux administration is a most worthy pursuit
+
+localhost:~ # cowsay -f tux Learning Linux administration is a most worthy pursuit!                                                                             
+ _________________________________________                                      
+/ Learning Linux administration is a most \                                     
+\ worthy pursuit!                         /                                     
+ -----------------------------------------                                      
+   \                                                                            
+    \                                                                           
+        .--.                                                                    
+       |o_o |                                                                   
+       |:_/ |                                                                   
+      //   \ \                                                                  
+     (|     | )                                                                 
+    /'\_   _/`\                                                                 
+    \___)=(___/  
+

@@ -1,0 +1,12 @@
+18.15 Step 15
+
+Execute the following commands to have the sshd script stopped at all runlevels and confirm:
+
+chkconfig sshd off
+chkconfig --list sshd
+
+[root@centos rc3.d]# chkconfig sshd off
+[root@centos rc3.d]# chkconfig --list sshd
+sshd            0:off   1:off   2:off   3:off   4:off   5:off   6:off
+[root@centos rc3.d]#
+

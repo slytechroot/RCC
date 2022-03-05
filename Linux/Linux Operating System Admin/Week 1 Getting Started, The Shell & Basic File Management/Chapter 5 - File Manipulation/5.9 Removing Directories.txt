@@ -1,0 +1,30 @@
+5.9 Removing Directories
+
+The rmdir command is used to remove empty directories:
+
+rmdir [OPTION]... DIRECTORY...
+
+sysadmin@localhost:~$ rmdir bin
+
+Using the -p option with the rmdir command will remove directory paths, but only if all of the directories contain other empty directories.
+
+sysadmin@localhost:~$ rmdir red
+rmdir: failed to remove 'red': Directory not empty
+sysadmin@localhost:~$ rmdir -p red/blue/yellow/green
+
+Otherwise, if a directory contains anything except other directories, you'll need to use the rm command with a recursive option. The rm command alone will ignore directories that it's asked to remove; to delete a directory, use either the -r or -R recursive options. Just be careful as this will delete all files and all subdirectories:
+
+sysadmin@localhost:~$ mkdir test
+sysadmin@localhost:~$ touch test/file1.txt 
+sysadmin@localhost:~$ rmdir test
+rmdir: failed to remove 'test': Directory not empty
+sysadmin@localhost:~$ rm test                                 
+rm: cannot remove 'test': Is a directory     
+sysadmin@localhost:~$ rm -r test
+sysadmin@localhost:~$
+
+‌⁠​​⁠​ 
+
+To delete a directory with the rmdir command, you must have the write and execute permission on the parent directory. For example, to remove the /etc/test directory requires the write and execute permissions in the /etc directory.
+Command 	File Type 	Permission
+rmdir 	Parent Directory 	Write, Execute

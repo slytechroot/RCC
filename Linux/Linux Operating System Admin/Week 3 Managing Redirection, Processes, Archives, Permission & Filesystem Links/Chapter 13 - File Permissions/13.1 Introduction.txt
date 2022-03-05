@@ -1,0 +1,38 @@
+
+13.1 Introduction
+
+In order to access or modify a file or directory, the correct permissions must be set. There are three different permissions that can be placed on a file or directory: read, write, and execute.
+
+When listing a file with the ls -l command, the output includes permission and ownership information:
+
+sysadmin@localhost:~$ ls -l /bin/ls
+-rwxr-xr-x 1 root root 133792 Jan 18  2018 /bin/ls
+
+Below is a refresher on the fields relevant to permissions.
+File Type Field
+
+-rwxr-xr-x. 1 root root 133792 Jan  18  2018 /bin/ls
+
+The first character of this output indicates the type of a file. Recall if the first character is a dash - character, as in the previous example, this is a regular file. If the character was a letter d, it would be a directory.
+
+If the first character of the output of the ls -l command is a letter l, then the file is a symbolic link. A symbolic link file "points to" another file in the file system.
+
+Note
+
+To access a file that a symbolic link points to, you need to have the appropriate permissions on both the symbolic link file and the file that it points to.
+Permissions Field
+
+-rwxr-xr-x. 1 root root 133792 Jan  18  2018 /bin/ls
+
+After the file type character, the permissions are displayed.
+User Owner Field
+
+-rwxr-xr-x. 1 root root 133792 Jan  18  2018 /bin/ls
+
+After the link count, the file's user owner is displayed.
+Group Owner Field
+
+-rwxr-xr-x. 1 root root 133792 Jan  18  2018 /bin/ls
+
+After the user owner field, the file group owner is displayed.
+

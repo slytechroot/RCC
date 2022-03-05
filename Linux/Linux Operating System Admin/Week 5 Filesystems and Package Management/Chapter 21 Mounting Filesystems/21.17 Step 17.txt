@@ -1,0 +1,11 @@
+21.17 Step 17
+
+The kernel needs to be instructed to re-read the partition table that is now on the hard drive and put it into memory. You can tell that the kernel doesn't know about these new partitions yet because of the output of the following command:
+
+ls /dev/sd*
+
+root@ubuntu:~# ls /dev/sd*
+/dev/sda  /dev/sda1  /dev/sdb  /dev/sdb2  /dev/sdb5
+
+When the kernel recognizes new partitions, this will result in new device files being automatically created in the /dev directory. As you can see from the previous output, the kernel doesn't know about the two new partitions as there isn't a /dev/sda2 or /dev/sda5 file.
+

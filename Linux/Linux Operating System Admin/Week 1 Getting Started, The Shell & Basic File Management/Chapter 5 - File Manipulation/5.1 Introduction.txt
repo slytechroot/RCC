@@ -1,0 +1,37 @@
+5.1 Introduction
+
+Everything is considered a file in Linux. Therefore, file management is an important topic. Not only are your documents considered files, but hardware devices such as hard drives and memory are considered files as well. Even directories are considered files since they are special files that are used to contain other files.
+
+The essential commands needed for file management are often named by short abbreviations of their functions. You can use the ls command to list files, the cp command to copy files, the mv command to move or rename files, and the rm command to remove files.
+
+For working with directories, use the mkdir command to make directories, the rmdir command to remove directories (if they are empty), and the rm command to recursively delete directories containing files.
+
+Note
+
+While permissions will be covered in greater detail later in the course, they can have an impact on file management commands.
+
+Permissions determine the level of access that a user has on a file. When a user runs a program and the program accesses a file, then the permissions are checked to determine if the user has the correct access rights to the file.
+
+There are three types of permissions: read, write, and execute. Each has a different meaning depending on whether they are applied to a file or a directory.
+
+Read:
+
+    On a file, this allows processes to read the contents of the file, meaning the contents can be viewed and copied.
+
+    On a directory, file names in the directory can be listed, but other details are not available.
+
+Write:
+
+    A file can be written to by the process, so changes to a file can be saved. Note that the write permission usually requires the read permission on the file to work correctly with most applications.
+
+    On a directory, files can be added to or removed from the directory. Note that the write permission requires the execute permission on the directory to work correctly.
+
+Execute:
+
+    A file can be executed or run as a process.
+
+    On a directory, the user can use the cd command to "get into" the directory and use the directory in a pathname to access files and, potentially, subdirectories under this directory.
+
+Typically, there are two places where you should always have the write and execute permissions on the directory: your home directory (for permanent files) and the /tmp directory (for temporary files).
+
+Permissions will be covered in greater detail later in the course.

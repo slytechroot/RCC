@@ -1,0 +1,18 @@
+22.9 Step 9
+
+Execute the following command to find the largest files in the /etc directory structure:
+
+du /etc | sort -nr | head
+
+[root@centos~]# du /etc | sort -nr | head
+33636   /etc
+21020   /etc/selinux
+21000   /etc/selinux/targeted
+15220   /etc/selinux/targeted/active
+10996   /etc/selinux/targeted/active/modules
+10988   /etc/selinux/targeted/active/modules/100
+7772    /etc/udev
+3812    /etc/selinux/targeted/policy
+1932    /etc/selinux/targeted/contexts
+1832    /etc/selinux/targeted/contexts/files
+

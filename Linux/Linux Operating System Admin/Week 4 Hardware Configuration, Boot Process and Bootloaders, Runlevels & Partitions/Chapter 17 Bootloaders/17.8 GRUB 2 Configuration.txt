@@ -1,0 +1,100 @@
+17.8 GRUB 2 Configuration
+
+Although both the Fedora and Ubuntu distributions are now using GRUB 2, they each use a different location for the main configuration file. Fedora uses the /boot/grub2/grub.cfg file instead of the /boot/grub/grub.cfg file that is used by Ubuntu-based distributions.
+
+While it is possible to edit the main configuration file, any changes made to it will be lost upon updating the kernel or if an administrator executes the update-grub command (for Ubuntu-based systems) or the grub2-mkconfig command (for Fedora-based systems). This is because the GRUB 2 configuration file is designed to be automatically regenerated any time a kernel file is added or removed from the /boot directory.
+
+While GRUB Legacy expects the main configuration file will be edited, GRUB 2 expects any customizations to occur in the /etc/grub.d directory or the /etc/default/grub file.
+
+With GRUB Legacy, the files for GRUB were kept in the /boot/grub directory. Now, GRUB 2 uses several locations for its files:
+File Location 	Details
+/boot/grub2 	
+
+    Contains many module files.
+
+    Contains the grub.cfg file, a configuration file which should not be edited manually.
+
+    Contains the grubenv file, a configuration file which should not be edited manually
+
+/etc/default/grub 	
+
+    Contains the entries for creating a default boot entry; typically where customization by administrators will be performed.
+
+/etc/grub.d 	
+
+    Contains scripts that are run by GRUB 2.
+
+    Scripts can be customized or added to this directory.
+
+    Contains the following executable scripts by default:
+
+    /etc/grub.d/00_header
+
+    /etc/grub.d/10_linux
+
+    /etc/grub.d/20_linux_xen
+
+    /etc/grub.d/30_os-prober
+
+    /etc/grub.d/40_custom
+
+    /etc/grub.d/41_custom
+
+    /etc/grub.d/90_persistent
+
+/usr/lib/grub 	
+
+    Stores a couple of library files.
+
+/sbin/grub2-mkconfig 	
+
+    Command used to regenerate the /boot/grub2/grub.cfg file.
+
+This following demonstrates a typical /etc/default/grub file (this one was copied from a Fedora 16 system):
+
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=true
+# GRUB_TERMINAL="serial console"
+# GRUB_SERIAL_COMMAND="serial --unit=0 --speed=9600"
+GRUB_CMDLINE_LINUX="quiet rhgb"
+GRUB_DISABLE_RECOVERY="true"
+
+The new GRUB 2 allows the user to choose a new default menu item. By adding the following settings in the /etc/default/grub file and regenerating the configuration file, whatever title the user chooses from the menu becomes “saved” and will be the default the next time the menu is displayed:
+
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=true
+
+After modifying the /etc/default/grub file, execute either the update-grub command (for Ubuntu-based systems) or the grub2-mkconfig command (for Fedora-based systems) to update the actual configuration file used by GRUB 2 at boot time.
+
+To manually specify which kernel image to boot, use these settings in the /etc/default/grub file:
+
+GRUB_DEFAULT=0
+GRUB_SAVEDEFAULT=false
+
+‌⁠​​These settings mean use the first menu entry found in the configuration file as the default to boot. The menu entries are created by GRUB 2 by searching for kernel images in the /boot directory. These menu entries are numbered starting at zero for the most recent version, one for the next most recent version, and so forth.
+
+The GRUB_DEFAULT= setting establishes the number of the menu entry to use by default, and GRUB_SAVEDEFAULT=false means don’t save a new default when the user chooses from the menu.
+
+The /etc/default/grub file can also be modified for the administrator automatically by executing the grub-set-default command with the menu entry to set as default. For example, to make the second menu entry the default menu entry, an administrator would execute:
+
+root@localhost:~# grub-set-default 1
+
+The GRUB_TIMEOUT value found in the /etc/default/grub file establishes how many seconds to wait before the system is automatically booted to the default menu entry. If the user presses any key except the Enter key, then the timeout is aborted, and the user can select a menu entry manually.
+
+If GRUB 2 needs to be installed or reinstalled, then an administrator would execute:
+
+root@localhost:~# /sbin/grub2-install /dev/sda
+
+After installing GRUB 2, the configuration file needs to be generated for the first time. In a Fedora-based distribution, an administrator would execute:
+
+[root@localhost]# grub2-mkconfig -o /boot/grub2/grub.cfg
+
+On an Ubuntu-based distribution, an administrator would execute:
+
+root@localhost:~# update-grub
+
+Consider This
+
+Additional documentation of GRUB 2 configuration can be found at gnu.org, the GNU website.

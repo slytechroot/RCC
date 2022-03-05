@@ -1,0 +1,9 @@
+4.2 Step 2
+
+To view all files and directories with names starting with the letter D, execute the following command:
+
+echo D*
+
+sysadmin@localhost:~$ echo D*                                       
+Desktop Documents Downloads
+

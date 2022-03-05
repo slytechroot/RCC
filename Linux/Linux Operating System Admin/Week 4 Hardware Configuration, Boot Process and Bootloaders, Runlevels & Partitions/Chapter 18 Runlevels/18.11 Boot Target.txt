@@ -1,0 +1,38 @@
+18.11 Boot Target
+
+Many modern systems use systemd rather than init for setting boot targets. The following table shows the runlevel equivalents for boot targets.
+‌⁠​​⁠
+Runlevel 	Purpose 									systemd Target
+0 		Halt or shut off the system 							poweroff.target
+1 		Single-user mode for administrative tasks 					rescue.target
+2 		Multi-user mode without configured network interfaces or network services 	multi-user.target
+3 		Normal startup of the system 							multi-user.target
+4 		User-definable 									multi-user.target
+5 		Start the system normally with a graphical display manager 			graphical.target
+6 		Restart the system 								reboot.target
+
+To check the current runlevel on a Linux system, list the /etc/systemd/system/default.target file using the ls -l command:
+
+Note
+
+The following examples represent a system that is different from the virtual machine in this module. The examples may not match the output in our virtual environment.
+
+[sysadmin@localhost ~]$ su - root
+Password:
+[root@localhost ~]# ls -l /etc/systemd/system/default.target
+lrwxrwxrwx 1 root root 37 Dec  4 14:39 /etc/systemd/system/default.target ->/lib/systemd/system/multi-user.target
+
+If you need to set the system to boot into single-user mode for troubleshooting or recovery operations, use the systemctl enable rescue.target command, followed by systemctl set-default rescue.target command:
+
+[root@localhost ~]# systemctl enable rescue.target
+Created symlink /etc/systemd/system/kbrequest.target, pointing to
+/usr/lib/systemd/system/rescue.target.
+[root@localhost ~]# systemctl set-default rescue.target
+Removed /etc/systemd/system/default.target.
+Created symlink /etc/systemd/system/default.target, pointing to /usr/lib/systemd/system/rescue.target.
+
+To change the system to graphical mode after booting, use the systemctl isolate graphical.target command:
+
+[root@localhost ~]# systemctl isolate graphical.target
+Failed to get D-Bus connection: Operation not permitted
+

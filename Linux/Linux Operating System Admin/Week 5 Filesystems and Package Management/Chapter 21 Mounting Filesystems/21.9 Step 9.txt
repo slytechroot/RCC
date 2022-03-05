@@ -1,0 +1,14 @@
+21.9 Step 9
+
+The next prompt asks for the block (or sector) this partition will start on. To accept the default value, simply press the Enter key:
+
+Enter
+
+Command (m for help): n
+Partition type:
+    p    primary (2 primary, 0 extended, 2 free)
+    e    extended
+Select (default p): e
+Partition number (1-4, default 2): 2
+First sector (2048-8388607, default 2048):
+Last sector, *sectors or +size(K,M,G,T,P) (2048-8388607, default 8388607):

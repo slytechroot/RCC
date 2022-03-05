@@ -1,0 +1,9 @@
+15.17 Step 17
+
+Try to remove the fat module from memory by executing the following command:
+
+modprobe -r fat
+
+[root@centos ~]# modprobe -r fat
+modprobe: FATAL: Module fat is in use.
+

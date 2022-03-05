@@ -1,0 +1,10 @@
+13.5.1 Scenario #1
+Question
+
+Given the following information, what can the user bob do with the /home/bob/test file?
+
+drwxr-xr-x 1 root root  4096 Apr 23 21:08 /
+drwxr-xr-x 1 root root  4096 Apr 17 22:31 /home
+drwxr-xr-x 1 bob  staff 4096 Apr 23 21:09 /home/bob
+-r--r--r-- 1 bob  staff 390  Apr 17 22:31 /home/bob/test
+

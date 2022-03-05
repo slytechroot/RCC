@@ -1,0 +1,14 @@
+23.20 Step 20
+
+Attempt to run the fsck utility on the /dev/sdb5 filesystem by executing the following command:
+
+fsck /dev/sdb5
+
+root@ubuntu:~# fsck /dev/sdb5
+fsck from util-linux 2.31.1
+e2fsck 1.44.1 (24-Mar_2018)
+/dev/sdb5 is mounted.
+e2sck: Cannot continue, aborting.
+
+The fsck utility will not run on a mounted filesystem. The purpose of the fsck command is to fix filesystem problems on filesystems that can't be mounted. If the filesystem is mounted, there are no filesystem problems and no need to run the fsck command.
+

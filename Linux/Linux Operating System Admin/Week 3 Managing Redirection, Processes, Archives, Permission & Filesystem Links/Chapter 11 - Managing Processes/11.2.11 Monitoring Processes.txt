@@ -1,0 +1,65 @@
+11.2.11 Monitoring Processes
+
+While the ps command can display active processes, the top command provides the ability to monitor processes in real-time, as well as manage the processes. By default, the output of the top command will update every three seconds. For example, the following output demonstrates how the top command can be used to monitor processes currently running in the terminal, such as the three cat commands executed in the previous section:
+
+sysadmin@localhost:~$ top
+
+top - 16:47:34 up 51 days,  2:12,  1 user,  load average: 1.37, 1.56, 1.49
+Tasks:  13 total,   4 running,   9 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.3 us, 37.2 sy,  0.2 ni, 62.1 id,  0.0 wa,  0.1 hi,  0.0 si,  0.0 st
+KiB Mem:  16438128 total, 13108516 used,  3329612 free,     4276 buffers
+KiB Swap:        0 total,        0 used,        0 free.  9808716 cached Mem
+ 
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+  164 root      20   0    4364    696    616 R  87.4  0.1   1:23.32 cat
+  165 root      30  10    4364    696    620 T   9.3  0.1   0:49.13 cat
+  166 root      39  19    4364    772    696 T   1.7  0.1   0:41.75 cat
+    1 root      20   0   17960   2972   2724 S   0.0  0.0   0:00.02 init
+   33 syslog    20   0  255844   2728   2296 S   0.0  0.0   0:00.03 rsyslogd
+   38 root      20   0   23656   2288   2076 S   0.0  0.0   0:00.00 cron
+   40 root      20   0   61364   3124   2444 S   0.0  0.0   0:00.00 sshd
+   57 bind      20   0  689640  29580   5328 S   0.0  0.2   0:00.13 named
+   70 root      20   0   63132   2900   2452 S   0.0  0.0   0:00.00 login
+   80 sysadmin  20   0   18176   3384   2896 S   0.0  0.0   0:00.04 bash
+  151 root      20   0   46628   2708   2360 S   0.0  0.0   0:00.01 su
+  152 root      20   0   18180   3388   2896 S   0.0  0.0   0:00.01 bash
+  167 root      20   0   19860   2452   2124 R   0.0  0.0   0:00.00 top
+
+Upon closer investigation of the niceness column NI and the CPU usage percentage column %CPU in the output above, we can see that the cat command with the lowest niceness (0) is using the highest percentage CPU (87.4), while the cat command with the highest niceness (19) is using the lowest percentage CPU (1.7).
+
+The top command has numerous features; for example, it can be manipulated in an interactive manner. Pressing the H key while the top command is running will result in it displaying a help screen:
+
+Help for Interactive Commands - procps-ng version 3.3.9
+Window 1:Def: Cumulative mode Off.  System: Delay 3.0 secs; Secure mode Off.
+ 
+  Z,B,E,e   Global: 'Z' colors; 'B' bold; 'E'/'e' summary/task memory scale
+  l,t,m     Toggle Summary: 'l' load avg; 't' task/cpu stats; 'm' memory info
+  0,1,2,3,I Toggle: '0' zeros; '1/2/3' cpus or numa node views; 'I' Irix mode
+  f,F,X     Fields: 'f'/'F' add/remove/order/sort; 'X' increase fixed-width
+ 
+  L,&,<,> . Locate: 'L'/'&' find/again; Move sort column: '<'/'>' left/right
+  R,H,V,J . Toggle: 'R' Sort; 'H' Threads; 'V' Forest view; 'J' Num justify
+  c,i,S,j . Toggle: 'c' Cmd name/line; 'i' Idle; 'S' Time; 'j' Str justify
+  x,y     . Toggle highlights: 'x' sort field; 'y' running tasks
+  z,b     . Toggle: 'z' color/mono; 'b' bold/reverse (only if 'x' or 'y')
+
+  u,U,o,O . Filter by: 'u'/'U' effective/any user; 'o'/'O' other criteria
+  n,#,^O  . Set: 'n'/'#' max tasks displayed; Show: Ctrl+'O' other filter(s)
+  C,...   . Toggle scroll coordinates msg for: up,down,left,right,home,end
+ 
+  k,r       Manipulate tasks: 'k' kill; 'r' renice
+  d or s    Set update interval
+  W,Y       Write configuration file 'W'; Inspect other output 'Y'
+  q         Quit
+          ( commands shown with '.' require a visible task display window )
+Press 'h' or '?' for help with Windows,
+Type 'q' or <Esc> to continue
+
+The K and R keys are used to manage tasks or processes within the top program.
+
+Pressing the K key will allow a user to kill or send a signal to a process. After pressing the K key, the top command will prompt for a PID and then for a signal to send to that process.
+
+Pressing the R key will allow a user to renice a process by prompting for the PID and then the new niceness value.
+
+Press the Q key to quit the top command.
+

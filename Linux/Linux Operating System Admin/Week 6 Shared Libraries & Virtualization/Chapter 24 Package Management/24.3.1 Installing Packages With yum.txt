@@ -1,0 +1,90 @@
+24.3.1 Installing Packages With yum
+
+The yum utility is the preferred command to install packages since it will resolve dependency issues for you. For example, to install x3270-x11 package, an administrator could execute the following:
+
+[sysadmin@localhost ~]$ su -
+Password:
+[root@localhost ~]# yum install x3270-x11
+
+After some output that shows how it is resolving dependencies, the output from this yum command would look like the following:
+
+================================================================================
+ Package            Arch          Version                   Repository     Size
+================================================================================
+Installing:
+ x3270-x11          i686          3.3.6-10.5.el6            base          416 k
+Installing for dependencies:
+ libicu             i686          4.2.1-9.1.el6_2           base          5.0 M
+ x3270              i686          3.3.6-10.5.el6            base          136 k
+
+Transaction Summary
+================================================================================
+Install       3 Package(s)
+Total download size: 5.5 M
+Installed size: 20 M
+Is this ok [y/N]:
+
+At the Is this ok [y/N]: prompt, if y is typed followed by the Enter key, then all three packages will be installed. As the output shows, it will be installing the requested package x3270-x11 and the dependencies packages (libicu and x3270).
+
+The Is this ok [y/N] prompt can be skipped by adding the -y option to the yum command. The following command would install the x3270-x11 and its dependencies without any confirmation prompt:
+‌⁠​​⁠​ 
+
+[root@localhost ~]# yum -y install x3270-x11
+
+The yum command has the ability to install many packages at once. List multiple package names with the yum install command:
+
+[root@localhost ~]# yum install telnet telnet-server ftp vsftpd
+
+The previous command would install four packages and any of their dependencies.
+
+Multiple packages can also be installed using yum groups. A yum group is a collection of packages that work together to create a large piece of software. For example, the GUI software called Gnome isn't just a single package, but rather a collection of packages working together to provide a GUI environment.
+
+Use the yum grouplist command to list all of the groups that are installed on a system, as well as groups that are available:
+
+[root@localhost ~]# yum grouplist | head
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Setting up Group Process
+Loading mirror speeds from cached hostfile
+ * base: centosb6.centos.org
+ * extras: centosd6.centos.org
+ * updates: centosk3.centos.org
+Installed Groups:
+   Additional Development
+   Base
+   Desktop
+
+To see details about a specific group, use the yum groupinfo command:
+
+[root@localhost ~]# yum groupinfo "Perl Support"
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Setting up Group Process
+Loading mirror speeds from cached hostfile
+ * base: centosb6.centos.org
+ * extras: centosd6.centos.org
+ * updates: centosk3.centos.org
+
+Group: Perl Support
+ Description: Perl interfaces to common libraries and functionality.
+ Mandatory Packages:
+   perl
+ Default Packages:
+   perl-Crypt-SSLeay
+   perl-XML-Dumper
+   perl-XML-Grove
+   perl-XML-Twig
+   perl-core
+ Optional Packages:
+   perl-DBD-SQLite
+   perl-Date-Calc
+   perl-Date-Manip
+   perl-Frontier-RPC
+   perl-LDAP
+
+Use the yum groupinstall command to install a group of packages. The group names that have spaces will have to be contained in quotes:
+
+[root@localhost ~]# yum groupinstall "Office Suite and Productivity"
+
+Consider This
+
+The only packages that are installed with the yum groupinstall command are the ones listed as either Default or Mandatory (see the output of the yum groupinfo command in the previous example). Use the yum install command to install any of the packages that are listed under Optional Packages.
+

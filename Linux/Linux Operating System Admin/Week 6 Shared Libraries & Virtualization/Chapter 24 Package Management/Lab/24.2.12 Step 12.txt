@@ -1,0 +1,9 @@
+24.2.12 Step 12
+
+Installing a package can be accomplished by executing the apt-get install command followed by the package name. Execute the following command to install the xfsprogs package. When prompted whether to continue, press the Y key and then press the Enter key to continue:
+
+apt-get install xfsprogs
+y
+
+root@localhost:~# apt-get install xfsprogs
+

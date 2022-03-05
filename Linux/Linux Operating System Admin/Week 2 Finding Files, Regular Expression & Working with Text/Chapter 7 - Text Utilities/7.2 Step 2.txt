@@ -1,0 +1,24 @@
+7.2 Step 2
+
+The standard output of the cat command can be sent to another file by using redirection. Standard output redirection is achieved by following a command with the greater-than > character and a destination file.
+
+cat /etc/hosts /etc/hostname > result
+
+sysadmin@localhost:~$ cat /etc/hosts /etc/hostname > result
+
+Standard input and output streams will be covered in greater detail later in the course.
+
+To view the result file created above, execute the following command:
+
+cat result
+
+sysadmin@localhost:~$ cat result
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+192.168.1.2     localhost
+localhost
+

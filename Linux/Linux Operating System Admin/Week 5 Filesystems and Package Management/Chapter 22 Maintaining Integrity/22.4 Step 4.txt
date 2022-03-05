@@ -1,0 +1,17 @@
+22.4 Step 4
+
+To view filesystem inode usage, use the -i option:
+
+df -i
+
+[root@centos~]# df -i
+Filesystem                       Inodes   IUsed  IFree IUse% Mounted on
+/dev/mapper/VolGroup-lv_root     262144   27045 235099   11% /
+devtmpfs                          59369    358   59011    1% /dev
+tmpfs                            62353       1   62352    1% /dev/shm
+tmpfs                            62353     430   61923    1% /run
+tmpfs                            62353      16   62337    1% /sys/fs/cgroup
+/dev/sda1                        32768     334   32434    2% /boot
+tmpfs                            62353       1   62352    1% /run/user/0
+
+Recall that each file needs an inode. Therefore, if a filesystem has 1,310,720 inodes then this also represents the maximum number of files that can reside on that filesystem.

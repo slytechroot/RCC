@@ -1,0 +1,46 @@
+18.2 Default Runlevel
+
+Systems using traditional init can specify the default runlevel by modifying the /etc/inittab file entry that looks like the following:
+
+id:5:initdefault:
+
+In this example, the default runlevel indicated is for the system to go to runlevel 5, which is typical for a desktop or laptop system that will be running a GUI, and will, most likely, be used by an end user. For most Linux systems, runlevel 5 provides the highest level of functionality, including providing a GUI interface.
+
+Servers typically don't offer a GUI interface, so the initdefault entry might look like:
+
+id:3:initdefault:
+
+As previously discussed, the default runlevel can be overridden at boot time by interacting with the bootloader. In the case of GRUB Legacy, either append to the kernel line or use the editing feature to add a runlevel number. For example, adding 5 would take the system to runlevel 5 and the word single (or the uppercase or lowercase letter s, as well as the numeral 1) would take the system to the single user runlevel.
+
+Note
+
+Bootloaders are covered in greater detail previously in the course.
+
+If the system is using Upstart instead of the traditional init process, then the default runlevel may also be set in the /etc/inittab file, as is the case with distributions derived from Red Hat Enterprise Linux 6. On the other hand, distributions like Ubuntu (the distribution that developed Upstart) can be changed by setting the DEFAULT_RUNLEVEL environmental variable in the /etc/init/rc-sysinit.conf file.
+
+systemd doesn't natively use runlevels, but it has something similar called targets. For example, the graphical.target is similar to the standard runlevel 5, where the GUI is running; the multi-user.target is similar to the standard runlevel 3, where the system is normally running without a GUI.
+
+To set a default target, create a symbolic link from the target definition found in the /lib/systemd directory to the /etc/systemd/system/default.target file. This file is a symbolic link that controls where the system first boots into.
+
+Note
+
+Recall that to create a soft link file, use the ln command with the -s option. The first argument is the original file name, and the second argument is the name of the link to be created:
+
+ln -s target link_name
+
+Links are covered in greater detail earlier in the course.
+
+To change how the system boots, remove the former default target and then create a new symbolic link as shown below:
+
+Note
+
+The su command requires the root password netlab123 in our virtual environment.
+
+sysadmin@localhost:~$ su -
+Password:
+root@localhost:~# rm -f /etc/systemd/system/default.target
+root@localhost:~# ln -sf /lib/systemd/system/graphical.target
+/etc/systemd/system/default.target
+
+The previous example sets the default target to graphical.target, so the system would come up to a state like runlevel 5.
+

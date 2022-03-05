@@ -1,0 +1,12 @@
+24.1.5 Step 5
+
+Execute the following command to view the documentation that was included in the setup package:
+
+rpm -q -d setup
+
+[root@localhost /]# rpm -q -d setup
+/usr/share/doc/setup-2.8.71/COPYING
+/usr/share/doc/setup-2.8.71/uidgid
+
+Knowing the location of the package's documentation is useful when you need to fix problems with the package or configure elements of the package.
+

@@ -1,0 +1,15 @@
+23.25 Step 25
+
+The superblock is where critical filesystem data is stored. If the primary superblock is corrupted, then you need to use a backup superblock to fix the primary superblock. To view the backup superblocks of a filesystem, execute the following command:
+
+dumpe2fs /dev/sdb5 | grep superblock
+
+root@ubuntu:~# dumpe2fs /dev/sdb5 | grep superblock
+dumpe2fs 1.44.1 (24-Mar-2018)
+ Primary superblock at 1, Group descriptors at 8194-8195
+ Backup superblock at 8193, Group descriptors at 24578-24579
+ Backup superblock at 24577, Group descriptors at 24578-24579
+ Backup superblock at 40961, Group descriptors at 40962-40963
+ Backup superblock at 57345, Group descriptors at 57346-57347
+ Backup superblock at 73729, Group descriptors at 73730-73731
+

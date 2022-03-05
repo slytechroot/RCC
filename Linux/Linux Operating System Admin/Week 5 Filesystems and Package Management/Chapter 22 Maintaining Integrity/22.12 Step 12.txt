@@ -1,0 +1,11 @@
+22.12 Step 12
+
+To see the default mount options of the filesystem, execute the following command:
+
+dumpe2fs /dev/sda1 | grep “Default mount options”
+
+[root@centos~]# dumpe2fs /dev/sda1 | grep "Default mount options"
+dumpe2fs 1.42.9 (28-Dec-2013)
+Default mount options:    user_xattr acl
+
+The default mount options are specified when the filesystem is initially created. Any additional mount options are specified in the /etc/fstab file.

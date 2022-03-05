@@ -1,0 +1,10 @@
+21.16 Step 16
+
+Type w at the Command prompt to save your new partitions:
+
+Command (m for help): w
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+root@ubuntu:~#

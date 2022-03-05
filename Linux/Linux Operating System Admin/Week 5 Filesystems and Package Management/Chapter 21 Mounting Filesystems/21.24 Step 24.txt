@@ -1,0 +1,13 @@
+21.24 Step 24
+
+Verify this change with the following tail command:
+
+tail -n 1 /etc/fstab
+
+Note that the character after the -n option is a number 1, not a lowercase letter L.
+
+root@ubuntu:~# tail -n 1 /etc/fstab
+/dev/sdb5 	/data		ext4	defaults	1	1
+
+If no output is displayed for the command above, verify that the /etc/fstab file does not contain additional empty lines and attempt the command again. Alternatively, you can increase the number of lines value for the -n option to the tail command.
+

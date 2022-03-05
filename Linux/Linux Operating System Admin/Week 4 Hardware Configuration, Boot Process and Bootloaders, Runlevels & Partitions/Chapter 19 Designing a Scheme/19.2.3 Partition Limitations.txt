@@ -1,0 +1,29 @@
+19.2.3 Partition Limitations
+
+Historically, the number of partitions a system can have is limited by the Master Boot Record (MBR). Recall that the MBR is usually contained within the first sector or 512 bytes of the disk and contains a bootloader program, as well as the partition table. The partition table contains the definition of each partition on the hard drive, including the starting cylinder, ending cylinder, and size.
+
+Note
+
+Bootloaders are covered in greater detail earlier in the course.
+
+Traditional disks using MBR partitioning can have a maximum of four primary partitions. For example, on a traditional SATA drive, four partitions can be created with device names of /dev/sdb1, /dev/sdb2, /dev/sdb3, and /dev/sdb4:
+Hard drive depicted as cylinder shape labeled sdb containing four partitions; sdb1 primary partition 1, sdb2 primary partition 2, sdb 3 primary partition 3 and sdb 4 primary partition 4.
+
+For non-Linux operating systems, multiple partitions are rarely needed, so the maximum of only four partitions per drive is not a serious limitation. However, on Linux servers, more than four partitions are often necessary. As a result, modern hardware allows the administrator to make one of the four partitions an extended partition. An extended partition acts as a container for additional partitions called logical partitions. Consider the following:
+Hard drive depicted as cylinder shape labeled sda1 containing three primary partitions; sda1 primary partition 1, sda2 primary partition 2, sda3 primary partition 3 and an extended partition containing five logical partitions; logical partition 5, logical partition 6, logical partition 7, logical partition 8, logical partition 9.
+
+ 
+
+The /dev/sda4 partition is an extended partition. The only things that are placed in this extended partition are additional partitions, logical partitions. In this example, /dev/sda5, /dev/sda6, /dev/sda7, /dev/sda8, and /dev/sda9 are logical partitions. By allowing /dev/sda4 to be an extended partition, more than four partitions are possible on this one hard drive. Depending upon the type of hard disk and kernel configuration, Linux can access a maximum of either 15 or 63 total partitions when extended partitions are used.
+
+Partitions are typically used to store filesystems. However, for extended partitions, a filesystem is never placed directly on the partition, but rather on each logical partition within the extended partition. Accidental placement of a filesystem directly on an extended partition can result in complete data loss of every logical partition contained within. Modern cloud computing can add complexity to partitioning as some filesystems can now span multiple connected data centers.
+
+Up until now, we’ve only discussed MBR partitioning; however, some hard drives make use of another partitioning type called the GUID Partition Table (GPT). A globally unique identifier (GUID) is a universally unique 128-bit number used to identify information on a computer system. This partitioning scheme was designed to replace the traditional MBR partitioning in use since PC DOS 2.0 was introduced in 1983 and is available on systems that support the Unified Extensible Firmware Interface (UEFI).
+
+GPT supports very large disks, up to 9ZB in size. Extended and logical partitions are not used with GPT; instead, all partitions are the same, and GPT supports a maximum of 128 partitions per disk. Creating GPT partitions is accomplished using a partitioning tool called gdisk, which is similar to the fdisk utility that is used for MBR partitions.
+
+In addition to MBR and GPT partition tables, there are other methods for dividing up the disk, including Berkeley Software Distribution (BSD) Unix Labels, Apple Partition Maps, and others. Also, there are tools to use partitions in more flexible and dynamic ways, like Logical Volume Management (LVM).
+
+Note
+
+Recall that UEFI is a replacement for the traditional BIOS standard which specifies the boot partition. Almost all systems built after 2010 support UEFI and it has become the de facto standard since drives larger than 2TB are now common. Systems using UEFI, use the Extensible Firmware Interface (EFI) specification that was originally released by Intel in 1998 to overcome the limitations of BIOS boot partitions. The EFI, also called EFI System Partition (ESP), is the partition that stores the bootloader for an operating system.

@@ -1,0 +1,10 @@
+8.10 Step 10
+
+The question mark ? operator is a part of extended regular expression characters and is used for making the previous character optional in the pattern. For example, to match the two different ways to spell aging (aging or ageing) in the dictionary file, execute the following command:
+
+grep –E "^age?ing$" /usr/share/dict/words
+
+sysadmin@localhost:~$ grep -E "^age?ing$" /usr/share/dict/words
+ageing
+aging
+

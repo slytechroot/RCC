@@ -1,0 +1,21 @@
+6.3 Step 3
+
+The locate command will only return results of files that the current user would normally have access to. The find command will search a directory and all of its subdirectories (including files that the current user may not have access to).
+
+find [OPTIONS]... [starting-point...] [expression]
+
+The find command searches for files by name when the -name option is used. To find the hostname file in the /etc directory, execute the following command:
+
+find /etc -name hostname
+
+sysadmin@localhost:~$ find /etc/ -name hostname                                 
+/etc/hostname                                                                   
+find: '/etc/ssl/private': Permission denied
+
+The find command generates a lot of output related to files that it cannot access due to inadequate permissions. To suppress this type of output, redirect it to /dev/null, as shown in the example below. To find the hostname file in the /etc directory and also redirect the error stream, execute the following command:
+
+find /etc -name hostname 2>/dev/null
+
+sysadmin@localhost:~$ find /etc -name hostname 2>/dev/null              
+/etc/hostname
+

@@ -1,0 +1,12 @@
+22.13 Step 13
+
+Most of a filesystem's attributes can only be specified when the filesystem is created. For example, the number of inodes cannot be changed later. However, the reserved block space can be changed. Execute the following command to see the current value of the reserved block count:
+
+dumpe2fs /dev/sda1 | grep "Reserved block count"
+
+[root@centos~]# dumpe2fs /dev/sda1 | grep "Reserved block count"
+dumpe2fs 1.42.9 (28-Dec-2013)
+Reserved block count:     6553
+
+The reserved block count is how much space on the filesystem is reserved for the root account or processes that run as the root account (typically, system processes).
+On some filesystems, such as /home, you may want to reduce this value since the root user doesn't use that filesystem often. On other filesystems, you may find the need to increase the reserved block count.

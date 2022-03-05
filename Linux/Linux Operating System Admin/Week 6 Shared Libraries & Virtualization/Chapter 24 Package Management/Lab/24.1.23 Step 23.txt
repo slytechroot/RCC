@@ -1,0 +1,13 @@
+24.1.23 Step 23
+
+Verify your work by executing the following command:
+
+cat /etc/yum.repos.d/Local.repo
+
+[root@localhost /]# cat /etc/yum.repos.d/Local.repo
+[Local]
+name=Local
+baseurl=file:///mnt/local_repo
+gpgcheck=0
+enabled=1
+

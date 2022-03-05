@@ -1,0 +1,27 @@
+2.9.6.4 Searching by Keyword
+
+Unfortunately, you won't always remember the exact name of the man page that you want to view. In these cases, you can search for man pages that match a keyword by using the -k option to the man command.
+
+For example, what if you knew you wanted a man page that displays how to change your password, but you didn't remember the exact name? You could run the command man -k password:
+
+sysadmin@localhost:~$ man -k password
+chage (1)            - change user password expiry information
+chgpasswd (8)        - update group passwords in batch mode
+chpasswd (8)         - update passwords in batch mode
+cpgr (8)             - copy with locking the given file to the password or gr...
+cppw (8)             - copy with locking the given file to the password or gr...
+
+Warning
+
+When you use this option, you may end up with a large amount of output. The preceding command, for example, provided over 60 results.
+
+Recall that there are thousands of man pages, so when you search for a keyword, be as specific as possible. Using a generic word, such as "the" could result in hundreds or even thousands of results.
+
+Note that on most Linux distributions, the apropos command does the same thing as man -k. On those distributions, both will produce the same output.
+
+Consider This
+
+Want to learn more about man pages? Execute the following command:
+
+sysadmin@localhost:~$ man man
+

@@ -1,0 +1,20 @@
+13.27 Step 27
+
+Execute the following command to change your account information. When prompted, provide the sysadmin password: netlab123:
+
+chfn
+
+Enter the following information when prompted:
+
+Room Number []: 123
+Work Phone []: 888-555-5555
+Home Phone []: 888-555-5555
+
+sysadmin@localhost:~$ chfn
+Password:
+Changing the user information for sysadmin
+Enter the new value, or press ENTER for the default
+        Full Name: System Administrator
+        Room Number []: 123
+        Work Phone []: 888-555-5555
+        Home Phone []: 888-555-5555

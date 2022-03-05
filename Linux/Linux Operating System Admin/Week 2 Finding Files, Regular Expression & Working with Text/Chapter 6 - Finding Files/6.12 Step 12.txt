@@ -1,0 +1,25 @@
+6.12 Step 12
+
+The -exec option is used to execute a specific command using the results of find as the input. To find all files in your home directory that end in .conf and delete them with the rm command, execute the following commands:
+
+cp /etc/*.conf .
+ls
+find ~ -name "*.conf" –exec rm {} \;
+ls
+
+sysadmin@localhost:~$ cp /etc/*.conf .                                          
+sysadmin@localhost:~$ ls                                                        
+Desktop       ca-certificates.conf  host.conf                resolv.conf        
+Documents     debconf.conf          ld.so.conf               rsyslog.conf       
+Downloads     deluser.conf          libaudit.conf            sample             
+Music         dir1                  logrotate.conf           sysctl.conf        
+Pictures      dir2                  ltrace.conf              ucf.conf           
+Public        dir3                  mke2fs.conf              updatedb.conf      
+Templates     fuse.conf             nsswitch.conf                               
+Videos        gai.conf              pam.conf                                    
+adduser.conf  hdparm.conf           popularity-contest.conf                    
+sysadmin@localhost:~$ find ~ -name "*.conf" -exec rm {} \;              
+sysadmin@localhost:~$ ls                                                        
+Desktop    Downloads  Pictures  Templates  dir1  dir3                           
+Documents  Music      Public    Videos     dir2  sample
+

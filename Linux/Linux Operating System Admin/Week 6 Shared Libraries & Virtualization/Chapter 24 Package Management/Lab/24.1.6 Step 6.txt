@@ -1,0 +1,20 @@
+24.1.6 Step 6
+
+Display the status of the package files by executing the following command:
+
+rpm -q -s setup | head
+
+[root@localhost /]# rpm -q -s setup | head
+normal        /etc/aliases
+normal        /etc/bashrc
+normal        /etc/csh.cshrc
+normal        /etc/csh.login
+normal        /etc/environment
+normal        /etc/exports
+normal        /etc/filesystems
+normal        /etc/fstab
+normal        /etc/group
+normal        /etc/gshadow
+
+Typically, this output should indicate normal for each file. If a file has not been installed, it will be listed as not installed. This could result in the package not functioning correctly.
+

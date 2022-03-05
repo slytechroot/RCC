@@ -1,0 +1,23 @@
+6.3.4 which Command
+
+Sometimes the whereis command returns more than one result on a command. In this case, an administrator would want to know which command is being used.
+
+which [-a] FILENAME...
+
+The bash command is an example that normally yields two results:
+
+sysadmin@localhost:~$ whereis -b bash
+bash: /bin/bash /etc/bash.bashrc
+
+To find out which bash result is the real command, in other words, the result that is used when executing the command, use the which command:
+
+sysadmin@localhost:~$ which bash
+/bin/bash
+
+The -a option can be used with the which command to locate multiple executable files. This would be useful to know if an executable script was inserted maliciously to override an existing command.
+
+sysadmin@localhost:~$ which -a ping
+/bin/ping
+
+By using the which command, an administrator can be fairly certain that the only executable running by the name of the ping command is located in the /bin directory.
+

@@ -1,0 +1,12 @@
+4.13 Step 13
+
+To view all files with names beginning with rc in the /etc directory except for those that include the number 1, execute the following command:
+
+echo /etc/rc[!1]*
+
+sysadmin@localhost:~$ echo /etc/rc[!1]*                             
+/etc/rc0.d /etc/rc2.d /etc/rc3.d /etc/rc4.d /etc/rc5.d /etc/rc6.d /etc/rcS.d
+
+Note
+
+The wildcard characters lose their special meaning inside the [] notation and are treated as regular characters. For example, if you specify [*]*, it will try to match with a file name starting with the asterisk * character. Typically file names don't include wildcard characters, so this feature is rarely needed.

@@ -1,0 +1,35 @@
+23.41 Step 41
+
+Type the root password and press the Enter key. You will then be provided a command prompt:
+
+netlab123
+Enter
+
+...
+Give root password for maintenance
+(or press Control-D to continue):
+root@ubuntu:~#
+
+At this prompt, type the following command to fix the filesystem:
+
+fsck /dev/sdb5
+
+root@ubuntu:~# fsck /dev/sdb5
+fsck from util-linux 2.31.1
+e2fsck 1.44.1 (24-Mar-2018)
+/dev/sdb5 1.44.1 was not cleanly unmounted, check forced.
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information 
+Inode bitmap differences: Group 1 inode bitmap does not match checksum.
+FIXED.
+Block bitmap differences: Group 1 block bitmap does not match checksum.
+FIXED.
+ 
+/dev/sdb5: ***** FILE SYSTEM WAS MODIFIED *****
+/dev/sdb5: 11/51200 files (0.0% non-contiguous), 12115/204800 blocks
+
+Unlike the fsck utility that you run when logged in as root, the fsck utility that runs when in maintenance mode, as is the case here, knows to check backup superblocks automatically.
+

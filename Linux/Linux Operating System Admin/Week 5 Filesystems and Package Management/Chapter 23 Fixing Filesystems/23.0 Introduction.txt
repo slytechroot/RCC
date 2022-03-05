@@ -1,0 +1,8 @@
+23.0 Introduction
+In order to provide the functionality you need to apply these concepts, this VM may require a minute or two to load.
+
+There are circumstances in which a filesystem may break. This can occur, for example, when the filesystem isn't properly shut down due to a power outage or a frustrated system administrator pulling the power on the system.
+
+Because of how filesystem changes are made, filesystem corruption can occur when a filesystem isn't correctly unmounted. This is because changes to the filesystem metadata (information about the filesystem) are stored in memory initially. When a filesystem is unmounted correctly, all of this data is flushed to the hard drive.
+
+When filesystems break, an administrator needs to know how to fix the problems. The fsck utility provides you with the tools to fix filesystems.

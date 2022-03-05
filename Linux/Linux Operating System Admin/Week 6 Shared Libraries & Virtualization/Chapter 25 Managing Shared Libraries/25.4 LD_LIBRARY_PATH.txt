@@ -1,0 +1,7 @@
+25.4 LD_LIBRARY_PATH
+
+Users without administrative access to the system can also configure directories that will be searched by setting the LD_LIBRARY_PATH environment variable with the list of library directories. For example, if the user jose installed a program in the /home/jose/app directory with the library files for that application in the /home/jose/app/lib directory, then that user could execute:
+
+sysadmin@localhost:~$ export LD_LIBRARY_PATH=/home/jose/app/lib
+
+Once that line has been executed, then the library files found in the /home/jose/app/lib directory could be found and located.

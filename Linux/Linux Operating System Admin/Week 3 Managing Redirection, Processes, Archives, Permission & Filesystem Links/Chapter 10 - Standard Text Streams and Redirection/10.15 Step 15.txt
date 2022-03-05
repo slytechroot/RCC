@@ -1,0 +1,42 @@
+10.15 Step 15
+
+By default, the tee command overwrites previously created files. If you would like to append a file, use the -a option.
+
+less Documents/red.txt | tee -a homedir.txt
+cat homedir.txt
+
+sysadmin@localhost:~$ less Documents/red.txt | tee -a homedir.txt
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root
+reel
+read
+sysadmin@localhost:~$ cat homedir.txt
+total 32
+drwxr-xr-x 2 sysadmin sysadmin 4096 Apr 24 16:24 Desktop
+drwxr-xr-x 4 sysadmin sysadmin 4096 Apr 24 16:24 Documents
+drwxr-xr-x 2 sysadmin sysadmin 4096 Apr 24 16:24 Downloads
+drwxr-xr-x 2 sysadmin sysadmin 4096 Apr 24 16:24 Music
+drwxr-xr-x 2 sysadmin sysadmin 4096 Apr 24 16:24 Pictures
+drwxr-xr-x 2 sysadmin sysadmin 4096 Apr 24 16:24 Public
+drwxr-xr-x 2 sysadmin sysadmin 4096 Apr 24 16:24 Templates
+drwxr-xr-x 2 sysadmin sysadmin 4096 Apr 24 16:24 Videos
+-rw-rw-r-- 1 sysadmin sysadmin    0 May  7 16:41 homedir.txt
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root  
+reel
+read
+

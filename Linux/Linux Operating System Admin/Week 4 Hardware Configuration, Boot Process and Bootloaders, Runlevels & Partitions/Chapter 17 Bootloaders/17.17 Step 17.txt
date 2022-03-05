@@ -1,0 +1,17 @@
+17.17 Step 17
+
+Next, change the timeout to 60 and "comment out" the hiddenmenu directive by executing the following vi commands ([ESC] means press the Escape key):
+
+11G
+$
+x
+a
+60
+[ESC]
+Enter
+Press Down Arrow
+I
+#
+[ESC]
+:wq
+

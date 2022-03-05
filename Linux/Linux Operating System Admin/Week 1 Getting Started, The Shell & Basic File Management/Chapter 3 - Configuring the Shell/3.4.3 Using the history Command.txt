@@ -1,0 +1,40 @@
+3.4.3 Using the history Command
+
+The history command can be used to re-execute previously executed commands. When used with no arguments, the history command provides a list of previously executed commands:
+
+sysadmin@localhost:~$ history
+	1  ls
+	2  cd test
+	3  cat alpha.txt
+	4  ls -l
+	5  cd ..
+	6  ls
+	7  history
+
+Note that each command is assigned a number that a user can use to re-execute the command.
+
+The history command has numerous options; the most common of these options are listed below:
+‌⁠​​⁠​ 
+Option 	Purpose
+-c 	Clear the list
+-r 	Read the history file and replace the current history
+-w 	Write the current history list to the history file
+
+As the history list commonly contains five hundred or more commands, it is often helpful to filter the list. The history command accepts a number as an argument to indicate how many commands to list. For example, executing the following command will only show the last three commands from your history.
+
+sysadmin@localhost:~$ history 3
+	5  cd ..
+	6  ls
+	7  history
+
+Note
+
+The grep command is very useful for filtering the output of commands that produce copious output. For example, to view all of the commands in your history that contain the ls command, search for the ls pattern using the following command:
+
+sysadmin@localhost:~$ history | grep "ls"                      
+    1  ls                                                           
+    4  ls -l                                                        
+    6  ls                                                           
+    9  history | grep "ls"
+
+The grep command will be covered in greater detail later in the course.

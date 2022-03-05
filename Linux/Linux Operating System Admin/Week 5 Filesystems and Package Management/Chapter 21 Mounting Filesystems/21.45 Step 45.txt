@@ -1,0 +1,27 @@
+21.45 Step 45
+
+To test the new setting in the /etc/fstab file, you could reboot the system. However, if you made any errors, the system may end up being unbootable. A better solution for testing the new entry in the /etc/fstab file is to execute the swapon -a command after first removing the swap file from swap space. Execute the following commands to see how this is accomplished:
+
+swapon -s
+swapoff /var/swapfile
+swapon -s
+swapon -a
+swapon -s
+
+root@ubuntu:~# swapon -s
+Filename                              Type        Size    Used    Priority
+/dev/dm-1                             partition   524284  0       -2
+/dev/sdb6                             partition   3986428 0       -3
+/var/swapfile                         file        102396  0       -4
+root@ubuntu:~# swapoff /var/swapfile
+root@ubuntu:~# swapon -s
+Filename                              Type        Size    Used    Priority
+/dev/dm-1                             partition   524284  0       -2
+/dev/sdb6                             partition   3986428 0       -3
+root@ubuntu:~# swapon -a
+swapon: /var/swapfile: insecure permissions 0644, 0600 suggested.
+root@ubuntu:~# swapon -s
+Filename                              Type        Size    Used    Priority
+/dev/dm-1                             partition   524284  0       -2
+/dev/sdb6                             partition   3986428 0       -3
+/var/swapfile                         file        102396  0       -4

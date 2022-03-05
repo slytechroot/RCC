@@ -1,0 +1,10 @@
+18.26 Step 26
+
+Execute the following command to verify the status of the sshd daemon:
+
+/etc/init.d/sshd status
+
+[root@centos ~]# /etc/init.d/sshd status
+openssh-daemon is stopped
+[root@centos ~]#
+

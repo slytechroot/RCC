@@ -1,0 +1,10 @@
+13.29 Step 29
+
+Typically, special permissions are only set by the administrator (the root user), and they perform very specialized functions. They can be set using the chmod command, using either the symbolic or octal method.
+
+Change the /usr/bin/chfn file, so it is no longer setuid by executing the following command:
+
+chmod 0755 /usr/bin/chfn
+
+root@localhost:~# chmod 0755 /usr/bin/chfn
+root@localhost:~#

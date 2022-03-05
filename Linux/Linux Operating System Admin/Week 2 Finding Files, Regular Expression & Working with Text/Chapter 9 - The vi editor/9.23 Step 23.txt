@@ -1,0 +1,28 @@
+9.23 Step 23
+
+Press the Down Arrow ↓ key (or Up Arrow ↑ key if you scrolled too far down) until you get to # set the editor and visual envs to vim, then use the Arrow Keys ←↑→↓ to replace vi with nano:
+
+nano .bashrc
+
+  GNU nano 2.9.3                       .bashrc                        Modified
+
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+
+# add user bin to path
+PATH="$HOME/bin:$PATH"
+
+# set editor and visual envs to vim
+EDITOR=nano
+VISUAL=nano
+
+# change to home dir
+cd ~
+
+
+^G Get Help  ^O Write Out ^W Where Is  ^K Cut Text  ^J Justify   ^C Cur Pos
+^X Exit      ^R Read File ^\ Replace   ^U Uncut Text^T To Spell  ^_ Go To Line
+

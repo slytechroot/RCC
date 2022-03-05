@@ -1,0 +1,75 @@
+13.4.1 Symbolic Method
+
+To use the symbolic method of the chmod command, use the symbols summarized in the tables below to specify the MODE argument, which represents which changes to make to the permissions.
+
+chmod MODE FILE...
+
+First indicate which permission group (or groups) to apply the changes to:
+‌⁠​​⁠​ 
+Symbol 	Group
+u 	user owner
+g 	group owner
+o 	others
+a 	all (user owner, group owner, and others)
+
+Next, use one of the following operators to indicate how to modify the permissions:
+Symbol 	Operation
++ 	add the permission, if necessary
+= 	specify the exact permission
+- 	remove the permission, if necessary
+
+Next, use the following characters to specify the permissions type to change:
+Symbol 	Permission
+r 	read
+w 	write
+x 	execute
+
+Finally, add a space followed by the path names for the files to assign those permissions.
+
+To add the execute permission for the user owner:
+
+sysadmin@localhost:~$ chmod u+x newfile.txt
+sysadmin@localhost:~$ ls -l newfile.txt
+-rwxrw-r-- 1 sysadmin adm 0 Mar 21 18:10 newfile.txt
+
+To remove the write permission from the group owner:
+
+sysadmin@localhost:~$ chmod g-w newfile.txt
+sysadmin@localhost:~$ ls -l newfile.txt
+-rwxr--r-- 1 sysadmin adm 0 Mar 21 18:10 newfile.txt
+
+To specify permissions for more than one set, use commas (and no spaces) between each set.
+
+chmod MODE[,MODE]... FILE...
+
+To assign others to have only the read permission, remove the write permission from the group owner, and add the execute permission for the user owner:
+
+sysadmin@localhost:~$ chmod o=r,g-w,u+x newfile.txt
+sysadmin@localhost:~$ ls -l newfile.txt
+-rwxr--r-- 1 sysadmin nogroup 0 Mar 21 18:10 newfile.txt
+
+You also can combine either the group or permissions symbols to make multiple changes to the file's permissions. For example, consider the following command which adds the execute permission to the user owner and group owner, and removes the read permission for others:
+
+sysadmin@localhost:~$ chmod ug+x,o-r newfile.txt
+sysadmin@localhost:~$ ls -l newfile.txt
+-rwxr-x--- 1 sysadmin adm 0 May  3 22:26 newfile.txt
+
+Using the = character adds the specified permissions and causes unmentioned ones to be removed. For example, to give the user owner only read and execute permissions, and remove the write permission:
+
+sysadmin@localhost:~$ chmod u=rx newfile.txt
+sysadmin@localhost:~$ ls -l newfile.txt
+-r-xr-x--- 1 sysadmin adm 0 May  3 22:26 newfile.txt
+
+Assign everyone no permissions:
+
+sysadmin@localhost:~$ chmod a=- fakefile
+
+In the following example, the file sample is created with the touch command, and then its permissions are modified using the symbolic method:
+
+sysadmin@localhost:~/Documents$ touch sample
+sysadmin@localhost:~/Documents$ ls -l sample
+-rw-rw-r-- 1 sysadmin sysadmin 0 Mar 21 18:17 sample
+sysadmin@localhost:~/Documents$ chmod g-w,o-r sample
+sysadmin@localhost:~/Documents$ ls -l sample
+-rw-r----- 1 sysadmin sysadmin 0 Mar 21 18:17 sample
+

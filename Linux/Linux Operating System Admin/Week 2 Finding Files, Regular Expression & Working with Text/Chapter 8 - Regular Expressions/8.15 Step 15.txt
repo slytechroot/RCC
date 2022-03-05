@@ -1,0 +1,15 @@
+8.15 Step 15
+
+The grouping () operator is used to group together characters that can be targeted by matching operators like *, +, ?, or the curly braces {}. This grouping is considered to be a subpattern of the pattern.
+
+In the example below, parentheses are used to match the gr string followed by the ey or ay subpattern repeated zero or more times:
+
+cat spelling.txt | grep -E ‘gr(ay)|gr(ey)’
+
+sysadmin@localhost:~$ cd Documents/
+sysadmin@localhost:~/Documents$ cat spelling.txt | grep -E 'gr(ay)|gr(ey)'
+American English: Do you consider gray to be a color or a shade?
+British English: Do you consider grey to be a colour or a shade?
+sysadmin@localhost:~/Documents$ cd
+
+In the command above, the alternator | operator is used to match both sets of patterns; gr(ay) and gr(ey).

@@ -1,0 +1,25 @@
+13.7.1 Understanding Umask for Files
+
+By default, the maximum permissions that will be placed on a brand-new file are rw-rw-rw-, which can be represented octal as 666. The execute permission is turned off for security reasons. The umask value can be used to specify which of these default permissions to remove for new files. Three digits are provided, representing octal values of the permissions to remove for the user owner, the group owner, and others respectively.
+
+For example, to set a umask value for new files that would result in default permissions for the owner, remove or "mask" write permissions for the group owner and remove all permissions from others, calculate the umask value as follows:
+
+    The first digit for the user owner would be a 0 (---), which would not mask any of the default permissions.
+    The second digit would be a 2 (-w-), which would mask only the write permission.
+    The third digit would be a 6 (rw-), which would mask the read and write permissions.
+
+As a result, the umask value 026 would result in new files having the permissions of rw-r-----.
+File Default 	666 	rw-rw-rw-
+Umask 		-026 	----w-rw-
+Result 		640 	rw-r-----
+
+Another Example: To set a umask value for new files that would remove write permissions for the owner and remove read and write permissions for the group and others, calculate the umask value as follows:
+
+    The first digit for the user owner would be a 2 (-w-), which would mask only the write permission.
+    The second digit would be a 6 (rw-), which would mask the read and write permissions.
+    The third digit would be a 6 (rw-), which would mask the read and write permissions.
+
+As a result, the umask value 266 would result in new files having the permissions of r--------.
+File Default 	666 	rw-rw-rw-
+Umask 		-266 	-w-rw-rw-
+Result 		400 	r--------

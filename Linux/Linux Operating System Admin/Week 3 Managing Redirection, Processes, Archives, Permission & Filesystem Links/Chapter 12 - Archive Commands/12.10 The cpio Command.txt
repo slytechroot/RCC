@@ -1,0 +1,91 @@
+12.10 The cpio Command
+
+Another type of archive command that can merge many files into a single file is the cpio command. This command gets its name from two of its modes: copy-in mode and copy-out mode. The cpio command works with the original POSIX specification and should be available on all Linux and Unix systems. It is considered a legacy application, that although administrators need to be aware of it, most systems provide better alternatives for archiving directories.
+
+In copy-out mode, the cpio command will copy files from a directory into an archive. In copy-in mode, the cpio command will either list the archive file contents or copy files from an archive into a directory. It is easy to reverse these statements and get confused. Just remember that the archive is ”outside” of the operating system.
+
+There is a third mode called the copy-pass mode. In this mode, the cpio command copies files from one directory to another, which combines the copy-out and copy-in modes without creating an archive file.
+
+To create a new archive file, the cpio command will run in copy-out mode taking a list of files from standard input and producing a file stream that can be redirected into a new archive file. Standard input, in this case, refers to the keyboard input by default, but this input could also come from the output of other commands.
+Copy-Out Mode
+
+The -o option puts the cpio command into copy-out mode. Using the verbose -v option will cause the cpio command to list the files that it processes. So, to archive the current directory, execute the ls command, and then send a list of the files into the cpio command as input by using the pipe | character. The > character will capture the output of the cpio command and put it into a file:
+
+sysadmin@localhost:~$ ls | cpio -ov > archive.cpio
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+example
+1 block
+
+The find command is a good way to generate the list of files to be sent to the cpio command. The find command is automatically recursive, so it can be used to create a list of all files starting at a particular directory. For example, to archive the home directory and all of its subdirectories and files, execute the following command:
+
+sysadmin@localhost:~$ find . -depth -print | cpio -vo > /tmp/ar.cpio
+./Public
+./Downloads
+./Pictures
+./Videos
+./.selected_editor
+./.profile
+./.bash_logout
+./Templates
+./.bashrc
+./Desktop
+./Music
+./Documents/animals.txt
+./Documents/alpha-third.txt
+./Documents/longfile.txt
+./Documents/red.txt
+Output Omitted...
+
+The verbose -v option is used to show the activity of the cpio command in the terminal.
+Copy-In Mode
+
+To extract the files that are in a cpio archive, use the -i option with the cpio command to specify copy-in mode. By default, cpio will not overwrite existing files unless the -u option is used. The cpio command will not create directories unless the -d option is used.
+
+The cpio command also makes use of standard input to determine the name of the file that will be extracted from the archive. Therefore, to extract files and directories, as well as overwriting existing files, execute the following:
+
+sysadmin@localhost:~$ cpio -idv /tmp/test < /tmp/ar.cpio
+2048 blocks
+
+To specify the pass-through mode of the cpio command, specify the -p option. Again, if any directories are included, the -d option needs to be specified. To copy all the files from the home directory to a directory called /tmp/destination, use the following command line:
+
+sysadmin@localhost:~$ find ~ | cpio -pd /tmp/destination
+2044 blocks
+
+To prevent problems with files that have white space characters (like the spacebar character) embedded in them, specify the -print0 option to the find command. This causes the list of files to be separated by the null character, instead of a new line character, which allows for file names with spaces in them to be treated as a single file name (otherwise a file named hello there would be considered two files, one named hello and the other named there).
+
+For the cpio command to process the list of null separated files, add the --null option. This results in a more robust version of the previous pass-through command that looks like this:
+
+sysadmin@localhost:~$ find . -print0 | cpio --null -pvd /tmp/destination
+/tmp/destination/./.selected_editor
+/tmp/destination/./Videos
+/tmp/destination/./.bashrc
+/tmp/destination/./Documents
+/tmp/destination/./Documents/Work
+/tmp/destination/./Documents/Work/.emptydir
+/tmp/destination/./Documents/linux.txt
+/tmp/destination/./Documents/hello.sh
+/tmp/destination/./Documents/animals.txt
+/tmp/destination/./Documents/people.csv
+/tmp/destination/./Documents/profile.txt
+/tmp/destination/./Documents/alpha-first.txt
+/tmp/destination/./Documents/adjectives.txt
+/tmp/destination/./Documents/longfile.txt
+/tmp/destination/./Documents/os.csv
+/tmp/destination/./Documents/alpha.txt
+/tmp/destination/./Documents/alpha-third.txt
+/tmp/destination/./Documents/School
+
+Consider This
+
+To understand why the cpio command might be used for copying files from one directory to another instead of using the cp command recursively, consider the following advantages:
+
+    The cpio command automatically preserves file attributes (metadata) like links, permissions, timestamps, and ownerships. These attributes are not preserved with using the cp command.
+    The cpio command also works with special files better than the cp command.
+

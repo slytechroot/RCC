@@ -1,0 +1,20 @@
+3.4.1 Executing Previous Commands
+
+The Bash shell will allow a user to use the Up ↑ Arrow Key to view previous commands. With each press of the up arrow, the shell displays one more command back in the history list.
+
+If the user goes back too far, the Down ↓ Arrow Key can be used to return to a more recent command. Once the correct command is displayed, the Enter key can be pressed to execute it.
+
+The Left ← and Right → Arrow Keys can also be used to position the cursor within the command. The Backspace and Delete keys are used to remove text, and additional characters can be typed into the command line to modify it before pressing the Enter key to execute it.
+
+There are more keys that can be used for editing a command on the command line. The following table summarizes some helpful editing keys:
+Action 					Key 	Alternate Key Combination
+Previous history item 			↑ 	Ctrl+P
+Next history item 			↓ 	Ctrl+N
+Reverse history search 				Ctrl+R
+Beginning of line 			Home 	Ctrl+A
+End of line 				End 	Ctrl+E
+Delete current character 		Delete 	Ctrl+D
+Delete to the left of the cursor 	Backspace 	Ctrl+X
+Move cursor left 			← 	Ctrl+B
+Move cursor right 			→ 	Ctrl+F
+

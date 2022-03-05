@@ -1,0 +1,35 @@
+15.13 Step 13
+
+Display information about the dm_log module by executing the following command:
+
+modinfo dm_log
+
+[root@centos ~]# modinfo dm_log
+filename:  	/lib/modules/3.10.0-957.e17.x86_64/kernel/drivers/md/dm-log.ko.xz
+license:  	GPL
+author:  	Joe Thornber, Heinz Mauelshagen <dm-devel@redhat.com>
+description:    device-mapper dirty region log
+retpoline:	Y
+rhelversion:    7.6
+srcversion:     2520F689AFECC997AB36ADE
+depends:  	dm-mod
+intree:   	Y
+vermagic: 	3.10.0-957.el7.x86_64 SMP mod_unload modversions
+signer:   	CentOS Linux kernel signing key
+sig_key:  	B7:0D:CF:0D:F2:D9:B7:F2:91:59:24:82:49:FD:6F:E8:7B:78:14:27
+sig_hashalgo:   sha256
+
+Notice that the dm_log module has a dependency module: dm-mod. Because the modules are currently loaded into memory, you can see this dependency by looking at the output of the lsmod command:
+
+lsmod
+
+[root@centos ~]# lsmod 
+
+...
+floppy                   69432  0
+dm_mirror                22289  0
+dm_region_hash           20813  1 dm_mirror
+dm_log                   18411	2 dm_region_hash,dm_mirror
+dm_mod          	124407	8 dm_log,dm_mirror
+
+Some output has been omitted in the example above for brevity.

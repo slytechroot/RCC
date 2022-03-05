@@ -1,0 +1,64 @@
+11.2.7 Moving Processes
+
+If the following sleep command is run without an ampersand character to send it to the background, the terminal would not be available for 1000 seconds:
+
+sysadmin@localhost:~$ sleep 1000
+_
+
+To make the terminal available again, the user would have to use Ctrl+Z, a signal which pauses the process:
+
+^Z
+[1]+  Stopped                 sleep 1000
+
+Now the terminal is back, but the sleep command has been paused. To put the paused command in the background, execute the bg command.
+
+bg [JOB_ID]...
+
+The bg command resumes jobs without bringing them to the foreground. If no argument is provided, it will use the most recently suspended job.
+
+sysadmin@localhost:~$ bg
+[1]+ sleep 1000 &
+
+A command that has been paused or sent to the background can then be returned to the foreground using the fg command.
+
+fg [JOB_ID]...
+
+Similar to the bg command, if no argument is provided, the job that was most recently suspended or placed in the background will be used. To bring the sleep command back to the foreground, locking up the terminal again, use the fg command:
+
+sysadmin@localhost:~$ fg
+sleep 1000
+_
+^C
+sysadmin@localhost:~$
+
+Suppose we have two paused processes:
+
+sysadmin@localhost:~$ sleep 1000
+^Z
+[1]+  Stopped                 sleep 1000
+sysadmin@localhost:~$ sleep 2000
+^Z
+[2]+  Stopped                 sleep 2000
+sysadmin@localhost:~$ jobs
+[1]   Running                 sleep 1000 &
+[2]-  Running                 sleep 2000 &
+
+Both bg and fg can take the job number as an argument to specify which process should be resumed. The following commands will resume sleep 1000 in the background and resume sleep 2000 in the foreground respectively:
+
+sysadmin@localhost:~$ bg 1
+[1]- sleep 1000 &
+sysadmin@localhost:~$ fg 2
+sleep 2000
+^Z
+[2]+  Stopped                 sleep 2000  
+
+It is also possible to use the name of the command as an argument to the bg and fg commands:
+
+sysadmin@localhost:~$ sleep 1000
+_
+^Z
+[1]+  Stopped                 sleep 1000
+sysadmin@localhost:~$ bg sleep
+[1]+ sleep 1000 &
+
+Given multiple tasks and only one terminal to use with them, the fg and bg commands provide an administrator with the ability to manually multi-task.

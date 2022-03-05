@@ -1,0 +1,10 @@
+13.37 Step 37
+
+If the directory has the setgid permission set, then all new files created in the directory will be owned by the same group that owns the directory. Use the following commands to set the setgid permission on the /srv/test directory and verify the new permissions. You should see an s where the group execute permission should be:
+
+chmod g+s /srv/test
+ls -ld /srv/test
+
+root@localhost:~# chmod g+s /srv/test
+root@localhost:~# ls -ld /srv/test
+drwxr-sr-x 2 root team 4096 May 17 01:14 /srv/test

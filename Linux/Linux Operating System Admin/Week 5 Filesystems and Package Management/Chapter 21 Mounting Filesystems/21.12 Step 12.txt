@@ -1,0 +1,11 @@
+21.12 Step 12
+
+Now you can create a partition that you can later format with a filesystem and access via a directory by mounting it. To create this new partition, first type n at the Command prompt:
+
+n
+
+Command (m for help): n
+Allspace for primary partitions is in use.
+Adding logical partition 5
+First sector (4096-8388607, default 4096):
+

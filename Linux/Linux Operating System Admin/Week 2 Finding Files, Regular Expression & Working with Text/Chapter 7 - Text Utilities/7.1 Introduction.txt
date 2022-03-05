@@ -1,0 +1,3 @@
+7.1 Introduction
+
+A core philosophy that started with UNIX, and lives on in Linux, is that commands should read text as input and write text as output. To remain true to this philosophy, a large number of commands have been designed with the primary purpose of processing text files. As you will see, many of these commands act as filters, as they somehow alter the text that they read before they produce their output.

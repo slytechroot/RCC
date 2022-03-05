@@ -1,0 +1,19 @@
+24.2.15 Step 15
+
+The dpkg command is also useful for listing all of the packages that are currently installed on the system by executing the dpkg -l command. An additional argument can be provided as a glob pattern; this will only list packages that match that pattern. List all the packages that match the glob apt*:
+
+dpkg -l 'apt*'
+
+root@localhost:~# dpkg -l 'apt*'                                                
+Desired=Unknown/Install/Remove/Purge/Hold                                       
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend  
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)                      
+||/ Name           Version      Architecture Description                        
++++-==============-============-============-=================================  
+ii  apt            1.6.10       amd64        commandline package manager        
+un  apt-doc        <none>       <none>       (no description available)         
+un  apt-listchange <none>       <none>       (no description available)         
+un  apt-transport- <none>       <none>       (no description available)         
+ii  apt-utils      1.6.10       amd64        package management related utilit  
+un  aptitude       <none>       <none>       (no description available)  
+

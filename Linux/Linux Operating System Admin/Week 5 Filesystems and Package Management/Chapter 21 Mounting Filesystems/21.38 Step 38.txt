@@ -1,0 +1,16 @@
+21.38 Step 38
+
+To create a new swap file, first, create a large file with the dd command. To determine a good location for this new file, run the df -h command to see which partition has enough space to hold the swap file:
+
+df -h
+
+root@ubuntu:~# df -h
+Filesystem                  Size  Used  Avail  Use% Mounted on
+udev                        213M     0  213M     0% /dev
+tmpfs                        49M  592K   48M     2% /run
+/dev/mapper/ubuntu—vg-root  9.1G  1.5G  7.1G    18% /
+tmpfs                       241M     0  241M     0% /dev/shm
+tmpfs                       5.0M     0  5.0M     0% /run/lock
+tmpfs                       241M     0  241M     0% /sys/fs/cgroup
+/dev/sdb5                   190M  1.6M  175M     1% /data
+tmpfs                        49M     0   49M     0% /run/user/0

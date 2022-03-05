@@ -1,0 +1,95 @@
+21.2 Viewing Mounted Filesystems
+
+Mounting of partitions and checking on existing mounts is accomplished with the mount command. When called with no arguments, the mount command shows the currently mounted devices. This can be performed by regular users, not just the root user.
+
+‌⁠​​The output of the command may appear like the following:
+
+Note
+
+The following example may not match the output in our virtual environment.
+
+sysadmin@localhost:~$ mount
+/dev/sda2 on / type ext4 (rw)
+proc on /proc type proc (rw)
+sysfs on /sys type sysfs (rw)
+devpts on /dev/pts type devpts (rw,gid=5,mode=620)
+tmpfs on /dev/shm type tmpfs (rw)
+/dev/sda1 on /boot type ext4 (rw)
+/dev/sda5 on /home type ext4 (rw)
+none on /proc/sys/fs/binfmt_misc type binfmt_misc (rw)
+sunrpc on /var/lib/nfs/rpc_pipefs type rpc_pipefs
+
+The general format of this output is:
+
+DESCRIPTION OF SOURCE on MOUNT POINT type FILESYSTEM TYPE (OPTIONS)
+
+Description of Source
+
+/dev/sda5 on /home type ext4 (rw)
+
+proc on /proc type proc (rw)
+
+Every mounted filesystem comes from a source—either a device representing a disk, a network location for a network filesystem, or a tag indicating a pseudo-filesystem. This latter class (which includes proc, sysfs, devpts, tmpfs, none, and sunrpc in the output above) is the Linux kernel's way of sharing information with the real filesystem. For example, the proc filesystem exposes the process list and system configuration as a set of files that can be read and written to.
+
+Mount Point
+
+/dev/sda2 on / type ext4 (rw)
+/dev/sda5 on /home type ext4 (rw)
+
+The mount point shows where the source can be found on the filesystem. The output above indicates that the root / filesystem is actually served from the /dev/sda2 partition, but files in the /home directory are stored on the /dev/sda5 partition.
+
+Filesystem Type
+
+/dev/sda5 on /home type ext4 (rw)
+proc on /proc type proc (rw)
+
+Each filesystem has a type, which tells the kernel how to work with the data contained on the device. For actual filesystems like the xfs, ext4, and reiserfs filesystems, this relates the blocks stored on disk to the files and directories that you see. For network filesystems like the nfs filesystem, this translates the network calls and packets sent and received into disk reads and writes. For the pseudo-filesystems, the filesystem type describes what kind of resources are exposed.
+
+Consider This
+
+Most operating systems allow files to be accessed on another computer rather than requiring that the files be copied back and forth. This concept is often known as a network file share, or simply a file share. With many operating systems, a remote file is accessed differently than a local file, such as having to specify a network path every time the file is accessed.
+
+UNIX makes heavy use of abstractions to make the user’s job easier. Rather than present a remote file share and a local hard drive differently, the kernel takes care of the details and presents a standard interface. Thus, a network volume (drive, partition, or folder) from another computer can be mounted in a similar fashion as a local drive. The only differences are the time to access the resource and the location: network volumes use an IP address and path, while local volumes simply use a path to a device for a local volume. After a volume is mounted, it looks like any other part of the disk.
+
+Another abstraction is the concept of a pseudo-filesystem. A pseudo-filesystem is not contained on an actual disk; it’s a hierarchical view into the kernel’s data. For example, the proc pseudo-filesystem exposes each process as a directory of files and subdirectories, where each file contains various information from the process's environment to the list of files it has open. The proc pseudo-filesystem also has files and directories corresponding to various options, such as network buffer sizes that can be read and written.
+
+Presenting system information as a filesystem gives the administrator a familiar interface that is easily used and scripted.
+
+Options
+
+/dev/sda5 on /home type ext4 (rw)
+devpts on /dev/pts type devpts (rw,gid=5,mode=620)
+
+Each filesystem also has options. Some options, such as the read/write rw option and read-only ro option, are fairly universal. Some filesystems have options corresponding to specific items such as the network timeout parameters for a network filesystem or the journalling parameters for a journalled filesystem.
+
+Administrators generally work with disk drives and network filesystems, leaving the pseudo filesystems for the distribution to set up and manage. The disks may take many forms such as individual disk partitions, logical disks made up of multiple disks (such as LVM), or even other hardware that presents itself as a disk (such as RAID).
+
+Another method for getting information about filesystems is by using the lsblk command. The lsblk command lists information about block devices, either all of the ones that are available with the -a option, or output can be tailored with various other options such as the -f option, which outputs information about available filesystems.
+
+sysadmin@localhost:/$ lsblk -a
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+loop0    7:0    0        0 loop
+loop1    7:1    0        0 loop
+loop2    7:2    0        0 loop
+loop3    7:3    0        0 loop
+loop4    7:4    0        0 loop
+loop5    7:5    0        0 loop
+loop6    7:6    0        0 loop
+loop7    7:7    0        0 loop
+sda      8:0    0  3.7T  0 disk
+|-sda1   8:1    0  512M  0 part
+|-sda2   8:2    0  3.5T  0 part /etc/hosts
+`-sda3   8:3    0  128G  0 part [SWAP]
+sdb      8:16   1        0 disk
+sdc      8:32   1        0 disk
+sr0     11:0    1 1024M  0 rom
+sr1     11:1    1 1024M  0 rom
+sysadmin@localhost:/$ lsblk -f
+NAME   FSTYPE LABEL UUID MOUNTPOINT
+sda
+|-sda1
+|-sda2                   /etc/hosts
+`-sda3                   [SWAP]
+sr0
+sr1                            
+

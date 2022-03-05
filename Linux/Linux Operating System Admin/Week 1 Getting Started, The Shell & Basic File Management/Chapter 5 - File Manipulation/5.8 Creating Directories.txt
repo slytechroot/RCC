@@ -1,0 +1,56 @@
+5.8 Creating Directories
+
+The mkdir command allows you to create (make) a directory. Creating directories is an essential file management skill, since you will want to maintain some functional organization with your files and not have them all placed in a single directory.
+
+mkdir [OPTION]... DIRECTORY...
+
+Typically, you have a handful of directories in your home directory by default. Exactly what directories you have will vary due to the distribution of Linux, what software has been installed on your system, and actions that may have been taken by the administrator.
+
+For example, upon successful graphical login on a default installation of Ubuntu, the following directories have already been created automatically in the user's home directory:
+
+sysadmin@localhost:~$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+
+The bin directory is a common directory for users to create in their home directory. It is a useful directory to place scripts that the user has created. In the following example, the user creates a bin directory within their home directory:
+
+sysadmin@localhost:~$ mkdir bin
+sysadmin@localhost:~$ ls
+Desktop	Downloads  Pictures  Templates  bin
+Documents  Music   Public    Videos
+
+The mkdir command can accept a list of space-separated path names for new directories to create:
+
+sysadmin@localhost:~$ mkdir one two three
+sysadmin@localhost:~$ ls
+Desktop	Downloads  Pictures  Templates  bin	two
+Documents  Music   Public    Videos 	one     three
+
+Directories are often described in terms of their relationship to each other. If one directory contains another directory, then it is referred to as the parent directory. The subdirectory is referred to as a child directory. In the following example, /home is the parent directory and /sysadmin is the child directory:
+
+sysadmin@localhost:~$ pwd
+/home/sysadmin
+
+When creating a child directory, its parent directory must first exist. If an administrator attempted to create a directory named blue inside of the non-existent /home/sysadmin/red directory, there would be an error:
+
+sysadmin@localhost:~$ mkdir /home/sysadmin/red/blue
+mkdir: cannot create directory '/home/sysadmin/red/blue': No such file or directory
+
+By adding the -p option, the mkdir command automatically creates the parent directories for any child directories about to be created. This is especially useful for making deep path names:
+
+sysadmin@localhost:~$ mkdir -p /home/sysadmin/red/blue/yellow/green
+sysadmin@localhost:~$ ls -R red
+red:
+blue
+ 
+red/blue:
+yellow
+ 
+red/blue/yellow:
+green
+ 
+red/blue/yellow/green:
+
+To create a directory with the mkdir command, you must have the write and execute permission on the parent of the proposed directory. For example, to create the /etc/test directory requires the write and execute permissions in the /etc directory.
+
+Command 	File Type 	Permission
+mkdir 	Parent Directory 	Write, Execute

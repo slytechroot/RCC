@@ -1,0 +1,30 @@
+13.2.2 Changing File User Owner
+
+Initially, the owner of a file is the user who creates it. The user owner can only be changed by a user with root privileges using the chown command. Using the syntax below, the root user can change the owner of the FILE to the OWNER account.
+
+chown [OPTION]... [OWNER] FILE...
+
+For instance, a new file called nullfile will be created in the Documents directory:
+
+sysadmin@localhost:~$ cd Documents
+sysadmin@localhost:~/Documents$ touch nullfile
+
+Using the ls -l command, we can see that the owner of this file is the sysadmin user:
+
+sysadmin@localhost:~/Documents$ ls -l nullfile
+-rw-rw-r-- 1 sysadmin sysadmin 0 Mar 21 17:30 nullfile
+
+Next, the sudo command can be used with the chown command to change the ownership of the new file to the root user, and the ls -l command is used to verify the change:
+
+Note
+
+The password of the sysadmin user in our virtual machine environment is netlab123.
+
+sysadmin@localhost:~/Documents$ sudo chown root
+nullfile
+[sudo] password for sysadmin:
+sysadmin@localhost:~/Documents$ ls -l nullfile
+-rw-rw-r-- 1 root sysadmin 0 Mar 21 17:30 nullfile
+
+The information displayed in the output of the ls -l command about the nullfile file indicates that the user owner of the file is now the root user.
+

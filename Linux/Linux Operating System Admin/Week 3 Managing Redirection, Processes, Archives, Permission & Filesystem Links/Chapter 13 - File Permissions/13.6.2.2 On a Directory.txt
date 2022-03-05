@@ -1,0 +1,76 @@
+13.6.2.2 On a Directory
+
+In most cases, once the installation of a Linux distribution is complete, the files that require setuid and setgid permissions should have those permissions automatically set. While some of the setuid and setgid permissions on files may be removed for security reasons, very seldom are new setuid or setgid files created. On the other hand, it is fairly common for administrators to add setgid to directories.
+
+When set on a directory, the setgid permission causes files created in the directory to be owned by the group that owns the directory automatically. This behavior is contrary to how new file group ownership would normally function, as by default new files are group owned by the primary group of the user who created the file.
+
+In addition, any directories created within a directory with the setgid permission set are not only owned by the group that owns the setgid directory, but the new directory automatically has setgid set on it as well. In other words, if a directory is setgid, then any directories created within that directory inherit the setgid permission.
+
+The following example shows that the /tmp/data directory has the setgid permission set and that it is owned by the demo group.
+
+sysadmin@localhost:~$ ls -ld /tmp/data
+drwxrwsrwx. 2 root demo 4096 Oct 30 23:20 /tmp/data
+
+Note
+
+The /tmp/data directory used in the example above is used to demonstrate setgid permission on a directory. It does not exist in our virtual environment.
+
+In a long listing, the setgid permission is represented by an s in the group execute position. A lowercase s means that both setgid and group execute permissions are set:
+
+drwxrwsrwx. 2 root demo 4096 Oct 30 23:20 /tmp/data
+
+An uppercase S means that only setgid and not group execute permission is set. If you see an uppercase S in the group execute position of the permissions, then it indicates that although the setgid permission is set, it is not really in effect because the group lacks the execute permission to use it.
+
+Typically, files created by the user sysadmin are owned by their primary group, also called sysadmin. However, if the user sysadmin creates a file in the /tmp/data directory (the setgid directory from the preceding example), the group ownership of the file isn't the sysadmin group, but rather the group that owns the directory, the demo group:
+
+sysadmin@localhost:~$  touch /tmp/data/file.txt
+sysadmin@localhost:~$  ls -ld /tmp/data/file.txt
+-rw-rw-r--. 1 bob demo 0 Oct 30 23:21 /tmp/data/file.txt
+
+Using setgid on a directory can be extremely helpful for users trying to share a directory of files with other users who are in different groups. To understand why, consider the following scenario.
+
+First, consider the following user accounts:
+
+    The user joe is a member of the staff group.
+    The user maya is a member of the payroll group.
+    The user steve is a member of the acct group.
+
+In this scenario, these three users need to work on a joint project. They approach the administrator to ask for a shared directory in which they can work together, but that no one else can access their files. The administrator does the following:
+
+    Creates a new group called team.
+    Adds joe, maya, and steve to the team group.
+
+    Makes a new directory called shared under the /srv directory.
+
+    root@localhost:~# mkdir /srv/shared
+
+    Makes the team group the group owner of the shared directory.
+
+    root@localhost:~# chgrp team /srv/shared
+
+    Makes the shared directory writable for the group by giving it the rwxrwx--- permissions:
+
+    root@localhost:~# chmod 770 /srv/shared
+    root@localhost:~# ls -ld /srv/shared                                                
+    drwxrwx--- 2 root team 4096 Mar 28 02:14 /srv/shared  
+
+This solution is almost perfect: the users joe, maya and steve can now access the /srv/shared directory and add new files. However, there is a potential problem, because the user joe is a member of the staff group, when joe makes a new file in the /srv/shared directory, the new file is owned by the staff group:
+
+-rw-rw----. 2 joe staff 8987 Jan 10 09:08 staffdocument.txt
+
+The problem with this is that neither maya or steve are members of the staff group. As a result, their permissions are ---, which means they can't access the contents of this file.
+
+The user joe could have used the newgrp command to switch to the team group before creating the file. Or, after creating the file, the user joe could have used the chgrp command to change the group ownership to the common group. However, users won't always remember to run these commands; some may not even know that these commands exist.
+
+Instead, the administrator can set up a directory with setgid permission. If a directory is setgid, then all new files created or copied into the directory will automatically be owned by the group that owns the directory. This means users don't have to use the newgrp or chgrp commands because the group ownership will be managed automatically.
+
+So, a better solution to this scenario would be to set the setgid permission on the /srv/shared directory using the following command:
+
+root@localhost:~# chmod 2775 /srv/shared
+
+Listing the details of the directory after running the previous command would result in the following output:
+
+drwxrwsr-x. 2 root team 4096 Jan 10 09:08 /srv/shared
+
+After completing these steps, the joe, maya, and steve users would now be able to easily create files in the /srv/shared directory that would automatically be owned by the team group.
+

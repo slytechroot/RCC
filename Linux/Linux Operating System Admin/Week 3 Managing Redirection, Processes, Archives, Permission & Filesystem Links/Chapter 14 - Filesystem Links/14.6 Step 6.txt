@@ -1,0 +1,15 @@
+14.6 Step 6
+
+Delete the /tmp/hosts file and attempt to view the /var/hosts file again by executing the following commands:
+
+rm /tmp/hosts
+y
+more /var/hosts
+
+[root@localhost ~]# rm /tmp/hosts                                           
+rm: remove regular file '/tmp/hosts'? y                                     
+[root@localhost ~]# more /var/hosts                                         
+/var/hosts: No such file or directory
+
+Note the strange error message No such file or directory. The /var/hosts file does exist, but when it follows the link, the system can't find the /tmp/hosts file, which results in the error message. This is the primary weakness of soft links.
+

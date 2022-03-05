@@ -1,0 +1,57 @@
+9.24 Step 24
+
+Press Ctrl+X to exit and type y to save:
+
+Ctrl+x
+y
+
+  GNU nano 2.9.3                       .bashrc                        Modified
+
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+
+# add user bin to path
+PATH="$HOME/bin:$PATH"
+
+# set editor and visual envs to vim
+EDITOR=nano
+VISUAL=nano
+
+# change to home dir
+cd ~
+
+Save modified buffer? (Answering "No" will DISCARD changes.)
+  Yes
+  No           ^C Cancel
+
+Press Enter:
+
+Enter
+
+  GNU nano 2.9.3                       .bashrc                        Modified
+
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+
+# add user bin to path
+PATH="$HOME/bin:$PATH"
+
+# set editor and visual envs to vim
+EDITOR=nano
+VISUAL=nano
+
+# change to home dir
+cd ~
+
+File Name to Write: .bashrc
+^G Get Help         M-D DOS Format      M-A Append          M-B Backup File
+^C Cancel           M-M Mac Format      M-P Prepend         ^T To Files
+
+sysadmin@localhost:~$
+

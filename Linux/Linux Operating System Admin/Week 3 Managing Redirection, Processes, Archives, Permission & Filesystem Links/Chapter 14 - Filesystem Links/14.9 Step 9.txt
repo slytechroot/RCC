@@ -1,0 +1,21 @@
+14.9 Step 9
+
+Hard links share the same inode table. Execute the following command to create a hard link file:
+
+mkdir /test
+cp /etc/crontab /test
+cd /test
+ln crontab hcrontab
+ls -l
+
+[root@localhost ~]# mkdir /test                                                 
+[root@localhost ~]# cp /etc/crontab /test                                       
+[root@localhost ~]# cd /test                                                        
+[root@localhost test]# ln crontab hcrontab                                      
+[root@localhost test]# ls -l                                                    
+total 8                                                                         
+-rw-r--r-- 2 root root 451 Apr 19 17:21 crontab                                 
+-rw-r--r-- 2 root root 451 Apr 19 17:21 hcrontab
+
+An inode table contains the metadata for the file. This is all the information about the file besides the file name. When two files share an inode table, they are essentially the same file, but with different names.
+

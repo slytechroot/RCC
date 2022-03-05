@@ -1,0 +1,39 @@
+5.7 Deleting Files
+
+The rm command is used to remove files and directories.
+
+rm [OPTION]... [FILE]...
+
+Warning
+
+It is important to keep in mind that deleted files and directories do not go into a "trash can" as with desktop-oriented operating systems. When a file is deleted with the rm command, it is permanently gone.
+
+Without any options, the rm command is typically used to remove regular files:
+
+sysadmin@localhost:~$ cd Documents
+sysadmin@localhost:~/Documents$ rm alpha.txt
+sysadmin@localhost:~/Documents$ ls alpha.txt
+ls: cannot access alpha.txt: No such file or directory
+
+Extra care should be applied when using wildcards to specify which files to remove, as the extent to which the pattern might match files may be beyond what was anticipated. To avoid accidentally deleting files when using globbing characters, use the -i option. This option makes the rm command confirm interactively every file that you delete:
+
+sysadmin@localhost:~/Documents$ rm -i a*
+rm: remove regular file 'adjectives.txt'? y
+rm: remove regular file 'alpha-first.txt'? y
+rm: remove regular file 'alpha-first.txt.original'? y
+rm: remove regular file 'alpha-second.txt'? y
+rm: remove regular file 'alpha-third.txt'? y
+rm: remove regular file 'animals.txt'? Y
+sysadmin@localhost:~/Documents$ cd
+sysadmin@localhost:~$
+
+Some distributions make the -i option a default option by making an alias for the rm command.
+
+Deleting a file with the rm command requires the write and execute permissions on its parent directory. Regular users typically only have this type of permission in their home directory and its subdirectories.
+
+Command 	File Type 	Permission
+rm 	Parent Directory 	Write, Execute
+
+Consider This
+
+The /tmp and /var/tmp directories do have the special permission called sticky bit set on them so that files in these directories can only be deleted by the user that owns them (with the exception of the root user who can delete any file in any directory). So, this means if you copy a file to the /tmp directory, then other users of the system will not be able to delete your file.

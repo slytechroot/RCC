@@ -1,0 +1,17 @@
+13.6 Changing Advanced File Permissions
+
+In most circumstances, the basic Linux permissions, read, write, and execute, are enough to accommodate the security needs of individual users or organizations.
+
+However, when multiple users need to work routinely on the same directories and files, these permissions may not be enough. The special permissions setuid, setgid, and the sticky bit are designed to address these concerns.
+
+Typically, special permissions are only set by the administrator (the root user) and they perform very specialized functions. They can be set using the chmod command, using either the symbolic or octal method.
+‌⁠​​⁠​ 
+Permission 	Symbol 	Symbolic 	Octal Value 	Purpose
+setuid on a file 	s 	u+s 	4000 	Causes an executable file to execute under user owner identity, instead of the user running the command.
+setgid on a file 	s 	g+s 	2000 	Causes an executable file to execute under group owner identity, instead of the user running the command.
+setgid on a directory 	s 	g+s 	2000 	Causes new files and directories that are created inside to be owned by the group that owns the directory.
+sticky on a directory 	t 	o+t 	1000 	Causes files inside a directory to be able to be removed only by the user owner, or the root user.
+
+Note
+
+A leading 0, such as 0755, will remove all special permissions from a file or directory.

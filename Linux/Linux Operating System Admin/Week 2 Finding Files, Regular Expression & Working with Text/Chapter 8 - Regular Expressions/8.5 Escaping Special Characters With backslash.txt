@@ -1,0 +1,70 @@
+8.5 Escaping Special Characters With \
+
+In some cases, you may want to match a character that functions as an operator as a literal character. For example, consider the newhome.txt file:
+
+sysadmin@localhost:~/Documents$ cat newhome.txt
+Thanks for purchasing your new home!!
+
+**Warning** it may be haunted.
+
+There are three bathrooms.
+
+**Beware** of the ghost in the bedroom.
+
+The kitchen is open for entertaining.
+
+**Caution** the spirits don't like guests.
+
+Good luck!!!
+
+The asterisk * character functions as an operator, so searching for the re* pattern matches every line which contained an r character, followed by zero or more of the e character (which means it matches any line containing an r character).
+
+sysadmin@localhost:~/Documents$ grep 're*' newhome.txt
+Thanks for purchasing your new home!!
+**Warning** it may be haunted.
+There are three bathrooms.
+**Beware** of the ghost in the bedroom.
+The kitchen is open for entertaining.
+**Caution** the spirits don't like guests.  
+
+But what if you want to search for a literal asterisk * character? In basic regular expressions, the backslash \ character is as an escape character, meaning the character immediately following it will be interpreted as a literal character, instead of an operator.
+
+To look for a literal asterisk * character, escape it by placing a backslash \ character before the * character:
+
+sysadmin@localhost:~/Documents$ grep 're\*' newhome.txt
+**Beware** of the ghost in the bedroom.
+
+The backslash \ character behaves slightly differently depending on whether or not you are in the realm of basic or extended regular expressions, and whether or not you are using basic or extended operators.
+The Realm of Basic Regular Expressions
+
+When you use the grep command without the -E option, you are in the realm of basic regular expressions. In this realm, basic operators are interpreted as basic operators. And, as seen in the preceding examples, escaping a basic operator (placing a backslash \ character in front of it) forces it to be interpreted as a literal character.
+
+In the realm of basic regular expressions, the extended regular expression operators do not have special meaning; they are interpreted as literal characters. As a result, the backslash \ character has the opposite effect on the extended operators as it does on basic operators. If an extended operator is escaped in basic regular expressions, it acts like an extended operator, instead of a literal character.
+	Not Escaped 	Escaped
+
+Basic Operators
+
+. [ ] ^ * ^ $
+	Operators 	Literal
+
+Extended Operators
+
+? + { } | ( )
+	Literal 	Operators
+The Realm of Extended Regular Expressions
+
+When the grep -E or egrep commands are used, you are in the realm of extended regular expressions. This means all regular expression operators (both basic and extended) are interpreted as operators.
+
+Similarly, in extended regular expressions, the backslash \ character treats all operators the same. When an operator is escaped in the realm of extended regular expressions, it is interpreted as a literal character, regardless of whether it is a basic or extended operator.
+	Not Escaped 	Escaped
+
+Basic Operators
+
+. [ ] ^ * ^ $
+	Operators 	Literal
+
+Extended Operators
+
+? + { } | ( )
+	Operators 	Literal
+

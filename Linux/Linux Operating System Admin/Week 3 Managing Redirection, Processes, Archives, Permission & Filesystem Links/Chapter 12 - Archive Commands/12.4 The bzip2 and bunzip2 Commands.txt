@@ -1,0 +1,59 @@
+12.4 The bzip2 and bunzip2 Commands
+
+The bzip2 and bunzip2 commands work in a nearly identical fashion to the gzip and gunzip commands. However, while the gzip command uses the Lempel-Ziv data compression algorithm, the bzip utilities use a different compression algorithm called Burrows-Wheeler block sorting, that can compress files smaller than gzip at the expense of more CPU time. These files can be recognized because they have a .bz or .bz2 extension instead of a .gz extension.
+
+bzip2 [OPTION]... [FILE]...
+bunzip2 [OPTION]... [FILE]...
+
+When a new compressed file is created from an existing file with the bzip2 command, the .bz2 extension is added to the file name. Using the verbose -v option will cause bzip2 to report the compression ratio after it has finished. The gzip command also supports the -v option, so a file can be compressed using both commands and the compression ratio compared to determine which command uses a better compression technique for that specific file.
+
+sysadmin@localhost:~/Documents$ cd
+sysadmin@localhost:~$ ls example/
+one  three  two
+sysadmin@localhost:~$ bzip2 -v example/*
+  example/one:    no data compressed.
+  example/three:  no data compressed.
+  example/two:    no data compressed.
+sysadmin@localhost:~$ ls example/
+one.bz2  three.bz2  two.bz2
+
+Important
+
+The bzip2 command should be used with caution since its default behavior is to replace the original file specified with a compressed version.
+
+Note that there was no data to compress in the empty one, two, and three files.
+
+One way to demonstrate the difference in compression between gzip and bzip2 is to compress the same file using both commands with the verbose -v option. The -v option gives a verbose output so you can see how the file was processed:
+
+sysadmin@localhost:~/Documents$ ls -l words
+-rw-r--r-- 1 sysadmin sysadmin 971578 Apr 24 16:24 words
+sysadmin@localhost:~/Documents$ gzip -v words
+words:   73.2% -- replaced with words.gz
+sysadmin@localhost:~/Documents$ ls -l words.gz
+-rw-r--r-- 1 sysadmin sysadmin 259983 Apr 24 16:24 words.gz
+sysadmin@localhost:~/Documents$ gunzip words.gz
+
+sysadmin@localhost:~/Documents$ bzip2 -v words
+  words:    2.812:1,  2.845 bits/byte, 64.43% saved, 971578 in, 345560 out.
+sysadmin@localhost:~/Documents$ ls -l words.bz2
+-rw-r--r-- 1 sysadmin sysadmin 345560 Apr 24 16:24 words.bz2
+sysadmin@localhost:~/Documents$ bunzip words.bz2
+
+Just like gunzip, the bunzip2 command uncompresses the file and removes the .bz2 extension. For example, the command below will uncompress the example directory and its contents previously compressed using the bunzip2 command:
+
+sysadmin@localhost:~$ bunzip2 -v example/*
+  example/one.bz2:   done
+  example/three.bz2: done
+  example/two.bz2:   done
+sysadmin@localhost:~$ ls example/
+one  three  two
+
+The bzip2 command doesn't have an option -r to do recursion, so a wildcard can be used to match multiple files, as demonstrated in the examples above. The bzip2 command does have the -c option available to send the data to standard output, so it can be redirected to a new file:
+
+sysadmin@localhost:~$ cd Documents
+sysadmin@localhost:~/Documents$ bzip2 -cv alpha.txt > alpha.txt.bz2
+  alpha.txt:  1.781:1,  4.492 bits/byte, 43.85% saved, 390 in, 219 out.
+sysadmin@localhost:~/Documents$ ls -l alpha.*
+-rw-r--r-- 1 sysadmin sysadmin 390 Apr 24 16:24 alpha.txt
+-rw-rw-r-- 1 sysadmin sysadmin 219 May  9 18:07 alpha.txt.bz2
+

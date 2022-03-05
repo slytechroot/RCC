@@ -1,0 +1,33 @@
+9.18 Step 18
+
+Type 1G to return to the first line of the file (if needed). Change (replace) the first line of the document by typing cc and then Output:.
+
+1G
+cc
+Output:
+
+Output:
+total 32
+drwxr-xr-x 1 root root 4096 Apr 24 16:25 bin
+drwxr-xr-x 2 root root 4096 Apr 24  2018 games
+drwxr-xr-x 1 root root 4096 Apr 17 20:09 include
+drwxr-xr-x 1 root root 4096 Apr 17 20:09 lib
+drwxr-xr-x 1 root root 4096 Mar  7 21:00 local
+drwxr-xr-x 1 root root 4096 Apr 17 20:09 sbin
+drwxr-xr-x 1 root root 4096 Apr 17 20:09 share
+drwxr-xr-x 2 root root 4096 Apr 24  2018 src
+
+/usr/bin:
+total 57052
+-rwxr-xr-x 1 root root      51384 Jan 18  2018 [
+-rwxr-xr-x 1 root root      22696 Sep 27  2018 aa-enabled
+-rwxr-xr-x 1 root root      22696 Sep 27  2018 aa-exec
+-rwxr-xr-x 1 root root      22608 Oct 15  2018 addpart
+lrwxrwxrwx 1 root root         26 Sep 12  2018 addr2line -> x86_64-linux-gnu-add
+r2line
+lrwxrwxrwx 1 root root          6 Aug  4  2018 apropos -> whatis
+-rwxr-xr-x 1 root root      14424 Mar 11 09:34 apt
+-rwxr-xr-x 1 root root      80032 Mar 11 09:34 apt-cache
+-rwxr-xr-x 1 root root      22688 Mar 11 09:34 apt-cdrom
+"data.txt" 32447 lines, 1589342 characters
+

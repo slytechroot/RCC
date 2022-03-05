@@ -1,0 +1,19 @@
+8.22 Step 22
+
+In the examples seen so far, the grep command has been used for searching patterns within a single file. The grep command can also be used for searching in multiple files. To match the test pattern in the files that match m* in the /etc directory, execute the following command:
+
+grep "test" /etc/m* 
+
+sysadmin@localhost:~$ grep "test" /etc/m*
+/etc/mailcap:application/x-troff-man; /usr/bin/man -X100 -l '%s'; test=test -n "
+$DISPLAY" -a -e /usr/bin/gxditview; description=Man page
+/etc/mailcap:text/troff; /usr/bin/man -X100 -l '%s'; test=test -n "$DISPLAY" -a
+-e /usr/bin/gxditview; description=Man page
+/etc/mailcap:text/plain; view %s; edit=vim %s; compose=vim %s; test=test -x /usr
+/bin/vim; needsterminal
+/etc/mailcap::text/*; view %s; edit=vim %s; compose=vim %s; test=test -x /usr/bin
+/vim; needsterminal
+grep: /etc/mc: Is a directory
+grep: /etc/modprobe.d: Is a directory
+grep: /etc/modules-load.d: Is a directory
+

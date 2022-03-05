@@ -1,0 +1,231 @@
+6.3.2 find Command
+
+If you want to search for files that are currently in the filesystem, then you should use the find command. The find command is slower than the locate command because it searches directories in real time; however, it doesn't suffer from problems associated with an outdated database.
+
+The find command expects a directory as the first argument. This will be the starting point of the search. The find command will search this directory and all of its subdirectories. If no directory is specified, then the find command will start the search at the current directory.
+
+find [OPTIONS]... [starting-point...] [expression]
+
+Note that the period . character refers to the current directory in the following example, but the current directory could also be referred to using the ./ notation. The find command uses the -name option to search for files by name, in this case, the Downloads directory.
+
+sysadmin@localhost:~$ find . -name Download
+sysadmin@localhost:~$ find . -name Downloads
+./Downloads
+sysadmin@localhost:~$ find . -name Dow*
+./Downloads
+sysadmin@localhost:~$ find . -name 'Do*'
+./Documents
+./Downloads
+
+The first search yielded no results because the string must match the exact name of the file, not just part of the name. The third command demonstrates that globbing can be used, and the fourth command demonstrates multiple matches (notice that single quotes were added so that the find command will interpret the glob, rather than the shell).
+
+If the search for the Downloads directory was conducted from the root / directory, many errors would arise:
+
+sysadmin@localhost:~$ find / -name Downloads
+find: '/var/lib/apt/lists/partial': Permission denied             
+find: '/var/cache/ldconfig': Permission denied                     
+find: '/var/cache/apt/archives/partial': Permission denied         
+find: '/var/spool/rsyslog': Permission denied                 
+find: '/var/spool/cron/crontabs': Permission denied               
+find: '/etc/ssl/private': Permission denied                       
+find: '/root': Permission denied                     
+Output Omitted...
+
+These errors can be ignored for now, but just be aware that errors like these are typical when either a regular user is attempting to search root-only areas, or when the root user is attempting to search areas that are dedicated to the system’s processes.
+
+The find command also offers many options for searching files, unlike the locate command which searches only for files based on file name. The following table illustrates some of the more commonly used criteria:
+‌⁠​​⁠​ 
+Example 	Meaning
+-iname LOSTFILE 	Case insensitive search by name.
+-mtime -3 	Files modified less than three days ago.
+-mmin -10 	Files modified less than ten minutes ago.
+-size +1M 	Files larger than one megabyte.
+-user joe 	Files owned by the user joe.
+-nouser 	Files not owned by any user.
+-empty 	Files that are empty.
+-type d 	Files that are directory files.
+-maxdepth 1 	Do not use recursion to enter subdirectories; only search the primary directory.
+
+If multiple criteria are specified, then all criteria must match as the find command automatically assumes a logical AND condition between criteria, meaning all of the conditions must be met. This could be explicitly stated by using the -a option between criteria. 
+
+For example, the Downloads directory must also be owned by the sysadmin user in order for the find command to produce a result in the following example:
+
+sysadmin@localhost:~$ find . -user sysadmin -a -name Downloads
+./Downloads
+
+Logical OR conditions can be specified between criteria with the -o option, meaning at least one of the conditions must be true. The following output lists files that are either named Downloads or owned by the sysadmin user.
+
+sysadmin@localhost:~$ find . -user sysadmin -o -name Downloads
+.                                                                
+./Public                                                          
+./Downloads                                                        
+./Pictures                                                    
+./Videos                                                          
+./.selected_editor                                                 
+./.profile                                                   
+ ./.bash_logout                                                    
+...
+
+Logical groupings of criteria can also be specified using the parentheses. Be careful to precede the parentheses with a backslash or to use single quotes around them so that the shell doesn't attempt to interpret them as special characters. Also, as mentioned previously, use quotes around any globs that the find command should interpret instead of the shell, as shown in the following example:
+
+sysadmin@localhost:~$ find . -iname 'desk*' -o \( -name Downloads -a -user sysadmin \)
+./Desktop
+./Downloads
+
+In plain text, the find command in the preceding example will return files in the current directory, with the non-case sensitive name starting with desk OR files with the exact name Downloads owned by the sysadmin user.
+
+By default, the find command simply prints the names of the files that it finds. To generate output showing additional file details, similar the ls -l command, you can specify the -ls option:
+
+sysadmin@localhost:~$ find . -ls -iname 'desk*' -o \( -name Downloads -a -user sysadmin \)
+209950600      4 drwxr-xr-x   1 sysadmin sysadmin     4096 Mar 10 04:08 .       
+210019331      4 drwxr-xr-x   2 sysadmin sysadmin     4096 Mar  8 19:10 ./Templates                                                                             
+102108986      4 -rw-r--r--   1 sysadmin sysadmin      220 Apr  4  2018 ./.bash_logout                                                                          
+102108988      4 -rw-r--r--   1 sysadmin sysadmin      807 Apr  4  2018 ./.profile                                                                              
+210019332      4 drwxr-xr-x   2 sysadmin sysadmin     4096 Mar  8 19:10 ./Downloads                                                                             
+ ...
+
+To make the output exactly like the output of the ls -l command, use the -exec option to execute ls -l on each file found. For example:
+
+sysadmin@localhost:~$ find -name 'Documents' -exec ls -l {} \;                       
+total 1100                                                                      
+drwxr-xr-x 5 sysadmin sysadmin   4096 Mar  8 19:10 School                       
+drwxr-xr-x 2 sysadmin sysadmin   4096 Mar  8 19:10 Work                         
+-rw-r--r-- 1 sysadmin sysadmin     39 Mar  8 19:10 adjectives.txt               
+-rw-r--r-- 1 sysadmin sysadmin     90 Mar  8 19:10 alpha-first.txt              
+-rw-r--r-- 1 sysadmin sysadmin    106 Mar  8 19:10 alpha-second.txt             
+-rw-r--r-- 1 sysadmin sysadmin    195 Mar  8 19:10 alpha-third.txt                                   
+...
+
+The previous example tells the find command to execute the ls -l command for each file found. The pair of curly braces {} is a placeholder for the name of each file found; note that there is no space between them. The \; is an escaped semicolon that is added between each command so that multiple commands may be executed in series.
+
+In order to make the find command confirm the execution of the command for each file found, use the action option -ok instead of the -exec option:
+
+sysadmin@localhost:~$ touch one two three
+sysadmin@localhost:~$ find . -mmin -2 -ok rm {} \;
+< rm ... . > ? n
+< rm ... ./one > ? y
+< rm ... ./two > ? y
+< rm ... ./three > ? y
+
+The command above tells the find command to execute the rm command for files that were modified less than two minutes ago. Did you notice how the first file that the rm command tried to remove was the current directory (represented by the period. character)? That is enough reason not to use the -exec option because the rm command would have tried to remove the current directory.
+
+There will be situations where it’s useful to find a file or set of files depending on their age, or when they were last modified, such as all files that have been changed since a given time (such as the last backup). The modification time -mtime option to the find command provides the ability to give time as criteria for a search.
+
+First, a word about how the find command uses times is relevant here. When looking for files modified within the period of a day, such as 3 days ago, you would use -mtime 3, but if you are looking for files that have changed anytime between 3 days ago and now, you would use -mtime -3. If you are looking to find files older than 3 days, you would use -mtime +3.
+Option 	Function
+-mtime N 	Files modified N*24 hours ago.
+-mtime -N 	Files modified less than N*24 hours ago.
+-mtime +N 	Files modified more than N*24 hours ago.
+
+To summarize, a number without a + or - means exactly N days ago, a number with a - means anytime between N days ago and NOW, and a number with a + means N days ago or more.
+
+For example, if you backup every seven days, use the following command to backup all files that are 3 days or less old:
+
+sysadmin@localhost:~$ find /tmp -mtime -3
+/tmp
+
+The above command starts in the /tmp directory and finds all files that have been modified in the last three 24-hour periods, or 72 hours.
+
+The find command is less exact by default than you might want it to be. When using numbers of days with the -atime, -ctime or -mtime operators, the days refer to 24-hour blocks. Therefore, you may think that you are searching to find all files that occurred between now and your last backup by referring to that day, but depending on the time of day, you may not have found all of the files.
+
+Since the find command’s time operators are effectively tied to 24-hour blocks or days, you can use a reference file to make certain you have found all files that occurred precisely since your last backup.
+
+To find all files that are newer than your last backup, find out the date and time of that backup, and create a reference file with that date/time so you can use it with the find -newer command. For example, if the backup was done at precisely 2300 (11:00 PM) on the 1st of March, 2020, you can create a reference file with that exact date and time with the following command:
+
+sysadmin@localhost:~$ touch -t 202003012300 /tmp/reference_file
+
+Now that we have a file that mirrors precisely the date and time of our last backup, we can search for all files in the /home directory that might have been created or modified since the last backup date with the following command:
+
+sysadmin@localhost:~$ find /home -newer /tmp/reference_file
+/home                                                              
+/home/sysadmin                                                    
+/home/sysadmin/Templates                                        
+/home/sysadmin/Downloads                                          
+/home/sysadmin/Music                                              
+/home/sysadmin/.selected_editor                                   
+/home/sysadmin/Documents                                           
+/home/sysadmin/Documents/alpha-third.txt                           
+/home/sysadmin/Documents/spelling.txt                              
+/home/sysadmin/Documents/profile.txt                               
+/home/sysadmin/Documents/numbers.txt                              
+/home/sysadmin/Documents/animals.txt                               
+/home/sysadmin/Documents/hidden.txt                               
+/home/sysadmin/Documents/people.csv                               
+/home/sysadmin/Documents/alpha.txt                
+...
+
+Note
+
+The output will vary, depending on what your system includes for users and what they have been doing, but typically at least the current user’s .bash_history file will appear as having been changed.
+
+The find command also allows the use of friendly notation to find files that are larger or smaller than a particular size. Trying to find files that are above 1 Kilobyte on a busy system is like searching for the word “the” on Google; so much output is returned it’s essentially useless. When searching for files of a given size, or those that are smaller or larger than a given size, try to restrict the search to the smallest valid set of directories and files possible.
+
+For example, to find all files that are smaller than 1 Kilobyte in the /etc directory, you would use:
+
+sysadmin@localhost:~$ find /etc -size -1k
+/etc/.pwd.lock                                    
+/etc/security/opasswd                                 
+/etc/apparmor.d/local/sbin.dhclient          
+/etc/apparmor.d/local/usr.sbin.rsyslogd        
+/etc/apparmor.d/local/usr.sbin.named         
+/etc/apparmor.d/local/usr.bin.man                
+find: '/etc/ssl/private': Permission denied          
+/etc/newt/palette.original
+
+If the files are smaller than 1 Kilobyte, they will be listed as output. You can also use the -size option to find all files on the system that are 1 Megabyte or more with the command:
+
+sysadmin@localhost:~$ find / -size +1M
+find: '/proc/tty/driver': Permission denied          
+find: '/proc/1/task/1/fd': Permission denied        
+find: '/proc/1/task/1/fdinfo': Permission denied           
+find: '/proc/1/task/1/ns': Permission denied              
+find: '/proc/1/fd': Permission denied                 
+find: '/proc/1/map_files': Permission denied             
+find: '/proc/1/fdinfo': Permission denied                 
+find: '/proc/1/ns': Permission denied                
+...
+
+Consider This
+
+The -size option rounds up, to ensure that the find command will display the results you want.
+
+For example, if you have three files, one less than 512 Kilobytes in size, one above 512 Kilobytes but less than 1024 Kilobytes in size, and one that is above 1024 Kilobytes in size, the -size option will not show anything for the output of -size -1M, since it rounds down to 0.
+
+The output of -size -512K would show only the file that is 512K or less, and if you run the -size +512K command, the output would show both the file that is 512K or more and the file that is 1024K or more. You may wish to experiment with this option so you know what to expect.
+
+The find command can also help you find files by specifying a file type, such as regular file, directory, and more, using the -type option. The table below shows all the different types of files you can find using the -type option:
+Symbol 	File Type
+b 	Block (i.e., disks, storage)
+c 	Character (i.e., keyboards, scanners, mice)
+d 	Directory (directory files)
+p 	Named pipes (Allows for communication between processes)
+f 	Regular file (i.e., scripts, text files, graphics)
+s 	Sockets (Allows for communication between processes)
+
+To demonstrate, in order to search only for directories under the /home directory, you could use the following command:
+
+sysadmin@localhost:~$ find /home/sysadmin -type d               
+/home/sysadmin                                            
+/home/sysadmin/Desktop                                   
+/home/sysadmin/Templates                          
+/home/sysadmin/Documents                 
+/home/sysadmin/Documents/Work        
+/home/sysadmin/Documents/School    
+/home/sysadmin/Documents/School/Engineering
+/home/sysadmin/Documents/School/Art       
+/home/sysadmin/Documents/School/Math                
+/home/sysadmin/Music                                        
+/home/sysadmin/Public                                 
+/home/sysadmin/Pictures                               
+/home/sysadmin/Videos                              
+/home/sysadmin/Downloads                    
+/home/sysadmin/.cache
+
+The command above will search the /home/sysadmin directory tree structure and filter out all results except for files that are the specified directory type.
+
+Consider This
+
+To limit the search to just a single level below the /home directory, -maxdepth option to the find command can be used. The -maxdepth option can be set to almost any numeric value. For example, a depth of 1 will show the top-level directories in the /home/sysadmin directory:
+
+sysadmin@localhost:~$ find /home/sysadmin -type d -maxdepth 1
+

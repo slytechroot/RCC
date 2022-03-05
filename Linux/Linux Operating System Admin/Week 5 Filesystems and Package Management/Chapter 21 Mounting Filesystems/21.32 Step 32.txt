@@ -1,0 +1,8 @@
+21.32 Step 32
+
+Then, verify the new files have been created in the /dev directory:
+
+ls /dev/sd*
+
+root@ubuntu:~# ls /dev/sd*
+/dev/sda  /dev/sda1  /dev/sdb  /devsdb2  /dev/sdb5  /dev/sdb6

@@ -1,0 +1,14 @@
+23.7 Step 7
+
+At the First sector prompt, accept the default value by pressing the Enter key:
+
+Enter
+
+Command (m for help): n
+Partition type:
+   p    primary (0 primary, 0 extended, 4 free)
+   e    extended
+Select (default p): e
+Partition number (1-4, default 1): 1
+First sector (2048-8388607, default 2048):
+

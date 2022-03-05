@@ -1,0 +1,3 @@
+6.1 Introduction
+
+In Linux, everything is considered a file. Files are used to store data such as text, graphics, and programs. Directories are a type of file used to store other files. This chapter will cover how to find files, which requires knowledge about the Linux directory structure, typically called a filesystem and the filesystem standards supported by the Linux Foundation; the Filesystem Hierarchy Standard (FHS). You will also learn about how to find files and commands within the Linux filesystem from the command line.

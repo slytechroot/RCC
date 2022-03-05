@@ -1,0 +1,34 @@
+13.7.2 Understanding Umask for Directories
+
+The way the umask is applied to regular files is different from directory files. For security reasons, regular files are not allowed to be executable at the time they are created. It would be dangerous to allow for a file to be able to run as a process without a user explicitly assigning the execute permission. So, regardless of whether you include the execute permission in the umask value, it will not apply to regular files.
+
+For directories, the execute permission is critical to access the directory properly. Without the execute permission, you cannot navigate to a directory, and the write permission is not functional. Essentially, directories are not very useful at all without execute permission, so new directories are allowed to be executable by default. The default permissions for new directories is rwxrwxrwx or 777.
+
+For example, if you wanted a umask value for new directories that would result in full permissions for the user owner, remove or mask write permissions for the group owner, and remove all permissions from others, then you could calculate the umask value as follows:
+
+    The first digit for the user owner would be a 0 (---), which would not mask any of the default permissions.
+    The second digit would be a 2 (-w-), which would mask only the write permission.
+    The third digit would be a 7 (rwx), which would mask all the default permissions.
+
+As a result, the umask value 027 would result in new directories having the permissions of rwxr-x---.
+Directory Default 	777 	rwxrwxrwx
+Umask 			-027 	----w-rwx
+Result 			750 	rwxr-x---
+
+Very Important
+
+While the umask value affects the permissions for new files and directories differently (because of different maximum permissions), there is not a separate umask value for files and directories; the single umask value applies to both, as you can see from the following table of commonly used umask values:
+
+Umask 	File Permissions 	Directory Permissions 	Description
+002 	664 rw-rw-r-- 		775 rwxrwxr-x 	Default for ordinary users
+022 	644 rw-r--r-- 		755 rwxr-xr-x 	Default for root user
+007 	660 rw-rw---- 		770 rwxrwx--- 	No access for others
+077 	600 rw------- 		700 rwx------ 	Private to user
+
+The following commands will display the current umask value, sets it to a different value and displays the new value:
+
+sysadmin@localhost:~$ umask
+0002
+sysadmin@localhost:~$ umask 027
+sysadmin@localhost:~$ umask
+0027

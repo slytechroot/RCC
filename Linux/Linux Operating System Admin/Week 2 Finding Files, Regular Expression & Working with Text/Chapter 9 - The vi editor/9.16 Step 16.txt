@@ -1,0 +1,11 @@
+9.16 Step 16
+
+The previous command :q failed because you have not saved the changes that you made in the file. To quit without saving, type :q! and press the Enter key to quit the document and not save any changes:
+
+:q!
+Enter
+
+:q!
+
+sysadmin@localhost:~$
+

@@ -1,0 +1,60 @@
+22.3 Monitoring Disk Info
+
+Two storage-related statistics that should be monitored closely to ensure a system will continue to run correctly are free data block space and free inodes. The df command can help monitor both of these important numbers.
+
+Data block space is used to store the contents of a file (the file's data). If data block space is exhausted within a filesystem, it will not be possible to add any new content to either new or existing files.
+
+By default, the df command without any option or arguments will display filesystems usage using 1K (1024 bytes) data block size:
+
+sysadmin@localhost:~$ df
+Filesystem     1K-blocks       	Used	Available Use%  Mounted on
+overlay       3711914792   119199908  3404137348    4%  /
+tmpfs         	66007320           0  	66007320    0%  /dev
+tmpfs         	66007320           0  	66007320    0%  /sys/fs/cgroup
+/dev/sda2     3711914792   119199908  3404137348    4%  /etc/hosts
+shm                65536           0       65536    0%  /dev/shm
+
+When executed with the -h option, the output of the df command is displayed in human-readable units such as MiB and GiB:
+
+sysadmin@localhost:~$ df  -h
+Filesystem    	Size  Used Avail Use% Mounted on
+overlay       	3.5T  114G  3.2T   4% /
+tmpfs            63G     0   63G   0% /dev
+tmpfs            63G     0   63G   0% /sys/fs/cgroup
+/dev/sda2       3.5T  114G  3.2T   4% /etc/hosts
+shm              64M  	 0   64M   0% /dev/shm
+
+Consider This
+
+Additional options will yield even more interesting and helpful information. Try adding a -T to the df command to see the filesystem Type added as a column to the output:
+
+sysadmin@localhost:~$ df -hT
+Filesystem 	Type     Size  Used Avail Use% Mounted on
+overlay    	overlay  3.5T  114G  3.2T   4% /
+tmpfs      	tmpfs 	  63G     0   63G   0% /dev
+tmpfs      	tmpfs 	  63G     0   63G   0% /sys/fs/cgroup
+/dev/sda2  	ext4     3.5T  114G  3.2T   4% /etc/hosts
+shm        	tmpfs 	  64M     0   64M   0% /dev/shm
+
+Each file created in a filesystem is assigned a unique identifier by the filesystem. This identifier is known as an inode and there is a fixed number of them available when using ext2/ext3/ext4. In other words, if a filesystem has only 10,000 inodes, only 10,000 files can be stored in that filesystem.
+
+Inodes are important because in order to create a file, an inode is needed to store the metadata (information like permissions, timestamps, etc.) about that file. In fact, the inode stores everything about the file except its name and its contents.
+
+Consider This
+
+Inodes are limited to a set amount at filesystem creation in the ext2/ext3/ext4 family of filesystems, but in many other filesystems, inodes are generated as needed, examples include JFS and XFS.
+
+To determine how many files have been created and how many inodes are still available for a filesystem, use the -i option to the df command:
+
+sysadmin@localhost:~$ df -i
+Filesystem    	Inodes     IUsed     IFree IUse% Mounted on
+overlay    	235708416 502951 235205465    1% /
+tmpfs       	16501830      19  16501811    1% /dev
+tmpfs       	16501830      14  16501816    1% /sys/fs/cgroup
+/dev/sda2  	235708416 502951 235205465    1% /etc/hosts
+shm         	16501830       1  16501829    1% /dev/shm
+
+The number of inodes is determined when the filesystem is created. The default technique is to use a ratio that depends on how many data blocks the filesystem contains, so larger filesystems will contain more inodes. The options that can be used to affect this ratio will be discussed later.
+
+Be sure to view the output of the df command carefully to find filesystems that are getting low on data block space or inodes. If a filesystem is getting low, take steps like moving some files to another filesystem with more resources or removing files that are unnecessary.
+

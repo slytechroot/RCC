@@ -1,0 +1,11 @@
+16.1 Introduction
+
+Booting is the process of bringing the system from an off status to a running operating system. It is very important to understand this process, in order to be able to fix boot problems when they occur and for modifying system states called runlevels or on systemd devices, targets.
+
+The boot process takes place in four main stages, some of which are modified by administrators, while for the others, it is sufficient just to be aware of the actions taking place:
+
+    Firmware Stage
+    Bootloader
+    Kernel Stage
+    Init Stage
+

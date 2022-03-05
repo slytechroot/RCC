@@ -1,0 +1,28 @@
+7.16 Step 16
+
+To view the first 20 lines of the output of the man ls command, execute the following command:
+
+man ls | head -20 
+
+sysadmin@localhost:~$ man ls | head -20
+LS(1)                            User Commands                           LS(1)
+
+NAME
+       ls - list directory contents
+
+SYNOPSIS
+       ls [OPTION]... [FILE]...
+
+DESCRIPTION
+       List  information  about  the FILEs (the current directory by default).
+       Sort entries alphabetically if none of -cftuvSUX nor --sort  is  speci-
+       fied.
+
+       Mandatory  arguments  to  long  options are mandatory for short options
+       too.
+
+       -a, --all
+              do not ignore entries starting with .
+                             
+       -A, --almost-all
+

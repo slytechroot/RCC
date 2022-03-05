@@ -1,0 +1,39 @@
+22.5 The tune2fs Command
+
+The tune2fs command can view and change some of the settings for ext2, ext3, and ext4 filesystems. Generally, this command is considered safe, but to avoid taking risks, a backup of the filesystem should be made before using the command.
+
+The tune2fs command has a number of options. Below are a few examples of common options that can be used on a filesystem.
+
+By default, each filesystem will have a full system check during the boot process either every 180 days or after 30 mounts, whichever comes first. Unfortunately, this slows the boot process, especially if all filesystems are checked during a single boot. Automatic filesystem checking can be disabled by executing the following:
+The following examples may not match the output in our virtual environment.
+
+root@localhost:~# tune2fs -c0 -i0 /dev/sdb1
+
+In the example above, the -c option will change the maximum number of times that a filesystem may be mounted before it is required to have a full filesystem check. The default value of 30 times has been disabled by setting the value to 0. The -i option will change the maximum time interval between when a filesystem is forced to have a full filesystem check. This default value of 180 days has been disabled by setting the interval to 0.
+
+To automatically have the acl and user_xattr mount options apply any time a filesystem is mounted, execute the following command:
+
+root@localhost:~# tune2fs -o acl,user_xattr /dev/sdb1
+
+The -o option in the command above specifies the default mount options. By default, the Red Hat derived distributions specify that acl and user_xattr options are added to filesystems created during installation. Note that when applying multiple options, they need to be comma separated.
+
+Finally, to verify the changes have been saved, list the superblock information for the filesystem by using the -l option:
+
+root@localhost:~# tune2fs -l /dev/sdb1
+
+To summarize, the following is a table of options available for tune2fsto tune a ext2, ext3 or ext4 filesystem:
+Option 	Effect
+-l 	List the superblock information for a filesystem.
+-c 	Change the maximum number of times that a filesystem may be mounted before it is required to have a full filesystem check. The default value is normally 30 times. This can be disabled by setting the value to 0.
+-i 	Change the maximum time interval between when a filesystem is forced to have a full filesystem check. The default value is 180, meaning 180 days. This can be disabled by setting the interval to 0.
+-j 	Create a journal file for an ext2 filesystem, allowing it to be mounted as an ext3 or ext2 filesystem.
+-m 	Specify the percentage of space to be reserved for the root user or privileged processes. The default value of 5% is often unnecessarily large for large filesystems.
+-o 	Specify default mount options. By default, the RedHat derived distributions specify that acl and user_xattroptions are added to filesystems created during installation. When applying multiple options, they need to be comma separated.
+Consider this
+
+There are filesystem settings that the tune2fscommand cannot change and that have to be set at the time the filesystem is created. For the ext2, ext3, and ext4 filesystems, the following table lists the mke2fs command options that cannot be changed after the filesystem is created:
+Option 	Effect
+-b 	Allows the block size to be specified. Valid block sizes are 1024, 2048, or 4096 bytes (some systems allow a block size of 8192). If the "wrong" block size is used, the filesystem may run out of data blocks before running out of inodes. If the average file size is smaller than 4 KiB, it may be beneficial to use a smaller block size closer to the average file size.
+-I 	Allows the size of an inode to be specified. By default, mke2fs will make an inode size of 128 bytes. If the system uses SELinux or SambaV4, it may be beneficial to set this size to 256 bytes to allow space extended attributes that SELinux and sambaV4 use.
+-i 	Allows a bytes/inode ratio to be specified. To avoid either running out of data blocks while still having inodes, or vice versa, set a ratio that will be close to the average file size. As each file requires at least one inode to store its meta-information, this is a critical value.
+-N 	If the size of the average file is unknown, but the number of files required is known, use this option to specify exactly how many inodes to create

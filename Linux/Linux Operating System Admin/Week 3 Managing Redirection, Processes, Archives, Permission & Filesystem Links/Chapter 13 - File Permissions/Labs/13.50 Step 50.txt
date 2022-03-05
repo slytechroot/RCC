@@ -1,0 +1,14 @@
+13.50 Step 50
+
+Execute the following commands to create a new directory called mydir1 and verify that the umask value of 027 results in permissions for new directories of rwxr-x---:
+
+mkdir mydir1
+ls -ld mydir1
+
+sysadmin@localhost:~$ mkdir mydir1
+sysadmin@localhost:~$ ls -ld mydir1
+drwxr-x--- 2 sysadmin sysadmin 4096 Apr 18 20:24 mydir1
+
+Directory Default 	777 	rwxrwxrwx
+Umask 	-027 	----w-rwx
+Result 	750 	rwxr-x---

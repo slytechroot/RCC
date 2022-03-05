@@ -1,0 +1,8 @@
+21.40 Step 40
+
+The result should be a file that is approximately 100MB in size. Confirm this by executing the following command:
+
+ls -lh /var/swapfile
+
+root@localhost:~# ls -lh /var/swapfile
+-rw-r--r-- 1 root root 100M Jun 26 12:40 /var/swapfile

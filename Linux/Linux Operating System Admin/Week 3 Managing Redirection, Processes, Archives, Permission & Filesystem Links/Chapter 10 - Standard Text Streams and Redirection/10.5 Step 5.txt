@@ -1,0 +1,10 @@
+10.5 Step 5
+
+To discard the output of any stream instead of redirecting it to any file, redirect it to the /dev/null file:
+
+find /etc -name hostname 2> /dev/null
+
+sysadmin@localhost:~$ find /etc -name hostname 2> /dev/null
+/etc/hostname
+sysadmin@localhost:~$
+

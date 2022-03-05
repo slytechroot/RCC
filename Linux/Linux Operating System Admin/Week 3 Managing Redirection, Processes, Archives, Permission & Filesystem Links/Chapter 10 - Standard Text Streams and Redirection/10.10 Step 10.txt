@@ -1,0 +1,36 @@
+10.10 Step 10
+
+The command pipeline is used to send the output of one command as input to another. In Linux and most operating systems, the vertical bar or pipe | character is used between two commands to represent a command pipeline.
+
+To view the output of the ls command one page at a time, execute the following command:
+
+ls -l /etc | less
+
+sysadmin@localhost:~$ ls -l /etc | less
+total 704
+drwxr-xr-x 3 root root    4096 Mar 22 17:41 X11
+-rw-r--r-- 1 root root    3028 Mar  7 21:00 adduser.conf
+drwxr-xr-x 1 root root    4096 Apr 24 16:24 alternatives
+drwxr-xr-x 3 root root    4096 Mar 22 17:41 apm
+drwxr-xr-x 3 root root    4096 Mar 22 17:41 apparmor
+drwxr-xr-x 1 root root    4096 Apr 17 20:09 apparmor.d
+drwxr-xr-x 1 root root    4096 Mar 22 17:40 apt
+-rw-r--r-- 1 root root    2319 Apr  4  2018 bash.bashrc
+-rw-r--r-- 1 root root      45 Apr  2  2018 bash_completion
+drwxr-sr-x 1 root bind    4096 Apr 24 16:24 bind
+-rw-r--r-- 1 root root     367 Jan 27  2016 bindresvport.blacklist
+drwxr-xr-x 2 root root    4096 Feb 28 21:03 binfmt.d
+drwxr-xr-x 3 root root    4096 Mar 22 17:41 ca-certificates
+-rw-r--r-- 1 root root    5898 Mar 22 17:41 ca-certificates.conf
+drwxr-xr-x 2 root root    4096 Mar 22 17:41 calendar
+drwxr-xr-x 2 root root    4096 Mar 22 17:41 console-setup
+drwxr-xr-x 2 root root    4096 Mar 22 17:41 cron.d
+drwxr-xr-x 1 root root    4096 Apr 24 16:24 cron.daily
+drwxr-xr-x 2 root root    4096 Mar 22 17:41 cron.hourly
+drwxr-xr-x 2 root root    4096 Mar 22 17:41 cron.monthly
+drwxr-xr-x 1 root root    4096 Apr 24 16:24 cron.weekly
+-rw-r--r-- 1 root root     722 Nov 16  2017 crontab
+:
+
+To fully exit the less command, press Q.
+

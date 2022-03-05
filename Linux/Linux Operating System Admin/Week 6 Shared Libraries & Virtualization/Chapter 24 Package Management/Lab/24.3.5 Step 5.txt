@@ -1,0 +1,17 @@
+24.3.5 Step 5
+
+Use the following command to search for the cowsay package:
+
+zypper se cow*
+
+localhost:~ # zypper se cow*
+Loading repository data...                                                      
+Reading installed packages...                                                   
+                                                                                
+S | Name   | Summary                                             | Type         
+--+--------+-----------------------------------------------------+--------      
+  | cowsay | Configurable talking cow (and some other creatures) | package      
+localhost:~ #
+
+In the output above, the S field does not contain an i which means the cowsay package is not currently installed.
+

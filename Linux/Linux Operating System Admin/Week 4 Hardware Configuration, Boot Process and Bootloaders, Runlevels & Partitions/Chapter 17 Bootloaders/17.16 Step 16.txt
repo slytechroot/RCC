@@ -1,0 +1,8 @@
+17.16 Step 16
+
+Modify the /boot/grub/grub.conf file by executing the following command:
+
+vi /boot/grub/grub.conf
+
+[root@centos ~]# vi /boot/grub/grub.conf
+

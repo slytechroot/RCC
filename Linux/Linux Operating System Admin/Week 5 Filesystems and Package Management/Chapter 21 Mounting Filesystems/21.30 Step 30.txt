@@ -1,0 +1,9 @@
+21.30 Step 30
+
+Reboot the system to have the kernel recognize the new partitions:
+
+reboot
+
+root@ubuntu:~# reboot
+
+In some cases, you may be able to run a command, such as the partprobe command, to have the kernel read the new partition table. However, on this system, this command does not exist.

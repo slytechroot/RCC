@@ -1,0 +1,11 @@
+24.1.11 Step 11
+
+Try to execute the edquota command:
+
+edquota
+
+[root@localhost /]# edquota
+bash: edquota: command not found
+
+The previous command failed because you deleted the command from the system.
+

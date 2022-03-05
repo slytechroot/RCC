@@ -1,0 +1,144 @@
+15.5 Viewing Hardware
+
+Viewing the details of what hardware is attached (including peripherals attached via USB, etc.) or contained in a running Linux system is important to successfully troubleshoot problems that may occur during boot up and day-to-day operations.
+
+Consider This
+
+Modern computers typically use the Peripheral Component Interconnect Express (PCIe) bus to connect components inside the computer. For example, video, sound, network, and disk controllers are normally found on the PCIe bus.
+
+A bus is not only used to refer to actual physical connections, but also software components designed to connect programs and certain communications protocols. Components are attached with a type of bus and communicate through it at high rates of speed.
+
+Buses can be alternatively grouped into internal and external bus types. Internal buses are considered to be inside the actual computer, while external or “expansion” buses are used to attach external devices to the computer. Good examples of internal buses are the aforementioned PCIe bus, the older Industry Standard Architecture (ISA) bus, and the very popular Small Computer Systems Interface (SCSI) bus. An example of an external or expansion bus type would be the most universally available Universal Serial Bus (USB) bus.
+
+Bridges connect the various buses on a system to each other and allow for cross bus communications when necessary.
+PCI Bus depicted as horizontal arrow with devices connected to it underneath and PCI Bridge above it. Connected to the PCI Bridge is a CPU and RAM.
+
+While there are files and directories in the /proc and /sys directories that contain hardware information, users can run various commands to view the multiple aspects of the hardware that makes up or is attached to the system.
+
+First among these is the lspci command, designed to show the user the PCI buses and devices attached to them.
+
+In the output of the command below you will see the various bridges listed; those are connections between the different buses on the system, interconnecting them with each other.
+
+Additionally, users can view the USB controller, Ethernet, sound, and other video and peripheral connection buses and controllers.
+
+sysadmin@localhost:~$ lspci
+00:00.0 Host bridge: Intel Corporation 5520 I/O Hub to ESI Port (rev 13)
+00:01.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Por
+t 1 (rev 13)
+00:03.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Por
+t 3 (rev 13)
+00:04.0 PCI bridge: Intel Corporation 5520/X58 I/O Hub PCI Express Root Port 4 (
+rev 13)
+00:05.0 PCI bridge: Intel Corporation 5520/X58 I/O Hub PCI Express Root Port 5 (
+rev 13)
+00:06.0 PCI bridge: Intel Corporation 5520/X58 I/O Hub PCI Express Root Port 6 (
+rev 13)
+00:07.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Por
+t 7 (rev 13)
+00:09.0 PCI bridge: Intel Corporation 7500/5520/5500/X58 I/O Hub PCI Express Roo
+t Port 9 (rev 13)
+00:14.0 PIC: Intel Corporation 7500/5520/5500/X58 I/O Hub System Management Regi
+sters (rev 13)
+00:14.1 PIC: Intel Corporation 7500/5520/5500/X58 I/O Hub GPIO and Scratch Pad
+Registers (rev 13)
+
+For viewing external devices, the lsusb command will show those that are specifically connected to the Universal Serial Bus (USB).
+
+sysadmin@localhost:~$ lsusb
+Bus 002 Device 006: ID 0624:0249 Avocent Corp. Virtual Keyboard/Mouse
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 005 Device 003: ID 0624:0248 Avocent Corp. Virtual Hub
+Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 001 Device 002: ID 0424:2514 Standard Microsystems Corp. USB 2.0 Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+
+Another tool for viewing details about USB devices connected to the system is the usb-devices command. This is a script, which when executed will display information about the USB device that can otherwise be found in the /sys or /proc directories, including the USB device number, vendor, port and more:
+
+sysadmin@localhost:~$ usb-devices | tail -n 15
+S:  Manufacturer=Avocent
+S:  Product=USB Composite Device-0
+S:  SerialNumber=20120430
+C:  #Ifs= 2 Cfg#= 1 Atr=c0 MxPwr=2mA
+I:  If#= 0 Alt= 0 #EPs= 1 Cls=03(HID  ) Sub=01 Prot=01 Driver=usbhid
+I:  If#= 1 Alt= 0 #EPs= 1 Cls=03(HID  ) Sub=01 Prot=02 Driver=usbhid
+
+T:  Bus=06 Lev=00 Prnt=00 Port=00 Cnt=00 Dev#=  1 Spd=12  MxCh= 2
+D:  Ver= 1.10 Cls=09(hub  ) Sub=00 Prot=00 MxPS=64 #Cfgs=  1
+P:  Vendor=1d6b ProdID=0001 Rev=04.04
+S:  Manufacturer=Linux 4.4.0-72-generic uhci_hcd
+S:  Product=UHCI Host Controller
+S:  SerialNumber=0000:00:1d.1
+C:  #Ifs= 1 Cfg#= 1 Atr=e0 MxPwr=0mA
+I:  If#= 0 Alt= 0 #EPs= 1 Cls=09(hub  ) Sub=00 Prot=00 Driver=hub
+
+If the user requires more information than the lspci and lsusb commands show normally, simply append a -v option to either command and a great deal more information will be shown; taking the output from one line per item to a stanza-based output where each item is shown with multiple details.
+
+To demonstrate, the output of the lspci -v command below displays only a single screen of output. The complete output would be 350+ lines long!
+
+sysadmin@localhost:~$ lspci -v
+00:00.0 Host bridge: Intel Corporation 5520 I/O Hub to ESI Port (rev 13)
+        Subsystem: Dell 5520 I/O Hub to ESI Port
+        Flags: fast devsel, IRQ 15
+        Capabilities: <access denied>
+lspci: Unable to load libkmod resources: error -12
+
+00:01.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express
+Root Port 1 (rev 13) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 25
+        Bus: primary=00, secondary=01, subordinate=01, sec-latency=0
+        Memory behind bridge: d6000000-d9ffffff
+        Capabilities: <access denied>
+        Kernel driver in use: pcieport
+
+00:03.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express
+Root Port 3 (rev 13) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 26
+        Bus: primary=00, secondary=02, subordinate=02, sec-latency=0       	
+        Memory behind bridge: da000000-ddffffff
+
+Finally, if a user has an issue with a component and is able to see that component mentioned in the lspci -v output, they can get more information about the malfunctioning component by referring to the multiple digit vendor and device code that prefaces the stanza for each device.
+
+For example, to get more information about the IDE interface from the machine above, the user can run the lspci command with the -v and -s options followed by the vendor and device code as a parameter. The -s option will allow for a domain to be specified which will display information solely about devices in that domain:
+
+sysadmin@localhost:~$ lspci -v -s 00:07.0
+00:07.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express
+Root Port 7 (rev 13) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 30
+        Bus: primary=00, secondary=06, subordinate=06, sec-latency=0
+        Capabilities: <access denied>
+        Kernel driver in use: pcieport
+lspci: Unable to load libkmod resources: error -12
+
+To isolate the details of a specific USB device, find the vendor and device code in the output of the lsusb command, then use the lsusb command again, this time with the -v and -d options to get the isolated details of a device. The -d option will allow for a vendor or product ID to be specified, which will only display devices with that number. For example, to show details about Device 003, use the following command:
+
+sysadmin@localhost:~$ lsusb -v -d 0624:0248 | less
+Bus 005 Device 003: ID 0624:0248 Avocent Corp. Virtual Hub
+Device Descriptor:
+  bLength                18
+  bDescriptorType         1
+  bcdUSB               1.10
+  bDeviceClass            0 (Defined at Interface level)
+  bDeviceSubClass         0
+  bDeviceProtocol         0
+  bMaxPacketSize0        64
+  idVendor           0x0624 Avocent Corp.
+  idProduct          0x0248 Virtual Hub
+  bcdDevice            0.00
+  iManufacturer           1
+  iProduct                2
+  iSerial                 3
+  bNumConfigurations      1
+  Configuration Descriptor:
+    bLength                 9
+    bDescriptorType         2
+    wTotalLength           59
+    bNumInterfaces          2
+    bConfigurationValue     1
+:
+
+Note
+
+Type the Q key to exit the less command.

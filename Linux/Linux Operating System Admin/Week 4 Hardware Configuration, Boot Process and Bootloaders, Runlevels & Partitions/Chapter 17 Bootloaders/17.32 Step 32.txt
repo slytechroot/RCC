@@ -1,0 +1,13 @@
+17.32 Step 32
+
+Let’s pretend you have fixed whatever problem prompted you to go to the single user runlevel. To boot the system to the default runlevel, Press Ctrl+D (hold down the Control key and press the letter d):
+
+Ctrl+d
+
+The system will boot and you will be prompted with a login screen:
+
+CentOS release 6.10 (Final)
+Kernel 2.6.32-754.el6.x86_64 on an x86_64
+
+centos login:
+

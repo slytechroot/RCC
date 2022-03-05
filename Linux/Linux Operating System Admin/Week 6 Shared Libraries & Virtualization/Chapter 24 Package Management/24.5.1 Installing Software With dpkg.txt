@@ -1,0 +1,16 @@
+24.5.1 Installing Software With dpkg
+
+To install a software package in a Debian-based distribution, use the -i option with the dpkg command. For example, to install the joe_3.7-2.3_i386.deb file, execute:
+
+Note
+
+The following examples represent a system that is different from the virtual machine in this module. The examples may not match the output in our virtual environment.
+
+Additional practice for Debian package management is provided in the lab.
+
+sysadmin@localhost:~$ dpkg -i joe_3.7-2.3_i386.deb
+
+Debian packages also may have dependencies. There are four categories of dependencies: depends, recommends, suggests, and enhances. Only the depends category reflects a package that must be installed in order to have the required dependencies met.
+
+As a low-level tool, dpkg does not provide any automatic way to resolve dependency issues. However, the APT tool apt-get does have this capability, as will be discussed later in this chapter.
+

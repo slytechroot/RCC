@@ -1,0 +1,14 @@
+8.3.1 Grouping With ( )
+
+The grouping ( ) operator creates groupings that can be used for several purposes. At the most basic level, they are used to group together characters that can be targeted by matching operators like *, +, ?, or the curly braces { }.
+
+This grouping is considered to be a subpattern of the pattern. A subpattern is a smaller pattern within a pattern. The matching operators *, ?, +, and { } that match single characters, can also be applied to subpatterns.
+
+In the example below, parentheses are used to match the M character, followed by the iss subpattern repeated zero or more times:
+
+sysadmin@localhost:~/Documents$ echo 'Miss Mister Mississippi Missed Mismatched' | grep -E 'M(iss)*'
+Miss Mister Mississippi Missed Mismatched
+
+Note
+
+Don't forget to use grep -E in order to get the command to recognize the extended regular expression character.

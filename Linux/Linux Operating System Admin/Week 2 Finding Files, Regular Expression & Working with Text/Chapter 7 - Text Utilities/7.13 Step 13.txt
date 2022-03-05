@@ -1,0 +1,22 @@
+7.13 Step 13
+
+The purpose of the head command is to view the beginning of a file or output.
+
+head [OPTION]... [FILE]...
+
+To view the beginning of the /usr/share/dict/words file, execute the following command:
+
+head /usr/share/dict/words
+
+sysadmin@localhost:~$ head /usr/share/dict/words
+A
+A's
+AMD
+AMD's
+AOL
+AOL's
+Aachen
+Aachen's
+Aaliyah
+Aaliyah's
+

@@ -1,0 +1,7 @@
+17.29 Step 29
+
+Press the b key to boot the system. Notice how the boot messages are displayed (your system may appear different from what you see in the following graphic).
+
+b
+
+Boot messages in terminal.

@@ -1,0 +1,10 @@
+6.17 Step 17
+
+The -a option can be used with the which command to locate multiple executable files. To locate all the executable files for the less command, execute the following command:
+
+which -a less
+
+sysadmin@localhost:~$ which -a less                                             
+/usr/bin/less                                                                   
+/bin/less
+

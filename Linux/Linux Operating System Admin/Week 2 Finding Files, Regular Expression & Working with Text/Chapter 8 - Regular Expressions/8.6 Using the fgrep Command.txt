@@ -1,0 +1,11 @@
+8.6 Using the fgrep Command
+
+If the entire pattern uses no special characters and you need to use a backslash to escape the special meaning of characters, then you should use the fixed strings grep fgrep command. The fgrep command always treats its pattern as literal characters, so you don’t have to use the backslash to escape the regex characters:
+
+sysadmin@localhost:~/Documents$ cat newhome.txt | fgrep '**'
+**Warning** it may be haunted.
+**Beware** of the ghost in the bedroom.
+**Caution** the spirits don't like guests.
+sysadmin@localhost:~/Documents$ cat newhome.txt | fgrep '**Warning** it may be haunted.'
+**Warning**it may be haunted.
+

@@ -1,0 +1,13 @@
+17.30 Step 30
+
+Notice that when the system finishes booting, you are automatically logged in as the root user:
+
+Checking filesystems
+/dev/mapper/VolGroup-lv_root: clean, 22697/262144 files, 241986/1048576 blocks 
+/dev/sda1: clean, 38/32768 files, 12691/131072 blocks
+                                                              [ OK ]
+Remounting root filesystem in read-write mode:                [ OK ]
+Mounting local filesystems:                                   [ OK ]
+Enabling /etc/fstab swaps:                                    [ OK ]
+[root@centos /]#
+

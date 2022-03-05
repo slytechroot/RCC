@@ -1,0 +1,15 @@
+13.42 Step 42
+
+Execute the following command to delete the previously created file. When prompted with the message, rm: remove write-protected regular empty file `/pub/myfile'?, type the Y key and then press Enter:
+
+rm /pub/mylabfile
+Y
+Enter
+ls -l /pub
+
+sysadmin@localhost:~$ rm /pub/mylabfile
+rm: remove write-protected regular empty file '/pub/myfile'? y
+sysadmin@localhost:~$ ls -l /pub
+total 0
+
+Notice that the sysadmin user was able to delete a file owned by the root user. This is because the write permission of a directory grants the ability to add and delete files in a directory.

@@ -1,0 +1,17 @@
+8.3.4 Match a Repeated Character With { }
+
+The extended regex curly brace { } operator is used to specify the number of occurrences of the preceding character or subpattern.
+Pattern 	Meaning
+a{0,} 	Zero or more a characters
+a{1,} 	One or more a characters
+a{0,1} 	Zero or one a characters
+a{5} 	Five a characters
+a{,5} 	Five or fewer a characters
+a{3,5} 	From three to five a characters
+
+To demonstrate, the { } operator in action, the example below matches one or more instances of the letter r in the animals.txt file:
+
+sysadmin@localhost:~/Documents$ grep -E 'r{1,}' animals.txt
+1 retriever
+2 badger
+

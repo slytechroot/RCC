@@ -1,0 +1,11 @@
+24.1.7 Step 7
+
+Remove the quota package from the system with the following rpm command:
+
+rpm -e quota
+
+[root@localhost /]# rpm -e quota
+[root@localhost /]#
+
+Recall that the rpm command doesn't check for any package dependencies. As a result, you would not see any warning if another package depended on the quota package.
+

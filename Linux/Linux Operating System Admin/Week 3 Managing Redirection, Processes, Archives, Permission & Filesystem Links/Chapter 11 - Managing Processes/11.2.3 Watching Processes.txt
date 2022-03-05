@@ -1,0 +1,85 @@
+11.2.3 Watching Processes
+
+There are many times when it’s advantageous or informative to see a process execute over and over again. In those cases, the watch command can be used to monitor recurring processes by using the following syntax:
+
+watch [OPTION]... COMMAND
+
+A command that would normally execute and exit could be used with the watch command to execute repeatedly. A good visual example would be to run the watch command with the date command to view the date command running repeatedly:
+
+sysadmin@localhost:~$ watch date
+
+Every 2.0s: date                             localhost: Fri Mar 27 18:30:55 2020
+
+Fri Mar 27 18:30:55 UTC 2020
+
+In the example above, the watch command will run the date command repeatedly and display the updated output. By default, the watch command runs the given command every two seconds so the output of the date command will change to show a two-second difference.
+
+Important
+
+To fully exit the watch command, press Ctrl+C.
+
+The watch command can also be used with the ps command to monitor running processes in the shell:
+
+sysadmin@localhost:~$ watch ps aux
+
+        Every 2.0s: ps aux                           localhost: Fri Mar 29 17:47:56 2020
+
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0  18376  3048 ?        Ss   17:44   0:00 /bin/bash /init
+syslog       9  0.0  0.0 191328  3760 ?        Ssl  17:44   0:00 /usr/sbin/rsysl
+ogd
+root        13  0.0  0.0  28356  2512 ?        Ss   17:44   0:00 /usr/sbin/cron
+root        15  0.0  0.0  72296  3216 ?        Ss   17:44   0:00 /usr/sbin/sshd
+bind        24  0.3  0.0 813852 39648 ?        Ssl  17:44   0:00 /usr/sbin/named
+ -u bind
+root        43  0.0  0.0  78636  3704 ?        S    17:44   0:00 /bin/login -f
+sysadmin    60  0.0  0.0  18508  3444 ?        S    17:44   0:00 -bash
+sysadmin    75  0.0  0.0  11180  2328 ?        S+   17:47   0:00 watch ps aux
+sysadmin   136  0.0  0.0  11180   344 ?        S+   17:47   0:00 watch ps aux
+sysadmin   137  0.0  0.0   4628   920 ?        S+   17:47   0:00 sh -c ps aux
+sysadmin   138  0.0  0.0  34400  2952 ?        R+   17:47   0:00 ps aux
+
+In the example above, the watch command executes the ps aux command, which displays all running processes in the shell, repeatedly. If a new program was executed in the shell, the output of the ps aux command would update to show the new process.
+
+Recall that the watch command’s default interval is two seconds. Therefore, to change the interval, use the -n option followed by the specific interval desired (in seconds) after, and then specify the command to monitor.
+
+watch -n # [COMMAND...]
+
+The watch command will re-execute that command on a consistent basis at the specified interval until you quit that command or Ctrl+C to stop the watch command itself.
+
+The watch command can also be used to keep track of changes in a configuration file, log files or anything that changes over time. For example, the watch command can be used with the tail command to monitor the log file /var/log/ndg/web.log.
+
+Note
+
+To execute the next example, first use the command below to generate new log entries in the /var/log/ndg/web.log file:
+
+sysadmin@localhost:~$ start_log
+Starting log...
+
+To monitor changes to the last twenty lines of the /var/log/ndg/web.log log file and execute the tail command every fifteen seconds, use the following command:
+
+sysadmin@localhost:~$ watch -n 15 tail -n 20 /var/log/ndg/web.log
+
+Every 15.0s: tail -n 20 /var/log/ndg/web.log localhost: Thu Apr  4 03:20:22 2020
+
+192.0.2.225     [2019-04-04T03:20:14]   200     "GET  /news/?search=cats"
+192.0.2.15      [2019-04-04T03:20:16]   500     "GET  /news/puppy-and-cat"
+192.0.2.143     [2019-04-04T03:20:17]   301     "GET  /news/?search=cats"
+192.0.2.60      [2019-04-04T03:20:18]   403     "POST /news/"
+192.0.2.194     [2019-04-04T03:20:19]   301     "GET  /news/puppy-and-cat"
+192.0.2.59      [2019-04-04T03:20:20]   500     "GET  /news/puppy-and-cat"
+192.0.2.23      [2019-04-04T03:20:21]   301     "GET  /news/?search=cats"
+192.0.2.129     [2019-04-04T03:20:21]   403     "GET  /login/?redirect_to=/news"
+
+You can also highlight any differences between each successive execution of the program that is being watched by specifying the -d option. In the example below, the watch command is used with the -d option to run the free command, used to display memory on the system, repeatedly:
+
+sysadmin@localhost:~$ watch -d free
+
+Every 2.0s: free                             localhost: Wed Apr  3 16:28:21 2020
+
+              total        used        free      shared  buff/cache   available
+Mem:      132014640    28609416    96251712        5916     7153512   102777272
+Swap:     134196220           0   134196220
+
+The output above will show the amount of used, free, and available memory in the Mem: row updating every two seconds, and the differences in the memory will be highlighted in each new refresh of the screen.
+

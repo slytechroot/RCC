@@ -1,0 +1,26 @@
+21.6 Mounting With fstab
+
+Another useful feature of mount requires discussion, passing only one argument, such as:
+
+root@localhost:~# mount /home
+
+Linux will read the configuration for this mount from the /etc/fstab file if it exists. This allows a new mount to be created in /etc/fstab and then tested instead of needing a reboot. It can also be used to remount a volume that has been taken offline for maintenance.
+
+There is also a valuable mount option that will never be specified in the /etc/fstab file: the remount option. This option is useful for changing a mounted filesystem’s options without unmounting the filesystem itself.
+
+root@localhost:~# mount /home -o remount, noatime
+
+This command will switch the /home mount to have the noatime option (the atime option shows the last time a file was accessed or read) without needing to remount the filesystem. Keep in mind that this will not persist across a reboot until the fstab file has been updated. Once changes have been made to the fstab file, execute something like the following to make them effective:
+
+root@localhost:~# mount -o remount /mnt
+
+Remounting is different from executing the umount command on a filesystem and then executing the mount command on that same filesystem. While unmounting/mounting will fail on an in-use filesystem, remounting is really just changing the mount options and will succeed on an in-use filesystem.
+
+After updating the /etc/fstab file, don't reboot the system to test the changes. Instead, use the -o remount option. If the changes are correct, no message will be displayed, but if a mistake was made, an error like the following would be displayed:
+
+root@localhost:~# mount -o remount /
+mount: / not mounted already, or bad option
+
+If there are no errors in the corresponding entry contained within the /etc/fstab file, then the mount -o command will produce no output.
+
+The remount option is helpful but can lead to problems if the administrator allows the /etc/fstab file to get out of sync with the running configuration.

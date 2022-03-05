@@ -1,0 +1,26 @@
+6.4 Step 4
+
+The find command has options to find files per their timestamps. To find all files in the /etc directory which were modified less than 2 days ago, execute the following command:
+
+find /etc -mtime -2 2>/dev/null
+
+sysadmin@localhost:~$ find /etc -mtime -2 2>/dev/null                      
+/etc                                                                        
+/etc/alternatives                                                           
+/etc/alternatives/editor                                                    
+/etc/alternatives/editor.pl.1.gz                                            
+/etc/alternatives/editor.fr.1.gz                                            
+/etc/alternatives/editor.it.1.gz                                            
+/etc/alternatives/editor.ru.1.gz                                            
+/etc/alternatives/editor.ja.1.gz                                            
+/etc/alternatives/editor.1.gz                                               
+/etc/subgid                                                                 
+/etc/skel                                                                   
+/etc/skel/.bashrc                                                           
+/etc/skel/.selected_editor                                                  
+/etc/hosts                                                                  
+/etc/gshadow                                                               
+/etc/resolv.conf                                                            
+...
+
+Some output has been omitted in the example above.

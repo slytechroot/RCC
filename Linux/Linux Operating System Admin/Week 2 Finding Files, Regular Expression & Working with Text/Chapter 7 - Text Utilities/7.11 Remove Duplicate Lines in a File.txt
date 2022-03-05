@@ -1,0 +1,14 @@
+7.11 Remove Duplicate Lines in a File
+
+The uniq command does what the unique -u option did with the sort command. Unlike the sort command, which rearranges the rows consecutively before eliminating duplicates, the uniq command will only eliminate duplicates if they are already consecutive lines. If the sort command is already being used to rearrange the duplicates into consecutive order, then why not just use the -u option to eliminate duplicates?
+
+There are a couple of reasons to use the uniq command instead of the sort -u command. First, there may be times when the lines should not be sorted first. The uniq command can simply remove lines that are currently consecutive.
+
+Second, the count -c option to the uniq command outputs the number of duplicates that were counted (a feature that the sort command lacks):
+‌⁠​​⁠​ 
+
+sysadmin@localhost:~/Documents$ cut -f7 -d: /etc/passwd | sort | uniq -c
+    3 /bin/bash
+    1 /bin/sync                                                    
+    23 /usr/sbin/nologin
+

@@ -1,0 +1,5 @@
+11.2 Process Control
+
+As mentioned in a previous chapter, running a command results in something called a process. In the Linux operating system, processes are executed with the privileges of the user who executes the command. This allows for processes to be limited to certain capabilities based upon the user identity. For example, typically a regular user cannot control another user's processes.
+
+Although there are exceptions, generally the operating system will differentiate users based upon whether they are the administrator (also called the root user) or not. Non-root users are referred to as regular users. Users who have logged into the root account can control any user processes, including stopping any user process.

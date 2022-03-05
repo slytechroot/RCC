@@ -1,0 +1,13 @@
+10.13 Step 13
+
+The pipe | symbol can also be combined with redirection. To count the number of occurrences of man in the command history, and redirect the result to the count.txt file, execute the following command:
+
+history | grep ls | wc –l > count.txt
+cat count.txt
+
+sysadmin@localhost:~$ history | grep ls | wc -l > count.txt
+sysadmin@localhost:~$ cat count.txt
+7
+
+The number of occurrences of ls in the command history may differ in our virtual environment.
+The wc command used with the -l option will print a count of lines in a file. In the command above, the grep command is piped to the wc command, so the wc command only counts lines with the ls string.

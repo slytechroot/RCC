@@ -1,0 +1,32 @@
+7.35 Step 35
+
+The sed command is a non-interactive editor that can be used to modify, insert, and delete text based on pattern matching with the specified string. The sed command combined with regular expressions gives very powerful text processing capabilities.
+
+sed [OPTION]... {SCRIPT} [FILE]...
+
+When performing a search and replace operation, the sed command will only replace the first occurrence of the search pattern by default. To replace all occurrences of the pattern, add the global modifier g after the final slash.
+
+s/PATTERN/REPLACEMENT/g
+
+To replace all occurrences of the word host with the word NAME in the /etc/hosts file globally, execute the following command:
+
+cat /etc/hosts
+sed 's/host/NAME/g' /etc/hosts
+
+sysadmin@localhost:~$ cat /etc/hosts
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+192.168.1.2     localhost
+sysadmin@localhost:~$ sed 's/host/NAME/g' /etc/hosts
+127.0.0.1       localNAME
+::1     localNAME ip6-localNAME ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+192.168.1.2     localNAME
+

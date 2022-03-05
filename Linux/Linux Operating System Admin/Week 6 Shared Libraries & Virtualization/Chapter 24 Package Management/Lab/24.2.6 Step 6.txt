@@ -1,0 +1,19 @@
+24.2.6 Step 6
+
+To install the updated versions of all available packages, execute the command below:
+
+apt-get upgrade
+
+root@localhost:~# apt-get upgrade                                               
+Reading package lists... Done                                                   
+Building dependency tree                                                        
+Reading state information... Done                                               
+Calculating upgrade... Done                                                     
+The following package was automatically installed and is no longer required:    
+  htop                                                                          
+Use 'apt autoremove' to remove it.                                              
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+root@localhost:~#
+
+Based on the previous output, zero packages were upgraded, newly installed, removed, or not upgraded. The output also recommends removing the htop package as it is no longer needed.
+

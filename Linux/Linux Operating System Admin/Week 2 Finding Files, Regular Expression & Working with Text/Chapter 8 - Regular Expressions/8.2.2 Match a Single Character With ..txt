@@ -1,0 +1,37 @@
+8.2.2 Match a Single Character With .
+
+One of the most useful matching capabilities is provided by the period . operator. It will match any character except for the new line character. The red.txt file contains a list of words:
+
+sysadmin@localhost:~/Documents$ cat red.txt
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root
+reel
+read
+
+The r..t pattern will find any line that contained the letter r followed by exactly two characters (which can be any character except a newline) and then the letter t:
+
+sysadmin@localhost:~/Documents$ grep r..t red.txt
+root
+sysadmin@localhost:~/Documents$ grep r..f red.txt
+reef
+roof
+sysadmin@localhost:~/Documents$ grep r..d red.txt
+reed
+read
+sysadmin@localhost:~/Documents$ grep r.d red.txt
+red
+rod
+
+Remember, the line does not have to be an exact match, it simply must contain the pattern, as seen here when the r..t pattern is searched for in the /etc/passwd file:
+
+sysadmin@localhost:~/Documents$ grep r..t /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+operator:x:1000:37::/root:
+

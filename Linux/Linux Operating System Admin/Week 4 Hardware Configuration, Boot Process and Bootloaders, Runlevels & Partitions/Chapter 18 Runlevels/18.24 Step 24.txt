@@ -1,0 +1,15 @@
+18.24 Step 24
+
+After the system is finished booting, log in to the system using the root account. When prompted, provide the root password:
+
+root
+netlab123
+
+CentOS release 6.10 (Final)
+Kernel 2.6.32-754.el6.x86_64 on an x86_64
+ 
+centos login: root
+Password:
+Last login: Mon Nov  3 13:45:47 on tty1
+[root@centos ~]#
+

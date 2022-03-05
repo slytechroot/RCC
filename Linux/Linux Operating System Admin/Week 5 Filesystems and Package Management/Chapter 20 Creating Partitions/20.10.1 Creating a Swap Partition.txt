@@ -1,0 +1,43 @@
+20.10.1 Creating a Swap Partition
+
+The steps to creating a swap partition are:
+
+    Create a partition with an Id of 82 using fdisk as previously described:
+
+    Command (m for help): n
+    Command Action
+       e   extended
+       p   primary partition (1-4)
+    p
+    Partition number (1-4): 3
+    First sector (20971520-21995519, default 20971520):
+    Using default value 20971520
+    Last sector, +sectors, or +size{K,M,G} (20971520-21995519, default 21995519): +100
+
+    Command (m for help): t
+    Partition number (1-6): 3
+    Hex code (type L to list codes): 82
+    Changed system type of partition 3 to 82 (Linux swap / Solaris)
+
+    Convert the partition to swap space with the mkswap command.
+
+    root@localhost:~# mkswap /dev/sda3
+    Setting up swapspace version1, size = 102396 KiB
+    no label, UUID=59aaf06e-7109-471f-88a5-e81dd7c82d76
+
+    Enable the partition as current swap space with the swapon command:
+
+    root@localhost:~# swapon /dev/sda3
+
+‌⁠​​⁠​ 
+
+The -s option to the swapon command will display currently used swap space:
+
+root@localhost:~# swapon -s
+Filename                                Type            Size    Used    Priority
+/devdm-1                                partition       1015800 0       -1
+/dev/sda3                               partition       102392  0       -2
+
+Note
+
+The swapon command only temporarily enables a swap partition. If the system is rebooted, the swap partition will still exist, but it will not be enabled as swap space. The administrator needs to either execute the swapon command again or make use of a mounting feature that is demonstrated later in the course.

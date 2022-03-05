@@ -1,0 +1,30 @@
+3.3.1 Modifying Initialization Files
+
+The way a user's shell operates can be changed by modifying that user's initialization files. Modifying global configuration requires administrative access to the system as the files under the /etc directory can only be modified by an administrator. A user can only modify the initialization files in their home directory.
+
+The best practice is to create a backup before modifying configuration files as insurance against errors; a backup can always be restored if something should go wrong. The following example references CentOS, a community-supported Linux distribution based on source code from Red Hat Enterprise Linux.
+
+In some distributions, the default ~/.bash_profile file contains the following two lines which customize the PATH environment variable:
+
+PATH=$PATH:$HOME/bin
+export PATH
+
+The first line sets the PATH variable to the existing value of the PATH variable with the addition of the bin subdirectory of the user's home directory. The $HOME variable refers to the user's home directory. For example, if the user logging in is joe, then $HOME/bin is /home/joe/bin.
+
+The second line converts the local PATH variable into an environment variable.
+
+The default ~/.bashrc file executes /etc/bashrc using a statement like:
+‌⁠​​⁠​ 
+
+./etc/bashrc
+
+The period . character used to source a file in order to execute it. The period . character also does have a synonym command, the source command, but the use of the period . character is more common than using the source command.
+
+Sourcing can be an effective way to test changes made to initialization files, enabling you to correct any errors without having to log out and log in again. If you update the ~/.bash_profile to alter the PATH variable, you could verify that your changes are correct by executing the following:
+
+. ~/.bash_profile
+echo $PATH
+
+Warning
+
+Our virtual environment is not persistent, therefore, any changes made to the configuration files will not be saved if the VM is reset.

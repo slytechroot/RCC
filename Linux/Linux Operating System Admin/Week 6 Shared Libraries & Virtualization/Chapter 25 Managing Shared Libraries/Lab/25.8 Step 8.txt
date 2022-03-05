@@ -1,0 +1,19 @@
+25.8 Step 8
+
+Display the libraries that are used by the /bin/ls command by executing the following command:
+
+ldd /bin/ls
+
+[root@localhost ~]# ldd /bin/ls                                                 
+        linux-vdso.so.1 =>  (0x00007ffdf914d000)                                
+        libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f0152080000)          
+        libcap.so.2 => /lib64/libcap.so.2 (0x00007f0151e7b000)                  
+        libacl.so.1 => /lib64/libacl.so.1 (0x00007f0151c71000)                  
+        libc.so.6 => /lib64/libc.so.6 (0x00007f01518a4000)                      
+        libpcre.so.1 => /lib64/libpcre.so.1 (0x00007f0151642000)                
+        libdl.so.2 => /lib64/libdl.so.2 (0x00007f015143d000)                    
+        /lib64/ld-linux-x86-64.so.2 (0x0000559921cf8000)                        
+        libattr.so.1 => /lib64/libattr.so.1 (0x00007f0151238000)                
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f015101c000)          
+[root@localhost ~]#
+

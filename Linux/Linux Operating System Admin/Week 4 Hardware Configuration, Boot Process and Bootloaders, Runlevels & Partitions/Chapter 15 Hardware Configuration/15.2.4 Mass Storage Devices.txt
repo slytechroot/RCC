@@ -1,0 +1,28 @@
+15.2.4 Mass Storage Devices
+
+Although Linux doesn't strictly require a mass storage device, most systems will include one or more of such devices. The most common mass storage device is the mechanical hard disk (or fixed disk). These types of disks come with a variety of interfaces or ways that they connect to the computer system.
+
+There are quite a few mass storage interfaces that are still in use today:
+
+    The Small Computer System Interface (SCSI) is one of the oldest and requires a SCSI controller in the system to control one or more disk drives that connect to it.
+
+    The Integrated Drive Electronics (IDE) or Parallel Advanced Technology Attachment (PATA) type interface includes the controller directly on each drive and was very popular for hard disks through the 1990s. This type is still used for some optical drive devices today.
+
+    The most common interface used for internal mass storage devices today is the Serial Advanced Technology Attachment (SATA) type. Each SATA drive is connected directly to the system board by a cable. To configure the primary SATA drive, connect it with a cable to the connector of the system board that is designated as the primary port.
+
+    For external drives, the Universal Serial Bus (USB) interface is the most common, but there are other standards such as FireWire and Thunderbolt.
+
+Note
+
+Data storage devices use either serial or parallel interfaces. The S in SCSI, in SATA, and in USB all stand for the word serial. That is why they appear as /dev/sda1 meaning Device Serial Drive A partition 1.
+
+The df -h command can be used to determine which type of drive is being used in a Linux based computer.
+
+sysadmin@localhost:~$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda9        58G  7.7G   49G  14% /
+tmpfs           7.9G     0  7.9G   0% /dev
+shm              64M     0   64M   0% /dev/shm
+/dev/sda9        58G  7.7G   49G  14% /etc/hosts
+
+The df command is covered in greater detail later in the course.

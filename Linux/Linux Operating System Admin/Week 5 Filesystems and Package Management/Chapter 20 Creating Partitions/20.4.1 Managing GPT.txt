@@ -1,0 +1,99 @@
+20.4.1 Managing GPT
+
+To create and manage GPT partitions from the command line, you can use the gdisk utility, also called GPT fdisk. It operates in a similar fashion to fdisk except it operates on GPT partitions and requires the device to be specified in order to work.
+
+sysadmin@localhost:~$ sudo gdisk /dev/sdb1
+GPT fdisk (gdisk) version 1.0.3
+
+Partition table scan:
+MBR: not present
+BSD: not present
+APM: not present
+GPT: not present
+
+Creating new GPT entries.
+
+Command (? for help): ?
+b	back up GPT data to a file
+c	change a partition's name
+d	delete a partition
+i	show detailed information on a partition
+l	list known partition types
+n	add a new partition
+o	create a new empty GUID partition table (GPT)
+p	print the partition table
+q	quit without saving changes
+r	recovery and transformation options (experts only)
+s	sort partitions
+t	change a partition's type code
+v	verify disk
+w	write table to disk and exit
+x	extra functionality (experts only)
+?	print this menu
+
+When you specify a blank disk, it will scan the device and report back no partition information. Typing a question mark ? character returns a list of command options available, type n to add a new partition.
+
+Command (? for help): n
+Partition number (1-128, default 1):
+First sector (34-62529502, default = 2048) or {+-}size{KMGTP}:
+Last sector (2048-62529502, default = 62529502) or {+-}size{KMGTP}:
+Current type is 'Linux filesystem'
+Hex code or GUID (L to show codes, Enter = 8300):
+Changed type of partition to 'Linux filesystem'
+
+It returns information about the new partition that was just created; you can also type p to print the partition table information.
+
+Command (? for help): p
+Disk /dev/sdb1: 62529536 sectors, 29.8 GiB
+Sector size (logical/physical): 512/512 bytes
+Disk identifier (GUID): 78F1C87E-5159-4AD8-89BA-A5F79B854835
+Partition table holds up to 128 entries
+Main partition table begins at sector 2 and ends at sector 33
+First usable sector is 34, last usable sector is 62529502
+Partitions will be aligned on 2048-sector boundaries
+Total free space is 2014 sectors (1007.0 KiB)
+
+Number Start (sector) End (sector) Size Code Name
+1 2048 62529502 29.8 GiB 8300 Linux filesystem
+
+The v command will verify the partition to ensure it is free from errors.
+
+Command (? for help): v
+
+No problems found. 2014 free sectors (1007.0 KiB) available in 1
+segments, the largest of which is 2014 (1007.0 KiB) in size.
+
+The o command allows you to create a new empty partition; it verifies that you want to delete existing partitions before proceeding.
+
+Command (? for help): o
+This option deletes all partitions and creates a new protective MBR.
+Proceed? (Y/N): y
+
+The p command again prints information about the new partition.
+
+Command (? for help): p
+Disk /dev/sdb1: 62529536 sectors, 29.8 GiB
+Sector size (logical/physical): 512/512 bytes
+Disk identifier (GUID): 4876B7C5-0ADB-4281-AA77-A3FFAEC5F2AF
+Partition table holds up to 128 entries
+Main partition table begins at sector 2 and ends at sector 33
+First usable sector is 34, last usable sector is 62529502
+Partitions will be aligned on 2048-sector boundaries
+Total free space is 62529469 sectors (29.8 GiB)
+
+Number Start (sector) End (sector) Size Code Name
+
+The w command writes the partition data to the disk and will exit. Once again, it verifies that you want to proceed with overwriting (deleting) the existing partitions.
+
+Command (? for help): w
+
+Final checks complete. About to write GPT data. THIS WILL OVERWRITE EXISTING
+PARTITIONS!!
+
+Do you want to proceed? (Y/N): y
+OK; writing new GUID partition table (GPT) to /dev/sdb1.
+Warning: The kernel is still using the old partition table.
+The new table will be used at the next reboot or after you
+run partprobe(8) or kpartx(8)
+The operation has completed successfully.
+

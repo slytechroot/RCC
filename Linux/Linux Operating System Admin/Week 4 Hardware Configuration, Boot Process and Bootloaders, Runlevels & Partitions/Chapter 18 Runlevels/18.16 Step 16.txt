@@ -1,0 +1,12 @@
+18.16 Step 16
+
+Execute the following commands to have the sshd script started only at runlevel 3 and confirm:
+
+chkconfig --level 3 sshd on
+chkconfig --list sshd
+
+[root@centos rc3.d]# chkconfig --level 3 sshd on
+[root@centos rc3.d]# chkconfig --list sshd
+sshd            0:off   1:off   2:off   3:on    4:off   5:off   6:off
+[root@centos rc3.d]#
+

@@ -1,0 +1,95 @@
+24.5.3 Listing Packages With dpkg
+
+The dpkg command can retrieve a list of the packages that are installed on the system, or list the files that are in a package. For example, to see all the packages that are currently installed on a system, execute the dpkg -l command:
+
+sysadmin@localhost:~$ dpkg -l
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name           Version      Architecture Description
++++-==============-============-============-=================================
+ii  adduser        3.113+nmu3ub all          add and remove users and groups
+ii  apt            1.0.1ubuntu2 amd64        command-line package manager
+ii  apt-file       2.5.2ubuntu1 all          search for files within Debian pa
+ii  apt-utils      1.0.1ubuntu2 amd64        package management related utilit
+ii  apt-xapian-ind 0.45ubuntu4  all          maintenance and search tools for
+...
+
+The output of the dpkg -l command contains five pieces of information:
+
+    The first two pieces of this information are represented by a two-letter code:
+
+        The first letter reflects the desired status of the package, which can be i for installed, u for unknown, r for remove or h for hold.
+
+        The second letter represents the actual status of the package, where i means installed, and n means not installed.
+
+        The most common two-letter codes are ii for fully installed and un for not installed.
+
+    The remaining columns show the package name, version (combined with the release), the architecture, and the description of the package if it is available.
+
+The dpkg -l PACKAGE-NAME-PATTERN command can also be used to list packages based on a glob pattern. For example, to view all packages that might contain perl in the package name, use the dpkg -l "*perl*" command.
+
+sysadmin@localhost:~$ dpkg -l "*perl*"
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name           Version      Architecture Description
++++-==============-============-============-=================================
+un  dh-make-perl   <none>       <none>       (no description available)
+un  libalien-wxwid <none>       <none>       (no description available)
+un  libansicolor-p <none>       <none>       (no description available)
+un  libanyevent-pe <none>       <none>       (no description available)
+un  libarchive-tar <none>       <none>       (no description available)
+un  libattribute-h <none>       <none>       (no description available)
+un  libautodie-per <none>       <none>       (no description available)
+un  libcommon-sens <none>       <none>       (no description available)
+un  libcompress-ra <none>       <none>       (no description available)
+un  libcompress-ra <none>       <none>       (no description available)
+un  libcompress-zl <none>       <none>       (no description available)
+un  libcpan-meta-p <none>       <none>       (no description available)
+un  libcpan-meta-r <none>       <none>       (no description available)
+un  libcpan-meta-y <none>       <none>       (no description available)
+un  libdigest-md5- <none>       <none>       (no description available)
+un  libdigest-perl <none>       <none>       (no description available)
+un  libdigest-sha- <none>       <none>       (no description available)
+Output Omitted...
+
+Using the -L option with dpkg will list the files that a package contains. For example, to view the files that are a part of the package named perl, execute the dpkg -L perl command.
+
+sysadmin@localhost:~$ dpkg -L perl
+/.
+/etc
+/etc/perl
+/etc/perl/CPAN
+/etc/perl/Net
+/etc/perl/Net/libnet.cfg
+/usr
+/usr/bin
+/usr/bin/corelist
+/usr/bin/cpan
+/usr/bin/enc2xs
+/usr/bin/encguess
+/usr/bin/h2ph
+/usr/bin/h2xs
+/usr/bin/instmodsh
+/usr/bin/json_pp
+/usr/bin/libnetcfg
+/usr/bin/perlbug
+/usr/bin/perldoc
+Output Omitted...
+
+Incidentally, if you know the pathname for a file, then it is possible to determine which package was responsible for providing that file by using the -S option with the dpkg command. For instance, to discover the package that provided the /usr/bin/perldoc file, execute the dpkg -S /usr/bin/perldoc command.
+
+sysadmin@localhost:~$ dpkg -S /usr/bin/perldoc
+perl: /usr/bin/perldoc
+
+By using the dpkg command with the -s option and a package name, the following package information will be displayed:
+
+    Status (including whether the package is installed)
+    Size
+    Organization that maintains the package
+    Dependencies
+    Description
+
+Try executing dpkg -s perl in the terminal for yourself. It should be noted that all of the example outputs presented above were shortened for the sake of brevity. Feel free to try any of these examples in the terminal as well, in order to see their full outputs.
+

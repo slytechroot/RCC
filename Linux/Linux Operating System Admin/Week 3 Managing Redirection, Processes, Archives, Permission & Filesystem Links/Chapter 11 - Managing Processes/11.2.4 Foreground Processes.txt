@@ -1,0 +1,7 @@
+11.2.4 Foreground Processes
+
+So far, the commands that have been presented in this course have been executing in what is known as the foreground. For simple commands that run quickly and then exit, using foreground execution is appropriate. A foreground process is one that prevents the user from using the shell until the process is complete.
+
+When one process starts another, the first process is referred to as the parent process, and the new process is called a child process. So, another way of thinking of a foreground process is that when running in the foreground, a child process doesn't allow any further commands to be executed in the parent process until the child process ends.
+
+You do not need to add anything to a command in order to make that command execute in the foreground, as that is the default behavior.

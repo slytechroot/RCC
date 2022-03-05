@@ -1,0 +1,21 @@
+24.1.1 Step 1
+
+Log in to the system and switch to the root account. When prompted, provide the root password. Next, use the cd command to change to the root level of the filesystem.
+
+su
+netlab123
+cd /
+
+This lab has two user accounts (username :: password )                          
+                                                                                
+   root     :: netlab123                                                       
+   sysadmin :: netlab123                                                        
+                                                                                
+Press the [Enter] key to begin...                                               
+                                                                                
+                                                                                
+[sysadmin@localhost ~]$ su                                                      
+Password:                                                                       
+[root@localhost sysadmin]# cd / 
+[root@localhost /]#
+

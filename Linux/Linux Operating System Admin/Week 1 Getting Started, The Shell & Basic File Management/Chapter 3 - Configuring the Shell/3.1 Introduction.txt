@@ -1,0 +1,7 @@
+3.1 Introduction
+
+One key component of the Bash shell is shell variables. These variables are critical because they store vital system information and modify the behavior of the Bash shell, as well as many commands. This chapter will discuss in detail what shell variables are and how they can be used to configure the shell.
+
+You will learn how the PATH variable affects how commands are executed and how other variables affect your ability to use the history of your commands. You will also see how to use initialization files to make shell variables persistent, so they will be created each time you log into the system.
+
+Additionally, this chapter will cover how to use the command history and the files that are used to store and configure the command history.

@@ -1,0 +1,13 @@
+7.19 Step 19
+
+To view the last 5 lines of the output of the ls –ltr command, execute the following command:
+
+ls –ltr /etc | tail –n 5
+
+sysadmin@localhost:~$ ls -ltr /etc | tail -n 5
+-rw-r--r-- 1 root root    3611 Jul  3 14:42 mailcap
+lrwxrwxrwx 1 root root      12 Apr 12 16:01 mtab -> /proc/mounts
+-rw-r--r-- 1 root root     172 Apr 12 16:01 hosts
+-rw-r--r-- 1 root root      10 Apr 12 16:01 hostname
+-rw-r--r-- 1 root root      38 Apr 12 16:01 resolv.conf
+

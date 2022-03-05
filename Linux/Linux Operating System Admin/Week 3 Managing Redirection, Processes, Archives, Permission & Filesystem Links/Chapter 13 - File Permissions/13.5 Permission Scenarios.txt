@@ -1,0 +1,18 @@
+13.5 Permission Scenarios
+
+Before discussing changing or setting permissions, a solid understanding of how permissions really work is required. Many beginning Linux users get hung up on the short descriptions of read, write, and execute, but these words don't really define what a user can do with a file or directory.
+
+To understand how permissions behave, several scenarios will be presented. While you review these scenarios, keep in mind the following descriptions of how each permission behaves:
+Permission 		Effect of File 	Effect on Directory
+read 	r 	Allows processes to read the contents of the file, meaning the contents can be viewed and copied. 	File names in the directory can be listed, but other details are not available.
+write 	w 	Allows for contents to be written to by the process, so changes to a file can be saved. Note that the w permission really requires the r permission on the file to work correctly. 	Files can be added to or removed from the directory. Note that w permission requires x permission on the directory to work correctly.
+execute 	x 	Allows for a file to be executed or run as a process. 	Allows for the user to use the cd command to "get into" the directory and use the directory in a pathname to access files and, potentially, subdirectories under this directory.
+
+For each scenario below, an example is provided to describe the directory hierarchy. In this example, key permission information is provided for each file and directory. For example, consider the following:
+
+drwxr-xr-x 1 root root 4096 Apr 23 21:08 /
+drwxr-xr-x 1 root root 4096 Apr 23 21:08 /etc
+-rw-r--r-- 1 root root 1455 Apr 17 22:31 /etc/passwd
+
+The first line describes the / directory. The permissions are rwxr-xr-x, the user owner is root and the group owner is root. The second line describes the etc directory, which is a subdirectory under the / directory. The third line describes the passwd file, which is a file under the etc directory.
+

@@ -1,0 +1,10 @@
+13.43 Step 43
+
+Execute the following command to switch to the root account. When prompted, provide the root password:
+
+su – root
+netlab123
+
+sysadmin@localhost:~$ su - root
+Password:
+root@localhost:~#

@@ -1,0 +1,13 @@
+18.38 Step 38
+
+While Ubuntu mostly uses Upstart, there are a few traditional init scripts that you can see in the /etc/init.ddirectory:
+
+1s /etc/init.d
+
+root@ubuntu:~# ls /etc/init.d
+apparmor           grub-common       kmod           plymouth     quotarpc udev
+console-setup.sh  hwclock.sh         lvm2           plymouth-log rsync    ufw
+cron              irqbalance         lvm2-lvmetad   procps       rsyslog  uuid
+dbus              keyboard-setup.sh  lvm2-lvmpolld  quota        ssh
+
+Most of these init scripts are for backward compatibility for older services. An example would be the ssh service functionality even though it is configured as an Upstart service.

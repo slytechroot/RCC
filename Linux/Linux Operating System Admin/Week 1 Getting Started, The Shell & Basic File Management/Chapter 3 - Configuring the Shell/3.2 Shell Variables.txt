@@ -1,0 +1,19 @@
+3.2 Shell Variables
+
+A variable is a name or identifier that can be assigned a value. The shell and other commands read the values of these variables, which can result in altered behavior depending on the contents (value) of the variable.
+
+Variables typically hold a single value, like 0 or bob. Some may contain multiple values separated by spaces like Joe Brown or by other characters, such as colons; /usr/bin:/usr/sbin:/bin:/usr/bin:/home/joe/bin.
+
+You assign a value to a variable by typing the name of the variable immediately followed by the equal sign = character and then the value. For example:
+
+name="Bob Smith"
+
+Variable names should start with a letter (alpha character) or underscore and contain only letters, numbers and the underscore character. It is important to remember that variable names are case sensitive; a and A are different variables. Just as with arguments to commands, single or double quotes should be used when special characters are included in the value assigned to the variable to prevent shell expansion.
+
+Valid Variable Assignments 	Invalid Variable Assignments
+a=1 	1=a
+_1=a 	a-1=3
+LONG_VARIABLE='OK' 	LONG-VARIABLE='WRONG'
+Name='Jose Romero' 	'user name'=anything
+
+The Bash shell and many commands make extensive use of variables. One of the main uses of variables is to provide a means to configure various preferences for each user. The Bash shell and commands can behave in different ways, based on the value of variables. For the shell, variables can affect what the prompt displays, the directories the shell will search for commands to execute and much more.

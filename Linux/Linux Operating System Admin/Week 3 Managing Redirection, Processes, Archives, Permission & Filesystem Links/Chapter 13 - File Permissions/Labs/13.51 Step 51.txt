@@ -1,0 +1,14 @@
+13.51 Step 51
+
+Execute the following commands to change the umask to 002 and verify that this results in all new directories having the permission set of rwxrwxr-x:
+
+umask 002
+mkdir mydir2
+ls -ld mydir2
+
+sysadmin@localhost:~$ umask 002
+sysadmin@localhost:~$ mkdir mydir2
+sysadmin@localhost:~$ ls -ld mydir2
+drwxrwxr-x 2 sysadmin sysadmin 4096 Apr 18 20:25 mydir2
+
+Recall that umask values, when set in the shell, are not permanent. To make a umask that will apply to every shell that you open, add the umask command line to your ~/.bashrc file.

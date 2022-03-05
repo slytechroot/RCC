@@ -1,0 +1,21 @@
+16.3 Bootloader Stage
+
+The Master Boot Record contains a partition table and a very small amount of executable code called the first stage bootloader whose purpose is to load the more feature-rich second stage bootloader. The bootloader will perform several operations, but the primary task is to load the Linux kernel into memory and execute it.
+
+If a bootloader is able to fit entirely into the first 512 bytes of the Master Boot Record and to start the operating system with this limited amount of code, it is considered a single stage bootloader. A second stage is necessary when the code needed to initialize the system properly and start the operating system does not fit in the MBR. In this case, the first stage bootloader is there to point to the second stage bootloader, which can be larger and will be the bootloader that actually starts the operating system. Once that has occurred, the kernel takes over booting the system.
+
+The most common bootloader used on machines is the Grand Unified Bootloader (GRUB). The latest version of GRUB supports booting Linux from a system using UEFI, interactive editing of the menu during bootup, and much more.
+
+UEFI systems give the firmware stage a lot more memory and capabilities so that it can handle much larger and more complicated hardware.
+
+Consider This
+
+Outside of the IBM PC compatible architectures, there are additional bootloaders that are used. For Linux systems to boot on Sparc hardware, there is Sparc Improved bootLOader (SILO), and for PowerPC hardware, there is Yet Another BOOTloader (YABOOT).
+
+‌⁠​​⁠​ It is also possible to boot off the network through the Preboot Execution Environment (PXE). In the PXE system, a compatible motherboard and network card contain enough intelligence to acquire an address from the network and use the Trivial File Transfer Protocol (TFTP) to download a special bootloader from a server.
+
+As the bootloader is just some software that gets a kernel to run, it is possible to boot multiple operating systems at different times off of one computer in a process known as dual or multi-booting. The kernel that the bootloader is trying to run could be a Linux kernel, it could be a Microsoft Windows image, or it could be a bootable CD.
+
+The bootloader can also pass parameters to the kernel, such as to boot into a maintenance mode or to enable or disable certain hardware. This is done by manipulating the bootloader configuration. GRUB provides a reasonably powerful command line interface that lets an administrator make changes to the kernel before it boots without requiring that the configuration be written to disk.
+
+The bootloader then loads the kernel from disk into memory and transfers control over. The system is now running Linux and may finish booting.

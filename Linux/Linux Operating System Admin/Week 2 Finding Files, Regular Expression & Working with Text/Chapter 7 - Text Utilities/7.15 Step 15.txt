@@ -1,0 +1,13 @@
+7.15 Step 15
+
+To view the first 5 lines of the /usr/share/dict/words file, execute the following command:
+
+head –n 5 /usr/share/dict/words
+
+sysadmin@localhost:~$ head -n 5 /usr/share/dict/words
+A
+A's
+AMD
+AMD's
+AOL
+

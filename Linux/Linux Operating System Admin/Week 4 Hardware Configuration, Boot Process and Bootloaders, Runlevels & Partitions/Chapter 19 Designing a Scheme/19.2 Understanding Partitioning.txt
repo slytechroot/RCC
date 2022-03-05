@@ -1,0 +1,14 @@
+19.2 Understanding Partitioning
+
+For many people who are new to Linux, the concept of partitioning may be foreign because desktop operating systems like Microsoft's Windows and Mac OS X don't normally expose users to complex partitioning schemes. Before learning how to partition, it is important to understand what partitioning is and the purpose behind partitioning, as well as terminology related to partitioning.
+
+Partitioning is necessary in order to optimally use the space that hard drives (hard disks) provide. A new hard drive is like a completely empty building, with no internal walls or floors. As it is, such a building wouldn't be useful, but populating the building with walls and floors would provide the structure needed to make use of the building.
+
+There are three steps in the process of making and using partitions:
+
+    Divide the hard drive into partitions.
+    Create and format filesystems inside the partitions.
+    Mount the filesystem into the directory tree.
+
+This chapter will focus on defining partitions, filesystems, and mounting. The following chapters will focus on the steps to perform these tasks on a Linux system.
+

@@ -1,0 +1,50 @@
+8.2.3 Match a Single Character With [ ]
+
+The list [ ] operator works in regular expressions similar to how they work in glob expressions; they match a single character from the list or range of possible characters contained within the brackets.
+
+For example, given the profile.txt file:
+
+sysadmin@localhost:~/Documents$ cat profile.txt
+Hello my name is Joe.
+I am 37 years old.
+3121991
+My favorite food is avocados.
+I have 2 dogs.
+123456789101112
+
+To find all the lines in the profile.txt file that have a number in them, use either the [0123456789] or [0-9] pattern:
+
+sysadmin@localhost:~/Documents$ cat profile.txt | grep [0-9]
+I am 37 years old.
+3121991
+I have 2 dogs.
+123456789101112
+
+Note
+
+In the last example, the pipe | character is used to send the output of one command to another. Some of the following examples use the cat command to send the contents of a file to the grep command.
+
+As explained later in this chapter, the pipe | character can also be used as an alternation operator within an extended regular expression. This should not be confused with the use of pipes in output chains, such as the cat | grep examples.
+
+Pipes will be covered in greater detail later in the course.
+
+To find all the lines which contain any non-numeric characters, insert the negation ^ operator as the first character inside the brackets. This negates the characters listed:
+
+sysadmin@localhost:~/Documents$ cat profile.txt | grep [^0-9]
+Hello my name is Joe.
+I am 37 years old.
+My favorite food is avocados.
+I have 2 dogs.
+
+Note
+
+Do not mistake [^0-9] to match lines which do not contain numbers. It actually matches lines which contain non-number characters. Look at the original file to see the difference. The third and sixth lines only contain numbers, they do not contain non-numbers, so those lines do not match.
+
+When other regular expression operators are placed inside of the list [ ] operators, they are treated as literal characters. For example, the . character normally matches any one character, but when placed inside the square brackets, then it will just match the . character itself. In the example, only lines which contain the literal . character are matched.
+
+sysadmin@localhost:~/Documents$ cat profile.txt | grep [.]
+Hello my name is Joe.
+I am 37 years old.
+My favorite food is avocados.
+I have 2 dogs.
+

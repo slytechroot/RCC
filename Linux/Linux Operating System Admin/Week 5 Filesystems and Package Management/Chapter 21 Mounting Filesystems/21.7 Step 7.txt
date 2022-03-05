@@ -1,0 +1,15 @@
+21.7 Step 7
+
+At the Select prompt, type the e command to specify that you are going to create an extended partition. This will allow you to create more partitions, called logical partitions, within the extended partition:
+
+e
+
+Command (m for help): n
+Partition type:
+    p    primary (2 primary, 0 extended, 2 free)
+    e    extended
+Select (default p): e
+Partition number (1-4, default 1):
+
+Recall that you can have up to 4 primary partitions. One of those can be an extended partition. Within the extended partition, you can create more partitions called logical partitions. It is critical to understand this because if you use all 4 primary partitions on a hard disk, then you will be unable to create any more partitions, even if there is unpartitioned space available on the hard disk.
+

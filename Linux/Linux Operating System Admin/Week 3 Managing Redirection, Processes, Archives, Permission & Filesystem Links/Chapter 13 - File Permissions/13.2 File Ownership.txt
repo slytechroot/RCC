@@ -1,0 +1,14 @@
+13.2 File Ownership
+
+By default, users own the files that they create. While this ownership can be changed, this function requires administrative privileges. Although most commands usually show the user owner as a name, the operating system is associating the user ownership with the UID for that username.
+
+Every file also has a group owner. By default, the primary group of the user who creates the file is the group owner of any new files. Users are allowed to change the group owner of files they own to any group that they belong to. Similar to user ownership, the association of a file with a group is not done internally by the operating system by name, but by the GID of the group.
+
+The id command can be useful for verifying which user account you are using and which groups you have available to use. By viewing the output of this command, you can see the user's identity information expressed both as a number and as a name.
+
+The output of the id command displays the UID and user account name of the current user followed by the GID and group name of the primary group and the GIDs and group names of all group memberships:
+
+sysadmin@localhost:~/Documents$ id
+uid=1001(sysadmin) gid=1001(sysadmin) groups=1001(sysadmin),4(adm),27(sudo)  
+
+The above example shows that the user has a UID of 1001 for the sysadmin user account. It also shows that the primary group for this user has a GID of 1001 for the sysadmin group. In addition, the user in this example belongs to two supplemental groups: the adm group with a GID of 4, and the sudo group with a GID of 27.

@@ -1,0 +1,11 @@
+24.6 Verifying Files with Checksums
+
+Countless files are available on the internet. From installation ISO files and application programs, to utilities that aid in managing users and systems, the world of open source computing provides an almost endless selection of useful code and executables.
+
+Early on, it was recognized that verifying the integrity of files was critical for users, administrators, and programmers that wanted to transfer data over computer networks. Systems connected by modems and telephone lines were subject to frequent transmission errors. More recent threats include hackers attempting to replace genuine software with malware versions.
+
+A checksum is a small piece of complementary data used to verify the integrity of a file (for example, F1). The file’s creator generates a checksum by applying a cryptographic hashing algorithm to the file’s contents. The resulting checksum (C1) is irreversible and highly unique. The creator can now confidently share the file (F1) and the checksum (C1) with others. Recipients who obtain a copy of the file (F2) can verify integrity by repeating the same hashing algorithm on the copy (F2), producing a new checksum (C2). If the two checksums match (C2 = C1), the recipient can be confident that their copy of the file is identical to the original (F2 = F1). If the checksums do not match, the copied file (F2) is corrupted and untrustworthy.
+
+Consider This
+
+A checksum verifies the integrity of the downloaded file, but does not verify the authenticity of the sender. If you trust a file and checksum received from a bad actor, you can still receive malware or tampered data even if the checksum validation process passes. To solve this problem, some type of public key authentication is typically added to the file exchange process to verify the authenticity of the sender as well.

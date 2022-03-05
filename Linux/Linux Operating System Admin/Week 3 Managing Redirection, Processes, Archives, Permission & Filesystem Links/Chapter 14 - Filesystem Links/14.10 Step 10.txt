@@ -1,0 +1,14 @@
+14.10 Step 10
+
+Note that the hard linked files are identical, besides their names. If you add another hard link, the hard link count increases. Execute the following commands for an example:
+
+ln hcrontab newcrontab
+ls -l
+
+[root@localhost test]# ln hcrontab newcrontab                                   
+[root@localhost test]# ls -l                                                    
+total 12                                                                        
+-rw-r--r-- 3 root root 451 Apr 19 17:21 crontab                                 
+-rw-r--r-- 3 root root 451 Apr 19 17:21 hcrontab                                
+-rw-r--r-- 3 root root 451 Apr 19 17:21 newcrontab
+

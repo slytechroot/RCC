@@ -1,0 +1,16 @@
+20.3.5 Saving Changes
+
+If the changes that have been made to the in-memory partition table are correct, commit changes to disk with w, followed by Enter. The fdisk utility will write the in-memory changes to the actual MBR and exit. However, it is also possible to quit the fdisk utility without making any changes to the disk by using the q command.
+
+Note the following possible error after saving changes:
+
+The partition table has been altered!
+
+Calling iotctl() to re-read partition table.
+
+WARNING: Re-reading the partition table failed with error 16: Device or resource busy.
+The kernel still uses the old table. The table will be used at the next reboot or after you run partprobe(8) or kpartx(8)
+Syncing disks.
+
+This error is the result of the kernel being unable to read the new partition table into memory from the MBR, something that the ioctl() function is responsible for. As mentioned in the output of this error, the partprobe or kpartx command can be executed to fix this issue if these commands are installed on the system. If not, then the system will need to be rebooted before the new partitions can be used.
+

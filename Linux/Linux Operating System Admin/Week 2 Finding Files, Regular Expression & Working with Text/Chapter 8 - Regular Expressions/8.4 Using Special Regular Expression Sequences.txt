@@ -1,0 +1,71 @@
+8.4 Using Special Regular Expression Sequences
+
+In basic regular expressions putting a backslash \ character in front of another character means to match that character literally. For example, matching the . character with the \. pattern is appropriate.
+
+However, the backslash \ character can also be used for designated backslash character combinations, called backslash sequences. Backslash sequences can represent special operators or character classes, as illustrated in the following chart.
+
+A character class represents a range of characters. The digit character class (abbreviated \d) matches any number [0-9]. The word character class (abbreviated \w) matches any upper and lowercase ASCII character, and numeric digits [A-Za-z0-9]. More character classes will be introduced in the extended regular expressions section.
+Backslash Sequence 	Pattern Equivalent 	Matches
+\b 		Word boundary operator
+\B 		Not a word boundary operator
+\w 	[A-Za-z0-9] 	Word character class
+\W 	[^A-Za-z0-9] 	Not a word character class
+\d 	[0-9] 	Digit character class
+\s 		Whitespace character class
+\S 		Not a whitespace character class
+\\ 		Literal backslash character
+
+To demonstrate this concept, take into consideration that words in files don't always have whitespace around them, sometimes there are commas or other punctuation marks before or after a word. The \b operator can help identify the edges of words that don't have whitespace around them. Problems like the following may occur if the word boundary operator is not used:
+
+sysadmin@localhost:~/Documents$ echo 'This is useful' | sed 's/is/was/'
+Thwas is useful
+
+Note
+
+Recall that to do a simple search and replace operation with the sed command, use the following script, or expression:
+
+s/PATTERN/REPLACEMENT/
+
+In the syntax above, the s character signifies substitution and the forward slash / character is used as a delimiter.
+
+Notice that the sed command searched its input for is and replaced it with was. It didn't limit its replacement to the is that was a separate word, it also affected part of the word This replacing it with Thwas.
+
+It would be better to use the \bis\b search criteria (the is pattern with word boundaries around it) to match the word is:
+
+sysadmin@localhost:~/Documents$ echo 'This is useful' | sed 's/\bis\b/was/'
+This was useful
+
+To delete certain text, the sed command can be used to remove characters defined within square brackets.
+
+For example, if you wanted to delete the leading numbers in the animals.txt file and create a new file without the numbers, you could use the sed command and define the range 0-9 to be removed:
+
+sysadmin@localhost:~/Documents$ cat animals.txt
+1 retriever
+2 badger
+3 bat
+4 wolf
+5 eagle
+sysadmin@localhost:~/Documents$ sed 's/[0-9]//g' animals.txt > newanimals.txt
+sysadmin@localhost:~/Documents$ cat newanimals.txt
+ retriever
+ badger
+ bat
+ wolf
+ eagle
+
+Consider This
+
+In some commands, parentheses can be used for referring back to what was matched. What was matched by the first set of parentheses can be referred to as \1, the second as \2, and so on. For example, if you had a file that contained a list of people with their first name and then their last name, you could reverse the names with a comma between them with the following sed command:
+
+sysadmin@localhost:~/Documents$ cat people.csv
+Dennis,Richie
+Andrew,Tanenbaum
+Ken,Thompson
+Linus,Torvalds
+sysadmin@localhost:~/Documents$ sed -r 's/(\w+),(\w+)/\2, \1/' people.csv
+Richie, Dennis
+Tanenbaum, Andrew
+Thompson, Ken
+Torvalds, Linus
+
+The -r option to the sed command indicates the use of extended regular expressions.

@@ -1,0 +1,20 @@
+6.7 Step 7
+
+To find all empty files in your home directory, execute the following commands:
+
+touch sample
+find ~/ -empty 2>/dev/null
+
+sysadmin@localhost:~$ touch sample        
+sysadmin@localhost:~$ find ~/ -empty 2>/dev/null                            
+/home/sysadmin/Videos                                                       
+/home/sysadmin/Documents/Work/.emptydir                                     
+/home/sysadmin/Templates                                                    
+/home/sysadmin/Music                                                        
+/home/sysadmin/Pictures                                                     
+/home/sysadmin/Public                                                      
+/home/sysadmin/Downloads                                                    
+/home/sysadmin/Desktop                                                      
+/home/sysadmin/sample                                                      
+/home/sysadmin/.cache/motd.legal-displayed
+

@@ -1,0 +1,74 @@
+18.7 Runlevel Directories
+
+Even though it is possible to start up services manually, most services are automatically started up by whatever init process the system uses.
+
+With the traditional init process, specific directories are used to manage which services will be automatically started or stopped at different runlevels. In many Linux distributions, these directories all exist within the /etc directory and have the following path names:
+
+    rc0.d
+    rc1.d
+    rc2.d
+    rc3.d
+    rc4.d
+    rc5.d
+    rc6.d
+
+The number in the directory name represents the runlevel that it manages; for example, rc0.d is for runlevel 0 and rc1.d is for runlevel 1. To demonstrate, the directories that are used to manage which services will be automatically started or stopped at different runlevels in our VM can be found in the /etc directory. To display these directories, execute the following command:
+
+sysadmin@localhost:~$ cd /etc
+sysadmin@localhost:/etc$ ls -d rc*
+rc0.d  rc1.d  rc2.d  rc3.d  rc4.d  rc5.d  rc6.d  rcS.d
+
+To have a service started in a runlevel, a symbolic link to the init script in the /etc/rc.d/init.d directory can be created in the appropriate runlevel directory. This link name must start with the letter S, followed by a number from one to ninety-nine, and the name of the init script that it is linked to.
+
+sysadmin@localhost:/etc$ cd rc2.d
+sysadmin@localhost:/etc/rc2.d$ ls
+S01bind9             S01cron  S01irqbalance  S01rsync    S01ssh
+S01console-setup.sh  S01dbus  S01plymouth    S01rsyslog  S01uuidd
+sysadmin@localhost:/etc/rc2.d$ cd
+
+For example, when the web server is set to start on a Linux system in runlevel 5, there is a symbolic link in the /etc/rc.d/rc5.d directory named S85httpd that is linked to the /etc/rc.d/init.d/httpd script:
+
+Note
+
+The following examples represent a system that is different from the virtual machine in this module. The examples may not match the output in our virtual environment.
+
+[root@localhost ~]# ls -l /etc/rc.d/rc5.d/S85httpd
+lrwxrwxrwx 1 root root 19 Jun 27 16:53 /etc/rc.d/rc5.d/S85httpd ->
+../init.d/httpd
+
+To manually create this link, you would execute the following command:
+
+[root@localhost ~]# ln -s /etc/rc.d/init.d/httpd /etc/rc.d/rc5.d/S85httpd
+
+Just as the S file links in a runlevel directory will indicate that a service is supposed to be started, the K file links in a runlevel directory will indicate that a service is supposed to be stopped (killed).
+
+Using the web server as an example again; to have the web server stopped at runlevel 5, create a symbolic link in the /etc/rc.d/rc5.d directory that would start with the letter K, followed by a number from one to ninety-nine, and the name of the init script that it is linked to:
+
+[root@localhost ~]# ls -l /etc/rc.d/rc5.d/K15httpd
+lrwxrwxrwx 1 root root 19 Jun 27 16:53 /etc/rc.d/rc5.d/K15httpd -> ../init.d/httpd
+
+If the link was manually created, the start link would have to be removed before the stop link could be created:
+
+[root@localhost ~]# rm /etc/rc.d/rc5.d/S85httpd
+[root@localhost ~]# ln -s /etc/rc.d/init.d/httpd /etc/rc.d/rc5.d/K15httpd
+
+Consider This
+
+The K scripts sometimes confuse beginning administrators. They often wonder, "Why should I stop a service when the system is brought to a runlevel?" This confusion typically stems from the thought that runlevels are only a "boot thing", but as previously mentioned, an administrator can change the system from one runlevel to another.
+
+Imagine the httpd service as available at runlevel 5, but not at runlevel 3. When the system is taken from runlevel 5 to runlevel 3, then the httpd service should be stopped. Hence the K scripts.
+
+But what if the service isn't running when the K script is called? In that case, the K script is written in such a way to realize this and do nothing.
+
+The reason that both start and stop links have a number after the letter S or K is to ensure that services are started or stopped in the correct sequence. The scripts are started (or stopped) in order, so K15httpd would be executed before K35vncserver.
+
+If services are not started or stopped in the correct order, then they may not work properly because some services depend on other services to work. For example, in order for a web server to work the way it should, the network service must already be running. Giving the network service a lower starting number than the web server means init will start the network service before it tries to start the web service.
+
+So, what number is supposed to be provided to a specific script for S and K? Look at the script itself for the line that contains chkconfig:
+
+[root@localhost ~]# grep chkconfig /etc/init.d/httpd
+# chkconfig: - 85 15
+
+The second to last number 85 of the chkconfig line is the S number to place on this script, the last number 15 is the K number.
+
+In reality, the days of having to manage symbolic links manually in the different runlevel directories have long been gone. Today there are numerous command line and graphical tools for managing these symbolic links.

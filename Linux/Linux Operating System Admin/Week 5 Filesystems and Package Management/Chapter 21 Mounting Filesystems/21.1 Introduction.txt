@@ -1,0 +1,13 @@
+
+21.1 Introduction
+
+Linux treats almost everything as a file, which makes the job that the filesystem performs particularly important. The filesystem is a tree-like structure, with directories containing sub-directories and files. Unlike other operating systems you may be familiar with, the logical directory structure of Linux can span multiple disks and partitions, organized under a single root directory. Instead of manipulating drive letters, the administrator grafts, or mounts, new partitions, each with their own filesystem, on top of existing directories to give the illusion of a single, large, drive.
+
+Recall the three steps in the process of making and using filesystems:
+
+    Divide the hard drive into partitions.
+    Format each partition with a filesystem.
+    Mount the formatted partitions onto the directory tree of an existing filesystem.
+
+This chapter will focus on the final step of mounting the formatted partition.
+

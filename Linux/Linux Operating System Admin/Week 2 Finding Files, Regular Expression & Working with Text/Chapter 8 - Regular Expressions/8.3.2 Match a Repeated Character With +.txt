@@ -1,0 +1,24 @@
+8.3.2 Match a Repeated Character With +
+
+Another solution to the problems of using the asterisk * operator is to use the extended regex plus + operator, instead. This matches at least one of the previous characters, instead of zero, so it is much more selective. For example, the e+ pattern would only match if the text contained one or more e characters, yielding the same results as the previously used ee* pattern:
+
+sysadmin@localhost:~/Documents$ cat red.txt | grep -E 'e+'
+red
+reef
+reeed
+reed
+reel
+read
+sysadmin@localhost:~/Documents$ cat red.txt | grep -E 're+d'
+red
+reed
+reed
+
+In the example below, grouping is used in conjunction with the + operator to match the recurring iss subpattern:
+
+sysadmin@localhost:~/Documents$ echo 'Miss Mississippi missed her mister.' | grep -E '(iss)+'
+Miss Mississippi missed her mister.
+
+Pattern 	Meaning
+xyz+ 	Matches the xy string followed by one or more of the z character
+(xyz)+ 	Matches one or more copies of the xyz string

@@ -1,0 +1,7 @@
+13.4 Step 4
+
+Create a file in the /srv directory by executing the following command:
+
+echo "learning about permissions" > /srv/lab.txt
+
+root@localhost:~# echo "learning about permissions" > /srv/lab.txt

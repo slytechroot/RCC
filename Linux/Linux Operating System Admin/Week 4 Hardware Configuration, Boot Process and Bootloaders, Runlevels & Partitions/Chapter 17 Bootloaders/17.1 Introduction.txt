@@ -1,0 +1,25 @@
+
+17.1 Introduction
+
+The boot process for a computer goes through several distinct steps, starting from no power being applied and completing with a fully-running operating system. The bootloader is a critical part of the system startup process, essentially taking the computer from its reading of firmware for a boot device, to the point at which control is transferred to the system initialization scheme for the operating system that is chosen to run the computer.
+
+The two bootloaders most commonly used with Linux are the Grand Unified Bootloader (GRUB), or the Grand Unified Bootloader 2 (GRUB 2), though the latter is the one that is used most often. Previously, the Linux Loader (LILO) was the one most implemented, but it has fallen out of wide usage and is present mostly on older or legacy systems.
+
+Consider This
+
+LILO was the first major bootloader to be used for running Linux on Intel PCs. Though a simple program, LILO is still capable of multi-booting between different operating systems. The way LILO works is that rather than analyzing the filesystems that may contain the kernel image, LILO stores this information when it installs itself. As such, LILO doesn’t need to know about the underlying filesystem. However, as configuration changes are made, LILO needs to be manually updated with the new information.
+
+GRUB is a GNU project with the goal of making a bootloader that can boot many different kernels on a variety of systems. GRUB can read filesystems and dynamically learn about the hardware. An administrator can boot into GRUB, query the disks, then discover and boot a kernel image. Also, rather than replacing the bootloader installation on disk each time a configuration change is made, the bootloader automatically reads configuration files.
+
+As a dynamic bootloader, GRUB also offers a command line interface that can override the settings from the configuration file. The most typical use of this is to boot into a rescue mode by passing extra kernel parameters or to specify limitations such as those used for memory troubleshooting.
+
+When a distribution is installed, a bootloader is usually installed automatically, reflecting the hardware particulars for the system. In most cases, the default bootloader will be either GRUB Legacy (version 0-0.9) or GRUB 2. Typical customizations at the point of install are to add extra operating systems for multi-booting, changes to go along with kernel upgrades, and booting into maintenance mode.
+
+Consider This
+
+A major difference between GRUB/GRUB2 and LILO is that the LILO bootloader needs to be updated after changes are made to configuration files.
+
+Note
+
+In addition, please note that other hardware platforms have their own bootloaders, but they are not within the scope of the LPIC-1 exam.
+

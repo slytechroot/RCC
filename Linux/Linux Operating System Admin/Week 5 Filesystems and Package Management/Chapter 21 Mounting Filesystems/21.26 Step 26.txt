@@ -1,0 +1,13 @@
+21.26 Step 26
+
+To create additional swap space, you either need to create a new partition or a new, large file. In the first example, you will create a swap partition. Start by using the fdisk command as shown:
+
+fdisk /dev/sdb
+
+root@ubuntu:~# fdisk /dev/sdb
+
+Welcome to fdisk (util-linux 2.31.1)
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Command (m for help):

@@ -1,0 +1,11 @@
+13.40 Step 40
+
+The permissions on this new directory will allow any user to create and delete files in the directory. To test this, first, create a file:
+
+touch /pub/mylabfile
+ls -l /pub
+
+root@localhost:~# touch /pub/mylabfile
+root@localhost:~# ls -l /pub
+total 0
+-rw-r--r-- 1 root root 0 May 17 01:28 mylabfile

@@ -1,0 +1,33 @@
+9.4 Step 4
+
+To open the file data.txt for editing, execute the following command:
+
+vi data.txt
+
+The vi editor will open the file, data.txt, for editing as shown below:
+
+/usr:
+total 32
+drwxr-xr-x 1 root root 4096 Apr  3 22:24 bin
+drwxr-xr-x 2 root root 4096 Apr 24  2018 games
+drwxr-xr-x 1 root root 4096 Mar 22 17:41 include
+drwxr-xr-x 1 root root 4096 Mar 29 17:36 lib
+drwxr-xr-x 1 root root 4096 Mar  7 21:00 local
+drwxr-xr-x 1 root root 4096 Mar 29 17:36 sbin
+drwxr-xr-x 1 root root 4096 Mar 29 17:36 share
+drwxr-xr-x 2 root root 4096 Apr 24  2018 src
+
+/usr/bin:
+total 42800
+-rwxr-xr-x 1 root root      51384 Jan 18  2018 [
+-rwxr-xr-x 1 root root      22696 Sep 27  2018 aa-enabled
+-rwxr-xr-x 1 root root      22696 Sep 27  2018 aa-exec
+-rwxr-xr-x 1 root root      22608 Oct 15 20:29 addpart
+lrwxrwxrwx 1 root root          6 Aug  4  2018 apropos -> whatis
+-rwxr-xr-x 1 root root      14424 Mar 11 09:34 apt
+-rwxr-xr-x 1 root root      80032 Mar 11 09:34 apt-cache
+-rwxr-xr-x 1 root root      22688 Mar 11 09:34 apt-cdrom
+-rwxr-xr-x 1 root root      22616 Mar 11 09:34 apt-config
+-rwxr-xr-x 1 root root      22688 Mar 11 09:34 apt-extracttemplates
+"data.txt" 27916 lines, 1324425 characters
+

@@ -1,0 +1,46 @@
+6.13 Step 13
+
+The -ok option is used to execute a specific command using the results of the find command as the input after confirming with the user. To find all files that end with the word .conf and then delete them interactively, execute the following commands:
+
+cp /etc/*.conf .
+ls
+find ~ -name "*.conf" –ok rm {} \;
+
+When prompted, type y to delete each directory interactively:
+
+< rm ... /home/sysadmin/debconf.conf > ? y
+
+sysadmin@localhost:~$ cp /etc/*.conf .                                          
+sysadmin@localhost:~$ ls                                                        
+Desktop       ca-certificates.conf  host.conf                resolv.conf        
+Documents     debconf.conf          ld.so.conf               rsyslog.conf       
+Downloads     deluser.conf          libaudit.conf            sample             
+Music         dir1                  logrotate.conf           sysctl.conf        
+Pictures      dir2                  ltrace.conf              ucf.conf           
+Public        dir3                  mke2fs.conf              updatedb.conf      
+Templates     fuse.conf             nsswitch.conf                               
+Videos        gai.conf              pam.conf                                    
+adduser.conf  hdparm.conf           popularity-contest.conf                     
+sysadmin@localhost:~$ find ~ -name "*.conf" -ok rm {} \;                        
+< rm ... /home/sysadmin/debconf.conf > ? y                                      
+< rm ... /home/sysadmin/fuse.conf > ? y                                         
+< rm ... /home/sysadmin/sysctl.conf > ? y                                       
+< rm ... /home/sysadmin/updatedb.conf > ? y                                     
+< rm ... /home/sysadmin/logrotate.conf > ? y                                    
+< rm ... /home/sysadmin/gai.conf > ? y                 
+< rm ... /home/sysadmin/popularity-contest.conf > ? y                           
+< rm ... /home/sysadmin/rsyslog.conf > ? y                                      
+< rm ... /home/sysadmin/ca-certificates.conf > ? y                              
+< rm ... /home/sysadmin/resolv.conf > ? y                                       
+< rm ... /home/sysadmin/hdparm.conf > ? y                                       
+< rm ... /home/sysadmin/pam.conf > ? y                                          
+< rm ... /home/sysadmin/libaudit.conf > ? y                                     
+< rm ... /home/sysadmin/deluser.conf > ? y                                      
+< rm ... /home/sysadmin/ltrace.conf > ? y                                       
+< rm ... /home/sysadmin/ld.so.conf > ? y                                        
+< rm ... /home/sysadmin/adduser.conf > ? y                                      
+< rm ... /home/sysadmin/nsswitch.conf > ? y                                     
+< rm ... /home/sysadmin/host.conf > ? y                                         
+< rm ... /home/sysadmin/mke2fs.conf > ? y                                       
+< rm ... /home/sysadmin/ucf.conf > ? y
+

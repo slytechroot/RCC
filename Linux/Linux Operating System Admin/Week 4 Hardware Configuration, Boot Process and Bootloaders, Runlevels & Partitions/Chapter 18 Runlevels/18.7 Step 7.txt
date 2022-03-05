@@ -1,0 +1,12 @@
+18.7 Step 7
+
+Execute the following command to determine which arguments can be passed to the /etc/init.d/sshd command:
+
+/etc/init.d/sshd
+
+[root@centos ~]# /etc/init.d/sshd
+Usage: /etc/init.d/sshd {start|stop|restart|reload|force-reload|condrestart|try-
+restart|status}
+[root@centos ~]# 
+
+A common question that beginning Linux users have is "what does this script really do?". The next step of this lab focuses on how you can figure out by looking at the script itself.

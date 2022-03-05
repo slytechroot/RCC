@@ -1,0 +1,10 @@
+18.18 Step 18
+
+Execute the following command to display the current runlevel:
+
+runlevel
+
+[root@centos rc3.d]# runlevel
+N 3
+[root@centos rc3.d]#
+

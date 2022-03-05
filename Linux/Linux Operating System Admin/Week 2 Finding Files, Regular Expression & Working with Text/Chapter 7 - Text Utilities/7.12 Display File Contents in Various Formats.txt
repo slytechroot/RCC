@@ -1,0 +1,76 @@
+7.12 Display File Contents in Various Formats
+
+The od command can output data in several different formats. It produces an octal dump by default (hence the name od). One use of this command is to display the contents of a file when it contains non-printable characters, such as control characters.
+
+od [OPTION]... [FILE]...
+
+The following table summarizes the formats that the od command can output:
+Single Option 	Option with Argument 	Meaning
+-a 	-t a 	Named characters, ignoring high bit
+-b 	-t o1 	Octal bytes
+-c 	-t c 	ASCII characters or backslash escapes
+-d 	-t u2 	Unsigned decimal 2-byte units
+-f 	-t fF 	Floats
+-i 	-t dI 	Decimal integers
+-l 	-t dL 	Decimal longs
+-o 	-t o2 	Octal 2-byte units
+-s 	-t d2 	Decimal 2-byte units
+-x 	-t x2 	Hexadecimal 2-byte units
+
+In order to demonstrate the od command, the hidden.txt file will be used:
+
+sysadmin@localhost:~/Documents$ cat hidden.txt
+NDG LPIC-1 Curriculum
+Is The Best.
+
+It seems straight-forward enough, but there are non-printable control characters \r causing cat to return to the beginning of the first line. This is where od comes in handy. Use the -c option to examine ASCII characters:
+
+sysadmin@localhost:~/Documents$ od -c hidden.txt
+0000000    T   h   i   s      \r   i   s      \r   a      \r   h   i   d
+0000020    d   e   n      \r   m   e   s   s   a   g   e      \r   N   G
+0000040    D       L   P   I   C   -   1       C   u   r   r   i   c   u
+0000060    l   u   m      \n   I   s       T   h   e       B   e   s   t
+0000100    .  \n  \n                                                    
+0000103
+
+It appears that there was a hidden message in that file that the cat command missed. The point, however, is not to use od to send secret messages. The od command can be used for file recovery, or to open a file that crashes other programs.
+
+As the name implies, od can display raw file content in octal form. It also supports hexadecimal and decimal output. This can be very useful when analyzing a precompiled binary, such as a virus:
+
+sysadmin@localhost:~/Documents$ od -x hidden.txt
+0000000 6854 7369 0d20 7369 0d20 2061 680d 6469
+0000020 6564 206e 6d0d 7365 6173 6567 0d20 474e
+0000040 2044 504c 4349 312d 4320 7275 6972 7563
+0000060 756c 206d 490a 2073 6854 2065 6542 7473
+0000100 0a2e 000a
+0000103
+
+Two other options control where the od command will read its data from the file:
+Option 	Function
+-j 	Specify how many bytes to skip from the input.
+-N 	Specify the total number of bytes the od command will read from the file.
+
+See how these options work with the same hidden.txt file from the previous example, skipping thirteen bytes and displaying only fifteen bytes total:
+
+sysadmin@localhost:~/Documents$ od -j 13 -N 15 -c hidden.txt
+0000015    h   i   d   d   e   n      \r   m   e   s   s   a   g   e
+0000034
+
+Additional options that are used to affect the output of the od command:
+Option 	Function
+-w 	Specify the width in bytes to output next to the offset address. By default, the width will be sixteen bytes.
+
+The -A option has several ways to specify the offset address to the left of the data as the formatting options covered earlier:
+Option 	Function
+-An 	Prevents the od command from outputting the offset address to the left of the data.
+-Ad 	Outputs file offsets using decimal addresses.
+-Ax 	Outputs file offsets using hexadecimal addresses.
+
+File offsets are non-negative integers that specify a point within a file that is a specific number of bytes from a known position. For example, an offset of 64 from the beginning of a file would denote the 65th bit in the file. Offsets are a way to specify a particular piece of information located within a data file. They can be useful for dealing with files that are open or have been damaged, or in computer forensics for recovering deleted information.
+
+In the following example, the od command displays the file with a width of eight bytes of data, the offset address suppressed, and the bytes of data being displayed as ASCII characters:
+
+sysadmin@localhost:~/Documents$ od -j 13 -N 15 -c -w8 -An ./hidden.txt
+   h   i   d   d   e   n  	\r
+   m   e   s   s   a   g   e
+

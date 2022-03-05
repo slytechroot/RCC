@@ -1,0 +1,46 @@
+12.6 The xz and unxz Commands
+
+Another archival tool similar to gzip and bzip2 is the xz command.
+
+xz [OPTION]... [FILE]...
+
+To compress a group of files individually, use the xz command with the -z option. Compression is the default operation mode, and therefore if the xz command is run with no options, the -z option is implied.
+
+In the example below, the glob asterisk * character is used to compress all files, with the exception of directories, in the current directory:
+
+sysadmin@localhost:~/Documents$ xz -z *
+xz: School: Is a directory, skipping
+xz: Work: Is a directory, skipping
+xz: words.xz: Cannot set the file group: Operation not permitted
+sysadmin@localhost:~/Documents$ ls
+School               alpha.txt.xz       longfile.txt.xz     red.txt.bz.xz
+Work                 animals.txt.xz     newhome.txt.xz      red.txt.gz.xz
+adjectives.txt.xz    food.txt.xz        numbers.txt.gz.xz   spelling.txt.xz
+alpha-first.txt.xz   hello.sh.xz        numbers.txt.xz      words.xz
+alpha-second.txt.xz  hidden.txt.xz      os.csv.xz
+alpha-third.txt.xz   letters.txt.gz.xz  people.csv.xz
+alpha.txt.bz2.xz     linux.txt.xz       profile.txt.bz2.xz
+
+The -d option can be used with the xz command to uncompress the files just as easily:
+
+sysadmin@localhost:~/Documents$ xz -d *
+sysadmin@localhost:~/Documents$ ls
+School            alpha-third.txt  hidden.txt    numbers.txt  spelling.txt
+Work              alpha.txt        letters.txt   os.csv       words
+adjectives.txt    animals.txt      linux.txt     people.csv
+alpha-first.txt   food.txt         longfile.txt  profile.txt
+alpha-second.txt  hello.sh         newhome.txt   red.txt
+
+Another method of uncompressing files compressed using the xz command is to use the unxz command. Using unxz to uncompress a file is very similar to using gunzip because it uses similar syntax. When a file is uncompressed using the unxz command, the extension .xz is removed. To demonstrate, the xz command is used to compress a copy of the words file:
+
+sysadmin@localhost:~/Documents$ xz words
+sysadmin@localhost:~/Documents$ ls -l words.xz
+-rw-r--r-- 1 sysadmin sysadmin 198756 Dec  9 23:35 words.xz
+
+Next, the unxz command is used to uncompress the words.xz file:
+
+sysadmin@localhost:~/Documents$ unxz words.xz
+sysadmin@localhost:~/Documents$ ls -l words
+-rw-r--r-- 1 sysadmin sysadmin 971578 Dec  9 23:35 words
+
+There are a huge number of options for the xz command, some relating to the compression ratio. Keep in mind when using xz that the more aggressive the compression, the harder the processor will have to work.

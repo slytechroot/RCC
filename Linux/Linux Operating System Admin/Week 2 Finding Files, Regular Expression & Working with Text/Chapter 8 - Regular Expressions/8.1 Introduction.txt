@@ -1,0 +1,63 @@
+8.1 Introduction
+
+‌⁠​​⁠​ Regular expressions (or regex) define a search pattern. They are similar to globbing in that they can be expanded to match certain sequences of characters in text, but have more variety and power.
+
+A regex pattern is composed of literal characters and operators.
+
+A literal character in a pattern represents the character itself. It has no special meaning, and no substitution is performed. Literal characters include letters, numbers, some punctuation characters, and basically any other character that is not an operator.
+
+An operator is a special character or character sequence that has special meaning. Operators give regular expressions their superpowers! Operators are sometimes referred to as metacharacters. The word “operator” more readily conveys transformative action, so we will use that term in this chapter.
+
+A regular expression has two common forms: basic and extended. Extended regular expressions support more operators than their basic counterparts. Most commands that can use regular expressions can interpret basic regular expressions. Extended regular expressions are not available for all commands and may require an additional option for them to work correctly.
+
+The man page for regex is a good source of information to learn about basic vs. extended regex, the syntax for regex, and regex compatibility:
+
+sysadmin@localhost:~$ man regex
+
+REGEX(7)                   Linux Programmer's Manual             REGEX(7)
+
+NAME
+       regex - POSIX.2 regular expressions
+
+DESCRIPTION
+       Regular  expressions ("RE"s), as defined in POSIX.2, come in two forms:
+       modern REs (roughly those of egrep; POSIX.2 calls these "extended" REs)
+       and  obsolete REs (roughly those of ed(1); POSIX.2 "basic" REs).  Obso-
+       lete REs mostly exist for backward compatibility in some old  programs;
+       they  will  be discussed at the end.  POSIX.2 leaves some aspects of RE
+       syntax and semantics open; "(!)" marks decisions on these aspects  that
+       may not be fully portable to other POSIX.2 implementations.
+
+       A (modern) RE is one(!) or more nonempty(!) branches, separated by '|'.
+       It matches anything that matches one of the branches.
+
+       A branch is one(!) or more pieces, concatenated.  It  matches  a  match
+       for the first, followed by a match for the second, and so on.
+
+       A  piece  is an atom possibly followed by a single(!) '*', '+', '?', or
+       bound.  An atom followed by '*' matches a sequence of 0 or more matches
+       of  the  atom.  An atom followed by '+' matches a sequence of 1 or more
+Manual page regex(7) line 1 (press h for help or q to quit)
+
+The examples displayed in this chapter will make use of the grep command to demonstrate regular expressions. The grep command is able to filter text from data, providing a very visual demonstration of how regular expressions work. The grep command that will be used is actually an alias that runs grep --color so that the text that matches will be displayed in a red color.
+
+Note
+
+Unlike globs, regular expressions are only supported by a small set of commands. This is because glob expansion is usually provided by the shell; the command (in most cases) does not need to worry about the implementation of glob expansion.
+
+On the other hand, commands that support regular expressions must implement regular expression logic, and all the complexity and extra code that comes with them.
+
+Important
+
+The pattern argument of a command should be protected by strong quotes to prevent the shell from misinterpreting them as special shell characters. This means that you should place single quotes ' around a regular expression. The following example demonstrates how not placing single quotes around special characters will result in unexpected output, which is resolved by adding single quotes:
+
+sysadmin@localhost:~$ echo Use single quotes around characters like $ & * ; .
+[1] 85
+Use single quotes around characters like $
+Desktop: command not found
+[1]+  Done                    echo Use single quotes around characters like $
+-bash: .: filename argument required
+.: usage: . filename [arguments]
+sysadmin@localhost:~$ echo Use single quotes around characters like '$ & * ; .'
+Use single quotes around characters like $ & * ; .
+

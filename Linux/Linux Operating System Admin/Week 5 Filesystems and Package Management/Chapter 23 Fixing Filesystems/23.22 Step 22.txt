@@ -1,0 +1,16 @@
+23.22 Step 22
+
+One way of having the fsck utility run on a clean filesystem is to force the checking of the filesystem with the -f option:
+
+fsck -f /dev/sdb5
+
+root@ubuntu:~# fsck -f /dev/sdb5
+fsck from util-linux 2.31.1
+e2fsck 1.44.1 (24-Mar-2018)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information 
+/dev/sdb5: 11/51200 files (0.0% non-contiguous), 12115/204800 blocks
+

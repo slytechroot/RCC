@@ -1,0 +1,18 @@
+17.4 Step 4
+
+Next, we will change the value of GRUB_TIMEOUT_STYLE to menu and GRUB_TIMEOUT to 30. Execute the following vi commands ([ESC] means press the Escape key and the 0 character is zero):
+
+7G
+ $
+xxxxxx
+a
+menu
+ [ESC]
+[Down Arrow Key]
+ x
+a
+30
+[ESC]
+:wq
+[Enter]
+

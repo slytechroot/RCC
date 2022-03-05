@@ -1,0 +1,22 @@
+21.10 Step 10
+
+The next prompt, Last sector… asks for where the new partition will end. You can either provide the last sector, the number of sectors or a specific size (in units of kilobytes, megabytes, gigabytes, terabytes, or petabytes). The default value is to use the rest of the drive, which normally is what you want to use for extended partitions. Press the Enter key to accept the default value:
+
+Enter
+
+Command (m for help): n
+Partition type:
+    p    primary (2 primary, 0 extended, 2 free)
+    e    extended
+Select (default p): e
+Partition number (1-4, default 2): 2
+First sector (2048-8388607, default 2048):
+Last sector, *sectors or +size(K,M,G,T,P) (2048-8388607, default 8388607):
+
+Created a new partition 2 of type ‘Extended’ and of size 4 GiB.
+
+Command (m for help):
+
+If you wanted to specify the Last sector (think of this as the ending sector), you could just provide the number of the sector. Unless you are going to use the rest of the drive, as you have done in this case, specifying the Last sector is very rare. It is also fairly rare to specify +sectors (think of this as how many sectors you want to use for this partition), as sector sizes are somewhat confusing.
+
+In most cases, you specify the size of a partition by using +size (think of this as how much space you want to allocate to the partition). A value of +2000K will create a 2000-kilobyte partition. A value of +200M will create a 200-megabyte partition. A value of +2G will create a 2-gigabyte partition.

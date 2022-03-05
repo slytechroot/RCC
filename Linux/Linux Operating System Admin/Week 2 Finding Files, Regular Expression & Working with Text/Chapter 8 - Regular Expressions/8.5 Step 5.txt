@@ -1,0 +1,14 @@
+8.5 Step 5
+
+The list operator [] (bracket notation) that is used in file globbing has a similar implementation in regular expressions, which is to define a list or range of literal characters that can match one character. For example, to match the single characters 0, 1, 2, 3, and 4 between colon : characters in the /etc/passwd file, execute the following command:
+
+grep ':[01234]:' /etc/passwd
+
+sysadmin@localhost:~$ grep ':[01234]:' /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+Output Omitted...
+

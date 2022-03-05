@@ -1,0 +1,6 @@
+17.7 Step 7
+
+When the system boots, you should see a countdown at the bottom of the screen. Before it reaches 0, press the Escape key:
+
+[ESC]
+

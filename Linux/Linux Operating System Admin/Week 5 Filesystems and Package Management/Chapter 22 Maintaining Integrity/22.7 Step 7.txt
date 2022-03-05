@@ -1,0 +1,8 @@
+22.7 Step 7
+
+The output is given in block sizes (1 block = 1 kilobyte, in this case). To see a more human-readable value, use the -h option:
+
+du -sh /usr
+
+[root@centos~]# du -sh /usr
+893M    /usr

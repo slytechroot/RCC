@@ -1,0 +1,19 @@
+18.22 Step 22
+
+Verify these changes by typing the following command
+
+tail /etc/inittab
+
+[root@centos rc3.d]# tail /etc/inittab
+# Default runlevel. The runlevels used are:
+#   0 - halt (Do NOT set initdefault to this)
+#   1 - Single user mode
+#   2 - Multiuser, without NFS (The same as 3, if you do not have networking)
+#   3 - Full multiuser mode
+#   4 - unused
+#   5 - X11
+#   6 - reboot (Do NOT set initdefault to this)
+#
+id:2:initdefault:
+[root@centos rc3.d]#
+

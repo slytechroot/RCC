@@ -1,0 +1,10 @@
+24.1.20 Step 20
+
+Using the vi editor, create a file called Local.repo in the /etc/yum.repos.d directory:
+
+cd /
+vi /etc/yum.repos.d/Local.repo
+
+[root@localhost tmp]# cd /
+[root@localhost /]# vi /etc/yum.repos.d/Local.repo
+

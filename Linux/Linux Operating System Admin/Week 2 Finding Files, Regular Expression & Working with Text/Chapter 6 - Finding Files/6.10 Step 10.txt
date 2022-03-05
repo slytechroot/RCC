@@ -1,0 +1,9 @@
+6.10 Step 10
+
+To limit the depth that the find command searches, use the -maxdepth option:
+
+find /etc -name "*.conf" -maxdepth 1 2>/dev/null | wc -l
+
+sysadmin@localhost:~$ find /etc -name "*.conf" -maxdepth 1 2>/dev/null | wc -l  
+21
+

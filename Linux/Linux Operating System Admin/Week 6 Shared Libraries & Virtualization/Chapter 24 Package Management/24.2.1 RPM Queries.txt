@@ -1,0 +1,126 @@
+24.2.1 RPM Queries
+
+Any user can perform RPM queries to display information about packages that are currently installed on the system or about RPM files that have yet to be installed (either on the filesystem or reachable by a URL). The difference between doing a query about an installed package versus an RPM file is two-fold:
+
+    To query a package that is not installed, use the -p FILE option. The FILE argument specifies the path to a local .rpm file or URL of an .rpm file on the internet (ftp or http).
+
+    To query an installed package, use only the package name.
+
+Note
+
+Some of the files required for the following examples are not available in our virtual environment. Therefore, some of the examples may not match the output in the VM.
+
+Additional practice for RPM package management is provided in the lab.
+
+To perform any RPM query, always use the -q option with the rpm command. To query for basic package information, use the -i option:
+
+[sysadmin@localhost ~]$ rpm -qi bash
+Name        : bash
+Version     : 4.2.46
+Release     : 31.el7
+Architecture: x86_64
+Install Date: Tue Dec  4 14:38:13 2018
+Group       : System Environment/Shells
+Size        : 3667773
+License     : GPLv3+
+Signature   : RSA/SHA256, Mon Nov 12 14:21:49 2018, Key ID 24c6a8a7f4a80eb5
+Source RPM  : bash-4.2.46-31.el7.src.rpm
+Build Date  : Tue Oct 30 17:09:33 2018
+Build Host  : x86-01.bsys.centos.org
+Relocations : (not relocatable)
+Packager    : CentOS BuildSystem <http://bugs.centos.org>
+Vendor      : CentOS
+URL         : http://www.gnu.org/software/bash
+Summary     : The GNU Bourne Again shell
+Description :
+The GNU Bourne Again shell (Bash) is a shell or command language
+interpreter that is compatible with the Bourne shell (sh). Bash
+incorporates useful features from the Korn shell (ksh) and the C shell
+(csh). Most sh scripts can be run by bash without modification.
+
+To perform a similar query on the RPM file for bash, the -p option would be added along with the -q and -i options:
+
+[sysadmin@localhost ~]$ rpm -qip bash-4.2.46-31.el7.src.rpm
+
+Consider This
+
+Where is this .rpm file located? On most distributions, the .rpm files are not stored by default on the local filesystems. They can be found either on the installation media (install DVD or CD ROM) or online on servers called repositories.
+
+Always remember that RPM queries require the use of the -q option for installed packages and the -qp for uninstalled package files. There are many different types of queries that can be performed, as described in the following table:
+Option 	Purpose
+-a 	List all of the installed packages currently on the system
+-c 	Display a list of configuration files that belong to the package
+-d 	List the documentation files that belong to the package
+-i 	Display the package information
+-K 	Check the package integrity
+-l 	List all files in the package
+--provides 	List the capabilities this package provides
+-R 	List the capabilities that this package requires
+--scripts 	List the scripts that are used before and after installation of the package
+-s 	Display the state of each package file as normal, not installed or replaced
+Querying Scripts
+
+It is a good idea to query a package to see the scripts it will execute before installing an RPM file from a third-party source. Because root privileges are required by default to install or remove RPM packages from the system, these scripts will run as root during the installation or removal of a package from the system; this is potentially dangerous since scripts run as root can make any change to the system.
+
+Before installing the x3270-x11 package, the administrator could view the scripts to ensure that they are not dangerous by executing the following command:
+
+[sysadmin@localhost ~]$ rpm -qp --scripts x3270-x11-3.3.6-10.5.el6.i686.rpm
+postinstall scriptlet (using /bin/sh):
+cd /usr/share/x3270/fonts && /usr/bin/mkfontdir
+touch --no-create /usr/share/icons/hicolor
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  gtk-update-icon-cache -q /usr/share/icons/hicolor
+fi
+postuninstall scriptlet (using /bin/sh):
+if [ "$1" = "0" ]; then
+  cd /usr/share/x3270/fonts && /usr/bin/mkfontdir
+fi
+touch --no-create /usr/share/icons/hicolor
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  gtk-update-icon-cache -q /usr/share/icons/hicolor
+fi
+
+The output of this query shows that there is a postinstall and postuninstall script for this package. In this case, these scripts are not dangerous, as they are updating fonts and icons that the package may use.
+Querying the Integrity of a Package
+
+If an administrator is concerned with the security of the system, then not only should the administrator query a package to view its scripts, but also query the integrity of a package by using the -K option. To use this option on an .rpm file , import the public key file that is distributed by the same organization that packaged and distributed the .rpm file.
+
+Typically, the public keys for the distribution are automatically included with the system. For example, on a Red Hat-derived distribution, the public key files are stored in the /etc/pki/rpm-gpg directory. An administrator can import these keys into the RPM database with the command:
+
+[sysadmin@localhost ~]$ rpm --import /etc/pki/rpm-gpg/*
+
+After the keys have been imported, then a package's integrity can be verified. For example, to verify the integrity of the x3270-x11 package, an administrator could execute the following command:
+
+[sysadmin@localhost ~]$ rpm -qpK x3270-x11-3.3.6-10.5.el6.i686.rpm
+x3270-x11-3.3-4.el7.x86_64.rpm: rsa sha1 (md5) pgp md5 OK
+
+Notice the only output that is capitalized is OK, meaning that the package is not corrupted. The following output has several acronyms capitalized along with NOT OK, indicating a corrupted package:
+
+[sysadmin@localhost ~]$ rpm -qpK x3270-x11-3.3.6-10.5.el6.i686.rpm
+x3270-x11-3.3-4.el7.x86_64.rpm: rsa sha1 (MD5) PGP MD5 NOT OK
+
+Querying for Installed Packages
+
+There are several methods to determine if a package is installed. If the exact package name is known, simply query the package by name. For example, to see if the bash package is installed, execute:
+
+[sysadmin@localhost ~]$ rpm -q bash
+bash-4.2.46-31.el7.src.rpm
+
+If the package is installed, then the output will be like the original RPM file name without the .rpm extension. If the package is not installed, the output will indicate so:
+
+[sysadmin@localhost ~]$ rpm -q pickle
+package pickle is not installed
+
+The * glob character may be useful if the exact package name is not known. For example, if you knew that the package name contained python, but you were unsure of the rest, then execute the following command:
+
+[sysadmin@localhost ~]$ rpm -qa *python*
+python-2.6.6-52.el6.x86_64
+python-urlgrabber-3.9.1-9.el6.noarch
+rpm-python-4.8.0-37.el6.x86_64
+python-libs-2.6.6-52.el6.x86_64
+python-pycurl-7.19.0-8.el6.x86_64
+python-iniparse-0.3.1-2.1.el6.noarch
+
+Note
+
+To get an alphabetical list of all installed packages, execute the rpm -qa | sort command. To get a chronological list of all packages, execute the rpm -qa --last command.

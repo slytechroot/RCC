@@ -1,0 +1,8 @@
+23.39 Step 39
+
+Typically, you would want to fix the filesystem before you reboot the machine. However, in this case the point is to learn how to fix a filesystem error that prevents a system from rebooting. Reboot the machine:
+
+reboot
+
+root@ubuntu:~# reboot
+

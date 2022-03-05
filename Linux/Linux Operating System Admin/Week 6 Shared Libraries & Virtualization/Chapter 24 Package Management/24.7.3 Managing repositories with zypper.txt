@@ -1,0 +1,68 @@
+24.7.3 Managing repositories with zypper
+
+Any Linux system will regularly require updating, patching, and fixes. With all the new packages, updates to existing packages, security fixes, and patches, it can be a lot of work to keep a Linux system up-to-date unless you use a dependency-solving solution like APT or ZyPP/Libzypp.
+
+The zypper command interacts a lot with software repositories, which are the gathered collections of software for different purposes.
+
+To query the software repositories on a system, use the zypper command with the list repositories lr option:
+
+localhost:~ # zypper lr
+Repository priorities in effect:                                               (See 'zypper lr -P' for details)
+      99 (default priority) :  6 repositories
+     100 (lowered priority) :  1 repository
+
+# | Alias                            | Name                            |Enabled | GPG Check | Refresh
+--+----------------------------------+---------------------------------+---------+-----------+--------
+1 | Basesystem-Module_15-0           | sle-module-basesystem           | Yes     | (r ) Yes  | No
+2 | Desktop-Applications-Module_15-0 | sle-module-desktop-applications | Yes     | (r ) Yes  | No
+3 | Development-Tools-Module_15-0    | sle-module-development-tools    | Yes     | (r ) Yes  | No
+4 | Non-OSS                          | Non-OSS                         | Yes     | (r ) Yes  | No
+5 | SLES15-15-0                      | SLES15-15-0                     | Yes     | (r ) Yes  | No
+6 | SLES15_15-0                      | SLES                            | Yes     | (r ) Yes  | No
+7 | Server-Applications-Module_15-0  | sle-module-server-applications  | Yes     | (r ) Yes  | No
+
+To add a repository to install additional software from, first find the repository URL, then use the add repository -ar option:
+
+localhost:~ # zypper ar -f http://packman.inode.at/suse/openSUSE_Leap_15.1/ packman
+Adding repository 'packman'.............................................[done]
+Repository 'packman' successfully added
+
+URI         : http://packman.inode.at/suse/openSUSE_Leap_15.1/
+Enabled     : Yes
+GPG Check   : Yes
+Autorefresh : Yes
+Priority    : 99 (default priority)
+
+Repository priorities in effect:                                               (See 'zypper lr -P' for details)
+      99 (default priority) :  7 repositories
+     100 (lowered priority) :  1 repository
+
+Notice that there is a URI/URL and a nickname (packman) that must both be present for the command to work.
+
+At this time, the zypper ref command would be run again to update the system with the latest metadata from all repositories, which will prompt for trusting the repository key.
+
+localhost:~ # zypper ref
+Repository 'packman' is up to date.
+All repositories have been refreshed.
+
+When the query of the new repository is successful, the system can be updated or software operations are undertaken.
+
+localhost:~ # zypper list-updates -t package
+retrieving repository 'packman' metadata -------------------------------------------------------------------[|]
+
+New repository or package signing key received:
+
+  Repository:       packman
+  Key Name:         PackMan Project (signing key) <packman@links2linux.de>
+  Key Fingerprint:  F8875B88 0D518B6B 8C530D13 45A1D067 1ABD1AFB
+  Key Created:      Mon Sep 15 16:18:00 2014
+  Key Expires:      Thu Sep 12 16:17:21 2024
+  Rpm Name:         gpg-pubkey-1abd1afb-54176598
+
+
+Do you want to reject the key, trust temporarily, or trust always? [r/t/a/? shows all options] (r): a
+Retrieving repository 'packman' metadata ........................[done]
+Building repository 'packman' cache..............................[done]
+Loading repository data...
+Reading installed packages...
+No updates found.

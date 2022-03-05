@@ -1,0 +1,3 @@
+15.2 Core Hardware
+
+Components that are essential to operate a computer are considered core hardware. Every system should include a central processing unit, random access memory, and some kind of firmware. This module will define these components and demonstrate commands and files that can be used to view core hardware information in the terminal. Other hardware that is essential for a complete system includes some type of persistent storage device like a mechanical hard drive or solid-state drive (SSD), a method of controlling the device, either remotely, or by using a display device/monitor, a keyboard, and a mouse. Most systems also include one or more networking devices, possibly a sound device, and ports for connecting external devices.

@@ -1,0 +1,26 @@
+15.11 Step 11
+
+Display kernel modules that are loaded into memory by executing the lsmod command:
+
+lsmod | less
+
+[root@centos ~]# lsmod | less
+
+Module              	Size  Used by                                      	 
+crc32_pclmul       	13133  0                                            	 
+ghash_clmulni_intel	13273  0                                            	 
+ppdev              	17671  0                                            	 
+aesni_intel       	189414 0                                 	 
+lrw                	13286  0  aesni_intel                                          	 
+gf128mul           	15139  1  lwr                                           	 
+glue_helper        	13990  1  aesni_intel                                          	 
+ablk_helper        	21190  3  aesni_intel              	 
+cryptd             	21190  3  ghash_clmulni_intel, aesni_intel, ablk_helper
+joydev             	17389  0 	
+
+Some output has been omitted in the example above for brevity.
+
+Type Q to exit the less command:
+
+q
+

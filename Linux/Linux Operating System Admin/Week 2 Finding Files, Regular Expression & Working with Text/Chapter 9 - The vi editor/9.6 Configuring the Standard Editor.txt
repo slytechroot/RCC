@@ -1,0 +1,104 @@
+9.6 Configuring the Standard Editor
+
+There are a number of ways to configure and invoke the standard editor, which is the default text editor on the command-line for the Linux distribution being used. This section will explain two methods to configure the standard editor.
+
+Note
+
+We encourage you to use the terminal as often as possible while reading the chapter content. However, there are places where the output will differ, or you will not be able to reproduce the examples altogether. The examples in this section were designed to introduce a concept, whereas the labs that follow the chapters were designed to take you through the material step-by-step, working with the CLI to give you practical experience.
+
+Typing the /usr/bin/editor command will invoke the standard editor, which in the case of our Ubuntu virtual machine, is VIM.
+
+sysadmin@localhost:~$ /usr/bin/editor
+
+The command above will bring up the default editor window:
+
+~
+~
+~                              VIM - Vi IMproved
+~
+~                               version 8.0.1453
+~                           by Bram Moolenaar et al.
+~           Modified by pkg-vim-maintainers@lists.alioth.debian.org
+~                 Vim is open source and freely distributable
+~
+~                        Help poor children in Uganda!
+~                type  :help iccf<Enter>       for information
+~
+~                type  :q<Enter>               to exit
+~                type  :help<Enter>  or  <F1>  for on-line help
+~                type  :help version8<Enter>   for version info
+~
+
+To exit the window, type the :q command.
+
+There are a number of ways to change the standard editor, but the easiest one on Ubuntu 18.04 is to use the update-alternatives command with the --config editor option. Note that this command requires administrative access. After executing the command, type the selection number of the editor:
+
+Note
+
+The sudo command allows a user to execute a command as another user without creating a new shell. To execute a command with administrative privileges, use it as an argument to the sudo command. The sudo command assumes by default the root user account should be used to execute commands.
+
+Using sudo in our virtual machine environment requires the root password netlab123. As a security measure, the password will not be visible as it is typed.
+
+sysadmin@localhost:~$ sudo update-alternatives --config editor
+[sudo] password for sysadmin:
+There are 3 choices for the alternative editor (providing /usr/bin/editor).
+
+  Selection    Path               Priority   Status
+------------------------------------------------------------
+  0            /bin/nano           40        auto mode
+  1            /bin/nano           40        manual mode
+  2            /usr/bin/mcedit     25        manual mode
+* 3            /usr/bin/vim.tiny   15        manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 0
+update-alternatives: using /bin/nano to provide /usr/bin/editor (editor) in auto mode
+
+Now the /usr/bin/editor command will invoke the nano editor as the standard editor instead of the vi editor:
+
+  GNU nano 2.9.3                      New Buffer
+
+
+
+
+
+
+
+
+
+^G Get Help  ^O Write Out ^W Where Is  ^K Cut Text  ^J Justify   ^C Cur Pos
+^X Exit      ^R Read File ^\ Replace   ^U Uncut Text^T To Spell  ^_ Go To Line
+
+To exit nano, type Ctrl+X.
+
+Another way of changing the standard editor is by editing the .bashrc file. Since the .bashrc file only loads when a new shell is created, it still shows vi as the standard editor; we can confirm this by viewing the $EDITOR variable:
+
+sysadmin@localhost:~$ echo $EDITOR
+vi
+
+To edit the .bashrc file using nano , you would type the following command:
+
+sysadmin@localhost:~$ nano .bashrc
+
+The following example shows the environment variables for the standard editor at the bottom of the .bashrc file. To change the standard editor to nano, you would simply change the variables by replacing their current value of vi and setting them to nano:
+
+  GNU nano 2.9.3                       .bashrc                        Modified
+
+# set editor and visual envs to vim
+EDITOR=vi
+VISUAL=vi
+
+# change to home dir
+cd ~
+
+^G Get Help  ^O Write Out ^W Where Is  ^K Cut Text  ^J Justify   ^C Cur Pos
+^X Exit      ^R Read File ^\ Replace   ^U Uncut Text^T To Spell  ^_ Go To Line
+
+In order to see these changes, a new shell will need to be opened using the bash command in order to reload the .bashrc file. In the new shell, displaying the $EDITOR variable can be used to confirm the changes:
+
+sysadmin@localhost:~$ echo $EDITOR
+nano
+
+Of course, the vi editor will still be available at the command line. To continue to using vi after changing the standard editor, simply type the vi command followed by the path and name of the file to edit or the file you wish to create:
+
+sysadmin@localhost:~$ vi newfile
+

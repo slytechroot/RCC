@@ -1,0 +1,22 @@
+				Project VIM Nano Report
+
+	Linux today is being used to support a wide variety of devices such as space robots, in-flight entertainment, digital signage, nuclear submarines and even our own computers. This is the part I like best: breathing new life into old computers that people throw out as obsolete. These newold systems could be used to make someone else's life easier and better. I remember the old days of college when my parents could not afford to buy me a computer and I would rely on the school labs to get whatever keyboard knowledge I could get. I would also use the internet cafe at night to learn how to type and browse online. I wish i had had a computer to learn coding and scripting on. It's been 20 years since and I have many computers, even a virtual environment at home I can run just about any  operating system on. I still wish I had had a physical laptop back then.  
+
+
+	I would choose Linux over Microsoft because of expensive licensing structures, too many 
+security issues, the need to always patch-patch. It's a hassle. After being in this class Linux 
+Mint caught my attention and it seems to be a small robust, easily implemented to run, 
+excellent hardware and software support and with Office Libre it makes it even more convenient
+to use Linux on personal laptops and desktops. Linux mint would be the perfect option for old 
+computers with dual cores, no need to solid state hard drives, and fancy graphics card to run 
+normal home or small office tasks. We need to stop this culture of throw-away good computers and
+breathe new life into old hardware with Linux. 
+
+	I hope to be able to join the NetaCad.com Linux II course to learn more about Linux. It
+was cancelled for the support due to low student signup. 
+
+Reference:
+https://www.omgubuntu.co.uk/2016/08/25-awesome-unexpected-things-powered-linux 
+https://www.instructables.com/Breathe-New-Life-into-an-Old-Computer/ 
+https://timrodenbroeker.de/how-to-breathe-life-into-an-old-computer/
+

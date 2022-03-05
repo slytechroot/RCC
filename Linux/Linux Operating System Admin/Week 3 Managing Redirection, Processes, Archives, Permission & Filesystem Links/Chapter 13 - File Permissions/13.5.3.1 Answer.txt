@@ -1,0 +1,15 @@
+13.5.3.1 Answer
+Question
+
+Given the following information, can the user sue view the contents of the /home/bob/test file?
+
+drwxr-xr-x 1 root root  4096 Apr 23 21:08 /
+drwxr-xr-x 1 root root  4096 Apr 17 22:31 /home
+drwxr--r-- 1 bob  staff 4096 Apr 23 21:09 /home/bob
+-r--r--r-- 1 bob  staff 390  Apr 17 22:31 /home/bob/test
+
+Answer
+
+No. Initially it may seem that the user sue should be able to view the contents of the /home/bob/test file because all users have read permission on the file.
+
+However, when checking permissions, it is important to check the permissions on the parent directories of the file in question. In this case, only the user bob has the ability to "get into" the /home/bob directory because only the user bob has execute permission on that directory. If you can't get into a directory, it doesn't matter what the permissions are set to on the files in that directory.

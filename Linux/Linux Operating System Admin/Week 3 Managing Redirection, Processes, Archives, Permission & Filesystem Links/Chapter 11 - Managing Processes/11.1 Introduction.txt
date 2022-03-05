@@ -1,0 +1,3 @@
+11.1 Introduction
+
+In this chapter, you will learn how to run processes in the background or foreground, as well as how to make a process switch between the background and foreground. You will also be taught how to control processes by sending them signals using the kill command. In addition, different techniques for monitoring the resources that a process is using will be presented. You will see how to control the priority of processes to affect how much computing resources the processes will use. Finally, you will become familiar with utilities that allow multiple processes inside a single shell.

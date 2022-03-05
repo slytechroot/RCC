@@ -1,0 +1,7 @@
+17.20 Step 20
+
+When the system boots, you should see the GRUB menu countdown at the bottom of the screen. Before it reaches 0, press the Escape key:
+
+[ESC]
+
+GNU GRUB menu displaying countdown at the bottom of the screen: The highlighted entry will be booted automatically in 57 seconds.

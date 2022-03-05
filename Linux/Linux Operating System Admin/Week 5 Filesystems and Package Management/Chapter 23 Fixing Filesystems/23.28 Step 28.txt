@@ -1,0 +1,10 @@
+23.28 Step 28
+
+Execute the following command to try to mount the filesystem by specifying the filesystem type:
+
+mount -t ext4 /dev/sdb5 /data
+
+root@ubuntu:~# mount -t ext4 /dev/sdb5 /data
+[ 1969.413457] EXT$-fs (sdb5): VFS: Can’t find ext4 filesystem
+mount: /data: wrong fs type, bad option, bad superblock on /dev/sdb5, missing codepage or helper program, or other error.
+

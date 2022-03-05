@@ -1,0 +1,10 @@
+13.33 Step 33
+
+The setgid permission is similar to setuid, but it makes use of the group owner permissions. In the next few steps, we will demonstrate the use of setgid directories. Start by executing the following command to switch to the root account. When prompted, provide the root password:
+
+su – root
+netlab123
+
+sysadmin@localhost:~$ su - root
+Password:
+root@localhost:~#

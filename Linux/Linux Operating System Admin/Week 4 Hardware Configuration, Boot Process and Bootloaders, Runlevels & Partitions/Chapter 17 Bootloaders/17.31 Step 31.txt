@@ -1,0 +1,9 @@
+17.31 Step 31
+
+Type the runlevel command to verify that you are at runlevel S (or single user):
+
+[root@centos /]# runlevel
+N S
+
+At the single user runlevel, very few processes are running, and only the administrator can access the system. The purpose of this runlevel is to troubleshoot critical system problems.
+

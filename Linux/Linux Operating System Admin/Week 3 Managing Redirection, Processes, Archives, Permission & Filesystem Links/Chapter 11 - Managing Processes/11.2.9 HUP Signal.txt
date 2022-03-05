@@ -1,0 +1,14 @@
+11.2.9 HUP Signal
+
+When a user logs off the system, all processes that are owned by that user are automatically sent the Hang Up SIGHUP signal. Typically, this signal causes those processes to end.
+
+In some cases, a user may want to execute a command that won't automatically exit when it is sent a HUP signal. To have a process ignore a Hang Up signal, start the process with the nohup command.
+
+nohup COMMAND [ARG]...
+
+For example, consider a scenario where a user has a script named myjob.sh that needs to continue to run all night long. The user should start that script in the background of the terminal by executing:
+
+sysadmin@localhost:~$ nohup myjob.sh &
+
+After executing the script, the user could proceed to log out. The next time the user logs in, the output of the script, if any, would be contained in the nohup.out file in that user's home directory.
+

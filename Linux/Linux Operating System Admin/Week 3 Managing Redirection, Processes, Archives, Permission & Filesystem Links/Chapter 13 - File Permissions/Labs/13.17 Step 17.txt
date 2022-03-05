@@ -1,0 +1,7 @@
+13.17 Step 17
+
+Verify that the sysadmin account can modify the lab.txt file contents by executing the following command:
+
+echo "well done" >> /srv/lab.txt
+
+sysadmin@localhost:~$ echo "well done" >> /srv/lab.txt

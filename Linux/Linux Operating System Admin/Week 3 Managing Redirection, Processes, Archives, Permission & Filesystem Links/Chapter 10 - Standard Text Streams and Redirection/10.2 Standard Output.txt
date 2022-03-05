@@ -1,0 +1,52 @@
+10.2 Standard Output
+
+When a command executes without any errors, the output that is produced is known as standard out, also called stdout or STDOUT. By default, this output will be sent to the terminal where the command is being executed.
+
+It is possible to redirect standard out from a command so it will go to a file instead of the terminal. Standard output redirection is achieved by following a command with the greater-than > character and a destination file. For example, the ls ~ command will list the files in the home directory. To save a list of the files in the home directory, you must direct the output into a text file. To create the /tmp/home.txt file:
+
+sysadmin@localhost:~$ ls ~ > /tmp/home.txt
+
+After which, the home.txt file will resemble:
+
+sysadmin@localhost:~$ cat /tmp/home.txt
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public‌
+Templates
+Videos
+
+Redirecting output using a single greater-than > character will create a new file, or overwrite the contents of an existing file with the same name. Redirecting standard output with two greater-than >> characters will also create a new file if it does not exist. The difference is that when using the >> characters, the output of the command will be appended to the end of a file if it does already exist. For example, to append to the file that was created by the previous command, execute the following:
+
+sysadmin@localhost:~$ date >> /tmp/home.txt
+
+Which will update the home.txt file to:
+
+sysadmin@localhost:~$ cat /tmp/home.txt
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Templates
+Videos
+Thu Oct  2 17:36:02 UTC 2020
+
+There is a number associated with the standard output file descriptor (the > character): the number 1 (one). However, since standard output is the most commonly redirected command output, the number can be omitted. Technically, the commands should be executed as shown below:
+
+sysadmin@localhost:~$ ls 1> /tmp/ls.txt
+sysadmin@localhost:~$ date 1>> /tmp/ls.txt
+
+COMMAND > FILE
+
+COMMAND 1> FILE
+
+	Create or overwrite FILE with the standard output of COMMAND
+
+COMMAND >> FILE
+
+COMMAND 1>> FILE
+
+	Create or append to FILE with the standard output of COMMAND

@@ -1,0 +1,8 @@
+3.3.2 BASH Exit Scripts
+
+Just as Bash executes one or more files upon starting up, it also may execute one or more files upon exiting. As Bash exits, it will execute the ~/.bash_logout and /etc/bash_logout files, if they exist. Typically, these files are used for "cleaning up" tactics as the user exits the shell. For example, the default ~/.bash_logout executes the clear command to remove any text present in the terminal screen.
+‌⁠​​⁠​ 
+
+Consider This
+
+When a new user is created, the files from the /etc/skel directory are automatically copied into the new user's home directory. As an administrator, you can modify the files in the/etc/skel directory to provide custom features to new users.

@@ -1,0 +1,12 @@
+4.11 Step 11
+
+The wildcard characters can have multiple occurrences within a pattern. To list all file names starting with the letter p, containing the letter t and ending with the numbers in the range [2-6], execute the following command:
+
+echo /usr/bin/p*t*[2-6]
+
+sysadmin@localhost:~$ echo /usr/bin/p*t*[2-6]                      
+/usr/bin/pygettext3 /usr/bin/pygettext3.6 /usr/bin/python3 /usr/bin/python3.6
+
+Note
+
+The square brackets notation [] also supports the negation operator. The characters ! or ^ are used for negation; if either of these characters is placed at the first position within the square bracket, then the pattern is evaluated as to match any character except the listed characters.

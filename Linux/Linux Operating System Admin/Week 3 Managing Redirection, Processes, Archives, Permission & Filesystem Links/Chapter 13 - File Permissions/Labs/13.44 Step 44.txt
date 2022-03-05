@@ -1,0 +1,10 @@
+13.44 Step 44
+
+Add the sticky bit permission to the /pub directory so users can only delete the files that they own in this directory, then verify the permissions with the following commands:
+
+chmod o+t /pub
+ls -ld /pub
+
+root@localhost:~# chmod o+t /pub
+root@localhost:~# ls -ld /pub
+drwxrwxrwt 2 root root 4096 Apr 18 20:12 /pub

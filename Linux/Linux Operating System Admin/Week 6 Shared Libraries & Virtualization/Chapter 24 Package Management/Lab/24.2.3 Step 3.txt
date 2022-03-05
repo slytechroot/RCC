@@ -1,0 +1,9 @@
+24.2.3 Step 3
+
+Since none of the repositories are reachable, rename the /etc/apt/sources.list file so a new file that points to a local repository can be created during the next step:
+
+mv /etc/apt/sources.list /etc/apt/sources.list.orig
+
+root@localhost:~# mv /etc/apt/sources.list /etc/apt/sources.list.orig
+root@localhost:~#
+

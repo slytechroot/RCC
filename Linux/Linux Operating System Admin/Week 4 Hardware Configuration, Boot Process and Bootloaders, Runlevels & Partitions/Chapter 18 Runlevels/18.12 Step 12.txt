@@ -1,0 +1,12 @@
+18.12 Step 12
+
+Execute the following command to display when the sshd is started:
+
+chkconfig --list sshd
+
+[root@centos rc3.d]# chkconfig --list sshd
+sshd            0:off   1:off   2:on    3:on   4:on   5:on   6:off
+[root@centos rc3.d]#
+
+Based on the output from the previous command, the ssh should start when the system goes to runlevels 2,3,4, and 5. Conversely, the ssh services should be stopped at runlevels 0,1,and 6.
+

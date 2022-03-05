@@ -1,0 +1,8 @@
+23.42 Step 42
+
+Now that the filesystem has been fixed, you can continue the boot process by holding down the Ctrl+D. You could also type the exit command:
+
+exit
+
+root@ubuntu:~# exit
+

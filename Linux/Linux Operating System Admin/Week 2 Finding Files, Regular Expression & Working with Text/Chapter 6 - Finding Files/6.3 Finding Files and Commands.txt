@@ -1,0 +1,3 @@
+6.3 Finding Files and Commands
+
+Most operating systems allow users to search for specific files in the filesystem. A GUI typically provides a search tool that makes it possible to find files and applications. However, there are a few commands available for searching files and commands from the CLI. Both the locate and find commands are useful for searching for a file within the filesystem. While both commands perform similar tasks, each does so by using a different technique, with its own distinct advantages and disadvantages.

@@ -1,0 +1,25 @@
+7.9 Step 9
+
+The split command allows files to have a numeric suffix instead of a default alphabetic suffix. To split the words file into files prefixed with the name result and suffixed by numbers, execute the following commands:
+
+split words –d result
+ls result*
+
+sysadmin@localhost:~$ split words -d result
+sysadmin@localhost:~$ ls result*
+result    result14  result29  result44  result59  result74  result89
+result00  result15  result30  result45  result60  result75  result9000
+result01  result16  result31  result46  result61  result76  result9001
+result02  result17  result32  result47  result62  result77  result9002
+result03  result18  result33  result48  result63  result78  result9003
+result04  result19  result34  result49  result64  result79  result9004
+result05  result20  result35  result50  result65  result80  result9005
+result06  result21  result36  result51  result66  result81  result9006
+result07  result22  result37  result52  result67  result82  result9007
+result08  result23  result38  result53  result68  result83  result9008
+result09  result24  result39  result54  result69  result84  result9009
+result10  result25  result40  result55  result70  result85  result9010
+result11  result26  result41  result56  result71  result86  result9011
+result12  result27  result42  result57  result72  result87  result9012
+result13  result28  result43  result58  result73  result88
+

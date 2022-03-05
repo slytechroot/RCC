@@ -1,0 +1,17 @@
+24.6.3 sha512sum
+
+The sha512sum command creates an even more secure 512-bit checksum for verifying files using the familiar syntax:
+
+sha516sum [OPTIONS]... [FILE]...
+
+Use the sha512sum command to create a 512-bit checksum for the anyfile.txt file:
+
+[sysadmin@localhost]$ sha512sum anyfile.txt > anyfile.sha512
+[sysadmin@localhost]$ cat anyfile.sha512
+cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0
+ff8318d2877eec2f63b931bd47417a81a538327af927da3e  anyfile.txt
+
+Again, as with both the md5sum command and the sha256sum command, the -c option is used to verify the integrity of the file:
+
+[sysadmin@localhost]$ sha512sum -c anyfile.sha512
+anyfile.txt: OK

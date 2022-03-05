@@ -1,0 +1,13 @@
+6.5 Step 5
+
+To find all files which were modified less than 30 minutes ago in the /etc directory, execute the following command:
+
+find /etc -mmin -30 2>/dev/null
+
+sysadmin@localhost:~$ find /etc -mmin -30 2>/dev/null                       
+/etc                                                                        
+/etc/resolv.conf                                                           
+/etc/hosts                                                                 
+/etc/hostname                                                               
+/etc/mtab
+

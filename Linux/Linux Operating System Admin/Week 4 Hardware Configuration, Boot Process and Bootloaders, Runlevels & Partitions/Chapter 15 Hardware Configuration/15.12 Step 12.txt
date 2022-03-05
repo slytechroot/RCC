@@ -1,0 +1,32 @@
+15.12 Step 12
+
+Display information about the dm_mod module by executing the following command:
+
+modinfo dm_mod | less
+
+[root@centos ~]# modinfo dm_mod | less
+ 
+Filename:  	/lib/modules/3.10.0-957.el7.x86_64/kernel/drivers/md/dm-mod.ko.xz
+license:  	GPL
+author:  	Joe Thornber <dm-devel@redhat.com>   
+description:    device-mapper driver
+alias:      	devname:mapper/control
+alias:        	char-major-10-236
+retpoline:	Y
+rhelversion:    7.6
+srcversion:     BA7CED77E4803DA1F325BC6
+depends:  	 
+intree:   	3.10.0-957.el7.x86_64 SMP mod_unload modversions
+signer:   	CentOS Linux kernel signing key
+sig_key:   	B7:0D:CF:0D:F2:D9:B7:F2:91:59:24:82:49:FD:6F:E8:7B:78:14:2
+sig_hashalgo:   sha256
+PARM:     	reserved_rq_based_ios:Reserved IOs in request-based mempools (uint)
+parm:     	use_blk_mq:Use block multiqueue for request-based DM devices (bool)
+parm:     	dm_mq_nr_hw_queues:Number of hardware queues for request-based dm-mq devices (uint)
+parm:     	dm_mq_queue_depth:Queue depth for request-based dm-mq devices (uint)
+:	
+
+Type Q to exit the less command:
+
+q
+

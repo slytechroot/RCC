@@ -1,0 +1,207 @@
+11.4.1 screen Command
+
+The screen command also allows you to run commands and control the command’s environment from within a screen session. The screen command is the simpler, and much older of the two multi-session utilities previously mentioned. It is not as dynamic, but it is consistent and dependable; two traits that inspire true loyalty from system operators and system administrators.
+
+Normally, when using a terminal, running a process will cause the terminal to be occupied until that process finishes executing, is stopped or terminated, or is placed in the background. However, the screen command allows for multiple processes to run within separate sessions under a single terminal. This is possible because, by default, the screen command provides a new session with a shell in it where a command can be executed with the ability to detach from that session and return the shell to start new sessions.
+
+To start the screen command by itself, type the command at the prompt:
+
+sysadmin@localhost:~$ screen
+
+GNU Screen version 4.06.02 (GNU) 23-Oct-17
+
+Copyright (c) 2015-2017 Juergen Weigert, Alexander Naumov, Amadeusz Slawinski
+Copyright (c) 2010-2014 Juergen Weigert, Sadrul Habib Chowdhury
+Copyright (c) 2008-2009 Juergen Weigert, Michael Schroeder, Micah Cowan,
+Sadrul Habib Chowdhury
+Copyright (c) 1993-2007 Juergen Weigert, Michael Schroeder
+Copyright (c) 1987 Oliver Laumann
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 3, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program (see the file COPYING); if not, see http://www.gnu.org/licenses/,
+or contact Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+
+                  [Press Space for next page; Return to end.]
+
+To get rid of the message and return to the command line, press Enter. When the screen command returns to the command line, the user is in a screen session. This is an instance of the Bash shell that is contained by the screen command; like a container or box that you can use as a full Bash shell, only it is controlled by the screen command.
+
+sysadmin@localhost:~$                                            
+
+To verify that there is a screen session running, use the -list option to the screen command:
+
+sysadmin@localhost:~$ screen -list
+There is a screen on:
+        85.console.localhost   (03/30/19 14:33:05)     (Attached)
+1 Socket in /run/screen/S-sysadmin.
+
+Notice the text (Attached) in the output of the previous command, which indicates that the session is the one the user is currently attached to; in other words, the user is in that screen session.
+
+Note
+
+Typing the screen command inside an existing screen session does not start a new screen session.
+
+When using the screen command to run multiple commands in a single shell instance, it may be useful to create a session that monitors the system as well. The screen command can be used with commands that monitor system processes or system status, such as the top or ps commands. To demonstrate, run the top command in this screen session:
+
+sysadmin@localhost:~$ top
+
+top - 21:45:00 up 11 days, 23:28,  2 users,  load average: 0.33, 0.38, 0.34
+Tasks:  12 total,   1 running,  11 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.7 us,  1.4 sy,  0.0 ni, 97.9 id,  0.0 wa,  0.0 hi,  0.1 si,  0.0 st
+KiB Mem : 13201464+total, 10386072+free, 21642984 used,  6510928 buff/cache
+KiB Swap: 13419622+total, 13419622+free,        0 used. 10974582+avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+   25 bind      20   0  944924  39472   7148 S   3.6  0.0   0:00.59 named
+    9 syslog    20   0  191328   5820   3272 S   0.3  0.0   0:00.04 rsyslogd
+    1 root      20   0   18376   2976   2700 S   0.0  0.0   0:00.03 init
+   12 root      20   0   28356   2744   2476 S   0.0  0.0   0:00.00 cron
+   15 root      20   0   72296   3296   2548 S   0.0  0.0   0:00.00 sshd
+   44 root      20   0   78636   3636   3084 S   0.0  0.0   0:00.00 login
+   61 root      20   0  170204  32564  11760 S   0.0  0.0   0:01.69 check-new-+
+   62 sysadmin  20   0   19220   4116   2912 S   0.0  0.0   0:00.03 bash
+   81 sysadmin  20   0   28492   2624   2368 S   0.0  0.0   0:00.00 screen
+   82 sysadmin  20   0   28640   2900   2372 S   0.0  0.0   0:00.00 screen
+   83 sysadmin  20   0   19300   4172   2992 S   0.0  0.0   0:00.01 bash
+  100 sysadmin  20   0   38696   3192   2748 R   0.0  0.0   0:00.00 top
+
+A useful feature of the screen command is the ability to detach a session, then re-attach it later. While detached, the user returns to the prompt they were using before running the screen command and the processes running in the screen session will continue to run, even if the user is not able to see them in the terminal. To attach and detach a screen session, as well as perform other actions in the screen program, you will need to use the screen command keys.
+
+All screen commands start with a prefix key, the keystrokes Ctrl+A (denoted as C-a in the man pages) and then are followed by a single other character, or command key, to make an action happen.
+
+Note
+
+To view a list of the screen commands, type Ctrl+A and then a question mark ? while in a screen session:
+
+                       Screen key bindings, page 1 of 2.
+
+                       Command key:  ^A   Literal ^A:  a
+
+  break       ^B b         license     ,            removebuf   =
+  clear       C            lockscreen  ^X x         reset       Z
+  colon       :            log         H            screen      ^C c
+  copy        ^[ [         login       L            select      '
+  detach      ^D d         meta        a            silence     _
+  digraph     ^V           monitor     M            split       S
+  displays    *            next        ^@ ^N sp n   suspend     ^Z z
+  dumptermcap .            number      N            time        ^T t
+  fit         F            only        Q            title       A
+  flow        ^F f         other       ^A           vbell       ^G
+  focus       ^I           pow_break   B            version     v
+  hardcopy    h            pow_detach  D            width       W
+  help        ?            prev        ^H ^P p ^?   windows     ^W w
+  history     { }          quit        \            wrap        ^R r
+  info        i            readbuf     <            writebuf    >
+  kill        K k          redisplay   ^L l         xoff        ^S s
+  lastmsg     ^M m         remove      X            xon         ^Q q
+
+
+                  [Press Space for next page; Return to end.]
+
+Note
+
+No text will appear at the prompt when typing the screen command keys. Press Enter to return to the prompt within the screen session.
+
+In the next example, pressing the prefix key Ctrl+A gets the attention of the screen command, and then the command key D issues the detach command, which detaches the screen command from the current terminal and returns the user to the original shell prompt.
+
+For example, detach from the current screen session (and leave the top command running) by pressing the keystrokes:
+
+Ctrl+A
+D
+
+[detached from 85.console.localhost]
+sysadmin@localhost:~$
+
+In the example output above, a message appears stating the user has been detached from 85.console.localhost and the user will return to a Bash prompt. However, the user is still using the screen environment.
+
+The format of identification for a screen process is the following:
+
+PID.TTY.HOST
+
+The first set of characters PID indicates the PID of the process, TTY means the terminal type the process is running in, and HOST is the hostname, or process name if changed using the -S option. The Process ID in our virtual machine environment will likely be different than the one in the example.
+
+It is also possible to run a command at the shell prompt in a screen session and then immediately detach that session in order to continue conducting other operations at the prompt. For example, start the nano text editor in a screen session and detach it with the following command:
+
+sysadmin@localhost:~$ screen -S nano_edit -d -m nano
+
+The command above will start the nano text editor in a detached screen session named nano_edit and drop the user back to a shell prompt. The session is named using the session name -S option, which is followed by the desired session name as an argument. The -d -m option specifies to start the session in detached mode.
+
+Note
+
+In this instance, the -d -m option is considered to be a single option by the screen command, not two separate options.
+
+To see that there is an additional screen session, run the screen command with the -list option again:
+
+sysadmin@localhost:~$ screen -list
+There are screens on:
+        128.nano_edit   (03/31/19 18:39:24)     (Detached)
+        85.console.localhost   (03/31/19 18:18:43)     (Detached)
+2 Sockets in /run/screen/S-sysadmin.
+
+The output shows that there are two sessions running; one of which is named nano_edit. Once a session is started, a user cannot rename it in the screen -list command output, so it is recommended to name all screen sessions as they are created.
+
+The user can now re-attach to either of the sessions by using the resume -r option with either the PID of the session or by the name of the session. For example, the example below will re-attach the user to the session containing the top command:
+
+Note
+
+In order to execute this command, use the PID associated with the top command, which may differ from the PID in the example.
+
+sysadmin@localhost:~$ screen -r 85
+
+top - 21:49:24 up 11 days, 23:32,  2 users,  load average: 0.64, 0.40, 0.35
+Tasks:  13 total,   1 running,  12 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  1.9 us,  1.6 sy,  0.0 ni, 96.5 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem : 13201464+total, 10381150+free, 21690320 used,  6512812 buff/cache
+KiB Swap: 13419622+total, 13419622+free,        0 used. 10969848+avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+    1 root      20   0   18376   2976   2700 S   0.0  0.0   0:00.03 init
+    9 syslog    20   0  191328   5820   3272 S   0.0  0.0   0:00.04 rsyslogd
+   12 root      20   0   28356   2744   2476 S   0.0  0.0   0:00.00 cron
+   15 root      20   0   72296   3296   2548 S   0.0  0.0   0:00.00 sshd
+   25 bind      20   0 1077296  40844   7212 S   0.0  0.0   0:01.29 named
+   44 root      20   0   78636   3636   3084 S   0.0  0.0   0:00.00 login
+   62 sysadmin  20   0   19220   4116   2912 S   0.0  0.0   0:00.04 bash
+   82 sysadmin  20   0   28752   2940   2372 S   0.0  0.0   0:00.01 screen
+   83 sysadmin  20   0   19300   4172   2992 S   0.0  0.0   0:00.01 bash
+  100 sysadmin  20   0   38696   3192   2748 R   0.0  0.0   0:00.09 top
+  106 sysadmin  20   0   28624   2708   2384 S   0.0  0.0   0:00.00 screen
+  107 sysadmin  20   0   11800   2976   2176 S   0.0  0.0   0:00.01 nano
+  109 sysadmin  20   0   28492   2688   2432 S   0.0  0.0   0:00.00 screen
+
+To detach from the top command in the screen session and return to the shell, press Ctrl+A, then D:
+
+[detached from 106.console.localhost]
+sysadmin@localhost:~$
+
+At this point, the top command is running in a screen session, the nano editor is being used to run and possibly edit files in another session, and it is still possible to create more sessions as well as type commands at the shell.
+
+To get rid of a screen session, attach to each session, and quit the program that is running. For example, the nano session can be re-attached using the screen command below:
+
+sysadmin@localhost:~$ screen -r nano_edit
+
+Press Ctrl+X to exit the nano command and follow the prompts. When the nano process has exited, there will be no nano_edit screen session in the -list output:
+
+sysadmin@localhost:~$ screen -list
+There is a screen on:
+        85.console.localhost   (03/30/19 14:55:05)     (Attached)
+1 Socket in /run/screen/S-sysadmin.
+
+To exit the screen command, use the exit command:
+
+sysadmin@localhost:~$ exit
+
+[screen is terminating]                                                         
+sysadmin@localhost:~$
+
+Important
+
+Using the exit command more than once when exiting the screen command will result in being logged out of the current Bash shell and will open a new Bash shell.
+

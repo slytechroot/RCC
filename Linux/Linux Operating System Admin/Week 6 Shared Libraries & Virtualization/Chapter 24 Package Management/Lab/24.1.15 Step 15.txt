@@ -1,0 +1,11 @@
+24.1.15 Step 15
+
+Execute the ls command to view the files in the current directory:
+
+ls
+
+[root@localhost tmp]# ls
+etc      usr
+
+Notice that this command extracted all of the files from the quota RPM file, but didn't install the files. They are just placed in the /tmp directory.
+

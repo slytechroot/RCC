@@ -1,0 +1,13 @@
+13.5.1.1 Answer
+Question
+
+Given the following information, what can the user bob do with the /home/bob/test file?
+
+drwxr-xr-x 1 root root  4096 Apr 23 21:08 /
+drwxr-xr-x 1 root root  4096 Apr 17 22:31 /home
+drwxr-xr-x 1 bob  staff 4096 Apr 23 21:09 /home/bob
+-r--r--r-- 1 bob  staff 390  Apr 17 22:31 /home/bob/test
+
+Answer
+
+The user bob can view and copy the file because this user has the permissions of r-- on the file.

@@ -1,0 +1,43 @@
+15.7 Step 7
+Please use the CentOS image to complete the following steps. Select the CentOS PC by clicking on the tab in the window on the right side of the screen.
+
+Log in to the system using the root account. When prompted, provide the root password:
+
+root
+netlab123
+
+CentOS Linux 7 (Core)
+Kernel 3.10.0-957.el7.x86_64 on an x_86_64
+ 
+centos login:                                            	 
+Password:                                                                  	 
+[root@localhost ~]#  
+
+Display the hardware devices by executing the following command:
+
+lspci
+
+[root@centos ~]# lspci                                                  	 
+00:00.0 Host bridge: Intel Corporation 440FX - 82441FX PMC [Natoma] (rev 02)   	 
+00:01.0 ISA bridge: Intel Corporation 82371SB PIIX3 ISA [Natoma/Triton II]
+00:01.1 IDE interface: Intel Corporation 82371SB PIIX3 IDE [Natoma/Triton II]
+00:01.2 USB controller: Intel Corporation 82371SB PIIX3 USB [Natoma/Triton II] (rev 01)
+00:01.3 Bridge: Intel Corporation 82371AB/EB/MB PIIX4 (rev 03)
+08:02.0 VGA compatible controller: Device 1234:1111 (rev 02)
+00:03.0 Ethernet controller: Intel Corporation 82540EM Gigabit Ethernet Controller (rev 03)  
+00:1a.0 USB controller: Intel Corporation 82371SB PIIX3 [Natoma/Triton II] (rev 01)
+
+Some of the devices displayed in the output above include:
+
+    IDE Interface - A device that permits you to attach IDE hard drives to the system.
+
+    00:01.1 IDE interface: Intel Corporation 82371SB PIIX3 IDE [Natoma/Triton II]
+
+    VGA compatible controller - A device that permits you to attach a monitor to the system.
+
+    08:02.0 VGA compatible controller: Device 1234:1111 (rev 02  
+
+    Ethernet controller - A device that allows you to connect to the network.
+
+    00:03.0 Ethernet controller: Intel Corporation 82540EM Gigabit Ethernet Controller (rev 03) 
+

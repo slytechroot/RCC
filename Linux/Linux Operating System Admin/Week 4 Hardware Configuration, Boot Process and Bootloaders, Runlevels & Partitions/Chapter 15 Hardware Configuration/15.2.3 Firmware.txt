@@ -1,0 +1,25 @@
+15.2.3 Firmware
+
+Firmware is software that has been written to non-volatile memory such as read-only memory (ROM) or flash memory. There are several types of firmware that may be present in a computer system. On each device that provides services to a system (like a network interface card or a graphics display), there is typically a ROM chip that contains firmware for the device.
+
+The motherboard firmware contains the code that allows the integrated components of the system to work together. This firmware tests the components upon startup, identifies and initializes these components, and attempts to find a bootloader to load an operating system.
+
+Note
+
+Bootloaders will be covered in greater detail later in the course.
+
+Originally, this firmware was known as the Basic Input/Output System (BIOS), System ROM, or ROM BIOS. BIOS is used to provide basic services, called input and output services before an operating system is loaded, so the user may provide input through the keyboard or see output on a monitor even before the bootloader or an operating system is executed.
+
+Recently, computer manufacturers have begun to replace the traditional BIOS with something called the Unified Extensible Firmware Interface (UEFI); however, the functions of UEFI appear so similar to BIOS that many people still refer to the system firmware as BIOS.
+
+Both UEFI-based systems and BIOS-based systems provide a proprietary menu program that allows integrated devices to be enabled or disabled. The firmware that is included varies with each system vendor, so, unfortunately, there is no standard way to start this program or standard menu item for enabling or disabling devices.
+
+Entering the program that will allow adjustments to the firmware settings typically requires that a designated key is pressed immediately after turning the system on. Many systems use a function key like F2 or F12, while others might use the Esc or Del keys to start the firmware settings program. When a computer is powered on, messages typically appear on the splash screen indicating the appropriate key to press. If the correct key is not displayed on the splash screen, it may be necessary to refer to vendor documentation.
+
+‌⁠​​⁠​If a system has UEFI firmware, then it may be more challenging to boot the Linux operating system due to a feature called Secure Boot. If Secure Boot is enabled, then the bootloader must be cryptographically signed by a digital key that is recognized by the firmware. If the bootloader is not properly signed, then booting may still be possible by disabling Secure Boot in the firmware settings, in favor of the Compatibility Support Module (CSM).
+
+Not only can the firmware settings be used to enable or disable Secure Boot, settings can also be changed that will affect which devices, and in what order, the firmware will look for a bootable device. The firmware settings can even be used to affect the use of external devices like keyboards.
+
+As advancements in integration of peripherals have occurred, more components have been placed on-board, meaning they are embedded into the motherboard of a system. These integrated peripherals can be managed through firmware as well. Historically, a peripheral was added to the system by inserting a card on the peripherals bus, such as a video card or networking card. Then the peripheral had to be manipulated either via physical jumper or switch settings to properly use the right memory location and IRQ or Interrupt Request number. All of this is typically pre-configured on systems that have integrated peripherals, by the manufacturer, typically with no need for the computer’s user to be involved.
+
+Commonly, server systems may be configured to run headless, that is without a keyboard, mouse, or monitor. Typically, the BIOS will prevent a computer from booting without a keyboard present. It may be necessary to change the firmware settings to disable this feature for headless systems.

@@ -1,0 +1,11 @@
+21.29 Step 29
+
+Type w at the Command prompt to save your new partition:
+
+w
+
+Command (m for help: w
+The partition table has been altered.
+Syncing disks.
+
+root@ubuntu~#

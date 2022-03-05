@@ -1,0 +1,11 @@
+13.4 Changing Basic File Permissions
+
+The chmod command is used to change the permissions of a file or directory. Only the root user or the user who owns the file is able to change the permissions of a file.
+
+chmod MODE FILE…
+
+Consider This
+
+Why is the command called chmod instead of chperm? Permissions used to be referred to as modes of access, so the command chmod really means "change the modes of access".
+
+There are two techniques of changing permissions with the chmod command: symbolic and octal. The symbolic method is good for changing one set of permissions at a time. The octal method (also called the numeric method) requires knowledge of the octal value of each of the permissions and requires all three sets of permissions (user, group, other) to be specified every time. When changing more than one permission set, the octal method is probably the more efficient method.

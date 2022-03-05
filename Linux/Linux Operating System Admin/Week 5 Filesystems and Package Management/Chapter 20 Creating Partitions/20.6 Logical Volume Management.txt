@@ -1,0 +1,32 @@
+20.6 Logical Volume Management
+
+Logical Volume Management (LVM) is a method of managing hard disk space that provides more flexibility than traditional partitioning of disks. LVM was developed specifically to address some of the limitations of traditional partitioning. To understand this, consider the following scenarios:
+
+
+Scenario #1
+Synopsis: A system administrator performs a fresh installation of what will become a production machine. The administrator chooses to implement the following partitioning scheme: / is 2000MB, /var is 500MB, and /home is 1000MB.
+
+The intent behind this partitioning scheme was to provide plenty of space for the four users who will be using the system. By making /home a separate partition, the administrator is also able to implement disk quotas.
+
+The Problem: For the first few months, the system performs perfectly. However, errors start to occur. Users are unable to print. After some research, the administrator discovers that the /var partition is now full of log file entries. Unfortunately, this is also where print jobs are sent prior to being sent to the printer.
+
+The obvious solution is to make the /var partition bigger. With traditional partitions, this can be a nightmare that may require downtime for the system and perhaps even a reinstallation. One of the great benefits of LVM is the ability to increase the size of the partition, referred to as a volume in LVM, as needed without the necessity for system downtime.
+
+
+Scenario #2
+Synopsis: A system administrator adds two new hard drives to the system. One hard drive is 40GB and the second is 20GB. The requirements for this system are to place a very large database on a single partition that is at least 60GB in size. This isn't possible with traditional partitions in this scenario because a partition must reside on a single hard drive.
+
+With LVM, a volume (think partition) can span over multiple hard drives. This provides a great deal more flexibility over traditional partitions and is necessary for today's big data environments.
+
+
+Scenario #3
+Synopsis: A system administrator wants to back up the data in the /home partition. In order to get a clean backup, all users must be signed off the system, and the /home partition needs to be unmounted, resulting in downtime. This is due to the way that filesystem backup programs work: they back up the filesystem metadata first, then back up the file contents. With a live filesystem, changes to files during the backup results in possibly corrupted backups that may be worthless.
+
+The solution is to make use of a feature called an LVM snapshot. An administrator can use this snapshot to back up a filesystem that will appear to be static, but won't require any system downtime.
+
+Note
+
+Logical Volume Management is a wide and varied topic, and a complete discussion is well beyond the scope of this class. The focus of this section will be to cover Logical Volume Management to the extent of possible LPIC-1 exam questions.
+
+Understanding what Logical Volume Management is, the advantages of Logical Volume Management over traditional partitioning, and basic Logical Volume Management is necessary not only for a junior system administrator but also for anyone taking the LPIC-1 exam.
+

@@ -1,0 +1,9 @@
+4.10 Step 10
+
+To view all files with names beginning with M, having a character from p to u in the 2nd position and followed by exactly 3 more characters, execute the following command:
+
+echo M[p-u]???
+
+sysadmin@localhost:~$ echo M[p-u]???                                
+Music
+

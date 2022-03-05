@@ -1,0 +1,132 @@
+2.3.2 Options
+
+command [options] [arguments]
+
+Options can be used with commands to expand or modify the way a command behaves. If it is necessary to add options, they can be specified after the command name. Short options are specified with a hyphen - followed by a single character. Short options are how options were traditionally specified.
+
+In the following example, the -l option is provided to the ls command, which results in a long display output:
+
+sysadmin@localhost:~$ ls -l
+total 0
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Desktop
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Documents
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Downloads
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Music
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Pictures
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Public
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Templates
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Videos
+
+Often the character is chosen to be mnemonic for its purpose, like choosing the letter l for long or r for reverse. By default, the ls command prints the results in alphabetical order, so adding the -r option prints the results in reverse alphabetical order.
+
+sysadmin@localhost:~$ ls -r
+Videos  Templates  Public  Pictures  Music  Downloads  Documents  Desktop
+
+In most cases, options can be used in conjunction with other options. They can be given as separate options like -l -r or combined like -lr. The combination of these two options would result in a long listing output in reverse alphabetical order:
+
+sysadmin@localhost:~$ ls -l -r
+total 0
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Videos
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Templates
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Public
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Pictures
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Music
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Downloads
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Documents
+drwxr-xr-x 1 sysadmin sysadmin   0 Sep 18 22:25 Desktop
+
+Multiple single options can be either given as separate options like -a -l -r or combined like -alr. The output of all of these examples would be the same:
+
+ls -l -a -r
+ls -rla
+ls -a -lr
+
+Generally, short options can be combined with other short options in any order. The exception to this is when an option requires an argument.
+
+For example, the -w option to the ls command specifies the width of the output desired and therefore requires an argument. If combined with other options, the -w option can be specified last, followed by its argument and still be valid, as in ls -rtw 40, which specifies an output width of 40 characters. Otherwise, the -w option cannot be combined with other options and must be given separately.
+
+sysadmin@localhost:~$ ls -lr -w 40                                            
+total 32                                                                        
+drwxr-xr-x 2 sysadmin sysadmin 4096 Feb 22 16:32 Videos                    	 
+drwxr-xr-x 2 sysadmin sysadmin 4096 Feb 22 16:32 Templates                 	 
+drwxr-xr-x 2 sysadmin sysadmin 4096 Feb 22 16:32 Public                    	 
+drwxr-xr-x 2 sysadmin sysadmin 4096 Feb 22 16:32 Pictures                  	 
+drwxr-xr-x 2 sysadmin sysadmin 4096 Feb 22 16:32 Music                     	 
+drwxr-xr-x 2 sysadmin sysadmin 4096 Feb 22 16:32 Downloads                 	 
+drwxr-xr-x 4 sysadmin sysadmin 4096 Feb 22 16:32 Documents                 	 
+drwxr-xr-x 2 sysadmin sysadmin 4096 Feb 22 16:32 Desktop
+
+If you are using multiple options that require arguments, don't combine them. For example, the -T option, which specifies tab size, also requires an argument. In order to accommodate both arguments, each option is given separately:
+
+sysadmin@localhost:~$ ls -w 40 -T 12
+Desktop	Music 	Templates
+Documents  Pictures  Videos
+Downloads  Public
+
+Some commands support additional options that are longer than a single character. Long options for commands are preceded by a double hyphen -- and the meaning of the option is typically the name of the option, like the --all option, which lists all files, including hidden ones. For example:
+
+sysadmin@localhost:~$ ls --all
+.         	.bashrc   .selected_editor  Downloads  Public	 
+..        	.cache	Desktop       	Music  	Templates
+.bash_logout  .profile  Documents     	Pictures   Videos
+
+For commands that support both long and short options, execute the command using the long and short options concurrently:
+
+sysadmin@localhost:~$ ls --all --reverse -t
+.profile  	Templates  Music  	Desktop       	..                   	 
+.bash_logout  Public 	Downloads  .selected_editor  .cache               	 
+Videos    	Pictures   Documents  .bashrc       	.
+
+Commands that support long options will often also support arguments that may be specified with or without an equal symbol (the output of both commands is the same):
+
+ls --sort time
+ls --sort=time
+
+sysadmin@localhost:~$ ls --sort=time
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+
+A special option exists, the lone double hyphen -- option, which can be used to indicate the end of all options for the command. This can be useful in some circumstances where it is unclear whether some text that follows the options should be interpreted as an additional option or as an argument to the command.
+
+For example, if the touch command tries to create a file called --badname:
+‌⁠​​⁠
+
+sysadmin@localhost:~$ touch --badname
+touch: unrecognized option '--badname'
+Try 'touch --help' for more information.
+
+The command tries to interpret --badname as an option instead of an argument. However, if the lone double hyphen -- option is placed before the file name, indicating that there are no more options, then the file name can successfully be interpreted as an argument:
+
+sysadmin@localhost:~$ touch -- --badname
+sysadmin@localhost:~$ ls
+--badname  Documents  Music 	Public 	Videos                          	 
+Desktop	Downloads  Pictures  Templates
+
+Consider This
+
+The file name in the previous example is considered to be bad because putting hyphens in the beginning of file names, while allowed, can cause problems when trying to access the file. For example, using the ls command without any options to list the path of the --badname file above, will result in an error:
+
+sysadmin@localhost:~$ ls --badname  
+ls: unrecognized option '--badname'   
+Try 'ls --help' for more information.
+
+To remove the --badname file from the home directory, use the rm remove command:
+
+sysadmin@localhost:~$ rm -- --badname
+
+The rm command will be covered in greater detail later in the course.
+
+A third type of option exists for a select few commands. While the options used in the AT&T version of UNIX used a single hyphen and the GNU port of those commands used two hyphens, the Berkeley Software Distribution (BSD) version of UNIX used options with no hyphen at all.
+
+This no hyphen syntax is fairly rare in most Linux distributions. A couple of notable commands that support the BSD UNIX style options are the ps and tar commands; both of these commands also support the single and double hyphen style of options.
+
+In the terminal below, there are two similar commands, the first command is executed with a traditional UNIX style option (with single hyphens) and the second command is executed with a BSD style option (no hyphens).
+
+sysadmin@localhost:~$ ps -u sysadmin
+  PID TTY          TIME CMD
+   79 ?        00:00:00 bash
+  122 ?        00:00:00 ps
+sysadmin@localhost:~$ ps u
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+sysadmin    79  0.0  0.0  18176  3428 ?        S    20:23   0:00 -bash
+sysadmin   120  0.0  0.0  15568  2040 ?        R+   21:26   0:00 ps u
+

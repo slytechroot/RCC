@@ -1,0 +1,40 @@
+2.9.1 Viewing Man Pages
+
+To view a man page for a command, execute the man command in a terminal window.
+
+man command
+
+For example, the following graphic shows the partial man page for the cal command:
+
+sysadmin@localhost:~$ man cal
+
+CAL(1)                    BSD General Commands Manual                   CAL(1)
+‌
+NAME
+     cal, ncal -- displays a calendar and the date of Easter
+ 
+SYNOPSIS
+     cal [-3hjy] [-A number] [-B number] [[month] year]
+     cal [-3hj] [-A number] [-B number] -m month [year]
+     ncal [-3bhjJpwySM] [-A number] [-B number] [-s country_code] [[month]
+         year]
+     ncal [-3bhJeoSM] [-A number] [-B number] [year]
+     ncal [-CN] [-H yyyy-mm-dd] [-d yyyy-mm]
+ 
+DESCRIPTION
+     The cal utility displays a simple calendar in traditional format and ncal
+     offers an alternative layout, more options and the date of Easter.  The
+     new format is a little cramped but it makes a year fit on a 25x80 termi-
+     nal.  If arguments are not specified, the current month is displayed.
+ 
+     The options are as follows:
+ 
+     -h      Turns off highlighting of today.
+
+Consider This
+
+It is possible to print man pages from the command line. If you wanted to send a man page to a default printer from a local machine, you would execute the following command:
+
+man -t command | lp
+
+The command above will not function in our virtual environment.

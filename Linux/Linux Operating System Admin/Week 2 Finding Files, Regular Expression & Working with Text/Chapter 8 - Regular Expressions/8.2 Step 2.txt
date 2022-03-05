@@ -1,0 +1,9 @@
+8.2 Step 2
+
+The front anchor ^ operator can be used to ensure that a pattern appears at the beginning of the line. To find the occurrences of the pattern root at the beginning of the line in the /etc/passwd file, execute the following command:
+
+grep '^root' /etc/passwd
+
+sysadmin@localhost:~$ grep '^root' /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+

@@ -1,0 +1,56 @@
+11.2.6 Background Processes
+
+When a command may take some time to execute, it may be better to have that command execute in the background. When executed in the background, a child process releases control back to the parent process (the shell, in this case) immediately, allowing the user to execute other commands. To have a command execute as a background process, add the ampersand & character after the command.
+
+COMMAND &
+
+For example, the following executes the sleep command for three seconds in the background. Pressing Enter after the sleep command runs will display information about the background process:
+
+sysadmin@localhost:~$ sleep 3 & 
+[1] 87
+sysadmin@localhost:~$
+[1]+  Done                    sleep 3 
+
+As shown in the output, when executing commands in the background, after each command starts executing, it outputs a job number followed by a space and then the process identification number (PID). These numbers are used for controlling the process. The sleep command in the preceding example has a job number of 1 and a PID of 87.
+
+While there are still background processes being run in the terminal, they can be displayed by using the jobs command. It is important to point out that the jobs command will only show background processes in the current terminal. If background processes are running in another terminal, they will not be shown by running the jobs command in the current terminal. The following is an example of using the jobs command:
+
+sysadmin@localhost:~$ sleep 1000 &
+[1] 106
+sysadmin@localhost:~$ sleep 2000 &
+[2] 107
+sysadmin@localhost:~$ jobs
+[1]-  Running                 sleep 1000 &
+[2]+  Running                 sleep 2000 &
+
+In the example above, the jobs command shows the two sleep processes running in the background. The job number of a process is sometimes followed by a minus - or a plus + character. The plus + character denotes the last process that was started, while the minus - character denotes a process started previous to the latest one. Once a third job is created, only the most recent job will have the + next to it and the next-most recent, or previous, job will have the - next to it. All other jobs will have a blank in that space. This allows you to see what the most recent and next-most recent jobs are very quickly.
+
+To terminate the processes, send them to the foreground by using the fg command with the job number of the process to terminate, and while the process is running in the foreground, use Ctrl+C, a signal which stops the process:
+
+sysadmin@localhost:~$ fg 1
+sleep 1000
+^C
+sysadmin@localhost:~$ fg 2
+sleep 2000
+^C
+sysadmin@localhost:~$ jobs
+sysadmin@localhost:~$
+
+Note
+
+The fg command, as well as being a more efficient method for terminating processes, will be covered in greater detail later in this chapter.
+
+To have multiple commands run in the background on one command line, place an ampersand & character after each command on the command line. In the next example, all three commands execute at the same time and release control back to the shell, so a user does not have to wait for any of the commands to finish before executing another command (although the user may need to press Enter again to get a prompt):
+
+sysadmin@localhost:~$ echo Hello & echo World & echo '!' &
+[1] 94
+[2] 95
+Hello
+[3] 96
+sysadmin@localhost:~$ World
+!
+
+[1]   Done                    echo Hello
+[2]-  Done                    echo World
+[3]+  Done                    echo '!'                       
+

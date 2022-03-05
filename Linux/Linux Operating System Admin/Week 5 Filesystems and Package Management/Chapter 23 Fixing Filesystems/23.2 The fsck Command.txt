@@ -1,0 +1,99 @@
+23.2 The fsck Command
+
+The fsck command is used to check filesystems for consistency issues and to repair those issues when found. The fsck command has some similarities to the mkfs command. First of all, it is a generic tool for use with filesystems; its purpose is to check filesystems for errors and attempt to repair them. Second, fsck is actually a front end for the various filesystem checkers, meaning it will call the appropriate back end command, like the e2fsck command, based upon the filesystem type.
+
+The files that link the front end to the back end are named by patterns like the fsck.FILESYSTEM-TYPE pattern, such as fsck.ext4 or fsck.vfat. These files between the front and back end commands can be a great way to find documentation.
+
+For example, to discover the actual filesystem-specific command that is used to check vfat filesystems, execute the man fsck.vfat command. This will display the man page for the real back end command for checking vfat filesystems, which is the dosfsck command. Likewise, viewing the man page for fsck.ext4 displays the e2fsck command used for checking ext2, ext3, and ext4 filesystems.
+
+It is not necessary to know which back end to use. Simply execute the fsck command with either the pathname for the filesystem or its mount point. The fsck command will determine the filesystem-specific program to call based upon the filesystem type from the entry in the /etc/fstab file. If the filesystem does not have an entry in the /etc/fstab file, then the -t option can be used with the fsck command to specify the filesystem type.
+Warnings About the fsck Command
+
+While this tool is designed to check and fix filesystems, it can actually damage filesystems too! The fsck utility is not designed to be executed on currently used filesystems (systems that are already mounted). If the fsck command is run on a currently mounted filesystem, the following error will appear:
+
+Note
+
+The following example may not match the output in our virtual environment.
+
+root@localhost:~# fsck /dev/sda1
+fsck from util-linux-ng 2.17.2
+
+
+e2fsck 1.41.12 (17-May-2010)
+/dev/sda1 is mounted.
+
+
+WARNING!!  The filesystem is mounted.   If you continue you ***WILL*** cause ***SEVERE*** filesystem damage.
+
+
+Do you really want to continue (y/n)? no
+
+
+check aborted
+
+In this case, definitely type n for no. Keep in mind, if the filesystem is already mounted, then it doesn't need to be checked. The very fact that it is mounted means it is working correctly.
+
+A backup policy should be implemented to facilitate recovery of important files in the event they are lost or corrupted. It is all too common that backups are not considered until it is too late.
+
+Consider This
+
+When it comes to backups, late may be better than never. If a filesystem is damaged and can't be mounted, consider making a backup of it with the dd command before trying to fix it with the fsck command. That way, if the fix that the fsck command performs actually makes things worse than they were originally, it is still possible to revert back to the condition preserved in the backup.
+
+One of the more useful options for the fsck command is the -y option, which will cause fsck to assume a yes response to all prompts that it would normally make. Using this option may prevent hours typing the letter y in response to questions from the tool like, Would you like to fix this?
+
+Since the root filesystem cannot be unmounted while the system is running, it can be difficult to check. One approach to checking the root filesystem, is to boot up another Linux operating system with a different root filesystem. A common approach is to download and use a Live CD-ROM, DVD, or USB, which are bootable Linux operating systems that fit on those media.
+
+Another non-interactive approach is to force a filesystem check to occur, by executing the touch /forcefsck command as the root user. If this file exists at boot time, then the fsck command is executed on all filesystems in the /etc/fstab file that have a non-zero value for the FSCK column. After completion, the /forcefsck file will be removed, and the timestamp of the /.autofsck file will be updated to the time when the check finished.
+
+For partitions that can be unmounted while the system is running, the fsck command can be started interactively to perform the check. For example:
+
+Note
+
+The following examples may not match the output in our virtual environment.
+
+root@localhost:~# mount | grep /data
+/dev/sdb1 on /data type ext4 (rw)
+root@localhost:~# umount /data
+root@localhost:~# fsck /dev/sdb1
+fsck from util-linux-ng 2.17.2
+e2fsck 1.41.12 (17-May-2010)
+/dev/sdb1: clean, 11/12824 files, 6532/51200 blocks
+
+Note that the fsck command did not perform a filesystem check in the previous example. Since the filesystem was cleanly unmounted (which would also happen during a normal system shutdown or reboot), the state of the filesystem was set to clean. The fsck command doesn't perform any checks when the filesystem state is clean.
+
+A filesystem check can be forced by using the -f option:
+
+root@localhost:~# fsck -f /dev/sdb1
+fsck from util-linux-ng 2.17.2
+e2fsck 1.41.12 (17-May-2010)
+Pass 1: Checking indoors, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/dev/sdb1: 11/12824 files (9.1% non-contiguous), 6532/51200 blocks
+
+When a partition has a problem, attempting to mount it may result in an error message like this:
+
+mount: you must specify the filesystem type
+
+Normally, the mount command will read the first block of the filesystem (the superblock) where the information about the filesystem type is kept. When a superblock is damaged, the mount command is unable to read that information.
+
+In this case, use the fsck command to fix the filesystem. The output may look something like the following:
+
+fsck from util-linux-ng 2.17.2
+
+e2fsck 1.41.12 (17-May-2010)
+
+fsck.ext2: Superblock invalid, trying backup blocks...
+mydata was not cleanly unmounted, check forced.
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+
+mydata: ***** FILE SYSTEM WAS MODIFIED *****
+mydata: 11/25688 files (0.0% non-contiguous), 4800/102400 blocks
+
+Notice the highlighted text of the output shows that the command tried backup blocks. The fsck command will often be able to find a backup copy of the superblock that was created at the time the filesystem was last modified.

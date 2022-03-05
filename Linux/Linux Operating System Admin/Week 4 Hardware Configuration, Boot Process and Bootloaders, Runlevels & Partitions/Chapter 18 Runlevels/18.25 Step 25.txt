@@ -1,0 +1,10 @@
+18.25 Step 25
+
+Execute the following command to view the previous and current runlevel:
+
+runlevel
+
+[root@centos ~]# runlevel
+N 2
+[root@centos ~]#
+

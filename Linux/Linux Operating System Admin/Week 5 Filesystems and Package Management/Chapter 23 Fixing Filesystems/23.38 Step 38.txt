@@ -1,0 +1,10 @@
+23.38 Step 38
+
+Verify that the filesystem is broken by attempting to mount it:
+
+mount /data
+
+root@ubuntu:~# mount /data
+[ 3502.251839] EXT4-fs (sdb5): VFS : Can’t find ext4 filesystem 
+mount: /data: wrong fs type, bad option, bad superblock on /dev/sdb5, missing codepage or helper program, or other error.
+

@@ -1,0 +1,125 @@
+15.6 Hardware Subsystems
+
+Linux distributions are more capable than ever, particularly in the area of device management. Devices built into the computer system are typically not removable unless the system is shut down and power disconnected for safety.
+
+The concept of hotplugging - plugging devices into a port on a Linux system and having the running system automatically recognize the device correctly, then possibly run a program or execute a set of actions - works extremely well in modern Linux distributions due to a trio of device management tools.
+
+The trio of device management tools starts with udev, a device management subsystem that manages the /dev directory and will automatically create and destroy node points (references to a device) for devices that are attached to the system, or subsequently removed.
+
+To accomplish this, the udev subsystem maintains a pseudo-filesystem mounted as the /dev directory. The files in the /dev directory represent devices currently connected to the system. When the Linux kernel detects a device being connected, the udev daemon is used to create a device file (or node) in the /dev directory. If the device is removed, the udev daemon then removes the device node in the /dev directory.
+
+Consider This
+
+Older Unix systems tended to create all possible device nodes in /dev, just in case they were needed; udev only creates and maintains nodes for devices currently connected. This keeps the directory nice and neat and clean, easy to troubleshoot, and to determine what’s actually present and attached to the system.
+
+Configuration files in the /etc/udev/rules.d directory are used to define rules that assign specific ownerships, permissions, and persistent names to these device files. These files allow a user to configure how udev handles the devices it manages.
+
+The second part of the device management trio is the sysfs subsystem, which is another in-memory filesystem that consists of directories and text files that contain values about the kernel’s operation and configuration.
+
+The sysfs subsystem is typically mounted as the /sys subdirectory. The /sys directory and sysfs exist because there is a need to provide information about the kernel, its attributes, and contents to users via programs such as ps, top, and other programs that provide information to the regular user through command line output. To view the contents of the /sys directory on the system, use the following command:
+
+sysadmin@localhost:~$ ls /sys
+block  class  devices   fs          kernel  power
+bus    dev    firmware  hypervisor  module
+
+Modern systems (kernels 2.5 and beyond) use sysfs to express kernel information into the /sys directory because the procfs subsystem (and the /proc directory) had become increasingly busy and cluttered. Like the /sys directory, the /proc directory contains information about the system hardware, including devices and the kernel. However, as an ever-larger set of kernel subsystems started using the /proc directory to express their structures and expose kernel information for the system user to access, the /proc directory became busy and somewhat jumbled in nature, like a closet that has too many items packed into it. In comparison, the /sys directory structure forces a certain austerity and cleanliness by design, as the rules for using the /sys directory are “one item per file” and no more.
+
+This allows for a much neater and easier to understand expression of kernel objects and their attributes, and allows for easier documentation and programming.
+
+For example, in the /proc directory, you can use the tree command to show a hierarchical tree of the files and directories that are contained there. However, the listing will be many pages long, so using the less command will be of great benefit in scrolling up and down and looking at the output.
+
+sysadmin@localhost:~$ tree /proc | less
+
+/proc
+|-- 1
+|   |-- attr
+|   |   |-- current
+|   |   |-- exec
+|   |   |-- fscreate
+|   |   |-- keycreate
+|   |   |-- prev
+|   |   `-- sockcreate
+|   |-- autogroup
+|   |-- auxv
+|   |-- cgroup
+|   |-- clear_refs
+|   |-- cmdline
+|   |-- comm
+|   |-- coredump_filter
+|   |-- cpuset
+|   |-- cwd -> [Error\ reading\ symbolic\ link\ information]
+|   |-- environ
+|   |-- exe -> [Error\ reading\ symbolic\ link\ information]
+|   |-- fd [error opening dir]
+|   |-- fdinfo [error opening dir]
+|   |-- gid_map
+:
+
+Many of the files in the /proc directory will contain more than a single value, whereas the files in the /sys directory are designed to be simpler and contain a single text value, making them more predictable and easier to use.
+
+Finally, the last of the trinity of device management tools is the Hardware Abstraction Layer (HAL) daemon, (aka hald). As the kernel detects a device, it puts the information about the device into the appropriate files in the /sys directory. The hald is responsible for discovering and maintaining a list of connected devices and their attributes by monitoring the files in the /sys directory.
+
+To view the list of devices and their attributes that have been stored by hald, execute the lshal command. The lshal command's output will likely contain thousands of lines of text. To see information about specific devices, make use of the grep command, as shown in the following example:
+
+Note
+
+The following example may not match the output in our virtual environment.
+
+sysadmin@localhost:~$ lshal | grep cdrom | grep true
+ storage.cdrom.dvd = true   (bool)
+ storage.cdrom.mrw = true   (bool)
+ storage.cdrom.mrw_w = true   (bool)
+ storage.cdrom.support_media_changed = true   (bool)
+ storage.cdrom.support_multisession = true   (bool)
+
+Consider This
+
+Since 2011, hald has been deprecated by many of the leading Linux distributions and has been eliminated from recent releases. In its place, the udev subsystem has been expanded, along with integrating Systemd. Keep in mind that hald may still be used on legacy systems, so questions related to it may still be on the exam.
+
+Finally, when programs want information about devices, they are able to query hald by using D-Bus.
+
+D-Bus is a method of allowing inter-process communications, primarily the communications between components in the Linux Desktop environments, KDE and GNOME. Without D-Bus, desktop environments will communicate between components with many separate processes, each requiring its own one-to-one communication with other components. This produces a confusing communications environment and can contribute to inefficiency and a lack of reliability and instability in the graphics subsystem.
+
+D-Bus is a software bus that allows individual and groups of processes to communicate on a single virtual bus or channel, a feature called Interprocess Communication (IPC).
+Dbus depicted as horizontal arrow with processes connected to it.
+
+D-Bus operates with an overall system bus that is available to all the processes on the system, whether they are system or user-related processes. Additionally, there is a session bus for each of the logged-in users for the processes that are connected to that user’s desktop session.
+
+Programs can also register themselves with D-bus to receive notifications from hald when specific types of hardware events occur. When the state of a hardware device changes, hald uses D-Bus to send notifications to those programs that have been registered for that type of hardware event.
+
+Systemd typically uses udev for its device management tasks. The job of udev is to let your computer know of device events, among other tasks. A user will likely not have to deal with udev directly unless there are archaic or odd devices that need to be made available and manual configuration to be done.
+
+Udev can manage any device that shows a link in the /dev directory when attached to the system, which udev is able to do through scripts known most commonly as udev rules. At their simplest, a udev rule is something that performs an action when a device is inserted, such as a thumb drive.
+
+For the majority of devices, the kernel will know exactly what to do already. For example, if you plug in a USB thumb drive, the kernel will likely mount it to one of the available spots in the /dev/sd* devices directory. If it does, you can access and use it, depending on its format and other compatibility settings.
+
+Udev can detect when a device has been attached or removed. Udev rules can establish custom actions that are taken when these events occur.
+
+Writing udev rules is beyond the scope of this course; however, you can use the udevadm command to view the pertinent information that would allow you to directly specify a device within a udev rule when it’s attached, and then execute specific actions on that device.
+
+There are two ways to do this:
+
+    When a device is inserted.
+    When you want to query a device that is either already attached or is built-in to the system, such as the main storage device (the /dev/sda device for example.)
+
+To watch what happens when a device is inserted or attached, run the following command:
+
+sysadmin@localhost:~$ udevadm monitor
+monitor will print the received events for:
+UDEV: the event udev sends out  after rule processing
+KERNEL - the kernel uevent
+
+To query an already-attached device for the necessary information, execute the command below:
+
+sysadmin@localhost:~$ udevadm info /dev/sda
+P: /devices/pci0000:00/0000:00:07.1/ata1/host0/target0:0:0/0:0:0:0/block/sda
+N: sda
+S: disk/by-id/ata-VMware_Virtual_IDE_Hard_Drive_00000000000000000001
+S: disk/by-id/wwn-0x5000c2947bd39bdb
+S: disk/by-path/pci-0000:00:07.1-ata-1
+E: DEVLINKS=/dev/disk/by-id/wwn-0x5000c2947bd39bdb /dev/disk/by-path/pci-0000:00:07.1-ata-1 /dev/disk/by-id/ata-VMware_Virtual_IDE_Hard_Drive_00000000000000000001
+E: DEVNAME=/dev/sda
+E: DEVPATH=/devices/pci0000:00/0000:00:07.1/ata1/host0/target0:0:0/0:0:0:0/block/sda
+E: DEVTYPE=disk
+
+The two preceding commands and a short study of the udev man pages about rules will inform beginners and system administrators on how to create custom rules for devices.

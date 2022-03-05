@@ -1,0 +1,7 @@
+
+19.1 Introduction
+
+A well-thought-out disk partitioning scheme is vital to optimizing the use of system resources. While it is technically possible to make post-installation changes to partitions, this may be challenging and require system downtime. Therefore, it is important to consider how the system will be used before you begin creating partitions.
+
+There are many components to take into consideration when creating a partitioning strategy. The focus of this chapter is to provide a firm understanding of these components, key terms, and important concepts regarding partitions.
+

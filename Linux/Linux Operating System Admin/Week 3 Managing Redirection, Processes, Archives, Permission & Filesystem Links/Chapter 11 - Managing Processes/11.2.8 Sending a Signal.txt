@@ -1,0 +1,106 @@
+11.2.8 Sending a Signal
+
+A signal is a message that is sent to a process to tell the process to take some sort of action, such as stop, restart, or pause. Signals are very useful in controlling the actions of a process.
+
+Some signals can be sent to processes by simple keyboard combinations. For example, to have a foreground process paused, send a Terminal Stop signal by pressing Ctrl+Z. A Terminal Stop pauses the program but does not completely stop the program. To completely stop a foreground process, send the Interrupt signal by pressing Ctrl+C.
+
+There are many different signals; each of them has a symbolic name and a numeric identifier. For example, Ctrl+C is assigned the symbolic name SIGINT and the numeric identifier of 2.
+
+To see a list of all of the signals available for your system, execute the kill -l command:
+
+sysadmin@localhost:~$ kill -l
+ 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP
+ 6) SIGABRT      7) SIGBUS       8) SIGFPE       9) SIGKILL     10) SIGUSR1
+11) SIGSEGV     12) SIGUSR2     13) SIGPIPE     14) SIGALRM     15) SIGTERM
+16) SIGSTKFLT   17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP
+21) SIGTTIN     22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ
+26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO       30) SIGPWR
+31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3
+38) SIGRTMIN+4  39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8
+43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13
+48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12
+53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7
+58) SIGRTMAX-6  59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
+63) SIGRTMAX-1  64) SIGRTMAX
+
+These signals can have unique meanings that are specific to a certain command (as the programmer who created the command can adjust the behavior of the program), but generally they allow for processes to be stopped and resumed, for processes to reconfigure themselves, or to end a process. All the signals with a number greater than 31 are for controlling real-time processes, a topic which is beyond the scope of this course. Some of the more common signals are summarized in the following table:
+Number 	Full Name 	Short Name 	Purpose
+1 	SIGHUP 	HUP 	Hang up, usually ends a process
+2 	SIGINT 	INT 	Interrupt, usually ends a process
+3 	SIGQUIT 	QUIT 	Quit, usually ends a process
+9 	SIGKILL 	KILL 	Kill, forcefully ends a process
+15 	SIGTERM 	TERM 	Terminate, usually ends a process
+18 	SIGCONT 	CONT 	Continue, resumes a stopped process
+19 	SIGSTOP 	STOP 	Stop, forcefully stops a process
+20 	SIGTSTP 	TSTP 	Terminal Stop, usually stops a process
+
+There are several commands that will allow you to specify a signal to send to a process; the kill command is the most commonly used. The syntax for the kill command looks like the following:
+
+kill [OPTIONS]... <pid>
+
+The kill command specifies which signal to be sent using options. It accepts three different ways to specify the signal:
+
+-<signal>
+-s <signal>
+--signal <signal>
+
+The signal can be specified by using the number, the short name, or the full name. For example, to specify the Interrupt signal, any of the following options could be used:
+
+-2
+-INT
+-SIGINT
+
+If the user doesn't specify a signal with an option, then the kill command defaults to sending the Terminate SIGTERM signal.
+
+When sending a signal, specify one or more processes to send the signal to. There are numerous techniques to specify the process or processes. The more common techniques include:
+
+    Specifying the process identifier (PID)
+    Using the % (percent sign) prefix to the job number
+
+For example, imagine a scenario where a user is running some process in the background and that user wants to send a signal to the process. For this demonstration, the sleep command is run in the background:
+
+sysadmin@localhost:~$ sleep 5000&
+[1] 2901
+
+A couple of items are noteworthy from the output of starting this process in the background. First, notice the job number in square brackets [1]. Second, notice the process identifier (PID) which is 2901. To send the Terminate signal, to this process, you can use either of the following commands:
+
+sysadmin@localhost:~$ kill 2901
+
+sysadmin@localhost:~$ kill %1
+
+As indicated earlier, the Terminate signal normally will end a process. Sometimes a process will trap the Terminate signal so it may not end that process. Trapping occurs when a process behaves differently from the norm when it receives a signal; this can be the result of how the programmer created the code for the command.
+
+A user could try to use other signals, like SIGQUIT or SIGINT, to try to end a process, but these signals can also be trapped. The only signal that will end a process and can't be trapped is a SIGKILL signal. So, if other signals have failed to end a process, use the SIGKILL signal to force the process to end.
+
+Users should not normally use the SIGKILL signal as the initial attempt to try to end a process because this forces the process to end immediately and will not allow the process the opportunity to "clean up" after itself. Processes often perform critical operations, such as deleting temporary files, when they exit naturally.
+
+The following examples show two ways to send the Kill signal to a process:
+
+sysadmin@localhost:~$ kill -9 2901
+
+sysadmin@localhost:~$ kill -KILL %1
+
+There are other commands that send processes signals, such as the killall and pkill commands, which are useful to stop many processes at once; whereas the kill command is a good choice for sending signals to a single process. The pkill command can be used to terminate one or more processes by name and other criteria such as the terminal and UID. Similar to how the pgrep command searches for a process by matching its name or pattern, the pkill command allows users to specify a pattern that matches a process name and then sends signals to that process. The following is a commonly used syntax for the pkill command:
+
+pkill [OPTIONS]... PATTERN
+
+The killall command can also be used to terminate one or more processes by name and other criteria such as the user owner of the process and system processes. The following demonstrates syntax that can be used for the killall command:
+
+killall [OPTIONS]... NAME
+
+Like the kill command, signals can be specified using either the number or signal name for both the killall and pkill commands. Unlike the kill command, these other commands can be used to terminate all processes of a particular user with the -u option. For example, killall -u bob would stop all of the process owned by the bob user.
+
+The killall and pkill commands also accept the name of the process instead of a process or job number. Just be careful as this may end up stopping more processes than you had expected. An example of stopping a process using the process name:
+
+sysadmin@localhost:~$ kill sleep
+-bash: kill: sleep: arguments must be process or job IDs
+sysadmin@localhost:~$ killall sleep
+[1]+  Terminated              sleep 5000
+
+Consider This
+
+You could very easily feed the output of the pgrep command to the kill command to terminate a process. For example, by using the xargs command to help feed the lines of the output to the kill command one at a time, so it works properly:
+
+sysadmin@localhost:~$ pgrep -i nano | xargs kill -9
+
+This will result in the kill -9 command being run on each of the PIDs that pgrep brought back for the nano query.

@@ -1,0 +1,3 @@
+13.6.2 Setgid Permission
+
+The setgid permission is similar to setuid, but it makes use of the group owner permissions. There are two forms of setgid permissions: setgid on a file and setgid on a directory. The behavior of setgid depends on whether it is set on a file or directory.

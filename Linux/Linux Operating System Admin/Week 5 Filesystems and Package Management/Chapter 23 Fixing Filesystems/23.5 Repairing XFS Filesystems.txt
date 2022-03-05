@@ -1,0 +1,122 @@
+23.5 Repairing XFS Filesystems
+
+The XFS file system is in wide usage. Some distributions use it for most if not all filesystems, others use it as the file system for the user’s home directory portion of a system. It is stable, featureful and trusted.
+
+Every filesystem, no matter how trusted needs to be repaired now and then, as power outages happen, filesystem corruption happens due to rogue programs etc.
+
+XFS filesystems are repaired differently than other file systems. As XFS is capable of containing immensely large numbers of files (inodes), this would make boot-time checking impractical, even using a file system journal, which XFS does.
+
+XFS relies on the journal for most error correction, or when dealing with the filesystem being marked as not having been properly unmounted. If a filesystem is not cleanly unmounted, it is marked as needing to be checked, which XFS does by replaying the journal log—usually this is enough to ensure that the data is written correctly.
+
+In cases where XFS’s metadata or structure has become corrupted, an error such as mount: Structure needs cleaning may occur, and the xfs_repair utility will need to be run against the filesystem in order to repair any inconsistencies.
+
+Consider This
+
+Whenever a filesystem is apparently corrupted, it’s best to have a backup of the data on the filesystem. The xfs_copy and xfsdump commands may be helpful in that regard. The xfs_copy command can create an exact duplicate of the questionable filesystem in order to experiment with repairs.
+
+These commands are out of the scope of the objectives and of this course.
+
+In the eventuality that you must attempt to repair an XFS filesystem, it’s fairly straightforward to use. The xfs_repair command can only be run on an unmounted filesystem, which means if the XFS filesystem on a device is used as the /home directory, then all users must be off the filesystem in order to unmount it for repair.
+
+To unmount the /dev/sda3 filesystem, as the root user (and not in the /home directory structure) use the command:
+
+Note
+
+The following examples may not match the output in our virtual environment.
+
+root@localhost:~# umount /dev/sda3
+
+To use xfs_repair on the filesystem, use the following command:
+
+root@localhost:~# xfs_repair /dev/sda3
+
+Phase 1 - find and verify superblock...
+Phase 2 - using internal log
+    	- zero log...
+    	- scan filesystem freespace and inode maps...
+    	- found root inode chunk
+Phase 3 - for each AG...
+    	- scan and clear agi unlinked lists...
+    	- process known inodes and perform inode discovery...
+    	- agno = 0
+    	- agno = 1
+    	- agno = 2
+    	- agno = 3
+    	- process newly discovered inodes...
+Phase 4 - check for duplicate blocks...
+    	- setting up duplicate extent list...
+    	- check for inodes claiming duplicate blocks...
+    	- agno = 0
+    	- agno = 1
+    	- agno = 2
+    	- agno = 3
+Phase 5 - rebuild AG headers and trees...
+    	- reset superblock...
+Phase 6 - check inode connectivity...
+    	- resetting contents of realtime bitmap and summary inodes
+    	- traversing filesystem ...
+    	- traversal finished ...
+    	- moving disconnected inodes to lost+found ...
+Phase 7 - verify and correct link counts...
+done
+
+Note
+
+In certain circumstances, it may be advantageous to zero out the XFS filesystem’s journal log, such as when the journal log has become corrupted. Zeroing out an XFS journal log is an extreme move, and should only be done as a last resort.
+
+To zero out an XFS filesystem’s journal log, use the command:
+
+root@localhost:~# xfs_repair -L /dev/sda3
+
+In situations where manual repair of the XFS filesystem is desired, the xfs_db command can be used to initiate such repair on an XFS filesystem. The xfs_db command is used to perform debugging options and possible repairs to an XFS filesystem, but if inexpertly used can easily make the filesystem unusable and unrecoverable.
+
+To use xfs_db in expert mode use the command:
+
+Important
+
+Expert mode of the xfs_db command allows for the modification of data structures, which can be dangerous!
+
+root@localhost:~# xfs_db -x /dev/sda3
+
+As a method of keeping your XFS filesystems in good shape, the xfs_fsr or Filesystem Reorganizer for the xfs command can be used on your mounted XFS filesystems to keep them organized and working well.
+
+The xfs_fsr command works on one file at a time, noting where it’s data is, compacting and reorganizing files to be as streamlined as possible in order to improve read and write times, thus affecting system performance.
+
+Before invoking the xfs_fsr command to use system resources reorganizing filesystems, it’s a good idea to check if they need this sort of maintenance. The xfs_db command can be used to assess the need for reorganization:
+
+root@localhost:~# xfs_db -r /dev/sda3
+xfs_db>frag
+actual 345, ideal 289, fragmentation factor 16.23%
+Note, this number is largely meaningless.
+Files on this filesystem average 1.19 extents per file
+xfs_db>quit
+
+The use of the internal frag command will report back the state of the filesystem’s fragmentation, and this will work on mounted or unmounted filesystems. The state of the example filesystem is fairly low fragmentation, so reorganization would likely yield little or no actual performance results.
+
+If the fragmentation factor is above 25% or so, then reorganization would yield measurable performance results.
+
+To reorganize and optimize all mounted filesystems on your system and see verbose output on exactly what is being done to what files, use the command:
+
+root@localhost:~# xfs_fsr -v /dev/sda3
+No improvement will be made (skipping): ino=3147588472
+ino=1247877226
+No improvement will be made (skipping): ino=1247877226
+ino=124787727
+No improvement will be made (skipping): ino=1247877440
+ino=1247877470
+extents before:2 after:1 DONE ino=1247877470
+ino=1247849901
+extents before:2 after:1 DONE ino=1247849901
+ino=1247849973
+No improvement will be made (skipping): ino=1247849973
+ino=1247877640
+Output Omitted...
+
+Another very useful feature of the xfs_fsr command is that you can set it to run for a given period of time, so it can be started either manually or on a scheduled basis to run for a couple of hours each night when the system is less utilized. To run xfs_fsr for 1 hour and then stop:
+
+root@localhost:~# xfs_fsr -t 3600
+
+The utility will then go to work for up to an hour, reorganizing the drives file by file until the time limit is over, or the files are done being reorganized.
+
+If for some reason xfs_fsr is interrupted or needs to be stopped, it keeps track of where it was in the reorganization process, and can resume where it left off when it is run again.
+

@@ -1,0 +1,7 @@
+18.0 Introduction
+
+In order to provide the functionality you need to apply these concepts, this VM may require a minute or two to load.
+
+Having different runlevels provides a means to fine-tune your operating system. You can have specific services running at different runlevels, providing an easy way to change the state of the system.
+
+In this lab, you will explore two distributions, which both make use of the Upstart service to different degrees: CentOS and Ubuntu.

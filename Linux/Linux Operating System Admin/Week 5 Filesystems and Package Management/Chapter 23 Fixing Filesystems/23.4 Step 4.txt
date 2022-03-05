@@ -1,0 +1,12 @@
+23.4 Step 4
+
+At the Command prompt, type n to create a new partition:
+
+n
+
+Command (m for help): n
+Partition type
+ p primary (0 primary, 0 extended, 4 free)
+ e extended (container for logical partitions)
+Select (default p):
+

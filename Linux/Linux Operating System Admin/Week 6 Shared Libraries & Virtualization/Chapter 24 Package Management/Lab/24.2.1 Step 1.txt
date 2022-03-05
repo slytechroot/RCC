@@ -1,0 +1,33 @@
+24.2.1 Step 1
+
+Switch to the root account by typing the su command. When prompted, provide the root password.
+
+su
+netlab123
+
+Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.4.0-72-generic x86_64)               
+                                                                                
+ * Documentation:  https://help.ubuntu.com                                      
+ * Management:     https://landscape.canonical.com                              
+ * Support:        https://ubuntu.com/advantage                                 
+                                                                                
+The programs included with the Ubuntu system are free software;                 
+the exact distribution terms for each program are described in the              
+individual files in /usr/share/doc/*/copyright.                                 
+                                                                                
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by            
+applicable law.                                                                 
+                                                                                
+                                                                                
+This lab has two user accounts (username :: password )                          
+                                                                                
+   root     :: netlab123                                                        
+   sysadmin :: netlab123                                                        
+                                                                                
+Press the [Enter] key to begin...                                               
+                                                                                
+No mail.                                                                        
+sysadmin@localhost:~$ su
+Password:                                                                       
+root@localhost:~#
+

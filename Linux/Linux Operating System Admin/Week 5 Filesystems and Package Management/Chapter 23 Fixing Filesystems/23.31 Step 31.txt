@@ -1,0 +1,17 @@
+23.31 Step 31
+
+However, there is a second way to determine a backup superblock that will work on a filesystem that has a corrupted primary superblock. Execute the following command:
+
+mke2fs -n /dev/sdb5
+
+root@ubuntu:~# mke2fs -n /dev/sdb5
+mke2fs 1.44.1 (24-Mar-2018)
+Creating filesystem with 240800 1k blocks and 51200 inodes
+Filesystem UUID: 71b895c4-e9f4-4e7a-992f-b90f6784094f
+Superblock backups stored on blocks:
+        8193, 24577, 40961, 57345, 73729
+
+Important
+
+Do not forget to include the -n option. Without the -n option, you would end up creating a new filesystem on that partition, resulting in complete data loss.
+

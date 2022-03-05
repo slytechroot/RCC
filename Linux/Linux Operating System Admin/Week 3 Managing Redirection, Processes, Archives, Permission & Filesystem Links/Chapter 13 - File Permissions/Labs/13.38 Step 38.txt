@@ -1,0 +1,12 @@
+13.38 Step 38
+
+Verify that the setgid permission works by executing the following commands:
+
+touch /srv/test/labfile2.txt
+ls -l /srv/test/labfile2.txt
+
+root@localhost:~# touch /srv/test/labfile2.txt
+root@localhost:~# ls -l /srv/test/labfile2.txt
+-rw-r--r-- 1 root team 0 May 17 01:23 /srv/test/labfile2.txt
+
+Notice that this new file is group owned by the team group, not the root group.

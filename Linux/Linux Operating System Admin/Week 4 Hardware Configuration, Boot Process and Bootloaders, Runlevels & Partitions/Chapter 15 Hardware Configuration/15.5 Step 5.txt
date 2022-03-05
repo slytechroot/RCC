@@ -1,0 +1,50 @@
+15.5 Step 5
+
+The /proc/meminfo file provides a very detailed breakdown of how much memory a system has and how it is being used. For a more detailed look at memory usage, execute the following command:
+
+cat /proc/meminfo | less
+
+root@ubuntu:~# cat /proc/meminfo | less  	
+
+MemTotal:     	492952 kB
+MemFree:      	298216 kB
+MemAvailable: 	436160 kB
+Buffers:       	10544 kB
+Cached:       	124068 kB
+SwapCached:        	0 kB
+Active:       	117304 kB
+Inactive:      	39200 kB
+Active(anon):  	22268 kB
+Inactive(anon):  	216 kB
+Active(file):  	95036 kB
+Inactive(file):	38984 kB
+Unevictable:       	0 kB
+Mlocked:           	0 kB
+SwapTotal:    	524284 kB
+SwapFree:     	524284 kB
+Dirty:             	0 kB
+WriteBack:         	0 kB
+AnonPages:     	21712 kB
+Mapped:        	27868 kB
+Shmem:           	576 kB
+Slab:          	26388 kB
+SReclaimable:  	11952 kB                                                	 
+SUnreclaim:     	9316 kB                                                	 
+KernelStack:    	1376 kB                                                	 
+PageTables:     	3568 kB                                                	 
+NFS_Unstable:      	0 kB                                                	 
+Bounce:            	0 kB                                                	 
+WritebackTmp:      	0 kB                                                	 
+CommitLimit: 	5766720 kB                                               	 
+Committed_AS: 	236336 kB                                               	 
+VmallocTotal:   34359738367 kB                                             	 
+VmallocUsed:    	4708 kB                                                	 
+VmallocChunk:   34359731508 kB                                                	 
+HardwareCorrupted: 	0 kB                                                	 
+AnonHugePages:     	0 kB                                                	 
+:
+
+Type Q to exit the less command:
+
+q
+

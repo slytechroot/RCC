@@ -1,0 +1,36 @@
+24.2.16 Step 16
+
+The status of an installed package can be displayed by executing the dpkg -s command followed by the name of the package. Display the status of the xfsprogs package:
+
+dpkg -s xfsprogs
+
+root@localhost:~# dpkg -s xfsprogs                                              
+Package: xfsprogs                                                               
+Status: install ok installed                                                    
+Priority: optional                                                              
+Section: admin                                                                  
+Installed-Size: 3876                                                            
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>           
+Architecture: amd64                                                             
+Version: 4.9.0+nmu1ubuntu2                                                      
+Replaces: xfsdump (<< 3.0.0)                                                    
+Provides: fsck-backend                                                          
+Depends: libblkid1 (>= 2.17.2), libc6 (>= 2.14), libreadline5 (>= 5.2), libuuid1
+ (>= 2.16)                                                                      
+Suggests: xfsdump, acl, attr, quota                                             
+Breaks: xfsdump (<< 3.0.0)                                                      
+Description: Utilities for managing the XFS filesystem                          
+ A set of commands to use the XFS filesystem, including mkfs.xfs.               
+ .                                                                              
+ XFS is a high performance journaling filesystem which originated    
+on the SGI IRIX platform.  It is completely multi-threaded, can                
+ support large files and large filesystems, extended attributes,                
+ variable block sizes, is extent based, and makes extensive use of              
+ Btrees (directories, extents, free space) to aid both performance              
+ and scalability.                                                               
+ .                                                                              
+ Refer to the documentation at http://oss.sgi.com/projects/xfs/                 
+ for complete details.                                                          
+Homepage: http://xfs.org/                                                       
+Original-Maintainer: XFS Development Team <linux-xfs@vger.kernel.org>
+

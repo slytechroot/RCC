@@ -1,0 +1,13 @@
+7.18 Step 18
+
+To view the last 5 lines of the /usr/share/dict/words file, execute the following command:
+
+tail -5 /usr/share/dict/words
+
+sysadmin@localhost:~$ tail -5 /usr/share/dict/words
+épée's
+épées
+étude
+étude's
+études
+

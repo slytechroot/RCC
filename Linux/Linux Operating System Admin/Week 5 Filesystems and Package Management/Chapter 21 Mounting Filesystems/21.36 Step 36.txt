@@ -1,0 +1,9 @@
+21.36 Step 36
+
+Verify this change with the following tail command:
+
+tail -n 1 /etc/fstab
+
+root@ubuntu:~# tail -n 1 /etc/fstab
+LABEL=myswap	none	swap	sw	0	0
+

@@ -1,0 +1,159 @@
+20.3.3 Creating Partitions
+
+In order to create a new partition, the n command action should be chosen:
+
+Command (m for help): n
+
+This command will prompt the system administrator to answer several questions, as described below.
+
+Type of Partition
+
+Command Action
+   e   extended
+   p   primary partition (1-4)
+
+The choices that are available to answer this question will vary, depending on what partitions already exist:‌⁠​​⁠​ 
+
+    If no extended partition has been created, the choices will be e for an extended partition or p for a primary partition.
+    If the extended partition has been created, the fdisk utility will automatically create a logical partition within the free space of the extended partition.
+
+Recall that there can be only four primary partitions or three primary partitions with one extended. If there are already three existing primary partitions, be very careful; while there is nothing wrong with making the fourth partition a primary partition, per se, this will result in not being able to create any additional partitions. Additionally, if the fourth partition doesn't make use of the remaining free space on the hard drive, that space will go to waste.
+
+The best choice is to create an extended partition if there are already three primary partitions. For this extended partition, allocate all of the remaining free sectors. Then, logical partitions can be created within the extended partition.
+
+Partition Number
+
+Partition number (1-4): 3
+
+When creating a primary partition, the fdisk utility will prompt for a partition number. Again, it is helpful to display the partition table to identify what the last partition number was and a numeric value of one higher. For example, if the last partition number was 2, then the next partition should be numbered 3.
+
+When creating logical partitions, the fdisk utility will not prompt for a partition number and will assign a number by default.
+
+Starting Sector
+
+First sector (20971520-21995519, default 20971520):
+
+The next question asks where to start the new partition. Allocating this first sector should be extremely easy because the fdisk utility knows which sector is the next available. Pressing the Enter key accepts this value.
+
+First sector (20971520-21995519, default 20971520):
+Using default value 20971520
+
+It is possible to type the sector number, but this is generally not recommended, as it may create unusable ranges of sectors.
+
+Partition Size
+
+Last sector, +sectors, or +size{K,M,G} (20971520-21995519, default 21995519):
+
+The last question asks what size the partition should be. There are three different techniques for assigning the last sector: last sector, +sectors, or +size:
+
+    Using the last sector technique can be the hardest because there are a couple of calculations required. Sectors of a disk are generally 512 bytes in size, so to make a new 100 MB partition requires approximately 200,000 sectors. To calculate the last sector, add 200,000 to the value of the starting sector. Typically, the last sector technique is only used to utilize the rest of the available space. In that case, accept the default value by pressing the Enter key:
+
+    Last sector, +sectors, or +size{K,M,G} (20971520-21995519, default 21995519):
+    Using default value 21995519
+
+    Using the +sectors technique takes one less calculation than the last sector technique. With this technique, calculate the number of sectors needed and prefix it with the + plus sign. For example, to create a partition that is approximately 100MB, enter the value as +200000:
+
+    Last sector, +sectors, or +size{K,M,G} (20971520-21995519, default 21995519): +200000
+
+    The final technique +size is normally preferred since no calculations are needed. Use the + plus sign, the size to make the partition, and a suffix to indicate the unit. For example, to specify the 100 MB size partition, enter the value for the ending sector as +100M:
+
+    Last sector, +sectors, or +size{K,M,G} (20971520-21995519, default 21995519): +100M
+
+The following is an example of an interaction with fdisk to create a new 100 MB partition using these steps:
+
+    The current partition table is displayed with the p command.
+    The n command indicates a new partition is being created.
+    The user enters p to create a primary partition.
+    The partition is assigned as number 3.
+    The default value for the first sector is chosen by pressing the Enter key.
+    For the size, the user chooses +100M for a one-hundred-megabyte partition
+
+Command (m for help): p
+
+Disk /dev/sda: 11.3 GB, 11261706240 bytes
+255 heads, 63 sectors/track, 1369 cylinders, total 21995520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000ee7d2
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     1026047      512000   83  Linux
+/dev/sda2         1026048    20971519     9972736   8e  Linux LVM
+
+Command (m for help): n
+Command Action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 3
+First sector (20971520-21995519, default 20971520):
+Using default value 20971520
+Last sector, +sectors, or +size{K,M,G} (20971520-21995519, default 21995519): +100M
+
+After creating a partition, verify that it was correctly created by displaying the partition table:
+
+Command (m for help): p
+
+Disk /dev/sda: 11.3 GB, 11261706240 bytes
+255 heads, 63 sectors/track, 1369 cylinders, total 21995520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000ee7d2
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     1026047      512000   83  Linux
+/dev/sda2         1026048    20971519     9972736   8e  Linux LVM
+/dev/sda3        20971520    21176319      102400   83  Linux
+
+When verifying this data, pay close attention to the Start and End sectors. Notice in the previous output that the starting sector of the /dev/sda3 partition is one value higher than the ending sector of the /dev/sda2 partition. Any overlap would result in data loss and should be avoided.
+
+No changes have been made to the MBR, so it is possible to quit now in the event that any errors are displayed in the new partition table. To quit without saving changes, use the q command.
+
+Warning
+
+The fdisk command is a destructive partitioning tool. Any changes to your partition structure may overwrite existing partition information and make data inaccessible.
+
+In the next example, a fourth partition is added as an extended partition, and then two logical partitions are created within the extended partition. Notice that once the extended partition has been created, the fdisk utility skips the first two steps, since the partition is automatically designated as logical and assigned a number.
+
+Command (m for help): n
+Command Action
+   e   extended
+   p   primary partition (1-4)
+e
+Partition number (1-4): 4
+First sector (21176320-21995519, default 21176320):
+Using default value 21176320
+Last sector, +sectors, or +size{K,M,G} (21176320-21995519, default 21995519):
+Using default value 21995519
+Command (m for help): n
+First sector (21178368-21995519, default 21178368):
+Using default value 21178368
+Last sector, +sectors, or +size{K,M,G} (21178368-21995519, default 21995519): +100M
+Command (m for help): n
+First sector (21385216-21995519, default 21385216):
+Using default value 21385216
+Last sector, +sectors, or +size{K,M,G} (21385216-21995519, default 21995519):
+Using default value 21995519
+
+Notice that the logical partitions use starting and ending sectors that are within the extended partition:
+
+Command (m for help): p
+
+Disk /dev/sda: 11.3 GB, 11261706240 bytes
+255 heads, 63 sectors/track, 1369 cylinders, total 21995520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000ee7d2
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     1026047      512000   83  Linux
+/dev/sda2         1026048    20971519     9972736   8e  Linux LVM
+/dev/sda3        20971520    21176319      102400   83  Linux
+/dev/sda4        21176320    21995519      409600    5  Extended
+/dev/sda5        21178368    21383167      102400   83  Linux
+/dev/sda6        21385216    21995519      305152   83  Linux
+
+Delete partitions by using the d command. Be careful to avoid deleting necessary existing partitions, as this may result in an unusable system.

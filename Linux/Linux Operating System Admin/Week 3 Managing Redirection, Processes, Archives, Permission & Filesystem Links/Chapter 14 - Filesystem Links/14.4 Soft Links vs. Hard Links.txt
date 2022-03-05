@@ -1,0 +1,102 @@
+14.4 Soft Links vs. Hard Links
+
+Which is better: soft or hard links? The answer isn't so straightforward as it really depends on several criteria. Consider the following:
+Hard Link Advantages
+
+    Hard linked files are indistinguishable by programs from regular files.
+
+    If files are hard linked, then they are always contained within one filesystem.
+
+    Hard links don’t have a single point of failure.
+
+    Once files are hard linked together, there is no concept of the original. Each file is equal, and if one link is deleted, the others still work, you don't lose the data. As long as one hard link remains, the file data can be accessed.
+
+    This is unlike soft links in which the data is stored in the file that is being pointed to, meaning that if the original file is removed, all of the soft links are now pointing to nothing. Consider the following example in which access to the data fails if the original file is deleted. The mytest.txt file is a symbolic link to the text.txt file:
+
+    Note
+
+    The test.txt and mytest.txt files do not exist in our virtual environment.
+
+    sysadmin@localhost:~$ ls -l mytest.txt
+    lrwxrwxrwx. 1 sysadmin sysadmin 8 Oct 31 13:29 mytest.txt -> test.txt
+    sysadmin@localhost:~$ more test.txt
+    hi there
+    sysadmin@localhost:~$ more mytest.txt
+    hi there
+
+    If the original file, the test.txt file is removed, then any files linked to it, including the mytest.txt file, fail:
+
+    sysadmin@localhost:~$ rm test.txt
+    sysadmin@localhost:~$ more mytest.txt
+    mytest.txt: No such file or directory
+    sysadmin@localhost:~$ ls -l mytest.txt
+    lrwxrwxrwx. 1 sysadmin sysadmin 8 Oct 31 13:29 mytest.txt -> test.txt
+
+    Hard links are easier to locate.
+
+    One of the disadvantages of soft links is that it is not easy to tell if a file has a soft link pointing to it. For example, look at the output of the following ls command:
+
+    sysadmin@localhost:~/Documents$ cd /bin
+    sysadmin@localhost:/bin$ ls -l dash
+    -rwxr-xr-x 1 root root 121272 Feb 19  2014 dash
+
+    The /bin/sh file is a symbolic link to the /bin/dash file, but this is not apparent by looking at the original file.
+
+    sysadmin@localhost:/bin$ ls -l sh
+    lrwxrwxrwx 1 root root 4 Mar  8 19:08 sh -> dash
+
+    On the other hand, a regular file with a hard link count value greater than one is a file that has a hard link. Using the file's inode number, it is possible to find all the linked files by using the find command with the -inum option. For example:
+
+    sysadmin@localhost:/bin$ cd ~/Documents
+    sysadmin@localhost:~/Documents$ ls -i words
+    48365918 words
+    sysadmin@localhost:~/Documents$ find -inum 48365918
+    ./words
+    ./mywords
+
+    Note
+
+    The inode number in our virtual machine environment will likely be different than the one in the example.
+
+Soft Link Advantages
+
+    Soft links can be made to a directory file; hard links cannot.
+
+    Another limitation of hard links is that they cannot be created on directories. The reason for this limitation is that the operating system itself uses hard links to define the hierarchy of the directory structure. The following example shows the error message that is displayed if you attempt to hard link to a directory:
+
+    sysadmin@localhost:~/Documents$ cd
+    sysadmin@localhost:~$
+    sysadmin@localhost:~$ ln /bin binary
+    ln: `/bin': hard link not allowed for directory
+
+    Linking to directories using a symbolic link is permitted:
+
+    sysadmin@localhost:~$ ln -s /bin binary
+    sysadmin@localhost:~$ ls -l binary
+    lrwxrwxrwx 1 sysadmin sysadmin 4 May  9 04:04 binary -> /bin
+
+    Soft links can link to any file.
+
+    Soft links can be made from a file on one filesystem to a file on another filesystem; hard links cannot. Since each filesystem (partition) has a separate set of inodes, hard links cannot be created that attempt to cross file systems:
+
+    Note
+
+    The /boot/vmlinuz-2.6.32-358.6.1.e16.i686Linux.Kernel files do not exist in our virtual environment.
+
+    sysadmin@localhost:~$ ln /boot/vmlinuz-2.6.32-358.6.1.el6.i686 Linux.Kernel
+    ln: creating hard link `Linux.Kernel' => `/boot/vmlinuz-2.6.32-358.6.1.el6.i686': Invalid cross-device link
+
+    In the previous example, an attempt was made to create a hard link between a file in the /boot file system and the / file system; it failed because each of these file systems has a unique set of inode numbers that can't be used outside of the filesystem.
+
+    However, because a symbolic link points to another file using a pathname, you can create a soft link to a file in another filesystem:
+
+    sysadmin@localhost:~$ ln -s /boot/vmlinuz-2.6.32-358.6.1.el6.i686 Linux.Kernel
+    sysadmin@localhost:~$ ls -l Linux.Kernel
+    lrwxrwxrwx. 1 sysadmin sysadmin 11 Oct 31 13:17 Linux.Kernel -> /boot/vmlinuz-2.6.32-358.6.1.el6.i686
+
+    Soft links are easier to see.
+
+    Soft links are very visual because the output of the ls -l command displays which file the soft link is pointing to.
+
+In general, if you need to link to a file on another filesystem or to a directory, then soft links are the correct type to use. Otherwise, you should make use of hard links.
+

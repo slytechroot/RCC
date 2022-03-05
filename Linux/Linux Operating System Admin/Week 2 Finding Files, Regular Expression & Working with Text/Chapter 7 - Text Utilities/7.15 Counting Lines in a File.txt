@@ -1,0 +1,75 @@
+7.15 Counting Lines in a File
+
+The wc command can be used to analyze a text file. By default, wc counts the number of lines, words, and byte counts in a passage and outputs this information in the following format:
+
+lines words bytes filename
+
+Recall the alpha-first.txt file:
+
+sysadmin@localhost:~/Documents$ cat alpha-first.txt
+A is for Apple 
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower
+
+Using the wc command on the same file reveals the following:
+
+sysadmin@localhost:~/Documents$ wc alpha-first.txt
+ 6 24 90 alpha-first.txt
+
+The wc command reports that there are 6 lines, containing 24 words, totaling 90 bytes in length. The total number of bytes includes spaces, punctuation, and carriage returns.
+
+To view each of these numbers separately, options can be used:
+
+sysadmin@localhost:~/Documents$ wc alpha-first.txt -l
+6 alpha-first.txt
+sysadmin@localhost:~/Documents$ wc alpha-first.txt -w
+24 alpha-first.txt
+sysadmin@localhost:~/Documents$ wc alpha-first.txt -m
+90 alpha-first.txt
+
+In the example, the -l option was used to count the number of lines. In the second example, the -w option was used to count the number of words. Finally, the -m option indicates the number of characters.
+
+One might imagine that the -c option would count the number of characters, but -c is used to count the number of bytes. The number of bytes can vary if there are non-printable characters in the file. In this case, they are the same:
+
+sysadmin@localhost:~/Documents$ wc alpha-first.txt -c
+90 alpha-first.txt
+
+One last option, -L returns the maximum line length in the file:
+
+sysadmin@localhost:~/Documents$ wc alpha-first.txt -L
+17 alpha-first.txt
+
+If the word count of all the files in a particular folder is desired, the asterisk wildcard * can be used:
+
+sysadmin@localhost:~/Documents$ wc *
+  wc: School: Is a directory                                                      
+      0       0       0 School                                                  
+wc: Work: Is a directory                                                        
+      0       0       0 Work                                                    
+      5      10      39 adjectives.txt                                          
+      6      24      90 alpha-first.txt                                         
+      6      24      90 alpha-first.txt.original                                
+      7      28     106 alpha-second.txt                                        
+     13      52     195 alpha-third.txt                                         
+     26     104     390 alpha.txt                                               
+      5      10      42 animals.txt                                             
+      1       3      14 food.txt                                                
+      7      14     647 hello.sh                                                
+      3      11      67 hidden.txt                                              
+      5       5      10 letters.txt                                             
+      8      32     187 linux.txt 
+  10240   10236   66540 longfile.txt                                            
+     13      36     236 newhome.txt                                             
+      5       5      10 numbers.txt                                             
+      4       4      77 os.csv                                                  
+      4       4      59 people.csv                                              
+      6      21     110 profile.txt                                             
+     11      11      51 red.txt                                                 
+      2      26     130 spelling.txt                                            
+ 102305  102305  971578 words                                                   
+ 112682  112965 1040667 total
+
+The output above reveals that longfile.txt really is the longest file in the folder.

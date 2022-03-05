@@ -1,0 +1,7 @@
+24.2 Debian Package Management
+
+Please use the Ubuntu image to complete the following steps. Select the Ubuntu PC by clicking on the Ubuntu PC tab in the window on the right side of the screen.
+Highlighted Ubuntu PC tab above the virtual machine on the right side of the screen
+In order to provide the functionality you need to apply these concepts, this VM may require a minute or two to load.
+
+Debian's package management system is based upon the format used to package the software files for the Debian distribution; these package file names end in .deb. The Debian package management system is used by many other distributions including Ubuntu and Mint Linux. These .deb files are archives that contain the software and the information to configure it for installation or removal.

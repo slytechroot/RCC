@@ -1,0 +1,10 @@
+18.28 Step 28
+
+Wait for the process to comment and verify that the telinit command took the system to runlevel 3 by executing the following command:
+
+runlevel
+
+[root@centos ~]# runlevel
+2 3
+[root@centos ~]#
+

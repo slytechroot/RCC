@@ -1,0 +1,11 @@
+18.10 Step 10
+
+Execute the following command to view a list of the scripts that are stopped when the system is brought to runlevel 3:
+
+1s K*
+
+[root@centos rc3.d]# ls K*
+K10saslauthd    K87restorecond   K89rdisc       K92iptables
+K87multipathd   K89netconsole    K92ip6tables
+[root@centos rc3.d]#
+

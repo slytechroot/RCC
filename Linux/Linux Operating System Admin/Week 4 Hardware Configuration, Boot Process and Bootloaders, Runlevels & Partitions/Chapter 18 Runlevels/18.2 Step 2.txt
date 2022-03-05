@@ -1,0 +1,15 @@
+18.2 Step 2
+
+List the contents of the /etc/init.d directory:
+
+ls /etc/init.d
+
+[root@centos ~]# 1s /etc/init.d 
+
+auditd            halt       killall       multipathd  quota_nld    saslauthd
+blk-availability  ip6tables  lvm2-lvmetad  netconsole  rdisc        single
+crond             iptables   lvm2-monitor  netfs       restorecond  sshd . 
+functions         iscsi      mdmonitor     network     rsyslog      udev-post
+haldaemon         iscsid     messagebus    postfix     sandbox
+[root@centos ~]#
+

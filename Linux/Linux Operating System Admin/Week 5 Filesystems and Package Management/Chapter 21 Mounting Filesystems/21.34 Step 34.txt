@@ -1,0 +1,17 @@
+21.34 Step 34
+
+Use the free command to see the current swap space for the system. Then, use the swapon command to add the new swap partition to current swap space. Finally, use the free command again to verify the changes:
+
+free
+swapon -a /dev/sdb6
+free
+
+root@ubuntu:~# free
+              total	  used	    free      shared  buff/cache   available
+Mem:	     492952	 44148	  364068         580       84736      436084
+Swap:	     524284	     0	  524284
+root@ubuntu:~# swapon -a /dev/sdb6
+root@ubuntu:~# free
+             total	  used      free      shared	buff/cache  available
+Mem:	    492952	 45228	  362620         580	     84804     434708
+Swap:      4510712	     0	 4510712

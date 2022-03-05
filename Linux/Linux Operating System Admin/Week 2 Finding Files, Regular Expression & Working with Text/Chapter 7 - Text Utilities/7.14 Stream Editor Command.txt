@@ -1,0 +1,138 @@
+7.14 Stream Editor Command
+
+The stream editor sed command is a non-interactive editor that can be used to modify text.
+
+sed [OPTION]... {SCRIPT} [FILE]...
+
+To do a simple search and replace operation, use the following script, or expression. This will search for the pattern between the first two slashes, and if it finds that text, then it replaces it with what is specified between the last two slashes:
+
+s/PATTERN/REPLACEMENT/
+
+In the alpha-first.txt file, to replace the word Animal with the word Apple, execute the following command:
+
+sysadmin@localhost:~/Documents$ sed 's/Animal/Apple/' alpha-first.txt
+A is for Apple
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower
+
+Unlike most filter commands, the sed command can modify the original file by using the -i option.The -i option allows for an optional argument, which will be an extension added to the original file. The result is a new file which is a copy of the original file. For example, if you wanted to backup the original file as alpha-first.txt.original file, execute the following:
+
+sysadmin@localhost:~/Documents$ sed -i'.original' 's/Animal/Apple/' alpha-first.txt
+sysadmin@localhost:~/Documents$ cat alpha-first.txt
+A is for Apple
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower
+sysadmin@localhost:~/Documents$ cat alpha-first.txt.original
+A is for Animal
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower
+
+The original file was modified as a result of the -i option. For the rest of the examples, the -i option will not be used. The output will be sent to the terminal instead, and the original file will not be changed.
+The Global Modifier
+
+When performing a search and replace operation, the sed command will only replace the first occurrence of the search pattern by default. To replace all occurrences of the pattern, add the global modifier g after the final slash.
+
+s/PATTERN/REPLACEMENT/g
+
+For example, consider the food.txt text file:
+
+sysadmin@localhost:~/Documents$ cat food.txt
+Food is good.
+
+The following example will only replace the first occurrence of the oo pattern with the 00 pattern:
+
+sysadmin@localhost:~/Documents$ sed 's/oo/00/' food.txt
+F00d is good.
+
+If you want to replace every occurrence of oo with 00, add the g modifier:
+
+sysadmin@localhost:~/Documents$ sed 's/oo/00/g' food.txt
+F00d is g00d.
+
+The sed command is also able to either insert text before a pattern or after a pattern. For this type of expression, do not use the s character before the first slash; use an insert change with the i\ expression or an append change with the a\ expression.
+
+/PATTERN/i\TEXT\
+/PATTERN/a\TEXT\
+
+Inserting text with the i\ expression affects the line before the line containing the search term:
+
+sysadmin@localhost:~/Documents$ sed '/is/i\Hello' food.txt
+Hello
+Food is good.
+
+Appending text with the a\ expression affects the line after the line containing the search term:
+
+sysadmin@localhost:~/Documents$ sed '/is/a\Hello' food.txt
+Food is good.
+Hello
+
+The sed command can also be used to search for a line of text containing a pattern and then delete the lines that match. Place the pattern to search for between two slashes followed by a d to carry out this operation:
+
+/PATTERN/d
+
+Notice the animals.txt file has five lines, but the following example command removes the lines that contain an a:
+
+sysadmin@localhost:~/Documents$ cat animals.txt
+1 retriever
+2 badger
+3 bat
+4 wolf
+5 eagle
+sysadmin@localhost:~/Documents$ sed '/a/d' animals.txt
+1 retriever
+4 wolf
+
+To change an entire line that matches a pattern to something else, use a slash, the pattern to match, another slash, c\, and then the new text.
+
+/PATTERN/c\REPLACEMENT
+
+For example, to change a line containing 3 to three, use the following command:
+
+sysadmin@localhost:~/Documents$ cat numbers.txt
+1
+2
+3
+4
+5
+sysadmin@localhost:~/Documents$ sed '/3/c\three' numbers.txt
+1
+2
+three
+4
+5
+
+Keep in mind the entire line will be replaced, not just the matching pattern:
+
+sysadmin@localhost:~/Documents$ sed '/3/c\three' animals.txt
+1 retriever
+2 badger
+three
+4 wolf
+5 eagle
+
+The sed command normally parses only one expression to filter text. To use multiple expressions, use an -e option with each expression to modify the file.
+
+Notice that the order in which those expressions are placed makes a difference. In the first attempt, both expressions are effective, but in the second attempt, only the first is effective. After the first expression deletes all lines containing an a, the second expression doesn't have anything to do because the line that contained 3 was removed:
+
+sysadmin@localhost:~/Documents$ sed -e '/3/c\three' -e '/a/d' animals.txt
+1 retriever
+three
+4 wolf
+sysadmin@localhost:~/Documents$ sed -e '/a/d' -e '/3/c\three' animals.txt
+1 retriever
+4 wolf
+
+Note
+
+The use of the term pattern in this section refers to one of the most powerful aspects of the sed command, its compatibility with regular expressions. In each example so far, the sed command has been using literal expressions involving alphanumeric characters like t or o or strings like three. Regular expressions can be used to create patterns for use with the sed command and many other, far more powerful commands.
+
+Regular expressions will be covered in greater detail later in the course.

@@ -1,0 +1,10 @@
+13.23 Step 23
+
+Copy a file into the /srv/data directory to verify that the current user (the root user) can create files in this directory. Recall that for the following command to be successful, the user must have both write and execute permission on the directory:
+
+cp /etc/hosts /srv/data
+ls /srv/data
+
+root@localhost:~# cp /etc/hosts /srv/data
+root@localhost:~# ls /srv/data
+hosts

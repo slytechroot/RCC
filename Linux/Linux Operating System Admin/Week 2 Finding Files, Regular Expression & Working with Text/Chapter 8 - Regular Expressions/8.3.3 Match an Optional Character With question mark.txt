@@ -1,0 +1,11 @@
+8.3.3 Match an Optional Character With ?
+
+The extended regex question mark ? operator matches the preceding character or grouping zero or one times, making it optional. For example, consider the word color, which can also be spelled with an optional u as colour (depending on the English dialect being used). Use the colou?r pattern to match either spelling:
+
+sysadmin@localhost:~/Documents$ grep -E 'colou?r' spelling.txt
+American English: Do you consider gray to be a color or a shade?
+British English: Do you consider grey to be a colour or a shade?
+
+Pattern 	Meaning
+xyz? 	Matches the xy string followed by zero or one of the z character
+x(yz)? 	Matches the x character followed by zero or one of the yz string

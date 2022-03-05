@@ -1,0 +1,3 @@
+26.1 Introduction
+
+When we look at the term virtualization, it quickly becomes clear that several different meanings are possible depending on the context and technologies involved. Broadly speaking, virtualization refers to systems or programs that are running on software platforms rather than directly on computer hardware. Ultimately, all of these systems are using physical computing resources, but several advantages can be gained by abstracting the computing resources away from physical hardware. In this chapter, you will learn about virtualization concepts such as virtual machines and containers, components of virtual machines, how virtual machines and containers are deployed, and methods used to configure virtual machines. 

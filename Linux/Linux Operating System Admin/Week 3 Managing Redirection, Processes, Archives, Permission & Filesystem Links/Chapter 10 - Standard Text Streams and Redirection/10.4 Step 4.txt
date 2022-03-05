@@ -1,0 +1,14 @@
+10.4 Step 4
+
+To redirect both standard output and standard error of the find command and verify the output has been redirected, execute the following commands:
+
+find /etc –name hostname > find_output.txt 2> find_error.txt
+cat find_output.txt
+cat find_error.txt
+
+sysadmin@localhost:~$ find /etc -name hostname > find_output.txt 2> find_error.txt
+sysadmin@localhost:~$ cat find_output.txt
+/etc/hostname
+sysadmin@localhost:~$ cat find_error.txt
+find: '/etc/ssl/private': Permission denied
+

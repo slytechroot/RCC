@@ -1,0 +1,14 @@
+22.1 Step 1
+
+Log in to the system using the root account. When prompted, provide the root password:
+
+root
+netlab123
+
+CentOS Linux 7 (Core)
+Kernel 3.10.0-957.el7.x86_64 on an x86_64
+ 
+Centos login: root
+Password:
+[root@centos~]#
+

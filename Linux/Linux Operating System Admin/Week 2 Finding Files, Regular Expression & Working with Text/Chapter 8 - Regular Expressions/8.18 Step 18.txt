@@ -1,0 +1,11 @@
+8.18 Step 18
+
+An alternative to using the backslash \ character to escape every special character is to use the fgrep command, which always treats its pattern as literal characters.
+
+To match the * pattern in the /etc/rsyslog.conf file, execute the following command:
+
+fgrep "*" /etc/rsyslog.conf
+
+sysadmin@localhost:~$ fgrep "*" /etc/rsyslog.conf
+$IncludeConfig /etc/rsyslog.d/*.conf
+

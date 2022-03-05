@@ -1,0 +1,130 @@
+20.5 GNU Parted
+
+So far, you have learned to use the fdisk and gdisk commands to create, list, and delete partitions. Another available tool for creating and resizing partitions on a hard drive is the GNU Parted program. The GNU Parted program includes the parted command line tool and the gparted graphical interface tool. One benefit of using GNU Parted is that unlike the gdisk and fdisk tools, which are destructive partitioners, GNU Parted will non-destructively resize a partition as well as the filesystem on top of it.
+
+The parted program can be used in two ways: command line mode and interactive mode. When using parted in either mode, a device must be specified. To do this, the following syntax must be used:
+
+parted DEVICE
+
+The DEVICE argument is used to specify the hard drive to modify, for instance, /dev/sdb. If this argument is not used, a default device will be chosen for you, or an error message may be displayed. To use parted in command line mode, the DEVICE argument must be followed by options to create or modify a partition. To see a list of options available for parted, use the --help option:
+
+root@localhost:~# parted --help
+Usage: parted [OPTION]... [DEVICE [COMMAND [PARAMETERS]...]...]
+Apply COMMANDs with PARAMETERS to DEVICE.  If no COMMAND(s) are given, run in
+interactive mode.
+
+OPTIONs:
+  -h, --help                      displays this help message
+  -l, --list                      lists partition layout on all block devices
+  -m, --machine                   displays machine parseable output
+  -s, --script                    never prompts for user intervention
+  -v, --version                   displays the version
+  -a, --align=[none|cyl|min|opt]  alignment for new partitions
+
+COMMANDs:
+  align-check TYPE N                        check partition N for TYPE(min|opt)
+        alignment
+  help [COMMAND]                           print general help, or help on
+        COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition
+        table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table,
+        available devices, free space, all found partitions, or a particular partition
+  quit                                     exit program
+  rescue START END                         rescue a lost partition near START
+        and END
+  resizepart NUMBER END                    resize partition NUMBER
+Output Omitted...
+
+Note
+
+Traditional short and long options, such as -l or --list, must be used when using parted in command line mode.
+
+To view the disks on the system, use the lsblk command:
+
+root@localhost:~# lsblk
+NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sda    8:0    0 3.7T  0 disk
+|-sda1 8:1    0 512M  0 part
+|-sda2 8:2    0 3.5T  0 part /etc/hosts
+`-sda3 8:3    0 128G  0 part [SWAP]
+sdb   8:16    0 20G  0  disk
+
+The sdb disk noted in the output above is the target device for the partitioning examples below. It is an empty disk that is the second device on the IDE device bus.
+
+Next, to view any existing partition information with the parted command, use the following:
+
+root@localhost:~# parted /dev/sdb print
+Model: ATA VMware Virtual I (scsi)
+Disk /dev/sdb: 21.5GB
+Sector size (logical/physical): 512B/512B
+Partition Table:
+Disk Flags:
+
+Number  Start  End  Size  Type  File system  Flags
+
+Note in the output above, that there is no partition information listed on the /dev/sdb device, as it’s currently blank.
+
+To make the disk partitionable, a disklabel (partition table) must be created. This is done with the following command:
+
+root@localhost:~# parted /dev/sdb mklabel msdos
+You may need to update the /etc/fstab
+
+Note
+
+If a disk has an existing partition table, the command may query the user about overwriting the current partition table, and in that case, the user would type the Y key and then press Enter.
+
+Now that a partition table is written to the disk, partitions can be created on the disk. To create a primary partition that takes up the first 50% of the disk, use the following command:
+
+root@localhost:~# parted /dev/sdb mkpart primary 0% 50%
+You may need to update the /etc/fstab
+
+Once the command executes, the user can verify the partition was created with the command:
+
+root@localhost:~# parted /dev/sdb print
+Model: ATA VMware Virtual I (scsi)
+Disk /dev/sdb: 21.5GB
+Sector size (logical/physical): 512B/512B
+Partition Table:
+Disk Flags:
+
+Number  Start    End      Size    Type     File system  Flags
+1       1049kB   10.7GB   10.7GB  primary
+
+While it is possible to format the resulting partition with a filesystem during the parted mkpart process, experience has indicated that the partitioning process is best done by parted and the creation of a filesystem by the appropriate mkfs command.
+
+At this point, 3 more primary partitions can be written to the disk or an extended partition that encompasses the rest of the space and then logical partitions inside that.
+
+The parted utility’s interactive mode can also be used to create or resize partitions. To begin using interactive mode, simply use the parted command with a device argument to specify the drive:
+
+root@localhost:~# parted  /dev/sdb
+GNU Parted 3.2
+Using /dev/sda
+Welcome to GNU Parted! Type 'help' to view a list of commands.
+(parted)
+
+Note in the example above that the prompt will change to (parted). The h command will display a menu or help screen:
+
+(parted) h
+  align-check TYPE N                        check partition N for TYPE(min|opt) alignment
+  help [COMMAND]                           print general help, or help on COMMAND
+  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+  name NUMBER NAME                         name partition NUMBER as NAME
+  print [devices|free|list,all|NUMBER]     display the partition table, available devices,
+ free space, all found partitions, or a particular partition
+  quit                                     exit program rescue START END rescue a lost
+ partition near START and END
+  resizepart NUMBER END                    resize partition NUMBER
+  rm NUMBER                                delete partition NUMBER
+  select DEVICE                            choose the device to edit
+  disk_set FLAG STATE                      change the FLAG on selected device
+  disk_toggle [FLAG]                       toggle the state of FLAG on selected device
+  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER
+  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER
+  uni5 UNIT				      set the default unit to UNIT
+  version				      display the version number and copyright information of Gnu Parted
+
+Notice that many of the commands used in command line mode such as the mkpart, mklabel, and print commands are available in the interactive mode. The process of creating and modifying partitions using parted in interactive mode is similar to using fdisk or gdisk in interactive mode.

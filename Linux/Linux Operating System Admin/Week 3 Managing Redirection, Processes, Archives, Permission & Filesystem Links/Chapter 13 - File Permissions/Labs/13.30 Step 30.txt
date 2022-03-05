@@ -1,0 +1,8 @@
+13.30 Step 30
+
+Verify this change by executing the following command:
+
+ls -l /usr/bin/chfn
+
+root@localhost:~# ls -l /usr/bin/chfn
+-rwxr-xr-x 1 root root 76496 Jan 25  2018 /usr/bin/chfn

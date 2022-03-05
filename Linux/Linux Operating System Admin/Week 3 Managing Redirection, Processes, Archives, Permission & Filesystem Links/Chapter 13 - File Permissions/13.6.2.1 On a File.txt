@@ -1,0 +1,24 @@
+13.6.2.1 On a File
+
+The setgid permission on a file works very similarly to the setuid permission, except that instead of executing as the user who owns the file, setgid permission will execute as the group that owns the file. The system allows the user running the command to effectively belong to the group that owns the file, but only in the setgid program. The following displays the setgid executable file /usr/bin/wall when listed with the ls -l command:
+
+sysadmin@localhost:~$ ls -l /usr/bin/wall
+-rwxr-sr-x 1 root tty 30800 Oct 15 20:29 /usr/bin/wall
+
+You can see that this file is setgid by the presence of the s in the execute position of the group permissions. Due to this executable being owned by the tty group, when a user executes this command, the command is able to access files that are group owned by the tty group.
+
+This access is important because the /usr/bin/wall command sends messages to terminals, which is accomplished by writing data to files like the following:
+
+sysadmin@localhost:~$ ls -l /dev/tty?
+crw--w----. 1 root tty  4, 0 Mar 29  2013 /dev/tty0
+crw--w----. 1 root tty  4, 1 Oct 21 19:57 /dev/tty1
+
+Note that the tty group has write permission on the files above while users who are not in the tty group (others) have no permissions on these files. Without the setgid permission, the /usr/bin/wall command would fail.
+
+Like the setuid permission, a lowercase s in the execute position of the group permissions indicates that this file has both the setgid and execute permission set. An uppercase S instead of the s means the file lacks execute permission for the group. Without execute permission for the group, the setgid permission will be ineffective.
+
+Consider This
+
+The way that the Linux kernel restricts both setuid and setgid executables is stricter than some UNIX implementations. While Linux doesn't prevent users from setting these permissions on script files, the Linux kernel will not execute scripts with setuid or setgid permissions.
+
+In order to effectively set these permissions, the Linux kernel will only honor them on executable files that are in a binary format. This increases the security of the system.

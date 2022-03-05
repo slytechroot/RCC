@@ -1,0 +1,41 @@
+7.13 Translate File Characters
+
+The tr command can be used to translate from one set of characters to another.
+
+tr [OPTION]... SET1 [SET2]
+
+The following example will translate all of the lowercase letters in alpha-first.txt to uppercase letters:
+
+sysadmin@localhost:~/Documents$ cat alpha-first.txt | tr 'a-z' 'A-Z'
+A IS FOR ANIMAL
+B IS FOR BEAR
+C IS FOR CAT
+D IS FOR DOG
+E IS FOR ELEPHANT
+F IS FOR FLOWER
+
+The characters that the tr command is translating do not have to be in a range; they can simply be listed for each set of characters. Be careful to balance the sets to make sure that they both have the same number of characters, or else strange results may occur. The following example has the tr command replace the vowel characters with symbols:
+
+sysadmin@localhost:~/Documents$ cat alpha-first.txt | tr 'aeiou' '@&1*^'
+A 1s f*r An1m@l   
+B 1s f*r B&@r
+C 1s f*r C@t
+D 1s f*r D*g
+E 1s f*r El&ph@nt
+F 1s f*r Fl*w&r
+
+Aside from performing a translate function, the tr command can also "squeeze" repeated characters and delete characters. In performing these functions, only one set of characters needs to be specified. For example, to eliminate duplicates, use the -s option to squeeze repeats of characters from the first set:
+
+sysadmin@localhost:~/Documents$ echo 'aaaaaappleeeeee' | tr -s 'ae'
+apple
+
+Using the -d option will delete the characters in the first set:
+
+sysadmin@localhost:~/Documents$ cat alpha-first.txt | tr -d 'AEIOUaeiou'
+ s fr nml  
+B s fr Br
+C s fr Ct
+D s fr Dg
+ s fr lphnt
+F s fr Flwr
+

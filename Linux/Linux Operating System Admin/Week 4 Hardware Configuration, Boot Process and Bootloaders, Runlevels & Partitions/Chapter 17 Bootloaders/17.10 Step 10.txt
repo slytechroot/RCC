@@ -1,0 +1,7 @@
+17.10 Step 10
+
+Press the Down Arrow key once so the "...(recovery mode)" option is selected and press the e key to enter the edit mode:
+
+Press Down Arrow
+e
+

@@ -1,0 +1,29 @@
+23.3 The e2fsck Command
+
+The e2fsck command is the filesystem checker called by fsck for ext2, ext3, and ext4 filesystems. There are options that can be used with the e2fsck command that aren't documented in the man page for the fsck command. These filesystem-specific options can be used directly with the e2fsck command or with the fsck command (which will pass the options to thee2fsck command).
+
+For example, the fsck command may require the exact location of a backup superblock. The superblock is a critical component to the filesystem, and when corrupted, it is difficult to recover. The backup superblocks are used by the fsck command to fix a corrupted superblock.
+
+If custom settings were used when creating a filesystem, the backup superblocks may not be in a standard location. In that case, the output of the mkfs command should be documented because that output includes the location of the backup superblocks. These backup superblocks may be located by using the dumpe2fs command:
+
+Note
+
+The following examples may not match the output in our virtual environment.
+
+root@localhost:~# dumpe2fs /dev/sdb1 | grep superblock
+dumpe2fs 1.41.12 (17-May-2010)
+  Primary superblock at 1, Group descriptors at 2-2
+  Backup superblock at 8193, Group descriptors at 8194-8194
+  Backup superblock at 24577, Group descriptors at 24578-24578
+  Backup superblock at 40961, Group descriptors at 40962-40962
+
+Use the -b option with the e2fsck command to specify a backup when the primary superblock has been corrupted. For example:
+
+root@localhost:~# e2fsck -b 8193 /dev/sdb1
+
+The fsck command could also be used with the same option, as it will pass this option on to the e2fsck command:
+
+root@localhost:~# fsck -b 8193 /dev/sdb1
+
+There are a couple of other options to automate the e2fsck command. The -n option assumes that the input for every prompt is no. The -n option can be useful when running the command to test for possible problems, but opting not to fix them at this time. The output can be captured for further analysis and discussion, perhaps with another administrator.
+

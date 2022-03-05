@@ -1,0 +1,20 @@
+14.8 Step 8
+
+Soft links can also be made to directories. For example, execute the following commands:
+
+ln -s /etc/yum /tmp/yum-files
+ls -l /tmp/yum-files
+ls -l /tmp/yum-files/
+
+[root@localhost ~]# ln -s /etc/yum /tmp/yum-files                               
+[root@localhost ~]# ls -l /tmp/yum-files                                        
+lrwxrwxrwx 1 root root 8 Apr 19 17:20 /tmp/yum-files -> /etc/yum                
+[root@localhost ~]# ls -l /tmp/yum-files/                                       
+total 20                                                                        
+drwxr-xr-x 2 root root 4096 Nov  5 01:53 fssnap.d                               
+drwxr-xr-x 2 root root 4096 Dec  4 14:39 pluginconf.d                           
+drwxr-xr-x 1 root root 4096 Mar 29 19:23 protected.d                            
+drwxr-xr-x 2 root root 4096 Dec  4 14:38 vars                                   
+-rw-r--r-- 1 root root  444 Nov  5 01:53 version-groups.conf
+
+Soft links to directories are tricky. If you just refer to the soft link (like the first ls command above), only the soft link itself will be displayed. If you add a trailing / character to the end of the soft link name, then it follows the soft link and displays the contents of the directory that the soft link is linked to.

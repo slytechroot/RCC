@@ -1,0 +1,22 @@
+24.7.4 Updating Packages with zypper
+
+The zypper command can also be used to update the packages in a repository.
+
+zypper -list-updates PACKAGE
+
+To see a listing of all the packages that are available for update from your repositories, you would use the list-updates command:
+
+localhost:~ # zypper list-updates -t gvim
+Loading repository data...
+Reading installed packages...
+No updates found.
+
+To perform an update of the system, (which will locate all updates in the configured repositories and perform a dependency-solve on them) use the update command:
+
+localhost:~ # zypper update
+Loading repository data...
+Reading installed packages...
+No updates found.
+
+Depending on the system and when it was installed, there may be no updates. If there are, they will be listed and the user queried to indicate if they want to download and install the updates. There are several options for updating the system in an unattended fashion, and the documentation is excellent.
+

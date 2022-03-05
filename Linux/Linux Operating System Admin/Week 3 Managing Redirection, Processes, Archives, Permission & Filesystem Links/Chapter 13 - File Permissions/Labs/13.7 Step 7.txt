@@ -1,0 +1,8 @@
+13.7 Step 7
+
+Verify that the sysadmin account can view the file contents by executing the following command:
+
+more /srv/lab.txt
+
+sysadmin@localhost:~$ more /srv/lab.txt
+learning about permissions

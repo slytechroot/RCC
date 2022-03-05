@@ -1,0 +1,14 @@
+4.3 Step 3
+
+The asterisk * character can be used at any position within the pattern. To list all files and directories with names starting with the letter D and containing the letter n, execute the following command:
+
+echo D*n*
+
+sysadmin@localhost:~$ echo D*n*                                     
+Documents Downloads                                                             
+sysadmin@localhost:~$ echo D*N*                                     
+D*N*
+
+Important
+
+In Linux, file names are case sensitive. So, the output of D*n* will be different from that of D*N*. Also, the shell will not match files starting with a period . character when it matches an asterisk * character, as these are special files called hidden files.

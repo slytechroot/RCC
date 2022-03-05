@@ -1,0 +1,59 @@
+18.12 acpid
+
+Linux systems use the Advanced Configuration and Power Interface (ACPI) event daemon acpid to notify user-space programs of ACPI events. The ACPI allows the kernel to configure hardware components and manage the system’s power settings, such as battery status monitoring, temperature, and more.
+
+One example of using acpid for power management would be having the system shut down after the user presses the power button. On modern systems, acpid is normally started as a background process during bootup and opens an event file in the /proc/acpi directory. For example, the wakeup file in the /proc/acpi directory below displays the following information:
+
+sysadmin@localhost:~$ su -
+Password:
+root@localhost:~# ls -l /proc/acpi
+total 0
+-rw-r--r-- 1 root root 0 May 28 21:09 wakeup
+root@localhost:~# cat /proc/acpi/wakeup
+Device  S-state   Status   Sysfs node
+PCI0      S5    *disabled  no-bus:pci0000:00
+root@localhost:~#
+
+When the kernel sends out an ACPI event, acpid will determine the next steps based on rules defined in configuration files in the /etc/acpi directory. Administrators can create rules scripts in the /etc/acpi directory to control the actions taken by the system.
+
+The acpi command is used to display information about system hardware ACPI settings. It’s not installed on our VM, but the above example shows a basic acpi script in the /proc/acpi directory that controls waking the machine up after being suspended. There are many options available to the acpi command to display various information for power management. The table below summarizes some of the options available to the acpi command:
+Option 	Purpose
+
+-b
+
+--battery
+	Displays battery information
+
+-a
+
+--ac-adapter
+	Displays ac adapter information
+
+-t
+
+--thermal
+	Displays thermal information
+
+-c
+
+--cooling
+	Displays cooling device information
+
+-s
+
+--show-empty
+	Displays non-operational devices
+
+-f
+
+--fahrenheit
+	Uses Fahrenheit as the temperature unit instead of the default, Celsius
+
+-i
+
+--details
+	Displays additional details if they are available; battery capacity and temperature trip points
+
+Note
+The acpi command does not exist in our virtual environment.
+

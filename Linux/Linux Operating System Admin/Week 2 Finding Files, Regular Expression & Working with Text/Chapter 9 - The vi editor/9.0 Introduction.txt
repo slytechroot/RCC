@@ -1,0 +1,8 @@
+
+9.0 Introduction
+
+The vi editor is available on every Linux distribution in the world and can execute both in a CLI as well as a GUI interface. Most Linux systems have an alias for vi that executes the vim command, an improved version of the original vi editor. The commands provided in this lab work both in vi and vim.
+
+The vi editor works in three modes: command mode, insert mode, and ex mode. The command mode is used to type commands to navigate a document, the insert mode is used to enter new text into a document, and the ex mode is used for file operations such as saving and quitting.
+While example terminal boxes are useful for most of the labs in this course, because of the nature of vi (most commands when typed are not visible on the screen), example terminal boxes will not be useful in all steps of this lab. As a result, some of the steps in this lab do not include example terminal boxes.
+

@@ -1,0 +1,61 @@
+18.6 Managing System Services
+
+As the administrator of a system, it is possible to control which services will be provided by the various daemons (processes that run in the background of the system). If you want to test services out or have them temporarily enabled or disabled, then you could manually manage them.
+
+Typically, administrators will want to automate the management of services, so when the system is taken to a specific runlevel or target state, they will know what services should automatically be available.
+
+If a system is using the traditional init process to manage system services, then the scripts in the /etc/rc.d/init.d directory are used to manage the state of those system services. For convenience, this directory will usually have a symbolic link from the /etc/init.d file. The scripts in this directory are often referred to as init scripts.
+
+To manually manage the state of a service, such as a web server, use the appropriate script in the /etc/rc.d/init.d directory to start, stop, or otherwise change the state of the web server. To manage a service with these scripts, run the script with an argument which specifies what the script is supposed to do.
+
+For example, on a Red Hat Enterprise Linux distribution, the script to manage the web server has a path name of /etc/rc.d/init.d/httpd. So, to manually start the web server, you would execute the following command as the root user:
+
+Note
+
+The following examples represent a system that is different from the virtual machine in this module. The examples may not match the output in our virtual environment.
+
+[root@localhost ~]# /etc/rc.d/init.d/httpd start
+Starting httpd:
+
+To manually stop a running web server, execute:
+
+[root@localhost ~]# /etc/rc.d/init.d/httpd stop
+Stopping httpd:
+
+Instead of having to type the full path name to the script, many systems provide a service script that allows the init script to be executed without having to type the full path to the script; instead, simply provide the init program name and the function the script should do as arguments. For example, to start and stop the web server, use:
+
+[root@localhost ~]# service httpd start
+[root@localhost ~]# service httpd stop
+
+It is also possible to stop and start the web server daemon by typing:
+
+[root@localhost ~]# service httpd restart
+
+Consider This
+
+While the service command may seem easier than typing the full path name, this isn't always the case. Command name completion using the Tab key can often make typing the full path name quicker. For example, /etc/init.d/httpd stop could be typed quickly by using the Tab key.
+
+For the httpd script, this may be considered a wasted effort when compared to simply using the service command. But consider a path like /etc/init.d/blk-availability; if this is used with the service command, you need to type completely (and remember the exact name) blk-availability.
+
+Using the full path may be easier because the shell can auto-complete most of the name (if you remember what it starts with).
+
+Different scripts have different capabilities or functions that they can perform. To discover what a script can do, execute the script without any argument. For example:
+
+[root@localhost ~]# /etc/init.d/httpd
+Usage: httpd {start|stop|restart|conderestart|try-restart|force-reload|reload|status|fullst
+atus|graceful|help|configtest}
+
+The following table explains the purpose of these functions of the httpd script, which many other scripts can also implement:
+Argument 	Function
+start 	If the service is not running, then attempt to start it.
+stop 	If the service is running, then attempt to stop it.
+restart 	Stop and then start the service over. If a major configuration change is made to a service, it may have to be restarted to make the change effective.
+condrestart 	Restart the service on the condition that it is currently running.
+try-restart 	Same as condrestart.
+reload 	Read and load the configuration for the service. Reloading the configuration file of a service is normally a less disruptive way to make configuration changes to a service effective, but may not be successful for major changes.
+status 	Show whether the service is stopped or the process id (PID) if the service is running. Note: It is also possible to use the service --status-all command to see the status of all daemons.
+fullstatus 	For the Apache web server, displays the URL /server-status.
+graceful 	For the Apache web server, it gracefully restarts the server. If the server is not running, then it is started. Unlike a normal restart, open connections are not aborted.
+help 	Displays the usage of the script.
+configtest 	Checks the configuration files for correctness. For some services, if the configuration file is modified, then this can be used to verify that the changes have no syntax errors.
+

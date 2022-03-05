@@ -1,0 +1,18 @@
+22.10 Step 10
+
+In addition to displaying file space by filesystem or directory structure, you also want to know how to display other information about filesystems. Execute the following command to display filesystem information:
+
+dumpe2fs /dev/sda1 | head
+
+[root@centos~]# dumpe2fs /dev/sda1 | head
+dumpe2fs 1.42.9 (28-Dec-2013)
+Filesystem volume name:    <none>
+Last mounted on:           /boot
+Filesystem UUID:           5dac1ba0-cdbc-4ba2-99dd-17f298456819
+Filesystem magic number:   0xEF53
+Filesystem revision #:     1 (dynamic)
+Filesystem features:       has_journal ext_attr resize_inode dir_index filetype needs_recovery extent 64bit flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize
+Filesystem fags:           signed_directory_hash
+Default mount options:     user_xattr acl
+Filesystem state:          clean
+Errors behavior:           Continue

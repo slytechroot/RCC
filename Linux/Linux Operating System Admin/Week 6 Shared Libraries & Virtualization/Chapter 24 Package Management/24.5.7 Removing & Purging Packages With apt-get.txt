@@ -1,0 +1,8 @@
+24.5.7 Removing/Purging Packages With apt-get
+
+Just as the dpkg command is able to either remove or purge a package, so can the apt-get command. Recall that the difference between the two is that purging deletes all package files, while removing deletes all but the configuration files for the package.
+‌⁠​​⁠​ 
+
+An administrator can execute the apt-get remove PACKAGE command to remove a package or the apt-get purge PACKAGE command to purge a package completely from the system. For example, to purge the web server completely, execute the apt-get purge apache2 command.
+
+sysadmin@localhost:~$ sudo apt-get purge apache2

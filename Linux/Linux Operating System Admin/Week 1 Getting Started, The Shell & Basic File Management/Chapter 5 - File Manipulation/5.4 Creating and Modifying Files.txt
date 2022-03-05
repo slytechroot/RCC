@@ -1,0 +1,65 @@
+5.4 Creating and Modifying Files
+
+The touch command performs two functions. It can create an empty file or update the modification timestamp on an existing file.
+
+touch [OPTION]... FILE...
+
+If the argument provided is an existing file, then the touch command will update the file's timestamp:
+
+sysadmin@localhost:~$ ls -l Documents/red.txt
+-rw-r--r-- 1 sysadmin sysadmin 51 Feb 22 16:32 Documents/red.txt 
+sysadmin@localhost:~$ touch Documents/red.txt
+sysadmin@localhost:~$ ls -l Documents/red.txt
+-rw-r--r-- 1 sysadmin sysadmin 51 Mar  8 02:59 Documents/red.txt 
+
+If the argument is a file that does not exist, a new file is created with the current time for the timestamp. The contents of this new file will be empty:
+
+sysadmin@localhost:~$ touch newfile
+sysadmin@localhost:~$ ls
+Desktop    Downloads  Pictures  Templates  newfile
+Documents  Music      Public    Videos	 
+sysadmin@localhost:~$ ls -l newfile
+-rw-rw-r-- 1 sysadmin sysadmin 0 Mar  8 03:00 newfile
+
+Each file has three timestamps:
+
+    The last time the file's contents were modified. This is the timestamp provided by the ls -l command by default. The touch command modified this timestamp by default.
+
+    The last time the file was accessed. To modify this timestamp, use the -a option with the touch command.
+
+    The last time the file attributes were modified. These file attributes, which include permissions and file ownership, are also called the file's metadata. To modify this timestamp, use the -c option with the touch command.
+
+The touch command will normally update the specified time to the current time, but the -t option with a timestamp value can be used instead.
+
+sysadmin@localhost:~$ touch -t 201912251200 newfile
+sysadmin@localhost:~$ ls -l newfile
+-rw-rw-r-- 1 sysadmin sysadmin 0 Dec 25  2019 newfile
+
+In the above command, the date/time syntax for the touch command is CCYYMMDDHHMM (optionally add SS for the seconds). The table below breaks down the date/time structure used in the example above in greater detail:
+Syntax 	Example 	Meaning
+CC 	20 	The century
+YY 	19 	The year
+MM 	12 	The month
+DD 	25 	The day
+HH 	12 	The hour
+MM 	00 	The minutes
+
+Because the example above uses the precise time of 12:00 AM, we don’t need to put 00 in the seconds (SS) field.
+
+In order to view all three timestamps that are kept for a file, use the stat command with the path to the file as an argument:
+
+sysadmin@localhost:~$ stat Documents/alpha.txt                                       
+  File: Documents/alpha.txt                                                     
+  Size: 390             Blocks: 8          IO Block: 4096   regular file        
+Device: 802h/2050d      Inode: 5898795     Links: 1                             
+Access: (0644/-rw-r--r--)  Uid: ( 1001/sysadmin)   Gid: ( 1001/sysadmin)        
+Access: 2019-02-22 16:32:34.000000000 +0000                                     
+Modify: 2019-02-22 16:32:34.000000000 +0000                                     
+Change: 2019-02-22 16:37:01.149507126 +0000                                     
+ Birth: -
+
+To create a file with the touch command, you must have the write and execute permission on the parent directory. If the file already exists, modifying it with the touch command only requires the write permission on the file itself.
+Command 	File Type 	Permission
+touch NEW_FILE 	Parent Directory 	Write, Execute
+touch EXISTING_FILE 	File 	Write
+

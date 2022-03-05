@@ -1,0 +1,20 @@
+23.8 Step 8
+
+Press the Enter key to accept the default value at the Last sector prompt:
+
+Enter
+
+Command (m for help): n
+Partition type:
+   p    primary (1 primary, 0 extended, 3 free)
+   e    extended
+Select (default p): e
+Partition number (1-4, default 2): 2
+First sector (41943040-42967039, default 41943040):
+Using default value 41943040
+Last sector, +sectors or +size{K,M,G} (2048-8388607, default 8388607):
+ 
+Created a new partition 1 of type ‘Extended’ and of size 4 GiB.
+ 
+Command (m for help):
+

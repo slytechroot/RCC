@@ -1,0 +1,11 @@
+23.27 Step 27
+
+To verify that the filesystem now has a problem, attempt to mount the filesystem by executing the following command:
+
+mount /dev/sdb5 /data
+
+root@ubuntu:~# mount /dev/sdb /data
+mount: /data: wrong fs type, bad option, bad superblock on /dev/sdb, missing codepage or helper program, or other error.
+
+Normally, the mount command can determine the filesystem type by looking at values in the primary superblock. However, if that information can't be accessed, you will get the error message mount: you must specify the filesystem type.
+

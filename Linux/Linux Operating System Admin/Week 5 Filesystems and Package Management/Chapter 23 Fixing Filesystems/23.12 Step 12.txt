@@ -1,0 +1,16 @@
+23.12 Step 12
+
+At the next prompt, enter +200M to create a 200MB partition:
+
++200M
+
+Command (m for help): n
+All space for primary partitions is in use.
+Adding logical partition 5
+First sector (4096-8388607, default 4096):
+Last sector, +sectors or +size{K,M,G} (4096-8388607, default 8388607):+200M
+
+Created a new partition 5 of type 'Linux' and of size 200MiB.
+
+Command (m for help):
+

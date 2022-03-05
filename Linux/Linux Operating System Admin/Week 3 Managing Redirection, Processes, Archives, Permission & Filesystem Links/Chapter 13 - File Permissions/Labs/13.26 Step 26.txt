@@ -1,0 +1,11 @@
+13.26 Step 26
+
+When the setuid permission is set on an executable binary file (a program), the binary file is run as the owner of the file, not as the user who executed it. In the next few steps, we will demonstrate the use of setuid files. Start by viewing the permissions of the /usr/bin/chfn file by executing the following command:
+
+ls -l /usr/bin/chfn
+
+sysadmin@localhost:~$ ls -l /usr/bin/chfn
+-rwsr-xr-x 1 root root 76496 Jan 25  2018 /usr/bin/chfn
+
+Recall that the s character in the owner's permission set means that this is a setuid file. When executed, this program can access files as if the program was run as the root user (the owner of the file). This special permission allows users to change the information in the /etc/passwd file.
+

@@ -1,0 +1,60 @@
+8.16 Step 16
+
+The grouping () operator can also be used to refer back to what was previously matched by referring to the match corresponding to the first set of parentheses as \1 and the second as \2. For example, to reverse the order of the last two fields of the /etc/passwd, execute the following command:
+
+head /etc/passwd
+head /etc/passwd | sed –r 's/([a-z/]+):([a-z/]+)$/\2:\1/'
+
+sysadmin@localhost:~$ head /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+sysadmin@localhost:~$ head /etc/passwd | sed -r 's/([a-z/]+):([a-z/]+)$/\2:\1/'
+root:x:0:0:root:/bin/bash:/root
+daemon:x:1:1:daemon:/usr/sbin/nologin:/usr/sbin
+bin:x:2:2:bin:/usr/sbin/nologin:/bin
+sys:x:3:3:sys:/usr/sbin/nologin:/dev
+sync:x:4:65534:sync:/bin/sync:/bin
+games:x:5:60:games:/usr/sbin/nologin:/usr/games
+man:x:6:12:man:/usr/sbin/nologin:/var/cache/man
+lp:x:7:7:lp:/usr/sbin/nologin:/var/spool/lpd
+mail:x:8:8:mail:/usr/sbin/nologin:/var/mail
+news:x:9:9:news:/usr/sbin/nologin:/var/spool/news
+
+In the second command above, the entire expression matches the last two fields in the /etc/passwd file. For example, consider the first line in the /etc/passwd file.
+
+The first ([a-z/]+) subpattern matches /bin/bash:
+
+'s/([a-z/]+):([a-z/]+)$/\2:\1/'
+
+root:x:0:0:root:/bin/bash:/root
+
+The second ([a-z/]+) subpattern matches /root:
+
+'s/([a-z/]+):([a-z/]+)$/\2:\1/'
+
+root:x:0:0:root:/bin/bash:/root
+
+The dollar sign $ operator, following the second subpattern is used to match the fields at the end of the line:
+
+'s/([a-z/]+):([a-z/]+)$/\2:\1/'
+
+root:x:0:0:root:/bin/bash:/root
+
+The list [ ] operators treat other regular expression operators as literal characters. Therefore, to ensure that the forward slash / character in the file name is interpreted literally, it is placed inside the brackets:
+
+'s/([a-z/]+):([a-z/]+)$/\2:\1/'
+
+root:x:0:0:root:/bin/bash:/root
+
+Lastly, the grouping () operator is used to refer to the first set of parentheses as \1 and the second as \2, which the sed command will use to reverse the order of the last two fields:
+
+'s/([a-z/]+):([a-z/]+)$/\2:\1/'
+

@@ -1,0 +1,53 @@
+7.10 Sort File Output
+
+The sort command is used to display a file sorted on a specific field of data.
+
+sort [OPTION]... [FILE]...
+
+Using sort with no options on people.csv results in the lines being sorted in ASCII order, which is similar to alphabetical order:
+
+sysadmin@localhost:~/Documents$ sort people.csv
+Andrew,Tanenbaum
+Dennis,Richie
+Ken,Thompson
+Linus,Torvalds
+
+This command is able to sort using any field, the same way that a spreadsheet is able to sort by any column. By default, sort breaks up each line of a file into fields using whitespace (tabs or spaces) as delimiters. To specify an alternate delimiter, use the -t option. To specify the fields to sort from first to last, use one or more -k options. In the following example, the os.csv file is sorted based on the second field of data, using the comma , character as a delimiter:
+
+sysadmin@localhost:~/Documents$ sort -t',' -k2 os.csv
+1991,Linux,Torvalds
+1987,Minix,Tanenbaum
+1970,Unix,Richie
+1970,Unix,Thompson
+
+While it is possible to sort the first field of os.csv using the ASCII ordering, a numerical sort makes more sense. In order to have the sort command treat a field numerically, add an n as an argument to the -k option for that key field specification. Be aware in the following example the -k option has two arguments, the 1 indicates the first field, and the n specifies sorting that field numerically:
+
+sysadmin@localhost:~/Documents$ sort -t',' -k1n os.csv
+1970,Unix,Richie
+1970,Unix,Thompson
+1987,Minix,Tanenbaum
+1991,Linux,Torvalds
+
+To reverse the sort direction from ascending to descending, add an r argument to the key field specification:
+
+sysadmin@localhost:~/Documents$ sort -t',' -k1nr os.csv
+1991,Linux,Torvalds
+1987,Minix,Tanenbaum
+1970,Unix,Richie
+1970,Unix,Thompson
+
+The sort command can be combined with other commands to accomplish more sophisticated tasks. For example, the output of the cut -f7 -d: /etc/passwd command contains many duplicate values:
+
+sysadmin@localhost:~/Documents$ cut -f7 -d: /etc/passwd | head -n4
+/bin/bash
+/usr/sbin/nologin
+/usr/sbin/nologin
+/usr/sbin/nologin
+
+By piping this output to the sort command and using the unique -u option, duplicate lines will be removed from the output:
+
+sysadmin@localhost:~/Documents$ cut -f7 -d: /etc/passwd | sort -u
+/bin/bash
+/bin/sync
+/usr/sbin/nologin
+

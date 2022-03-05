@@ -1,0 +1,11 @@
+2.9.5 Searching Within a Man Page
+
+In order to search a man page for a term, type the / character followed by the term and hit the Enter key. The program will search from the current location down towards the bottom of the page to try to locate and highlight the term.
+
+If the term is not found, or you have reached the end of the matches, then the program will report Pattern not found (press Return). If a match is found and you want to move to the next match of the term, press N. To return to a previous match of the term, press Shift+N.
+A gif depicting a user searching a man page for a keyword.
+ 
+
+Note
+
+If you haven't already, notice here that pager commands are viewed on the final line of the screen.

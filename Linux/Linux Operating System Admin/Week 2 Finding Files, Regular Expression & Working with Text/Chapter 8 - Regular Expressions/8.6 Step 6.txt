@@ -1,0 +1,13 @@
+8.6 Step 6
+
+When placed in the beginning of the list operator [], the anchor operator ^ denotes negation of the pattern to be matched. The following will match a single character between the colon : characters that is not a 0, 1, 2, 3, 4, or x:
+
+grep ':[^01234x]:' /etc/passwd
+
+sysadmin@localhost:~$ grep ':[^01234x]:' /etc/passwd
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+

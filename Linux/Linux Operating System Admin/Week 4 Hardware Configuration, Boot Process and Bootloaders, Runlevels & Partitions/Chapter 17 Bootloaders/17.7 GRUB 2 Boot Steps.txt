@@ -1,0 +1,9 @@
+17.7 GRUB 2 Boot Steps
+
+When a GRUB 2 system is powered on, the first stage loader boot.img is either read from the first 440 bytes of the Master Boot Record (MBR), or alternatively read from the Partition Boot Record (PBR), (like a Master Boot Record for a partition).
+
+From the first stage loader, the location of the second stage loader is found. The second stage loader diskboot.img is used as the first sector of the third stage loader, and this points directly to the third stage.
+
+The third stage loader core.img uncompresses itself, accesses its own GRUB 2 kernel and filesystem drivers and attempts to access the actual root filesystem’s /boot/grub directory.
+
+If it can access the /boot/grub directory on disk, it then loads the appropriate fourth stage module normal.mod which then reads the /boot/grub/grub.cfg file and presents either a GUI for GRUB 2 or the CLI menu so the user can choose an image to boot.

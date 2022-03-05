@@ -1,0 +1,27 @@
+6.8 Step 8
+
+To find all files that are directory files in your home directory, execute the following commands:
+
+mkdir dir1 dir2 dir3
+find ~/ -type d 2>/dev/null
+
+sysadmin@localhost:~$ find ~/ -type d 2>/dev/null                           
+/home/sysadmin/                                                             
+/home/sysadmin/Videos                                                       
+/home/sysadmin/Documents                                                    
+/home/sysadmin/Documents/Work                                               
+/home/sysadmin/Documents/School                                             
+/home/sysadmin/Documents/School/Art                                         
+/home/sysadmin/Documents/School/Math                                        
+/home/sysadmin/Documents/School/Engineering                                 
+/home/sysadmin/Templates                                                    
+/home/sysadmin/Music                                                        
+/home/sysadmin/Pictures                                                     
+/home/sysadmin/Public                                                       
+/home/sysadmin/Downloads                                                   
+/home/sysadmin/Desktop                                                      
+/home/sysadmin/dir3                                                         
+/home/sysadmin/.cache                                                       
+/home/sysadmin/dir1                                                         
+/home/sysadmin/dir2
+

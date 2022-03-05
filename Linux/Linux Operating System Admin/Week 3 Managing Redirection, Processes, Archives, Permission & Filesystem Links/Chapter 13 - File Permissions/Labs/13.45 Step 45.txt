@@ -1,0 +1,12 @@
+13.45 Step 45
+
+Again, create a file called mylabfile in this directory that can be used to test the new permission set:
+
+touch /pub/mylabfile
+ls -l /pub
+
+root@localhost:~# touch /pub/mylabfile
+root@localhost:~# ls -l /pub
+total 0
+-rw-r--r-- 1 root root 0 May 17 02:22 mylabfile
+

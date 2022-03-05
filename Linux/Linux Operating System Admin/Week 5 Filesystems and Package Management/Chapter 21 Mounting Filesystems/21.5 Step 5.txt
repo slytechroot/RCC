@@ -1,0 +1,21 @@
+21.5 Step 5
+
+At the Command prompt, type the p command to display the current partition table. The output should be the same as when you previously executed the fdisk -l command:
+
+p
+
+Command (m for help): p
+Disk /dev/sdb: 4 GiB, 4294967296 bytes, 8388608 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x97566fcf
+
+Command (m for help):
+
+While it is not critical for you to understand all of the output of this command, a brief summary of the more useful output is provided below:
+Disk /dev/sdb 	Disk name (/dev/sdb) and size in MB and bytes.
+Units 	Available units are sectors, a fixed unit of user accessible storage, which in this case is 512 bytes, the minimum unit of storage available to the system.
+Sector size (logical/physical) 	The total number of sectors is the most important since partitions are done by sectors. Note that a block and a sector are the same things, in this case.
+I/O size 	This is somewhat useful because if you are trying to figure out how big an existing partition is, you can take the number of sectors and multiply it by the value provided here. So, if a partition is 2,000 sectors in size and there are 512 bytes per sector, then the partition is 1,024,000 bytes in size. An easier way to think of it is that 512 bytes is 0.512 KB (0.000512 MB). So, if a partition is 2,000 sectors in size, it is 1,024 KB in size (or approximately 1 MB in size).

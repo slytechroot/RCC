@@ -1,0 +1,14 @@
+7.32 Step 32
+
+To remove duplicate lines from the output file and display the count of duplicates, execute the following command:
+
+sort output | uniq –c
+
+sysadmin@localhost:~$ sort output | uniq -c
+      1 /bin/bash
+      1 /bin/sync
+      8 /usr/sbin/nologin
+
+In the command above, the -u option to the sort command rearranges the rows in the file and then removes duplicates. The uniq command also provides duplicate removal functionality in a slightly different way. It removes duplicates which are already on consecutive lines i.e. it does not sort data.
+
+The uniq command provides another additional option not supported by the sort command; it can display the number of duplicates that were counted.

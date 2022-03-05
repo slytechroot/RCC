@@ -1,0 +1,22 @@
+10.3 Step 3
+
+Similar to standard output, standard error can also be redirected to files. The number 2 is associated with the standard error file descriptor. To redirect standard error while executing the find command, execute the following commands:
+
+find /etc . -name hostname
+find /etc . –name hostname 2> error.txt
+
+sysadmin@localhost:~$ find /etc . -name hostname
+/etc/hostname
+find: '/etc/ssl/private': Permission denied
+sysadmin@localhost:~$ find /etc . -name hostname 2> error.txt
+/etc/hostname
+
+The output of the find command shown above shows the difference when the error stream is redirected to a file. In the first instance of the find command, the Permission denied error is shown on the terminal, while in the second instance of the find command this error is redirected to the error.txt file.
+
+To view the standard error from the previously executed command in the contents of the error.txt file, use the following command:
+
+cat error.txt
+
+sysadmin@localhost:~$ cat error.txt
+find: '/etc/ssl/private': Permission denied
+

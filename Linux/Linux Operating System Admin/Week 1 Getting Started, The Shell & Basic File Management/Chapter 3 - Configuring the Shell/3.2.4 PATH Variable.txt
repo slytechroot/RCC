@@ -1,0 +1,111 @@
+3.2.4 PATH Variable
+
+The PATH variable is one of the most critical environment variables for the shell, so it is important to understand the effect it has on how commands will be executed.
+‌⁠​​⁠​ 
+
+The PATH variable contains a list of directories that are used to search for commands entered by the user. When the user types a command and then presses the Enter key, the PATH directories are searched for an executable file that matches the command name. Processing works through the list of directories from left to right; the first executable file that matches what is typed is the command the shell will try to execute.
+
+Note
+
+Before searching the PATH variable for the command, the shell will first determine if the command is an alias or function, which may result in the PATH variable not being utilized when that specific command is executed.
+
+Additionally, if the command happens to be built-in to the shell, the PATH variable will not be utilized.
+
+Using the echo command to display the current $PATH will return all the directories that files can be executed from. The following example displays a typical PATH variable, with directory names separated from each other by a colon : character:
+
+sysadmin@localhost:~$ echo $PATH
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+
+The following table illustrates the purpose of some of the directories displayed in the output of the previous command:
+Directory 	Contents
+/home/sysadmin/bin 	A directory for the current user sysadmin to place programs. Typically used by users who create their own scripts.
+/usr/local/sbin 	Normally empty, but may have administrative commands that have been compiled from local sources.
+/usr/local/bin 	Normally empty, but may have commands that have been compiled from local sources.
+/usr/sbin 	Contains the majority of the administrative command files.
+/usr/bin 	Contains the majority of the commands that are available for regular users to execute.
+/sbin 	Contains the essential administrative commands.
+/bin 	Contains the most fundamental commands that are essential for the operating system to function.
+
+To execute commands that are not contained in the directories that are listed in the PATH variable, several options exist:
+
+    The command may be executed by typing the absolute path to the command.
+
+    The command may be executed with a relative path to the command.
+
+    The PATH variable can be set to include the directory where the command is located.
+    The command can be copied to a directory that is listed in the PATH variable.
+
+To demonstrate absolute paths and relative paths an executable script named my.sh is created in the home directory. Next, that script file is given “execute permissions” (permissions are covered in a later chapter):
+
+sysadmin@localhost:~$ echo 'echo Hello World!' > my.sh
+sysadmin@localhost:~$ chmod u+x my.sh
+
+An absolute path specifies the location of a file or directory from the top-level directory through all of the subdirectories to the file or directory. Absolute paths always start with the / character representing the root directory. For example, /usr/bin/ls is an absolute path. It means the ls file, which is in the bin directory, which is in the usr directory, which is in the / (root) directory. A file can be executed using an absolute path like so:
+
+sysadmin@localhost:~$ /home/sysadmin/my.sh
+Hello World!
+
+A relative path specifies the location of a file or directory relative to the current directory. For example, in the /home/sysadmin directory, a relative path of test/newfile would actually refer to the /home/sysadmin/test/newfile file. Relative paths never start with the / character.
+
+Note
+
+Visualizing the directory structure using paths can be confusing at first, but it is a necessary skill for effectively navigating the filesystem.
+
+Absolute paths and relative paths are covered in greater detail in the NDG Linux Essentials course.
+
+Using a relative path to execute a file in the current directory requires the use of the . character, which symbolizes the current directory:
+
+sysadmin@localhost:~$ ./my.sh
+Hello World!
+
+Sometimes a user wants their home directory added to the PATH variable in order to run scripts and programs without using ./ in front of the file name. They might be tempted to modify the PATH variable like so:
+
+sysadmin@localhost:~$ echo $PATH
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+sysadmin@localhost:~$ pwd
+/home/sysadmin
+sysadmin@localhost:~$ PATH=/home/sysadmin
+
+Unfortunately, modifying a variable this way overwrites the contents. Therefore, everything that was previously contained in the PATH variable will be lost.
+
+sysadmin@localhost:~$ echo $PATH
+/home/sysadmin
+
+Programs listed outside of the /home/sysadmin directory will now only be accessible by using their full path name. For example, assuming that the home directory has not yet been added to the PATH variable, the uname -a command would behave as expected:
+
+sysadmin@localhost:~$ uname -a
+Linux localhost 3.15.6+ #2 SMP Wed Jul 23 01:26:02 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+
+After assigning the home directory to the PATH variable, the uname -a command will need its full path name to execute successfully:
+
+sysadmin@localhost:~$ PATH=/home/sysadmin
+sysadmin@localhost:~$ uname -a
+-bash: uname: command not found
+sysadmin@localhost:~$ /bin/uname -a
+Linux localhost 3.15.6+ #2 SMP Wed Jul 23 01:26:02 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+
+Important
+
+If you changed the PATH variable like we did in the previous example and want to reset it, simply use the exit command to logout:
+
+sysadmin@localhost:~$ exit
+
+Once logged back in, the PATH variable will be reset to its original value.
+
+It is possible to add a new directory to the PATH variable without overwriting its previous contents. Import the current value of the $PATH variable into the newly defined PATH variable by using it on both sides of the assignment statement:
+
+sysadmin@localhost:~$ PATH=$PATH
+
+Finish it with the value of the additional home directory path:
+
+sysadmin@localhost:~$ PATH=$PATH:/home/sysadmin
+sysadmin@localhost:~$ echo $PATH
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/sysadmin
+
+Now, scripts located in the /home/sysadmin directory can execute without using a path:
+
+sysadmin@localhost:~$ my.sh
+Hello World!
+
+Warning
+In general, it is a bad idea to modify the $PATH variable. If it were to change, administrators would view it as suspicious activity. Malicious forces want to gain elevated privileges and access to sensitive information residing on Linux servers. One way to do this is to write a script which shares the name of a system command, then change the PATH variable to include the administrator’s home directory. When the administrator types in the command, it actually runs the malicious script!

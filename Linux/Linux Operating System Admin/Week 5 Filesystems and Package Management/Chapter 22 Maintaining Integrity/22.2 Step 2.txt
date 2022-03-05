@@ -1,0 +1,17 @@
+22.2 Step 2
+
+Execute the following command to list filesystem disk space usage details:
+
+df
+
+[root@centos~]# df
+Filesystem                    1K-blocks    Used Available Use% Mounted on
+/dev/mapper/VolGroup-lv_root    3997376 1020524   2750756  28% /
+devtmpfs                         237476       0    237476   0% /dev
+tmpfs                            249412       0    249412   0% /dev/shm
+tmpfs                            249412    4532    244880   2% /run
+tmpfs                            249412       0    249412   0% /sys/fs/cgroup
+/dev/sda1                        499656  102788    360172  23% /boot
+tmpfs                             49884       0     49884   0% /run/user/0
+
+Sizes are given in 1K (kilobyte) block sizes. Knowing how to view this information is useful because a filesystem that is full can cause problems, as users and system processes will be unable to write to the filesystem.

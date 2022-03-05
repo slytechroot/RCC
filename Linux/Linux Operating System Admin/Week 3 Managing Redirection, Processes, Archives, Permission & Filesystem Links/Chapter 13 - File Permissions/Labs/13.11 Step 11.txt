@@ -1,0 +1,9 @@
+13.11 Step 11
+
+Execute the following command to switch back to the sysadmin account:
+
+exit
+
+root@localhost:~# exit
+logout
+sysadmin@localhost:~$

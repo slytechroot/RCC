@@ -1,0 +1,26 @@
+13.48 Step 48
+
+In the next few steps, we will demonstrate the use of the umask command. Start by creating a file called mysample.txt and viewing its permissions by executing the following commands:
+
+touch mysample.txt
+ls -l mysample.txt
+
+sysadmin@localhost:~$ touch mysamplefile.txt
+sysadmin@localhost:~$ ls -l mysamplefile.txt
+-rw-rw-r-- 1 sysadmin sysadmin 0 May 17 02:30 mysamplefile.txt
+
+Note that the default permissions of the mysample.txt file are rw-rw-r--. This is the result of the umask value of 002. The umask is an octal value based upon the same values as the ones used for setting permissions earlier in the lab except that for permissions, you add together the values for the user, the group, and others. However, the umask octal value is used to specify permissions to be removed.
+4 	read
+2 	write
+1 	execute
+0 	none
+
+Execute the following command to see the current umask setting:
+
+umask
+
+sysadmin@localhost:~$ umask
+0002
+
+It may be confusing that there is a fourth value in the output of the previous umask command. This is because there are technically four sets of permissions: user owner, group owner, others, and special permissions (the first 0 in the output above). Since special permissions are never set by default, the initial 0 is not necessary when setting the umask value. As a result, this extra value will be largely ignored during this lab.
+

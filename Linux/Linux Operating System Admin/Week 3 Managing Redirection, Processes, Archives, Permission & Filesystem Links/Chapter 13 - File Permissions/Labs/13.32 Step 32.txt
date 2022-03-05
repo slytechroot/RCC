@@ -1,0 +1,24 @@
+13.32 Step 32
+
+Execute the following command to attempt to change your account information. When prompted, provide the root password:
+
+chfn
+netlab123
+
+Enter the following information when prompted:
+
+Room Number []: 123
+Work Phone []: 888-555-5555
+Home Phone []: 888-555-5555
+
+sysadmin@localhost:~$ chfn
+Password:
+Changing the user information for sysadmin
+Enter the new value, or press ENTER for the default
+        Full Name: System Administrator
+        Room Number [123]: 123
+        Work Phone [888-555-5555]: 888-555-5555
+        Home Phone [888-555-5555]: 888-555-5555
+Cannot change ID to root.
+
+Note that the error message Cannot change ID to root indicates that you cannot use this command because it cannot access the /etc/passwd file as the root user. Without the setuid permission, this command will not work for regular users.

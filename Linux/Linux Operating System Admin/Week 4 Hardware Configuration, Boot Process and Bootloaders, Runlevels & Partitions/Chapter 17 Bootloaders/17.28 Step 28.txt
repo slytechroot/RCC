@@ -1,0 +1,5 @@
+17.28 Step 28
+
+You will be presented the edit screen again:
+
+The GNU GRUB version 0.97

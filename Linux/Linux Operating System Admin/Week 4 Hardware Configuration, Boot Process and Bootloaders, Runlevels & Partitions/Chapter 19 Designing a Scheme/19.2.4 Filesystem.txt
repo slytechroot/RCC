@@ -1,0 +1,38 @@
+19.2.4 Filesystem
+
+Next, we'll examine the concept and purpose of the filesystem in regards to partitioning. In order to place files and directories on a partition, a filesystem needs to be created. This is accomplished by formatting the partition. A filesystem provides the operating system with a way to organize the files and directories. Moreover, a filesystem stores information about files, such as the permissions of the files, the owner of the files, and the file type.
+
+An analogy that may help in understanding filesystems is to consider the library example previously mentioned. A library has thousands of books (think files) that need to be organized in a manner that makes it easy to find a specific book. In order to do this, the books are organized into categories (think directories). However, just putting books into directories isn't sufficient since a single category can contain hundreds or even thousands of books.
+
+To better organize all of the books in the library, a system such as the Dewey Decimal System is used. This system provided a central catalog of index cards, normally located in a cabinet at the front of a section where individuals could determine the exact location of a specific book. Included in the catalog is metadata about each book, such as publication date, author, publisher, etc. A key component of this metadata is a unique identification number for each book.
+
+A filesystem performs the same functions of the Dewey Decimal System for files and directories. Each file will have an entry in the filesystem database, similar to a library catalog, although the database is often referred to as a table.
+
+Metadata about the file will be contained in this entry, which includes file attributes like ownership, timestamps, data block locations, and everything about the file except for its contents. The entry also includes a unique identification number for the file, called an inode number and pointers (or links) that inform the operating system of the location in the filesystem (where on the hard drive) the file's data is stored.
+
+Keep in mind that there is more than one way to organize books in a library. For example, in addition to the Dewey Decimal System, there is a system called the Library of Congress Classification system that performs the same function as the Dewey Decimal System but uses a different technique. The same holds true for the filesystems available for Linux; there is more than one type available, and each uses a different technique. Some of the more common filesystem types include:
+Type 	Name 				Advantages 																		Disadvantages
+ext2 	Second Extended Filesystem 	Works well with small and solid-state disk filesystems 													No journaling capability, making it susceptible to data loss in the event of power loss.
+ext3 	Third Extended Filesystem 	Can be upgraded from existing ext2 filesystem without data loss. This filesystem performs journaling, which allows for data recovery after a crash. 	Writes more to disk than ext2 because of journaling, making it slower. Does not support very large filesystems.
+ext4 	Fourth Extended Filesystem 	Support for very large disk volumes and file sizes. Can operate with or without a journal. Backwards compatible with ext3 and ext2. 			Not a huge improvement over ext3. No dynamic inode creation.
+xfs 	Extents Filesystem 		Works very efficiently with large files. Compatible with the IRIX operating system from SGI. Announced to be the default filesystem for RHEL 7. 	The filesystem cannot be shrunk.
+vfat 	File Allocation Table 		Supported by almost all operating systems. Commonly used for removable media. 										Unable to support very large disks or files. Microsoft's intellectual property claims.
+iso 	ISO 9660 			The International Organization for Standardization standard for optical disc media that is supported by almost all operating systems. 			Multiple levels and extensions complicate compatibility. Not designed for rewritable media.
+udf 	Universal Disc Format 		Designed to replace ISO 9660 and adopted as the standard format for DVDs by the DVD Consortium. 							Write support is limited to support revision 2.01 of the standard.
+
+This is only a partial list of the filesystem types available in Linux and just a brief summary of the differences between them. A full description of the differences would be much more complex and beyond the scope of this course and the LPIC exam.
+
+Consider This
+
+One of the features mentioned in the preceding table is the journaling. While a complete discussion of journals is beyond the scope of this course, the following describes the basics of filesystem journals.
+
+As files are changed, metadata is not initially stored on the hard drive, but rather in memory. This speeds up the filesystem since writing these changes to the hard drive for every single file change would result in a lot of hard drive writes.
+
+At specific intervals, this metadata is written to the hard drive in large chunks; this process is called syncing. Normally this poses no problems, but if the system were to crash or lose power before a sync occurred, all of that metadata would be lost.
+
+A filesystem recovery program, like the fsck command, can often resolve these problems, but this can take quite a bit of time for large filesystems.
+
+A journaling filesystem enhances filesystem recovery. For every change made to a file, a journal entry is stored on the hard drive. While this does increase filesystem writes, a journal entry has much less impact on hard drive performance than writing the metadata directly to the hard drive for each file change.
+
+In a nutshell, a journaling filesystem aids in recovering corrupted filesystems while allowing for reduced hard drive writes.
+

@@ -1,0 +1,36 @@
+8.7 Options for the grep Command
+
+The man page for the grep command provides basic information about regular expressions, as well as options for the grep, egrep, and fgrep commands. The following table lists some of the more commonly used options:
+Option 	Meaning
+-i 	Case insensitive
+-v 	Invert search results (logically negates criteria) - returns all lines that don't contain the specified pattern
+-l 	List the file name of content in file matches
+-r 	Perform a recursive search including subdirectories
+-w 	Match whole word only
+-q 	Quietly operate without producing output
+
+The -i option makes the grep command case insensitive, ignoring capitalization in the expression:
+
+sysadmin@localhost:~/Documents$ grep 'i' profile.txt
+Hello my name is Joe.
+My favorite food is avocados.
+sysadmin@localhost:~/Documents$ grep -i 'i' profile.txt
+Hello my name is Joe.
+I am 37 years old.
+My favorite food is avocados.
+I have 2 dogs.
+
+The -v option inverts the search, displaying the lines that don't match the expression. The following search pattern matches all lines which do not contain numeric characters:
+
+sysadmin@localhost:~/Documents$ grep -v [0-9] profile.txt
+Hello my name is Joe.
+My favorite food is avocados.
+
+Normally, the grep command will be able to match the expression, even if it is part of another word. When using the -w option, the expression must match a complete word. This is similar to the word boundary regular expression that was previously mentioned, however, keep in mind that \b works for many commands that support extended regular expressions, while the -w option is specific to the grep command:
+
+sysadmin@localhost:~/Documents$ grep 'am' profile.txt
+Hello my name is Joe.
+I am 37 years old.
+sysadmin@localhost:~/Documents$ grep -w 'am' profile.txt
+I am 37 years old.
+

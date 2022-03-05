@@ -1,0 +1,10 @@
+18.14 Step 14
+
+Execute the following command to verify that runlevels 0, 1, and 6 contain stop scripts for the sshd service:
+
+1s /etc/rc.d/rc[0-6].d/K*sshd
+
+[root@centos rc3.d]# ls /etc/rc.d/rc[0-6].d/K*sshd
+/etc/rc.d/rc0.d/K25sshd  /etc/rc.d/rc1.d/K25sshd  /etc/rc.d/rc6.d/K25sshd
+[root@centos rc3.d]#
+

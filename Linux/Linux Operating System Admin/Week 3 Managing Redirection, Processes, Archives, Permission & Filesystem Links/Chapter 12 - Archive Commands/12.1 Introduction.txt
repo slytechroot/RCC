@@ -1,0 +1,24 @@
+12.1 Introduction
+
+Linux distributions provide several different sets of commands for compressing and archiving files and directories. This chapter will describe their advantages and disadvantages as well as their usefulness in making backup copies of files and directories efficiently.
+
+File archiving is used when one or more files need to be transmitted or stored as efficiently as possible. There are two fundamental aspects which this chapter explores:
+
+    Archiving: Combines multiple files into one, which eliminates the overhead in individual files and makes it easier to transmit.
+    Compression: Makes the files smaller by removing redundant information.
+
+
+Tar <-> gzip
+
+Tar <-> bzip2
+
+
+
+
+Consider This
+
+Files can be compressed individually, or multiple files can be combined into a single archive and then subsequently compressed. The latter is still referred to as archiving.
+
+When an archive is decompressed, and one or more files are extracted, this is called un-archiving.
+
+More sophisticated types of copying, using the dd and cpio commands, will also be covered. These commands, while more complex, offer powerful features.

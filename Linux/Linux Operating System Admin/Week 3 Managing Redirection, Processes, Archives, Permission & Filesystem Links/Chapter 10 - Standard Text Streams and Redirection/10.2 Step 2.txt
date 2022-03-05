@@ -1,0 +1,28 @@
+10.2 Step 2
+
+Redirecting standard output with two greater-than >> characters will result in the output of the command being appended to the end of a file if it does already exist.
+
+To append the output of the date command to the ls_output.txt file created in the previous step, execute the following command:
+
+date >> ls_output.txt
+
+sysadmin@localhost:~$ date >> ls_output.txt
+
+The number 1 is associated with the standard output file descriptor when used with the > and >> operators. The number is implied in the examples shown above; the example can also be written as date 1 >> ls_output.txt.
+
+To view the contents of the ls_output.txt file, use the following command:
+
+cat ls_output.txt
+
+sysadmin@localhost:~$ cat ls_output.txt
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+ls_output.txt
+Thu Apr 30 13:21:38 UTC 2020
+

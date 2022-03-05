@@ -1,0 +1,30 @@
+13.2.3 Switching Groups
+
+When a user creates a file or directory, their primary group will normally be the group owner. The id command lists your identity information, including your group memberships. If you are only interested in knowing what groups you belong to, then you can execute the groups command:
+
+sysadmin@localhost:~$ groups
+sysadmin adm sudo
+
+To create a file or directory that will be owned by a group different from your current primary group, one option is to change your current primary group to another group you belong to by using the newgrp command.
+
+newgrp [GROUP]
+
+For example, to change the current primary group from sysadmin to the secondary group called adm, execute the following command:
+
+sysadmin@localhost:~/Documents$ newgrp adm
+
+The result of the newgrp command in the example above is that any new files or directories created will be group owned by the adm group:
+
+sysadmin@localhost:~$ touch newfile.txt
+sysadmin@localhost:~$ ls -l newfile.txt                                         
+-rw-rw-r-- 1 sysadmin adm 0 Mar 21 20:00 newfile.txt
+sysadmin@localhost:~$ exit
+exit
+sysadmin@localhost:~/Documents$
+
+The newgrp command opens a new shell and assigns the primary group for that shell to the specified group. So, in other words, the newgrp command places you in another shell in a different primary group. Once in the new shell, any file created, in this case, newfile.txt, will belong to the new primary group, which is adm in the example above. To go back to the default primary group, use the exit command to close the new shell that was started by the newgrp command.
+
+Note
+
+You must be a member of the group that you want to change to. Additionally, administrators can password protect groups.
+

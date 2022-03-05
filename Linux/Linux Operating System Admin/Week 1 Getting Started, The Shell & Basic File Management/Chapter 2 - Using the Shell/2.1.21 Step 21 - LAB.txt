@@ -1,0 +1,35 @@
+2.1.21 Step 21
+
+Aliases serve as a nickname for another command or series of commands. As you can see by the commands that you have executed so far, commands in the Linux command shell require a fair amount of memorizing and typing. Aliases can help save such repetitive effort. New aliases can be created using the following format, where name is the name to be given the alias and command is the command to be executed when the alias is run.
+
+alias name=command
+
+Instead of typing the command ls –alr each time, you can create an alias called l as shown below. Single quotes ' are used to ensure that all the characters retain their literal meaning:
+
+alias l='ls -ar'
+ls –ar
+l
+
+sysadmin@localhost:~$ alias l='ls -ar'                                  
+sysadmin@localhost:~$ ls -ar                                            
+myhosts    Public    Downloads .selected_editor  .bashrc       .         
+Videos     Pictures  Documents  .profile          .bash_logout          
+Templates  Music     Desktop    .cache            ..                     
+sysadmin@localhost:~$ l                                                  
+myhosts    Public    Downloads .selected_editor  .bashrc       .         
+Videos     Pictures  Documents  .profile          .bash_logout          
+Templates  Music     Desktop    .cache            ..                     
+sysadmin@localhost:~$
+
+Consider This
+
+Later, you can remove entries from your list of aliases by using the unalias command:
+
+unalias l
+l
+
+sysadmin@localhost:~$ unalias l                                    
+sysadmin@localhost:~$ l                                               
+l: command not found                                                
+sysadmin@localhost:~$
+

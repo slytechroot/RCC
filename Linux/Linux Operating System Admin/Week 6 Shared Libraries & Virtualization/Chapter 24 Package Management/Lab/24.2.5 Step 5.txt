@@ -1,0 +1,27 @@
+24.2.5 Step 5
+
+Now that the /etc/apt/sources.list contains a reachable repository, execute the following command to receive the list of packages that are available:
+
+apt-get update
+
+root@localhost:~# apt-get update
+Get:1 file:/var/www/debs amd64/ InRelease
+Ign:1 file:/var/www/debs amd64/ InRelease
+Get:2 file:/var/www/debs amd64/ Release
+Ign:2 file:/var/www/debs amd64/ Release
+Get:3 file:/var/www/debs amd64/ Packages
+Ign:3 file:/var/www/debs amd64/ Packages
+Get:3 file:/var/www/debs amd64/ Packages
+Ign:3 file:/var/www/debs amd64/ Packages
+Get:3 file:/var/www/debs amd64/ Packages
+Ign:3 file:/var/www/debs amd64/ Packages
+Get:3 file:/var/www/debs amd64/ Packages
+Ign:3 file:/var/www/debs amd64/ Packages
+Get:3 file:/var/www/debs amd64/ Packages
+Ign:3 file:/var/www/debs amd64/ Packages
+Get:3 file:/var/www/debs amd64/ Packages
+Ign:3 file:/var/www/debs amd64/ Packages
+Get:3 file:/var/www/debs amd64/ Packages [1589 B]
+Reading package lists... Done
+root@localhost:~#
+

@@ -1,0 +1,28 @@
+8.2.1 Anchoring
+
+Anchoring is one of the ways regular expressions can be used to narrow search results. For example, the pattern root appears many times in the /etc/passwd file:
+
+sysadmin@localhost:~$ grep 'root' /etc/passwd
+root:x:0:0:root:/root:bin/bash
+operator:x:11:0:operator:/root:/sbin/nologin
+
+The front anchor ^ operator can be used to ensure that a pattern appears at the beginning of the line. For example, to find all lines in /etc/passwd that start with root, use the ^root pattern. Note that the ^ operator must be the first character in the pattern to be effective.
+
+sysadmin@localhost:~$ grep ^root /etc/passwd
+root:x:0:0:root:/root:bin/bash
+
+The back anchor $ operator can be used to ensure a pattern appears at the end of the line, thereby effectively reducing the search results. To find the lines that end with an r in the alpha-first.txt file, use the r$ pattern:
+
+sysadmin@localhost:~$ cd Documents
+sysadmin@localhost:~/Documents$ grep 'r$' alpha-first.txt
+B is for Bear
+F is for Flower
+
+Again, the position of this operator is important. The $ operator must be the last character in the pattern in order to be effective as an anchor.
+
+If the ^ and $ operators are used at the beginning and end of the same pattern, the entire line must match the pattern. Meaning that the only way a line would be returned is if the entire line matched exactly, with no other characters on the line.
+Pattern 	Meaning
+^Hello 	Matches any line that begins with the Hello string
+World$ 	Matches any line that ends with the World string
+^Hello World$ 	Matches any line which matches the Hello World string exactly
+

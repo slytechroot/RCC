@@ -1,0 +1,11 @@
+18.13 Step 13
+
+Execute the following command to verify that runlevels 2, 3, 4, and 5 contains start scripts for the sshd service:
+
+1s /etc/rc.d/rc[0-6].d/S*sshd
+
+[root@centos rc3.d]# ls /etc/rc.d/rc[0-6].d/S*sshd
+/etc/rc.d/rc2.d/S55sshd  /etc/rc.d/rc4.d/S55sshd
+/etc/rc.d/rc3.d/S55sshd  /etc/rc.d/rc5.d/S55sshd
+[root@centos rc3.d]#
+

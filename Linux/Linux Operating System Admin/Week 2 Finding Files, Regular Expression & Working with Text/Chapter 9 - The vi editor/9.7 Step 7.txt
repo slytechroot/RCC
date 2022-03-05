@@ -1,0 +1,7 @@
+9.7 Step 7
+
+Press the Escape key to return to the command mode. Type dd to delete the current line:
+
+ESC
+dd
+

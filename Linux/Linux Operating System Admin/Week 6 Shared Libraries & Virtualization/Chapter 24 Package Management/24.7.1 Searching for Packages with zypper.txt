@@ -1,0 +1,29 @@
+24.7.1 Searching for Packages with zypper
+
+Before a system operator does anything substantial with the zypper command, it is critical to refresh the information that zypper has about the repositories that the commands in this section will be querying and installing software from. The refresh ref command can be used to refresh the repository:
+
+sysadmin@localhost:~> su -
+Password:
+localhost:~ # zypper ref
+Repository 'sle-module-basesystem' is up to date.                               Repository 'sle-module-desktop-applications' is up to date.                     Repository 'sle-module-development-tools' is up to date.                        Repository 'Non-OSS' is up to date.
+Repository 'SLES15-15-0' is up to date.
+Repository 'SLES' is up to date.
+Repository 'sle-module-server-applications' is up to date.                      All repositories have been refreshed.
+
+To find a package to install, use the search se command to query the configured repositories on the system.
+
+zypper se PACKAGE
+
+For example, to search for the gvim package, use the following:
+
+localhost:~ # zypper se gvim
+Loading repository data...
+Reading installed packages...
+
+S | Name | Summary      | Type
+--+------+--------------+--------
+  | gvim | A GUI for Vi | package
+
+The example searches for the graphical version of the vim command, gvim, and shows several useful pieces of information about the package. The first column, S, is the status column, and based on the output above, this package is not installed—if it was, there would be an i in this column.
+
+The rest of the line is fairly easy to grasp; the Name, a Summary and the Type of result are noted.

@@ -1,0 +1,13 @@
+10.17 Step 17
+
+Remove the four files created in the previous step by using the rm command with the xargs command:
+
+echo 'x1 x2 x3 x4' | xargs rm
+ls
+
+sysadmin@localhost:~$ echo 'x1 x2 x3 x4' | xargs rm
+sysadmin@localhost:~$ ls
+Desktop    Music     Templates  error.txt        homedir.txt
+Documents  Pictures  Videos     find_error.txt   ls_output.txt
+Downloads  Public    count.txt  find_output.txt  myhosts
+

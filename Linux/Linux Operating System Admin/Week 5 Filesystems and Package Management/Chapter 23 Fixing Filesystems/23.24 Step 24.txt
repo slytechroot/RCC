@@ -1,0 +1,17 @@
+23.24 Step 24
+
+After switching the filesystem state, you can run the fsck command:
+
+fsck /dev/sdb5
+
+root@ubuntu:~# fsck /dev/sdb5
+fsck from util-linux 2.31.1
+e2fsck 1.44.1 (24-Mar-2018)
+/dev/sdb5 1.44.1 was not cleanly unmounted, check forced.
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information 
+/dev/sdb5: 11/51200 files (0.0% non-contiguous), 12115/204800 blocks
+

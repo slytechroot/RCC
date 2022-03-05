@@ -1,0 +1,44 @@
+3.3 Initialization Files
+
+When a user opens a new shell, either during login or when they run a terminal that starts a shell, the shell is customized by files called initialization (or configuration) files. These initialization files set the value of variables, create aliases and functions, and execute other commands that are useful in starting the shell.
+
+There are two types of initialization files: global initialization files that affect all users on the system and local initialization files that are specific to an individual user.
+
+The global configuration files are located in the /etc directory. Local configuration files are stored in the user's home directory.
+BASH Initialization Files
+
+Each shell uses different initialization files. Additionally, most shells execute different initialization files when the shell is started via the login process (called a login shell) versus when a shell is started by a terminal (called a non-login shell or an interactive shell).
+
+The following diagram illustrates the different files that are started with a typical login shell versus an interactive shell:
+Two columns are shown. One column shows the files that are started with a typical login shell. The first file /etc/profile points to ~/.bash_profile which points to ~/.bashrc, which points to /etc/bashrc. The other column shows the files that are started with an interactive shell. The ~/.bashrc file points to /etc/bashrc.
+
+Note
+
+The tilde ~ character represents the user's home directory.
+
+Note
+
+File names preceded by a period . character indicates hidden files. You can view these files in your home directory by using the ls command with the all -a option.
+
+sysadmin@localhost:~$ ls -a
+.         	.bashrc   .selected_editor  Downloads  Public
+..       	 .cache	Desktop       	Music  	Templates
+.bash_logout  .profile  Documents     	Pictures   Videos
+
+‌⁠​​⁠​ When Bash is started as a login shell, the /etc/profile file is executed first. This file typically executes all files ending in .sh that are found in the /etc/profile.d directory.
+
+The next file that is executed is usually ~/.bash_profile (but some users may use ~/.bash_login or ~/.profile file). The ~/.bash_profile file typically also executes the ~/.bashrc file which in turn executes the /etc/bashrc file.
+
+Consider This
+
+Since the ~/.bash_profile file is under the control of the user, the execution of the ~/.bashrc and /etc/bashrc files are also controllable by the user.
+
+When Bash is started as an interactive shell, it executes the ~/.bashrc file, which may also execute the /etc/bashrc file, if it exists. Again, since the ~/.bashrc file is owned by the user who is logging in, the user can prevent execution of the /etc/bashrc file.
+
+With so many initialization files, a common question at this point is "what file am I supposed to use?" The following chart illustrates the purpose of each of these files, providing examples of what commands you might place in each file:
+File 	Purpose
+/etc/profile 	This file can only be modified by the administrator and will be executed by every user who logs in. Administrators use this file to create key environment variables, display messages to users as they log in, and set key system values.
+~/.bash_profile ~/.bash_login ~/.profile 	Each user has their own .bash_profile file in their home directory. The purpose of this file is the same as the /etc/profile file, but having this file allows a user to customize the shell to their own tastes. This file is typically used to create customized environment variables.
+~/.bashrc 	Each user has their own .bashrc file in their home directory. The purpose of this file is to generate items that need to be created for each shell, such as local variables and aliases.
+/etc/bashrc 	This file may affect every user on the system. Only the administrator can modify this file. Like the .bashrc file, the purpose of this file is to generate items that need to be created for each shell, such as local variables and aliases.
+

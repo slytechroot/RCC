@@ -1,0 +1,13 @@
+18.27 Step 27
+
+Execute the following system to runlevel 3 by executing the following command:
+
+telinit 3
+
+[root@centos ~]# telinit 3
+ 
+[root@centos ~]# Mounting filesystems:                                [  OK  ]
+Retrigger failed udev events                                          [  OK  ]
+Starting sshd:                                                        [  OK  ] 
+
+You may need to press Enter for the prompt to appear after the command has executed.

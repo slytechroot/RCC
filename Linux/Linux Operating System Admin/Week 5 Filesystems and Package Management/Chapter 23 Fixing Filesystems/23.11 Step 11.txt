@@ -1,0 +1,12 @@
+23.11 Step 11
+
+Press the Enter key to accept the default for the First sector:
+
+Enter
+
+Command (m for help): n
+All space for primary partitions is in use.
+Adding logical partition 5
+First sector (4096-8388607, default 4096):
+Last sector, +sectors or +size{K,M,G} (4096-8388607, default 8388607):
+

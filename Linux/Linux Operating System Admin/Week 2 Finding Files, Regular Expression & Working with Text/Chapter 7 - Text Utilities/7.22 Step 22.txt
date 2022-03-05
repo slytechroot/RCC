@@ -1,0 +1,23 @@
+7.22 Step 22
+
+The paste command will merge the lines of one or more files, line by line, separating them with a tab as a delimiter (separator) by default. The paste command is especially useful for files that contain data in column format. The syntax for the paste command is:
+
+paste [OPTION]... [FILE]...
+
+Execute the following commands to create two files named head and tail and then merge them together into a file named total:
+
+head -5 words > head
+tail -5 words > tail
+paste head tail > total
+cat total
+
+sysadmin@localhost:~$ head -5 words > head
+sysadmin@localhost:~$ tail -5 words > tail
+sysadmin@localhost:~$ paste head tail > total
+sysadmin@localhost:~$ cat total
+A       épée's
+A's     épées
+AMD     étude
+AMD's   étude's
+AOL     études
+

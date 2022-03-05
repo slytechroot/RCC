@@ -1,0 +1,7 @@
+2.9 Getting Help
+
+As previously mentioned, UNIX was the operating system from which the foundation of Linux was built. The developers of UNIX created help documents called man pages (short for manual page).
+‌⁠​​⁠​ 
+
+Referring to the man page for a command will provide you with the basic idea behind the purpose of the command, as well as details regarding the options of the command and a description of its features.
+

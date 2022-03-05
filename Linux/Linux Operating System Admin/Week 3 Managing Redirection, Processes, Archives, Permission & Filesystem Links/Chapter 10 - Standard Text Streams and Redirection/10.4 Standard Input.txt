@@ -1,0 +1,83 @@
+10.4 Standard Input
+
+Standard in, also called stdin or STDIN, normally comes from the keyboard with input provided by the user who runs the command. Although most commands are able to read input from files, there are some that expect the user to enter it using the keyboard.
+
+Note
+
+One common way that text files are used as standard input for commands is by creating script files. Scripts are plain text files which are interpreted by the shell when given the proper permissions and prefaced with #!/bin/sh on the first line, which tells the shell to interpret the script as standard input:
+
+ GNU nano 2.9.3                  examplescriptfile.sh
+
+#!/bin/sh
+echo HelloWorld
+
+When the script file is invoked at the prompt using the ./ syntax, the shell will run all commands in the script file and return the result to the terminal window, or wherever the output is specified to be sent to:
+
+sysadmin@localhost:~$ ./examplescriptfile.sh
+HelloWorld
+
+One example of a command, that isn’t normally executed properly from a text file, is the cd command. When the following script is run in the terminal, it is run as a child process, however, in order to successfully change to another directory, the cd command must be run as a parent process. Consider the example testcd.sh script file below, which specifies to use the cd command to change to the School directory then use the echo command to print the string HelloWorld:
+
+GNU nano 2.9.3                      testcd.sh
+
+#!/bin/sh
+cd /home/sysadmin/Documents/School
+echo HelloWorld
+
+
+
+                                [ Read 3 lines ]
+^G Get Help  ^O Write Out ^W Where Is  ^K Cut Text  ^J Justify   ^C Cur Pos
+^X Exit      ^R Read File ^\ Replace   ^U Uncut Text^T To Linter ^_ Go To Line
+
+When we try to run the testcd.sh script the following occurs:
+
+sysadmin@localhost:~$ ./testcd.sh                                               
+HelloWorld                 
+
+The script executes the echo command and prints HelloWorld, but the cd command cannot run as a parent process, so we are still in the directory where we started.
+
+Therefore, even though the standard input doesn’t return an error, it won’t create the desired outcome of changing the directory to /home/sysadmin/Documents/School. However, when the standard input is typed by a user, and the desired directory is provided as an argument to the cd command at the command line, it functions normally:
+
+sysadmin@localhost:~$ cd /home/sysadmin/Documents/School
+sysadmin@localhost:~/Documents/School$
+
+Scripting is covered in greater detail later in the NDG Introduction to Linux 2.
+
+In some cases, it is useful to redirect standard input, so it comes from a file instead of the keyboard. A good example of when input redirection is desirable involves the tr command. The tr command translates characters by reading data from standard input; translating one set of characters to another set of characters and then writing the changed text to standard output.
+
+For example, the following tr command would take input from a user (via the keyboard) to perform a translation of all lowercase characters to uppercase characters. Execute the following command, type some text, and press Enter to see the translation:
+
+sysadmin@localhost:~$ tr 'a-z' 'A-Z'
+hello
+HELLO
+
+The tr command doesn't stop reading from standard input unless it's terminated or receives an "End of Transmission" character. This can be accomplished by typing Ctrl+D.
+
+The tr command won't accept a file name as an argument on the command line. To perform a translation using a file as input, utilize input redirection. To use input redirection, type the command with its options and arguments followed by the less-than < character and a path to a file to use for input. For example:
+
+sysadmin@localhost:~$ cat Documents/animals.txt
+1 retriever
+2 badger
+3 bat
+4 wolf
+5 eagle
+sysadmin@localhost:~$ tr 'a-z' 'A-Z' < Documents/animals.txt
+1 RETRIEVER
+2 BADGER
+3 BAT
+4 WOLF
+5 EAGLE
+
+The output shows the animals.txt file "translated" into all uppercase characters.
+
+COMMAND < FILE
+
+	Use FILE as standard input to COMMAND
+
+Important
+
+Do not attempt to use the same file for input and output redirection, as the results are probably not desirable (you end up losing all data). Instead, capture the output and place it into another file; use a different file name as shown below:
+
+sysadmin@localhost:~$ tr 'a-z' 'A-Z' < Documents/animals.txt > animals.new
+

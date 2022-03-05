@@ -1,0 +1,9 @@
+4.8 Step 8
+
+The square brackets [] are used to specify supported ASCII characters. To specify a range of possible characters from 3 to 6, execute the following command:
+
+echo /etc/rc[3-6]*
+
+sysadmin@localhost:~$ echo /etc/rc[3-6]*                            
+/etc/rc3.d /etc/rc4.d /etc/rc5.d /etc/rc6.d
+

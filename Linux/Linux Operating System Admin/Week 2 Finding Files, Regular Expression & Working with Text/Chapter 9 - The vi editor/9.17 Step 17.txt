@@ -1,0 +1,8 @@
+9.17 Step 17
+
+Open the data.txt file by executing the following command:
+
+vi data.txt
+
+sysadmin@localhost:~$ vi data.txt
+

@@ -1,0 +1,42 @@
+7.5 Displaying the Beginning of a File
+
+The purpose of the head command is to view the beginning of a file or output.
+
+head [OPTION]... [FILE]...
+
+By default, the head command will display the first ten lines of a file's contents. For example, the following command displays the first ten lines of the alpha.txt file:
+
+sysadmin@localhost:~/Documents$ head alpha.txt
+A is for Apple
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower
+G is for Grapes
+H is for Happy
+I is for Ink
+J is for Juice
+
+There are several options for the head command that are useful. For instance, there is the ability to use a number as an option to indicate how many lines of output to display. For example, to display the first three lines of the alpha.txt file, execute:
+
+sysadmin@localhost:~/Documents$ head -3 alpha.txt
+A is for Apple
+B is for Bear
+C is for Cat
+
+There is also the -n option which takes an argument for the number of lines to display. So, the following would also display the first three lines of the alpha.txt file:
+
+sysadmin@localhost:~/Documents$ head -n3 alpha.txt
+A is for Apple
+B is for Bear
+C is for Cat
+
+A negative number can also be used as an argument to the -n option, which tells the head command how many lines to omit from the bottom of the file. For example, when executing the head -n -90 command on a file that is 100 lines long, the output would only include the first 10 lines by omitting the last 90.
+
+The alpha.txt file is 26 lines long. The following command omits the last 24 lines, resulting in only the first two lines of the file being displayed:
+
+sysadmin@localhost:~/Documents$ head -n -24 alpha.txt
+A is for Apple
+B is for Bear
+

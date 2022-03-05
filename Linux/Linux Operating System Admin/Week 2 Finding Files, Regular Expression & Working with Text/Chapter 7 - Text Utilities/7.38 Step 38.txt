@@ -1,0 +1,16 @@
+7.38 Step 38
+
+The sed command can also be used to search for a line of text containing a pattern and then delete the lines that match. Place the pattern to search for between two slashes followed by a d to carry out this operation:
+
+/PATTERN/d
+
+To delete lines that contain "localhost" in the /etc/hosts file, execute the following command:
+
+sed '/localhost/d' /etc/hosts
+
+sysadmin@localhost:~$ sed '/localhost/d' /etc/hosts
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+

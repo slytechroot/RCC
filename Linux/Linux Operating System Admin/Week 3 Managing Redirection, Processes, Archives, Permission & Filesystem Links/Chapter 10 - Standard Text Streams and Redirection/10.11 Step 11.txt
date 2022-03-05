@@ -1,0 +1,21 @@
+10.11 Step 11
+
+Command pipelines are often used to make effective use of filter commands. In a command pipeline, the output of one command is sent to another command as input. In Linux and most operating systems, the vertical bar or pipe | character is used between two commands to represent a command pipeline.
+
+Redirect the text output by the history command to the grep command as input by using the following command:
+
+history | grep "cat"
+
+sysadmin@localhost:~$ history | grep "cat"
+    4  cat ls_output.txt
+    6  cat ls_output.txt
+   10  cat error.txt
+   12  cat find output.txt
+   13  cat find_output.txt
+   14  cat find_error.txt
+   19  cat find_output.txt
+   20  cat /etc/hosts
+   23  cat ~/myhosts
+   25  history | grep "cat"
+
+In the example above, the grep command matches the cat strings in the command history and sends its output to standard out.

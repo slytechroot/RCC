@@ -1,0 +1,17 @@
+24.2.3 Erasing Packages with rpm
+
+The rpm command can be used to erase (remove) packages from the system with the -e option. However, dependency issues may arise. If there were dependency issues when a group of packages was installed, then there may also be dependency issues when that group of packages is removed.
+
+For example, if an attempt was made to remove the x3270 or libicu packages without first removing the x3270-x11 package, then an error would occur:
+
+[sysadmin@localhost ~]$ rpm -e x3270 libicu
+error: Failed dependencies:
+	x3270 = 3.3.6 is needed by (installed) x3270-x11-3.3.6-10.5.el6.i686
+        libicuuc.so.42 is needed by (installed) x3270-x11-3.3.6-10.5.el6.i686
+
+In other words, the rpm command will not allow a package to be erased if it is a requirement of another package. If the x3270-x11 package were erased first, then the other two packages could be erased.
+
+In the case of circular dependencies, when packages depend on each other, then all the packages can be removed with a single rpm command by specifying all package names as an argument:
+
+[sysadmin@localhost ~]$ rpm -e x3270-x11 x3270 libicu
+

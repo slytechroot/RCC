@@ -1,0 +1,14 @@
+24.1.25 Step 25
+
+Verify that the quota package is available on the local repository by executing the following yum command:
+
+yum list available
+
+[root@localhost /]# yum list available
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+Available Packages
+cowsay.noarch                 	3.04-4.el7                     	Local
+quota.x86_64                  	1:4.01-17.el7                  	Local
+[root@localhost /]#
+

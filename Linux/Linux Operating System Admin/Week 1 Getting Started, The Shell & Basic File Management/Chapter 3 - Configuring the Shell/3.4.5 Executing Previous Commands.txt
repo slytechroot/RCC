@@ -1,0 +1,22 @@
+3.4.5 Executing Previous Commands
+
+The ! exclamation mark is a special character to the Bash shell to indicate the execution of a command within the history list. There are many ways to use the ! exclamation character to re-execute commands; for example, executing two exclamation characters will repeat the previous command:
+
+sysadmin@localhost:~$ ls                                                   	 
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos  	 
+sysadmin@localhost:~$ !!                                                   	 
+ls                                                                         	 
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos 
+
+The following table provides some examples of using the exclamation ! character:
+‌⁠​
+History Command 	Meaning
+!! 	Repeat the last command
+!-4 	Execute the command that was run four commands ago
+!555 	Execute command number 555
+!ec 	Execute the last command that started with ec
+!?joe 	Execute the last command that contained joe
+
+Another way to use the history list is to take advantage of the fact that the last argument of every command is stored. Often a user will type a command to refer to a file, perhaps to display some information about that file. Subsequently, the user may want to type another command to do something else with the same file. Instead of having to type the path again, a user can use a couple of keyboard shortcuts to recall that file path from the previous command line.
+
+By pressing either Esc+. (Escape+Period) or Alt+. (Alt+Period), the shell will bring back the last argument of the previous command. Repeatedly pressing one of these key combinations will recall, in reverse order, the last argument of each previous command.

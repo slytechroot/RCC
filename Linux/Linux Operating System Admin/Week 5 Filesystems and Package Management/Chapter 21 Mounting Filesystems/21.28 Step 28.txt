@@ -1,0 +1,20 @@
+21.28 Step 28
+
+Change the partition type by entering the t command at the Command prompt and entering the values provided below. When finished, enter the p command at the Command prompt to verify that your new partition has an Id of 82:
+
+t
+6
+82
+p
+
+Command (m for help: t
+Partition number (2,5,6, default 6): 6
+Hex code (type L to list codes): 82
+Changed system type of partition 6 to 82 (Linux swap / Solaris)
+Command (m for help): p
+
+Device       Boot  Start       End    Sectors  Size Id  Type
+/dev/sdb1           2048   8388607    8386560    4G  5  Extended
+/dev/sdb5           4096    413695     409600  200M 83  Linux
+/dev/sdb6         415744   8388607    7972864  3.8G 82  Linux swap / Solaris
+Command (m for help):

@@ -1,0 +1,18 @@
+22.14 Step 14
+
+To change the reserved block count, you change the percentage of the filesystem that is reserved. This reserved amount can only be used by the root account and is set to 5% by default. Execute the following commands to change this value and confirm the change:
+
+dumpe2fs /dev/sda1 | grep "Reserved block count"
+tune2fs -m 10 /dev/sda1
+dumpe2fs /dev/sda1 | grep "Reserved block count"
+
+[root@centos~]# dumpe2fs /dev/sda1 | grep "Reserved block count"
+dumpe2fs 1.42.9 (28-Dec-2013)
+Reserved block count:     6553
+[root@centos~]# tune2fs -m 10 /dev/sda1
+tune2fs 1.42.9 (28-Dec-2013)
+Setting reserved blocks percentage to 10% (13107 blocks)
+[root@centos~]# dumpe2fs /dev/sda1 | grep "Reserved block count"
+dumpe2fs 1.42.9 (28-Dec-2013)
+Reserved block count:     13107
+

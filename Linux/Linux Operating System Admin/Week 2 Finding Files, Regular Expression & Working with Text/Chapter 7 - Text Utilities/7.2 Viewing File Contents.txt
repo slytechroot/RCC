@@ -1,0 +1,78 @@
+7.2 Viewing File Contents
+
+With a single file argument, the cat command will simply output the contents of a file:
+
+cat [OPTION]... [FILE]...
+
+sysadmin@localhost:~$ cd Documents                                
+sysadmin@localhost:~/Documents$                                   
+sysadmin@localhost:~/Documents$ cat alpha-first.txt
+A is for Animal
+B is for Bear‌⁠​​⁠​ 
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower
+sysadmin@localhost:~/Documents$ cat alpha-second.txt
+G is for Grapes
+H is for Happy
+I is for Ink
+J is for Juice
+K is for Kangaroo
+L is for Lol
+M is for Monkey
+
+However, the cat command gets its name from the word concatenate, meaning to merge or append. This command has the ability to accept two or more files as input and then output the concatenation (merging) of those files:
+
+sysadmin@localhost:~/Documents$ cat alpha-first.txt alpha-second.txt
+A is for Animal
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower
+G is for Grapes
+H is for Happy
+I is for Ink
+J is for Juice
+K is for Kangaroo
+L is for Lol
+M is for Monkey
+
+While the cat command is often used to quickly view the contents of small files, using it to display the contents of larger files will result in frustration since the data will be displayed much too quickly and will scroll off the screen. To display the file one page at a time, use a pager, either the more or the less command.
+
+To view a file with the less command, pass the file name as an argument:
+
+less FILE
+
+sysadmin@localhost:~/Documents$ less words
+
+The more and less commands allow users to navigate the document using keystroke commands. For example, when using less as a pager, to advance forward a page, press the Spacebar:
+An animated gif demonstrating advancing through a document with the less command.
+
+The less command might look familiar since it is the pager generally used to view man pages. As you may recall, the less command requires the use of movement commands to navigate a file. When viewing a file with the less command, use the H key or Shift + H to display a help screen with a summary of the less commands:
+
+               SUMMARY OF LESS COMMANDS                                     
+      Commands marked with * may be preceded by a number, N.      
+
+      Notes in parentheses indicate the behavior if N is given.                 
+                                                                       
+  h  H                 Display this help.                              
+  q  :q  Q  :Q  ZZ     Exit.                                           
+ ------------------------------------------------------------------------ 
+                           MOVING                                               
+                                                                        
+  e  ^E  j  ^N  CR  *  Forward  one line   (or N lines).                 
+  y  ^Y  k  ^K  ^P  *  Backward one line   (or N lines).               
+  f  ^F  ^V  SPACE  *  Forward  one window (or N lines).                
+  b  ^B  ESC-v      *  Backward one window (or N lines).               
+  z                 *  Forward  one window (and set window to N).       
+  w                 *  Backward one window (and set window to N).               
+  ESC-SPACE         *  Forward  one window, but don't stop at end-of-file.    
+  d  ^D             *  Forward  one half-window (and set half-window to N).     
+  u  ^U             *  Backward one half-window (and set half-window to N).     
+  ESC-)  RightArrow *  Left  one half screen width (or N positions).    
+  ESC-(  LeftArrow  *  Right one half screen width (or N positions).      
+HELP -- Press RETURN for more, or q when done
+
+To exit the less command, use the Q key.

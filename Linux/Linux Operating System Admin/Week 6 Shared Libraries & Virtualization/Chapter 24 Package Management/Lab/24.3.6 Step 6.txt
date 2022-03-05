@@ -1,0 +1,39 @@
+24.3.6 Step 6
+
+The zypper command can be used with the install in command to install packages.
+
+zypper in package_name
+
+Use the following command to install the cowsay package:
+
+zypper in cowsay
+
+localhost:~ # zypper in cowsay
+
+Type the Y key to install the cowsay package:
+
+y
+Enter
+
+Loading repository data...                                                      
+Reading installed packages...                                                   
+Resolving package dependencies...                                               
+                                                                                
+The following 3 NEW packages are going to be installed:                         
+  cowsay libgdbm4 perl                                                          
+                                                                                
+3 new packages to install.                                                      
+Overall download size: 6.6 MiB. Already cached: 0 B. After the operation,       
+additional 40.6 MiB will be used.                                               
+Continue? [y/n/v/...? shows all options] (y): y
+ 
+Retrieving package libgdbm4-1.12-lp151.2.67.x86_64 (1/3),  75.7 KiB (251.7 KiB u
+npacked)                                                                        
+Retrieving package perl-5.26.1-lp151.8.37.x86_64 (2/3),   6.5 MiB ( 40.4 MiB unp
+acked)                                                                          
+Retrieving package cowsay-3.03-lp151.2.1.noarch (3/3),  26.2 KiB ( 29.1 KiB unpacked)                                                                           
+Checking for file conflicts: [done]                                             
+(1/3) Installing: libgdbm4-1.12-lp151.2.67.x86_64 [done]                        
+(2/3) Installing: perl-5.26.1-lp151.8.37.x86_64 [done]                          
+(3/3) Installing: cowsay-3.03-lp151.2.1.noarch [done]
+

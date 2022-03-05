@@ -1,0 +1,8 @@
+17.6 GRUB 2
+
+The new GRUB, GRand Unified Bootloader 2, offers several advantages:
+
+    Dynamically loaded modules
+    Non-ASCII character support
+    Ability to boot from partitions inside of Logical Volume Management (LVM) or RAID devices
+    Ability to work with architectures that don't have a PC BIOS

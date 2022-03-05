@@ -1,0 +1,67 @@
+22.4 The du Command
+
+Consider a scenario where a filesystem seems to be running low on free data blocks. Investigate the amount of free disk space or disk blocks using a tool such as the df command. One of the next logical steps to address this concern would be to figure out what directory or subdirectory within that filesystem might be using the most data blocks. The directory usage du command will report the size of files and directories'; this can be helpful for finding the largest ones:
+
+The default output of the du command shows just two columns of information: the file size and the path name for the file. The du command is automatically recursive, so it will normally process not only the current directory but also all of its directories.
+
+An effective way to find the largest files within the specified directories is to pipe the output to the sort command with the -n option, so that the output will be sorted from smallest to largest. For example, executing the du | sort -n command in a user's home directory would result in output like the following, placing the largest files at the bottom of the output:
+
+sysadmin@localhost:~$ du  | sort  -n  | tail  -10
+4   	./Pictures
+4   	./Public
+4   	./Templates
+4   	./Videos
+8   	./Documents/School/Art
+8   	./Documents/School/Engineering
+8   	./Documents/School/Math
+28  	./Documents/School
+1128	./Documents
+1180	.
+
+Warning
+
+Keep in mind that errors will likely result if the du command is run outside of a regular user's own home directory or the /tmp and /var/tmp directories.
+
+Two options used often with the du command are the human-readable -h option and the summary -s option to only display a summary of the entire directory. For example, executing the command below would display a human-readable summary of how much space is used by both the /bin and the /usr/bin directory.
+
+sysadmin@localhost:~$ du -sh /bin /user/bin
+6.6M	/bin
+38M 	/usr/bin
+
+A couple of other options to the du command that can be useful include the --max-depth and --exclude options.
+
+To limit the depth of how recursive the du command will be, provide a numerical argument to the --max-depth option to indicate how many directories deep to display.
+
+sysadmin@localhost:~$ du Documents
+8       Documents/School/Math
+8       Documents/School/Engineering
+8       Documents/School/Art
+28      Documents/School
+4       Documents/Work
+1128    Documents
+sysadmin@localhost:~$ du --max-depth=1 Documents
+28      Documents/School
+4       Documents/Work
+1128    Documents
+
+If there are files or directories that shouldn't be included, use one or more --exclude options. Glob characters can be used as well to form the pattern to be used by the --exclude option.
+
+sysadmin@localhost:~$ du --exclude=School Documents
+4       Documents/Work
+1100    Documents
+
+As an example of using both these options, analyze the output of the du command in the following example. To determine the size of each directory that is a direct child of the /usr directory, the --max-depth=1 option is used.
+
+The following command will be run as a regular user, which means accessing the /usr/lib/audit directory will result in an error as regular users do not have access to this directory. The --exclude=/usr/lib/audit option avoids this error
+
+sysadmin@localhost:~$ du -h --max-depth=1 --exclude=/usr/lib/audit
+4.0K	./Public
+4.0K	./Downloads
+4.0K	./Pictures
+4.0K	./Videos
+4.0K	./Templates
+4.0K	./Desktop
+4.0K	./Music
+1.2M	./Documents
+4.0K	./.cache
+1.2M	.

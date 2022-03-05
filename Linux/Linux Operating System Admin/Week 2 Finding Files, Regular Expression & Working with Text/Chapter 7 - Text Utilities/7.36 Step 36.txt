@@ -1,0 +1,20 @@
+7.36 Step 36
+
+The sed command is also able to insert text before a pattern. For this type of expression, do not use the s character before the first slash; use an insert change with the i\ expression.
+
+/PATTERN/i\TEXT\
+
+To insert the word Report in the /etc/hosts file preceding the line containing 127.0.0.1, execute the following command:
+
+sed '/127.0.0.1/i\Report' /etc/hosts 
+
+sysadmin@localhost:~$ sed '/127.0.0.1/i\Report' /etc/hosts
+Report
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+192.168.1.2     localhost
+

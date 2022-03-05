@@ -1,0 +1,106 @@
+16.7 The /var/log/messages File
+
+Kernel messages and other system-related messages are typically stored in the /var/log/messages file. This file, which is considered the main log file, is alternatively named /var/log/syslog in some distributions. The contents of the /var/log/messages file will look like the following:
+
+Note
+
+The following examples represent a system that is different from this virtual machine. The example may not match the output in our virtual environment.
+
+[root@centos ~]# tail /var/log/messages
+May 27 23:01:59 localhost named[1007]:     validating @0x7f0d34433a50:  .
+DNSKEY:  unable to find a DNSKEY which verifies the DNSKEY RRset and also
+matches a trusted key for '.'
+May 27 23:01:59 localhost named[1007]:     validating @0x7f0d34433a50:  .
+DNSKEY: please check the 'trusted-keys' for '.' In named.conf .
+May 27 23:01:59 localhost named[1007]:   error (network unreachable)
+resolving 'dlv.isc.org/DNSKEY/IN' : 2001:500:e::1#53
+May 27 23:01:59 localhost named[1007]:   error (network unreachable)
+resolving 'dlv.isc.org/DNSKEY/IN' : 2001:500:e::1#53
+May 27 23:01:59 localhost named[1007]:   error (network unreachable)
+resolving 'dlv.isc.org/DNSKEY/IN' : 2001:500:e::1#53
+May 27 23:01:59 localhost named[1007]:   error (network unreachable)
+resolving 'dlv.isc.org/DNSKEY/IN' : 2001:500:e::1#53
+May 27 23:01:59 localhost named[1007]:   error (network unreachable)
+resolving 'ns.iscafilias-nst.info/AAAA/IN' : 2001:500:e::1#53
+May 27 23:01:59 localhost named[1007]:   error (network unreachable)
+resolving 'ns.iscafilias-nst.info/AAAA/IN' : 2001:500:e::1#53
+May 27 23:01:59 localhost named[1007]:   error (network unreachable)
+resolving 'ns.iscafilias-nst.info/AAAA/IN' : 2001:500:e::1#53
+May 27 23:01:59 localhost named[1007]:   error (network unreachable)
+resolving 'ns.iscafilias-nst.info/AAAA/IN' : 2001:500:e::1#53
+
+ Traditionally, the primary log file is updated with new log entries by the combination of the syslogd and klogd daemons. Replacements for these daemons include rsyslogd and syslog-ng daemons.
+
+Note
+
+A daemon is a process that automatically runs as a background process. System logging daemons such as syslogd, klogd, rsyslogd, and other logging daemons are background processes that send system messages to log files.
+
+As is customary in Linux, the letter “d” in the process name signifies it is a daemon. For example, syslogd is the daemon that supports the syslog system logging protocol.
+
+On a systemd-based system, the journald daemon is the logging mechanism, and it’s configured by the /etc/systemd/journald.conf file. The format of a journald log file is binary, which is different from the more traditional logging daemons mentioned previously. Use the following command to view the journald configuration settings in the /etc/systemd/journald.conf file:
+
+[root@centos ~]# cat /etc/systemd/journald.conf
+#Seal=yes
+#SplitMode=uid
+#SyncIntervalSec=5m
+#RateLimitInterval=30s
+#RateLimitBurst=1000
+#SystemMaxUse=
+#SystemKeepFree=
+#SystemMaxFileSize=
+#RuntimeMaxUse=
+#RuntimeKeepFree=
+#RuntimeMaxFileSize=
+#MaxRetentionSec=
+#MaxFileSec=1month
+#ForwardToSyslog=yes
+#ForwardToKMsg=no
+#ForwardToConsole=no
+#ForwardToWall=yes
+#TTYPath=/dev/console
+#MaxLevelStore=debug
+#MaxLevelSyslog=debug
+#MaxLevelKMsg=notice
+#MaxLevelConsole=info
+#MaxLevelWall=emerg
+#LineMax=48k
+[root@centos ~]# _
+
+The main log file on a systemd-based device is the /var/log/journal file for persistent logging or the /run/log/journal file for RAM-based and non-persistent logging.
+
+The journald log files are viewed with the journalctl command, such as this one which shows similar output to the dmesg command:
+
+[root@centos ~]# journalctl -b
+-- Logs begin at Tue 2019-06-04 16:21:58 UTC, end at Tue 2019-06-04 16:26:25 UTC
+Jun 04 16:21:58 centos systemd-journal[84]: Runtime journal is using 4.0M (max a
+Jun 04 16:21:58 centos kernel: Initializing cgroup subsys cpuset
+Jun 04 16:21:58 centos kernel: Initializing cgroup subsys cpu
+Jun 04 16:21:58 centos kernel: Initializing cgroup subsys cpuacct
+Jun 04 16:21:58 centos kernel: Linux version 3.10.0-957.e17.x86_64 (mockbuild@kb
+Jun 04 16:21:58 centos kernel: Command line: BOOT_IMAGE=/vmlinuz-3.10.0-957.e17.
+Jun 04 16:21:58 centos kernel: e820: BIOS-provided physical RAM map:
+Jun 04 16:21:58 centos kernel: BIOS-e820: [mem 0x0000000000000000-0x000000000009
+Jun 04 16:21:58 centos kernel: BIOS-e820: [mem 0x000000000009fc00-0x000000000009
+Jun 04 16:21:58 centos kernel: BIOS-e820: [mem 0x00000000000f0000-0x00000000000f
+Jun 04 16:21:58 centos kernel: BIOS-e820: [mem 0x0000000000100000-0x000000001ffd
+Jun 04 16:21:58 centos kernel: BIOS-e820: [mem 0x000000001ffe0000-0x000000001fff
+Jun 04 16:21:58 centos kernel: BIOS-e820: [mem 0x00000000feffc000-0x00000000feff
+Jun 04 16:21:58 centos kernel: BIOS-e820: [mem 0x00000000fffc0000-0x00000000ffff
+Jun 04 16:21:58 centos kernel: NX (Execute Disable) protection: active
+Jun 04 16:21:58 centos kernel: SMBIOS 2.8 present.
+Jun 04 16:21:58 centos kernel: DMI: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
+Jun 04 16:21:58 centos kernel: Hypervisor detected: KVM
+Jun 04 16:21:58 centos kernel: e820: update [mem 0x00000000-0x00000fff] usable
+Jun 04 16:21:58 centos kernel: e820: remove [mem 0x000a0000-0x000fffff] usable
+Jun 04 16:21:58 centos kernel: e820: last_pfn = 0x1ffe0 max_arch_pfn = 0x4000000
+Jun 04 16:21:58 centos kernel: MTRR default type: write-back
+Jun 04 16:21:58 centos kernel: MTRR fixed ranges enabled:
+Lines 1-24_
+
+The journalctl command is the log file viewer for binary log files. The -b option makes the journalctl command behave similarly to the dmesg command, by displaying only messages concerning the most recent bootup, which can be useful for troubleshooting issues regarding the boot process.
+
+Regardless of its format, the binary log files that systemd generates through journald can be read with the journalctl command but are more difficult to read by standard means such as with the cat or less commands, and other text file viewers. However, the benefits of the new logging data format make that less important.
+
+On System V systems, the main log file, usually the /var/log/messages file, is a text-based file (or files), which can be viewed with the traditional text file viewer commands. Whether in binary or text format, log files can be helpful for analyzing why some services may not start correctly. They can also be helpful to determine why some devices may not be functioning, as the kernel will place log entries in this log file if it can detect a device and as it loads the appropriate kernel modules or drivers to support new devices.
+
+Although the /var/log/messages file is considered the main log file, there are other log files in the /var/log folder, which may need to be examined when trying to troubleshoot system service issues. For instance, the httpd apache web server daemon manages its own log files in another location, like the /var/log/httpd/error_log file. Traditionally, all log files are stored in the /var/log directory.

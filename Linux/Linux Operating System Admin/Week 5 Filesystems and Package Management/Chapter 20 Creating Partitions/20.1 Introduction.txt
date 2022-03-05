@@ -1,0 +1,13 @@
+
+20.1 Introduction
+
+The creation of partitions can be accomplished either during the installation process or at any time after the installation is complete. Typically, users find that creating the partitions during the installation is easier because most installation programs provide a GUI-based program, while the technique to create partitions after the installation is typically a CLI-based program.
+
+Additionally, the installation program will automatically create a filesystem for the new partition as well as configure it to be mounted automatically during the boot process. When creating a partition after the installation, these steps must be manually executed by the administrator.
+
+However, there are some cases in which the system administrator may want to create partitions post-install. For example, the system administrator may not have access to all resources during the installation. This could happen when a second hard drive is added to the system at a later date.
+
+The installation program, while easier, also doesn't provide as much flexibility in how the partition or filesystem is created. The CLI-based commands that can be used post-install are much more powerful and flexible, providing another benefit to waiting until after the installation to create any additional partitions.
+
+It is important to note that some partitions need to be created during the installation process to provide a location to install the operating system files. As a result, post-install partitions are typically created for non-system critical features, such as a place to store additional software or to store a large database.
+

@@ -1,0 +1,73 @@
+12.3 The zcat Command
+
+The zcat command is used to display the contents of a compressed file without actually uncompressing it. It does this by expanding the file contents to standard output rather than creating a new uncompressed file from a compressed archive created by the tar or gzip commands. Its effect is identical to running the gunzip -c command:
+
+zcat [OPTION]... [FILE]...
+
+First, create a compressed file with the gzip command, then view its contents with the zcat command:
+
+sysadmin@localhost:~$ cd Documents
+sysadmin@localhost:~/Documents$ gzip red.txt
+sysadmin@localhost:~/Documents$ ls
+School            alpha-third.txt  hidden.txt    numbers.txt  spelling.txt
+Work              alpha.txt        letters.txt   os.csv       words
+adjectives.txt    animals.txt      linux.txt     people.csv
+alpha-first.txt   food.txt         longfile.txt  profile.txt
+alpha-second.txt  hello.sh         newhome.txt   red.txt.gz
+sysadmin@localhost:~/Documents$ zcat red.txt.gz
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root
+reel
+read
+
+The zcat command can also be used to view the contents of multiple compressed files:
+
+sysadmin@localhost:~/Documents$ gzip letters.txt
+sysadmin@localhost:~/Documents$ zcat red.txt.gz letters.txt.gz
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root
+reel
+read                                                                            
+a
+b
+c
+d
+e
+
+Using the -f option with the zcat command will enable viewing of normal uncompressed files:
+
+sysadmin@localhost:~/Documents$ zcat -f newhome.txt
+Thanks for purchasing your new home!!
+
+**Warning** it may be haunted.
+
+There are three bathrooms.
+
+**Beware** of the ghost in the bedroom.
+
+The kitchen is open for entertaining.
+
+**Caution** the spirits don't like guests.
+
+Good luck!!!
+
+File properties can be displayed with the -l option:
+
+sysadmin@localhost:~/Documents$ zcat -l red.txt.gz
+         compressed        uncompressed  ratio uncompressed_name
+                 60                  51  33.3% red.txt
+

@@ -1,0 +1,44 @@
+16.4 Kernel Stage
+
+Now that the bootloader has loaded the kernel into memory, there is much work to be done before programs can be loaded. The kernel must initialize any hardware drivers and get the root / filesystem mounted for the next stage. These two tasks are actually quite complicated because the facilities provided by the BIOS to access the hardware are quite limited. Therefore, the kernel must boot the system in several phases.
+
+The kernel itself is laid out much like a regular executable except that it must be self-contained. Shared libraries are not available at this point in the boot process so the kernel itself is statically linked, meaning that the kernel can only rely on information that was already compiled in the kernel at boot time and not on information in the shared libraries. This kernel typically lives in the /boot partition which, on most hardware, is in a separate partition that’s kept close to the beginning of the hard drive. This location is important for some BIOS and bootloader combinations that can only access the first 1024 cylinders of the disk.
+
+The /boot directory, alternatively the /boot/efi directory, is one of the most important directories in the File Hierarchy Standard (FHS). Most modern systems use the UEFI standard for specifying the exact location where the computer looks for the files it needs to start up. You may hear the term bootstrap used in this context, which simply signifies the method for the computer BIOS to locate and load the first part of the operating system when the computer powers up.
+
+If the BIOS is not set correctly, the system cannot load its bootstrap programs, and the startup process will fail. This parameter is normally set by interrupting the boot sequence at the beginning of startup (often with the F12 or Esc key) and entering the built-in BIOS configuration program. See instructions from the hardware manufacturer for the exact process and options available.
+
+As the size of the kernel increased over time, developers found it better to compress the kernel to make it fit within the limitations of the BIOS. Therefore, the executable comprising the kernel will decompress itself as it is loaded, leading to the name of zImage for the kernel, with the letter z being associated with the zlib Unix compression library.
+
+Over time, the kernel grew even more in size, and it became a problem to load the whole kernel into a consecutive block of memory. The bzImage kernel format came into being that allowed the kernel to be loaded into multiple memory blocks, specifically higher memory.
+
+Consider This
+
+The b in bzimage stands for big. It is NOT an indication that bzip2 is being used for compression of the image, gzip is still used for compression of the image.
+
+‌⁠​​⁠The Linux kernel must mount the root filesystem in order to get to the next step and to make the system useful. However, it is possible that the root filesystem exists on a device that the kernel does not know how to support. The solution to this is the initial RAM disk initrd. The kernel drivers necessary to continue the boot are bundled into the filesystem that is stored beside the kernel itself in /boot. The kernel boots, mounts the initrd, loads the drivers inside, and then remounts the real root filesystem using the new drivers. This allows drivers to be added to the kernel easily and for the kernel to mount the root filesystem over almost any storage hardware—even if it’s via a network.
+
+As the kernel is booting, it is able to initialize recognized hardware and make detected devices available to the rest of the operating system.
+
+The kernel’s final job is to start the first process on the system. The first process will normally have a process id (PID) of 1; on a System V system, the name of this process is init.
+
+Note
+
+On systemd systems, the /sbin/init file is a symbolic link to the /usr/lib/systemd/systemd file for purposes of compatibility.
+
+To show the first process, init, execute the ps command using the following non-BSD options, which will show all processes running on a system in a hierarchical format:
+
+sysadmin@localhost:~$ ps -ejH
+  PID  PGID   SID TTY          TIME CMD
+    1     1     1 ?        00:00:00 init
+   32    32    32 ?        00:00:00   rsyslogd
+   37    37    37 ?        00:00:00   cron
+   39    39    39 ?        00:00:00   sshd
+   56    56    56 ?        00:00:00   named
+   69     1     1 ?        00:00:00   login
+   79    79     1 ?        00:00:00     bash
+  676   676     1 ?        00:00:00       ps
+
+The first process is responsible for much of the operation of the system from here on in. For our purposes, we use /sbin/init for consistency, keeping in mind that a different system may be running systemd instead of System V for process management.
+
+In some cases, such as embedded hardware, the init process could be a shell or a specialized daemon. In any case, this first process will start the daemons that the rest of the system will use. This process will be the parent process for any process that otherwise is missing a parent. This process persists for the life of the system.

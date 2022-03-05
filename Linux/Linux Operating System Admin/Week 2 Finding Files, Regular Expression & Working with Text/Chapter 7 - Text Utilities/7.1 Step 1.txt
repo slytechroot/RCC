@@ -1,0 +1,36 @@
+7.1 Step 1
+
+The cat command (derived from the word concatenate) accepts multiple files as input and outputs a merged file.
+
+cat [OPTION]... [FILE]...
+
+To view the contents of the /etc/hosts and /etc/hostname files, execute the following commands:
+
+cat /etc/hosts 
+cat /etc/hostname 
+
+sysadmin@localhost:~$ cat /etc/hosts
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes                                                            
+ff02::2 ip6-allrouters
+192.168.1.2     localhost
+sysadmin@localhost:~$ cat /etc/hostname
+localhost
+
+To concatenate the contents of files /etc/hosts and /etc/hostname, execute the following command:
+
+cat /etc/hosts /etc/hostname
+
+sysadmin@localhost:~$ cat /etc/hosts /etc/hostname
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+192.168.1.2     localhost
+localhost
+

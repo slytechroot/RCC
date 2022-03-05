@@ -1,0 +1,31 @@
+11.2.5 Executing Multiple Commands
+
+Before discussing background processes, consider how multiple commands can be executed on a single command line.
+
+Normally, users only type one command per command line, but by using the semicolon ; character as a delimiter between commands, a user can type multiple commands on one command line. Rarely is it really necessary to run two or more commands from one command line, but sometimes it can be useful.
+
+When commands are separated by the semicolon, the command to the left of the semicolon executes; when it finishes, the command to the right of the semicolon executes. Another way of describing this is to say that the commands execute in sequence.
+
+COMMAND;COMMAND[;COMMAND]...
+
+COMMAND; COMMAND[; COMMAND]...
+
+The sleep command will pause for a specified number of seconds before continuing to the next command. The following example will print Hello, pause for 5 seconds, then print World:
+
+sysadmin@localhost:~$ echo Hello; sleep 5; echo World
+Hello
+World
+
+Recall that an alias is a feature that allows a user to create nicknames for commands or command lines. An alias that runs multiple commands can be very useful; to accomplish this, the user would use the ; character between each of the commands when creating the alias. For example, to create an alias called welcome which outputs the current user, the date, and the current directory listing, execute the following command:
+
+sysadmin@localhost:~$ alias welcome="whoami;date;ls" 
+
+Now the alias welcome will execute the whoami, date, and ls commands in series like so:
+
+sysadmin@localhost:~$ welcome
+sysadmin
+Tue Mar 26 21:07:10 UTC 2019
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+
+A real-life scenario involving multiple commands occurs when an administrator needs to take down and restart the network connection remotely. If the user typed the one command to bring down the network and then executed it, then the network connection would be terminated, and the user wouldn't be able to bring the network back up again. Instead, the user could type the command to take down the network, followed by a semicolon, then the command to bring up the network. After pressing the Enter key, both commands would execute, one right after the other.
+

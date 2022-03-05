@@ -1,0 +1,20 @@
+7.37 Step 37
+
+The sed command is also able to insert text after a pattern. For this type of expression, use an insert change with the a\ expression.
+
+/PATTERN/a\TEXT\
+
+To append the string End of report in the /etc/hosts file following the line containing allrouters, execute the following command:
+
+sed '/allrouters/a\End of report' /etc/hosts
+
+sysadmin@localhost:~$ sed '/allrouters/a\End of report' /etc/hosts
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+End of report
+192.168.1.2     localhost
+

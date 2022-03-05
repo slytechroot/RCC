@@ -1,0 +1,86 @@
+11.2.1 Listing Processes
+
+The ps command can be used to list processes.
+
+ps [OPTION]...
+
+The ps command supports three styles of options:
+
+    Traditional UNIX style short options that use a single hyphen in front of a character
+    GNU style long options that use two hyphens in front of a word
+    BSD style options that use no hyphens and single character options
+
+The ps command will display the processes that are running in the current terminal by default:
+
+sysadmin@localhost:~$ ps
+  PID TTY          TIME CMD
+   80 ?        00:00:00 bash
+   94 ?        00:00:00 ps
+
+The output of the ps command includes the following columns of information:
+Column 	Description
+PID 	The process identifier, which is unique to the process. This information is useful to control the process by its ID number.
+TTY 	The name of the terminal or pseudo-terminal where the process is running. This information is useful to distinguish between different processes that have the same name.
+TIME 	The total amount of processor time used by the process. Typically, this information isn't used by regular users.
+CMD 	The command that started the process.
+
+When the ps command is run with a BSD style option, the CMD column is replaced with the COMMAND column, which shows not just the command, but also its options and arguments. An additional column called STAT is also displayed, which conveys the state of the processes.
+
+For example, to see all of the current user's processes, use the x BSD option:
+
+sysadmin@localhost:~$ ps x
+  PID TTY      STAT   TIME COMMAND
+   80 ?        S      0:00 -bash
+   95 ?        R+     0:00 ps x
+
+There are several states that a process can be in:
+State 	Description
+D 	Uninterruptible Sleep
+R 	Running
+S 	Interruptible Sleep
+T 	Stopped
+Z 	Zombie
+
+‌⁠‌⁠​​⁠​ Note
+
+The Process ID in our virtual machine environment will likely be different than the one in the example.
+
+To see all processes (processes belonging to all users and not limited to the current shell) as well as display the user owners of the processes, use the aux BSD option:
+
+sysadmin@localhost:~$ ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0  18376  2968 ?        Ss   16:41   0:00 /bin/bash /init
+syslog       9  0.0  0.0 191328  3808 ?        Ssl  16:41   0:00 /usr/sbin/rsysl
+root        13  0.0  0.0  28356  2656 ?        Ss   16:41   0:00 /usr/sbin/cron
+root        15  0.0  0.0  72296  3272 ?        Ss   16:41   0:00 /usr/sbin/sshd
+bind        24  0.0  0.0 1141532 39364 ?       Ssl  16:41   0:00 /usr/sbin/named
+root        43  0.0  0.0  78636  3624 ?        S    16:41   0:00 /bin/login -f
+sysadmin    56  0.0  0.0  18508  3436 ?        S    16:41   0:00 -bash
+sysadmin    99  0.0  0.0  34400  2848 ?        R+   16:53   0:00 ps aux
+
+In the example above, the aux option is actually a combination of three options:
+Option 	Meaning
+a 	Allows the ps command to show all processes.
+u 	Shows processes by all users and ignores restrictions to only list the current user’s processes.
+x 	Lists all processes and removes the restriction to only display the processes that are running in the current terminal.
+
+Instead of viewing just the processes running in the current terminal, users may want to view every process running on the system. With traditional (non-BSD) options, the -e option will display every process. Typically, the -f option is also used as it provides full details of the command, including options and arguments:
+
+sysadmin@localhost:~$ ps -ef
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 17:16 ?        00:00:00 /sbin??? /init
+syslog      33     1  0 17:16 ?        00:00:00 /usr/sbin/rsyslogd
+root        38     1  0 17:16 ?        00:00:00 /usr/sbin/cron
+root        40     1  0 17:16 ?        00:00:00 /usr/sbin/sshd
+bind        57     1  0 17:16 ?        00:00:00 /usr/sbin/named -u bind
+root        70     1  0 17:16 ?        00:00:00 /bin/login -f
+sysadmin    80    70  0 17:16 ?        00:00:00 -bash
+sysadmin    96    80  0 17:26 ?        00:00:00 ps -ef
+
+The ps command can be used along with the grep command to search for a specific process by name. To find all processes that match the sshd string, you would type:
+
+sysadmin@localhost:~$ ps aux | grep -i sshd
+root        15  0.0  0.0  72296  3272 ?        Ss   16:41   0:00 /usr/sbin/sshd 
+sysadmin   108  0.0  0.0  11464  1032 ?        S+   17:53   0:00 grep --color=auto -i sshd                                          
+
+The command above uses the pipe | character to send the ps aux command to the grep command and the -i option to perform a case insensitive search for the sshd process.

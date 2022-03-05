@@ -1,0 +1,13 @@
+10.16 Step 16
+
+The xargs command is used to read data from standard input and execute a command based on that input. In this step, the xargs command uses the touch command to create four new files in the home directory.
+
+echo 'x1 x2 x3 x4' | xargs touch
+ls
+
+sysadmin@localhost:~$ echo 'x1 x2 x3 x4' | xargs touch
+sysadmin@localhost:~$ ls
+Desktop    Music     Templates  error.txt        homedir.txt    x1  x4
+Documents  Pictures  Videos     find_error.txt   ls_output.txt  x2
+Downloads  Public    count.txt  find_output.txt  myhosts        x3
+

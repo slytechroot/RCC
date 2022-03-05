@@ -1,0 +1,42 @@
+24.1.24 Step 24
+
+Remove the quota package by executing the following yum command. When prompted Is this ok, press the Y key:
+
+yum remove quota
+y
+
+[root@localhost /]# yum remove quota                                          
+Loaded plugins: fastestmirror, ovl                                              
+Resolving Dependencies                                                          
+--> Running transaction check                                                   
+---> Package quota.x86_64 1:4.01-17.el7 will be erased                          
+--> Finished Dependency Resolution                                              
+                                                                                
+Dependencies Resolved                                                           
+                                                                                
+================================================================================
+ Package         Arch             Version                 Repository       Size 
+================================================================================
+Removing:                                                                       
+ quota           x86_64           1:4.01-17.el7           @base           887 k 
+                                                                                
+Transaction Summary                                                             
+================================================================================
+Remove  1 Package                                                               
+                                                                                
+Installed size: 887 k                                                           
+Is this ok [y/N]: y                                                             
+Downloading packages:                                                           
+Running transaction check                                                       
+Running transaction test                                                        
+Transaction test succeeded                                                      
+Running transaction                                                             
+Warning: RPMDB altered outside of yum.                                          
+  Erasing    : 1:quota-4.01-17.el7.x86_64                                   1/1 
+  Verifying  : 1:quota-4.01-17.el7.x86_64                                   1/1 
+                                                                                
+Removed:                                                                        
+  quota.x86_64 1:4.01-17.el7                                                    
+                                                                                
+Complete!
+

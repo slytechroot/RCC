@@ -1,0 +1,16 @@
+24.3.2 Step 2
+
+The syntax used for the zypper command examples in this course is the following:
+
+zypper [--global-opts] command [--command-opts] [command-arguments]
+
+To begin using the zypper command, first ensure that the command has updated information about repositories by using the following command:
+
+zypper ref
+
+localhost:~ # zypper ref                                                        
+Repository 'localrepo' is up to date.                                           
+All repositories have been refreshed.
+
+Please allow a few minutes for this command to produce output.
+

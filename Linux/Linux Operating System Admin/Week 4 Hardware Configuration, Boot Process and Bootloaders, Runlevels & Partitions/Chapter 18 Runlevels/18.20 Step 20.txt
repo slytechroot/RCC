@@ -1,0 +1,8 @@
+18.20 Step 20
+
+Use the vi command to modify the /etc.inittab file in order to change the default runlevel:
+
+vi  /etc/inittab
+
+[root@centos rc3.d]# vi /etc/inittab
+

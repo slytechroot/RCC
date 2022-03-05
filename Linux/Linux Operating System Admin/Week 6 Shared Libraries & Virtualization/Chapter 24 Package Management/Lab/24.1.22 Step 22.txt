@@ -1,0 +1,7 @@
+24.1.22 Step 22
+
+Press the Escape key to exit the Insert mode. Then type :wq to save and quit.
+
+[ESC]
+:wq
+

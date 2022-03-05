@@ -1,0 +1,11 @@
+18.3 Step 3
+
+Execute the following command to see the current status of the sshd service:
+
+/etc/init.d/sshd status
+
+[root@centos ~]# /etc/init.d/sshd status
+openssh-daemon (pid 984) is running...
+[root@centos ~]#
+
+The Process ID (pid) in the terminal above may be different in our virtual environment.

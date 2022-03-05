@@ -1,0 +1,13 @@
+7.29 Step 29
+
+To reverse the sorting order in the example from the previous step from ascending to descending, execute the following command:
+
+sort –t: -k1r /etc/passwd | head –n 4
+
+sysadmin@localhost:~$ sort -t: -k1r /etc/passwd | head -n 4
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+uuidd:x:103:105::/run/uuidd:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+systemd-resolve:x:102:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+
+In the command above, the -k option has two arguments: the 1 indicates the first field to sort and the r argument to reverse the sort.
